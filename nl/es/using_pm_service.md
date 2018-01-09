@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-06-23"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,110 +12,123 @@ lastupdated: "2017-06-23"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Utilización del servicio Machine Learning con modelos IBM
-SPSS Modeler
+# Utilización del servicio
 
-Los métodos de modelado disponibles en la paleta de modelado de SPSS Modeler le permiten obtener nueva información a partir de sus datos y desarrollar modelos de predicción. Cada método tiene determinados puntos fuertes y resulta más adecuado para ciertos tipos de problemas. 
+Utilizando los métodos de modelado en la paleta de modelado de IBM® SPSS® Modeler,
+puede derivar nueva información desde los modelos predictivos de desarrollo y de datos. Cada método tiene determinados puntos fuertes
+y resulta más adecuado para determinados tipos de problemas de aprendizaje de máquina.
 {: .shortdesc}
 
-Para obtener detalles sobre SPSS Modeler y los algoritmos de modelado que proporciona, consulte [IBM
-Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+Para obtener detalles
+sobre IBM® SPSS® Modeler y los algoritmos de modelado que proporciona, consulte
+[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
 
-Después de implementar los requisitos de entrada y salida de la aplicación Bluemix y el diseño del sistema de puntuación de SPSS Modeler, el analista de datos puede modificar cualquier aspecto interno del sistema de puntuación. El analista de datos puede incluso cambiar los algoritmos del modelo utilizados en una operación de renovación, lo que garantiza la capacidad de ajustar mejor el análisis predictivo sin tener que volver a escribir las aplicaciones.
+Después de implementar los requisitos de entrada y salida de la aplicación {{site.data.keyword.Bluemix_notm}}
+y el diseño del sistema de puntuación de IBM® SPSS® Modeler,
+el analista de datos puede modificar cualquier aspecto interno de la
+rama de puntuación. El analista de datos puede incluso cambiar los algoritmos del modelo utilizados en una operación de renovación, lo que garantiza la capacidad de ajustar mejor el análisis predictivo sin tener que volver a escribir las aplicaciones.
 
-Recuerde la información importante que se proporciona a continuación sobre el servicio Machine Learning cuando se utiliza con modelos creados en SPSS Modeler:
 
-*  Cuando se prepara una rama de puntuación para su uso en puntuaciones en tiempo real, los datos de entrada procedentes de la solicitud de puntuación deben sustituir al nodo de origen diseñado en la rama de puntuación y el resultado del análisis predictivo debe volver atrás al flujo de respuesta (reemplazando de forma efectiva el nodo terminal en el diseño de rama de puntuación).
+## Pasos para enlazar el servicio con la aplicación {{site.data.keyword.Bluemix_notm}}
 
-*  Como la rama de puntuación está preparada para la ejecución en tiempo real en Bluemix, no necesita una conexión a un servicio externo. Por ejemplo, un diseño de rama de puntuación de IBM Analytical Decision Management no puede incluir referencias a reglas o modelos almacenados en un repositorio de IBM SPSS Collaboration and
-Deployment Services.
+Siga estos pasos para crear la aplicación {{site.data.keyword.Bluemix_notm}} y enlazarla al servicio {{site.data.keyword.pm_short}}.
 
-*  La ejecución de una rama de puntuación para la puntuación en tiempo real en Bluemix no necesita un servicio externo. Por ejemplo, no puede desplegar y puntuar en algoritmos de modelo que requieran un almacén de datos de IBM SPSS
-Analytic Server y Apache Hadoop en tiempo real.
+1. Descargue el código de aplicación de ejemplo Node.js desde el [repositorio de GitHub](https://github.com/pmservice/customer-satisfaction-prediction).
 
-*  Machine Learning da soporte a los scripts Python incluidos en Modeler. Existen unas pocas restricciones debido al método usado para procesar secuencias antes de ejecutarlas en Machine Learning. Normalmente, si un usuario decide controlar la ejecución de la secuencia, hará referencia al nodo terminal de la rama.
-   Para Machine Learning, al procesar la secuencia, identificamos los nodos de JSON que se alterarán temporalmente y, a continuación, realizaremos la sustitución antes de que se ejecute la secuencia. Ello provoca que la secuencia falle en el script porque los nodos de exportación y la entrada a la que se hace referencia ya no existen. La solución pasa por utilizar el ID de otro nodo para identificar la rama de forma exclusiva durante la ejecución. Así se garantiza que la secuencia se ejecuta tal como se define en el script Python incluido.
-
-Para obtener más detalles sobre el soporte actual para los modelos predictivos formados de IBM SPSS Analytic Server, consulte la sección Analytic Server de IBM Knowledge Center.
-
-1. Puede descargar el código de ejemplo Node.js para probar el servicio Machine Learning. Siga los pasos siguientes para crear una aplicación Bluemix y enlazar el servicio Machine Learning. En estos ejemplos se utiliza Node.js porque es un tiempo de ejecución muy usado.
-   Se pueden utilizar otros, como por ejemplo iOS, Ruby, Perl o
-        Java.
-
-2. Utilice el mandato cf create-service para crear una instancia del servicio:
+2. Utilice el mandato `cf
+create-service` para crear una instancia del servicio:
 
    ```
-   cf create-service pm-20 Free {local naming}
+   cf create-service pm-20 lite {local naming}
    ```
+   {: codeblock}
 
    Por ejemplo:
 
    ```
-   cf create-service pm-20 Free my_pm_free
+   cf create-service pm-20 lite my_pm_lite
    ```
+   {: codeblock}
 
-   Este mandato crea una instancia del servicio Machine Learning con el plan Free llamado my_pm_free en el espacio de Bluemix.
+   Este mandato crea una instancia de servicio {{site.data.keyword.pm_short}}
+   con el plan lite llamado my_pm_lite en el espacio de {{site.data.keyword.Bluemix_notm}}.
 
 3. Utilice el mandato `cf create-service-key` para crear credenciales de servicio:
 
-   ```cf create-service-key "{service instance name}" {vcap key name}```
+   ```
+   cf create-service-key "{service instance name}" {vcap key name}
+   ```
+   {: codeblock}
 
    Por ejemplo:
 
-   ```cf create-service-key "IBM Watson Machine Learning - my instance" Credentials-1```
+   ```
+   cf create-service-key "IBM Watson Machine Learning - my instance" Credentials-1
+   ```
+   {: codeblock}
 
-   Este mandato crea credenciales de servicio Machine Learning.
-4. Utilice el mandato cf bind-service para enlazar la instancia de servicio my_pm_free a la aplicación.
+   Este mandato crea credenciales de servicio de {{site.data.keyword.pm_short}}.
 
-   ```cf bind-service AppName my_pm_service```
+4. Utilice el mandato `cf bind-service` para enlazar la instancia del servicio
+   `my_pm_lite` a su aplicación.
+
+   ```
+   cf bind-service AppName my_pm_service
+   ```
+   {: codeblock}
 
    Por ejemplo:
 
-   ```cf bind-service my_app1 my_pm_free```
+   ```
+   cf bind-service my_app1 my_pm_lite
+   ```
+   {: codeblock}
 
-   Este mandato enlaza la instancia de servicio
-   `my_pm_free` de Machine Learning con la aplicación my_app1 de Bluemix.
+   Este mandato enlaza la instancia del servicio {{site.data.keyword.pm_short}}
+   `my_pm_lite` a la aplicación de {{site.data.keyword.Bluemix_notm}} my_app1.
 
-5. Credenciales de Machine Learning: 
+5. Credenciales de {{site.data.keyword.pm_short}}:
 
-   Después de enlazar la instancia del servicio Machine Learning a la aplicación Bluemix, las credenciales de Machine Learning se añaden a la variable de entorno `VCAP_SERVICES`: 
+   Después de enlazar la instancia de servicio de {{site.data.keyword.pm_short}} a la aplicación {{site.data.keyword.Bluemix_notm}}, las credenciales de {{site.data.keyword.pm_short}} se añaden a la variable de entorno `VCAP_SERVICES`:
 
 ```
     {   
         "pm-20": {      
             "name": "pm20-1",
             "label": "pm-20",
-            "plan": "Free",
+            "plan": "lite",
             "credentials": {
                 "url": "https://ibm-watson-ml.mybluemix.net",
                 "access_key": "XXXXXXXXXXXXX"
             }
         }       
-    } 
+    }
 ```
+{: codeblock}
 
    La variable de entorno `VCAP_SERVICES` incluye la siguiente información:
 
    <dl>
-   
+
    <dt>plan</dt>
-   <dd>El plan de Machine Learning que se utiliza en el suministro del servicio.</dd>
+   <dd>El plan de {{site.data.keyword.pm_short}} que se utiliza en el suministro del servicio.</dd>
 
    <dt>url</dt>
-   <dd>La dirección de la instancia del servicio Machine Learning.</dd>
+   <dd>La dirección de la instancia de servicio de {{site.data.keyword.pm_short}}.</dd>
 
    <dt>access_key</dt>
    <dd>El parámetro de la consulta accessKey que se va a pasar en todas las solicitudes a esta instancia de servicio.</dd>
 
    </dl>
-            
+
 Por ejemplo:             
 
 ```
-Get https://ibm-watson-ml.mybluemix.net/pm/v1/model/sales_model2?accesskey=XXXXXXXXXXXXX 
+Get https://ibm-watson-ml.mybluemix.net/pm/v1/model/sales_model2?accesskey=XXXXXXXXXXXXX
 ```
+{: codeblock}
 
-   Código Node.js de ejemplo que muestra cómo obtener el valor de accessKey a partir de la variable de entorno `VCAP_SERVICES`: 
+   Código Node.js de ejemplo que muestra cómo obtener el valor de accessKey a partir de la variable de entorno `VCAP_SERVICES`:
 
 ```
    if (process.env.VCAP_SERVICES) {
@@ -124,3 +137,17 @@ Get https://ibm-watson-ml.mybluemix.net/pm/v1/model/sales_model2?accesskey=XXXXX
         var accessKey = credentials.access_key;
     }
 ```
+{: codeblock}
+
+## Información adicional
+
+¿Preparado para ponerse en marcha? Para crear una instancia de servicio o enlazar
+una aplicación, consulte [Utilización del servicio con modelos Spark y Python](using_pm_service_dsx.html) o
+[Utilización del servicio con modelos IBM® SPSS®](using_pm_service.html).
+
+Para obtener más información sobre la API, consulte [API del servicio para modelos Spark y Python](pm_service_api_spark.html) o [API del servicio para modelos IBM® SPSS®](pm_service_api_spss.html).
+
+Para obtener más información sobre IBM® SPSS® Modeler y los algoritmos de modelado que proporciona,
+consulte [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Para obtener más información sobre IBM Data Science Experience y los algoritmos de modelado que proporciona, consulte [https://datascience.ibm.com](https://datascience.ibm.com).

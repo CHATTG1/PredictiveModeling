@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,38 +14,25 @@ lastupdated: "2017-09-07"
 
 # Modèles persistants
 
-
-*  [Persistance de modèle et contrôle des versions](#model-persistence-and-version-control)
-
-   *  [Génération du jeton d'accès](#generating-the-access-token)
-
-   *  [Création des métadonnées du pipeline](#creating-pipeline-metadata)
-
-   *  [Création d'une version du pipeline](#creating-pipeline-version)
-
-   *  [Téléchargement de contenu du pipeline](#uploading-pipeline-content)
-
-   *  [Création des métadonnées du modèle de pipeline](#creating-pipeline-model-metadata)
-
-   *  [Création d'une version du modèle de pipeline](#creating-pipeline-model-version)
-
-   *  [Téléchargement du contenu du pipeline](#uploading-pipeline-model-content)
-
-Les spécialistes des données s'évertuent à améliorer continuellement leurs modèles dans le cadre de leurs activités de recherche et développement. Ils peuvent ajouter de nouvelles fonctions et optimiser les paramètres du modèle.
-Lorsque les spécialistes des données développent des modèles
-en mode itératif, le suivi des modifications peut rapidement devenir un problème. Nous allons décrire ici des techniques pouvant aider un spécialiste des données en fournissant une gestion des versions de modèle et en maintenant bien organisée toute la procédure.
-
-Avant de commencer, si vous vous intéressez tout d'abord au développement de modèles, reportez-vous aux dossiers suivants :
-
-*  [Developing SparkML models with Python](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d) (Développement de modèles SparkML avec Python)
-
-*  [Developing SparkML models with Scala](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93) (Développement de modèles SparkML avec Scala)
+Le service {{site.data.keyword.pm_full}} permet de gérer les versions du service et d'assurer la bonne organisation du processus d'apprentissage automatique. Pour ce faire, exécutez les fonctionnalités de gestion des versions, de métadonnées et de jeton d'accès du service {{site.data.keyword.pm_short}}.
+{: shortdesc}
 
 ## Persistance de modèle et contrôle des versions
 
+Dans le cadre de vos efforts de développement et de recherche visant à améliorer de façon continue vos modèles, vous pouvez ajouter de nouvelles fonctionnalités aux modèles existants ou optimiser les paramètres de modèles.
+Lorsque vous développez des modèles en mode itératif, le suivi des modifications peut rapidement devenir un problème. Grâce aux fonctionnalités de gestion des versions des modèles de données de {{site.data.keyword.pm_short}}, l'ensemble du processus reste bien organisé. 
+
+*  [Génération du jeton d'accès](#generating-the-access-token)
+*  [Création des métadonnées du pipeline](#creating-pipeline-metadata)
+*  [Création d'une version du pipeline](#creating-pipeline-version)
+*  [Téléchargement de contenu du pipeline](#uploading-pipeline-content)
+*  [Création des métadonnées du modèle de pipeline](#creating-pipeline-model-metadata)
+*  [Création d'une version du modèle de pipeline](#creating-pipeline-model-version)
+*  [Téléchargement du contenu du pipeline](#uploading-pipeline-model-content)
+
 ### Génération du jeton d'accès
 
-Générez un jeton d'accès à partir de l'ID et du mot de passe utilisateur affichés dans l'onglet Données d'identification pour le service de l'instance de service IBM Watson Machine Learning.
+Générez un jeton d'accès à l'aide du nom d'utilisateur et du mot de passe disponibles sur l'onglet Données d'identification pour le service de l'instance de service {{site.data.keyword.pm_full}}.
 
 Exemple de requête :
 
@@ -61,20 +48,19 @@ Exemple de sortie :
 ```
 {: codeblock}
 
-Utilisez la commande de terminal suivante pour affecter la valeur de votre jeton à la variable d'environnement
-access_token:
+Utilisez la commande de terminal suivante pour affecter la valeur de votre jeton à la variable d'environnement `access_token` :
 
 ```
 access_token="<valeur_jeton>"
 ```
 {: codeblock}
 
-Ensuite, pour sauvegarder le pipeline et le modèle de pipeline, vous allez créer leurs métadonnées, créer le pipeline et la version de modèle du pipeline et télécharger le pipeline et la version de modèle du pipeline. Reportez-vous aux sections ci-dessous pour plus d'informations.
+Enregistrez le pipeline et son modèle. Créez leurs métadonnées, créez le pipeline et la version de modèle du pipeline et téléchargez le pipeline et la version de modèle du pipeline. 
 
 ### Création des métadonnées du pipeline
 
 Pour créer des métadonnées pour votre pipeline, décrivez les propriétés de base de votre pipeline dans une requête
-curl comme illustré dans l'exemple suivant :
+`curl` comme illustré dans l'exemple suivant :
 
 ```
 curl -i \
@@ -114,8 +100,7 @@ Exemple de réponse :
 
 ### Création d'une version du pipeline
 
-Pour créer une version de votre pipeline, spécifiez l'élément parentVersionHref pour votre
-pipeline dans une requête curl comme illustré dans l'exemple suivant :
+Pour créer une version de votre pipeline, spécifiez la valeur `parentVersionHref` de votre pipeline dans une requête `curl` comme illustré dans l'exemple suivant :
 
 ```
 curl -i \
@@ -147,7 +132,7 @@ Exemple de réponse :
 ### Téléchargement du contenu du pipeline
 
 Pour télécharger le contenu du pipeline, celui-ci doit être au format binaire. Pour ce faire, appelez la méthode
-save depuis le pipeline SparkML. Vous pouvez télécharger votre contenu binaire en indiquant l'ID de votre pipeline et sa version dans un noeud final, comme illustré dans l'exemple ci-après :
+`save` depuis le pipeline SparkML. Vous pouvez télécharger votre contenu binaire en indiquant l'ID de votre pipeline et sa version dans un noeud final, comme illustré dans l'exemple ci-après :
 
 ```
 curl -i \
@@ -261,7 +246,7 @@ Exemple de réponse :
 
 ### Création d'une version du modèle de pipeline
 
-Pour créer une version de votre modèle de pipeline, utilisez une requête curl en spécifiant des informations comme l'emplacement de stockage de vos données d'apprentissage, ainsi que la méthode d'évaluation du modèle. Exemple :
+Pour créer une version de votre modèle de pipeline, utilisez une requête `curl` en spécifiant des informations comme l'emplacement de stockage de vos données d'apprentissage, ainsi que la méthode d'évaluation du modèle. Exemple :
 
 ```
 curl -i \
@@ -324,7 +309,7 @@ Exemple de réponse :
 ### Téléchargement du contenu du modèle de pipeline
 
 Pour télécharger le contenu du modèle de pipeline, ce modèle doit être au format binaire. Pour ce faire, appelez la méthode
-save depuis le modèle de pipeline SparkML. Vous pouvez télécharger votre contenu binaire en indiquant l'ID de votre pipeline et sa version dans un noeud final, comme illustré dans l'exemple ci-après :
+`save` depuis le modèle de pipeline SparkML. Vous pouvez télécharger votre contenu binaire en indiquant l'ID de votre pipeline et sa version dans un noeud final, comme illustré dans l'exemple ci-après :
 
 ```
 curl -i \
@@ -351,3 +336,10 @@ Exemple de réponse :
 {"ok":"true"}
 ```
 {: codeblock}
+
+## Informations supplémentaires
+
+Pour en savoir plus sur le développement de modèle, consultez la documentation suivante :
+
+*  [Developing SparkML models with Python](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d) (Développement de modèles SparkML avec Python)
+*  [Developing SparkML models with Scala](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93) (Développement de modèles SparkML avec Scala)

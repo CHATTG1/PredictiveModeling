@@ -1,8 +1,6 @@
 ---
 
-copyright:
-  years: 2016, 2017
-lastupdated: "2017-09-07"
+copyright: years: 2016, 2017 lastupdated: "2017-11-16"
 
 ---
 
@@ -12,11 +10,10 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Implementando modelos de fluxo <span class='tag--beta'>Beta</span>
+# Implementando modelos de fluxo
 
-
-**Nota**: essa funcionalidade no momento está em beta e disponível somente
-para uso com o Spark MLlib. Se estiver interessado em participar, inclua-se na lista de espera! Para obter mais informações, veja: [https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist).
+Usando o serviço {{site.data.keyword.pm_full}}, é possível implementar um modelo e gerar análise preditiva criando solicitações de pontuação com relação ao modelo implementado.
+{: shortdesc}
 
 **Nome do cenário**: análise de sentimentos.
 
@@ -28,15 +25,31 @@ modelo preditivo e o compartilha com você (o desenvolvedor). Sua tarefa é impl
 o modelo e gerar análise preditiva fazendo solicitações de
 pontuação em relação ao modelo implementado.
 
+**Nota:** você também pode utilizar
+[anotações
+de amostra python](https://apsportal.ibm.com/analytics/notebooks/913a7daa-cf39-414d-9017-3a7840a53c59/view?access_token=f1ebc10873a226f248f744b26ee7f71d53c81d5752b9d940e23a33518a3e115d) que criam modelo de amostra e classificam tweets.
+
 Veja este documento para obter mais informações.
+
+
+## Pré-requisitos
+Para trabalhar com este exemplo, você precisará:
+* Detalhes dos tópicos
+[Hub de
+mensagens](https://console.bluemix.net/catalog/services/message-hub) que serão usados como entrada (texto do tweet) para o modelo e
+armazenamento da saída do modelo (resultados de predição). Certifique-se de que dois tópicos sejam criados: entrada com texto de tweet e tópico de saída
+* Credenciais da instância de serviço do [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark). É
+possível usar este [link](https://console.bluemix.net/catalog/services/apache-spark) para
+criar um.
+
+
 
 ## Usando o modelo de amostra
 
-1. Acesse a guia Amostras do Painel IBM® Watson™ Machine
-Learning.
+1. Acesse a guia Amostras do Painel do {{site.data.keyword.pm_full}}.
 
-2. Na seção Modelos de amostra, localize o quadro Predição de impressão
-e clique no botão Incluir modelo (+).
+2. Na seção Modelos de amostra, localize o quadro Predição de impressão e clique no
+ícone (+) Incluir modelo.
 
 Agora você verá a amostra do modelo de Predição de impressão na lista
 de modelos disponíveis na guia Modelos.
@@ -70,7 +83,7 @@ token="<token_value>"
 
 ## Trabalhando com modelos publicados
 Utilize a chamada de API a seguir para obter detalhes de sua instância, como:
-* `url` de modelos publicados 
+* `url` de modelos publicados
 * `url` de implementações
 * informações de uso
 
@@ -104,17 +117,15 @@ Exemplo de saída:
       "region":"us-south",
       "deployments":{
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
-      },
-      "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      }, "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24", "plan":"lite"
    }
 }
 ```
 {: codeblock}
 
 
-Com a `url` de **published_models**, use a chamada de API a
-seguir para obter detalhes do modelo:
+Com a `url` de **published_models**, use a chamada de API a seguir
+para obter detalhes do modelo:
 
 Exemplo de solicitação:
 
@@ -212,45 +223,36 @@ Exemplo de saída:
 ```
 {: codeblock}
 
-Anote a `url` de **implementações** que é
-necessária para criar a implementação em lote na próxima etapa.
-
+Observe que o valor da `url` de **implementações** que é necessário para criar a implementação em lote a seguir.
 
 ## Criando uma implementação de fluxo com o IBM Message Hub
 
 Para usar uma chamada API REST para criar uma implementação
 de fluxo do modelo preditivo, forneça os seguintes detalhes:
 
-*  O token de acesso criado na etapa anterior
+*  O token de acesso, que você criou na etapa anterior
 
-*  As credenciais de serviço do Spark, que podem ser localizadas na guia
-Credenciais de serviço do painel de serviço do Bluemix Spark. Antes de
-fazer a solicitação de implementação, as credenciais do Spark devem ser
-decodificadas como base64 e passadas no cabeçalho de uma solicitação curl
-como X-Spark-Service-Instance.
+*  Credenciais de serviço do Spark, que podem ser localizadas na guia Credenciais de serviço do painel do serviço {{site.data.keyword.Bluemix_notm}} Spark. Antes de fazer a solicitação de implementação, as credenciais do Spark devem ser decodificadas como base64 e passadas no cabeçalho de uma solicitação `curl` como X-Spark-Service-Instance.
 
    Dependendo do sistema operacional que você está usando, deve-se emitir um dos comandos de terminal a seguir para executar a decodificação base64 e designá-la à variável de ambiente.
 
-   No sistema operacional macOS, use o comando a seguir:
+   No sistema operacional **macOS**, use o comando a seguir:
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   Nos sistemas operacionais Microsoft Windows ou Linux, deve-se usar o parâmetro `--wrap=0` com o comando `base64` para executar a decodificação base64:
+   Nos sistemas operacionais **Microsoft Windows** ou **Linux**, deve-se usar o parâmetro `--wrap=0` com o comando `base64` para executar a decodificação de base64:
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
    ```
    {: codeblock}
 
-*  Detalhes do tópico IBM Message Hub que serão usados como
-entrada (tweets) para o modelo e o armazenamento para a saída
-de modelo (resultados de predição).
+*  Detalhes do tópico IBM Message Hub, que são usados como entrada (tweets) para o modelo e armazenamento da saída do modelo (resultados de predição)
 
-*  Para criar uma implementação, use a `url` de **implementações**
-da seção anterior.
+*  O valor `url` de **implementações**
 
 Exemplo de solicitação:
 
@@ -611,3 +613,15 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 2025130991
 ```
 {: codeblock}
+
+## Saiba mais
+
+Pronto para começar? Para criar uma instância de um serviço ou ligar um aplicativo, consulte [Usando o serviço com modelos Spark e Python](using_pm_service_dsx.html) ou [Usando o serviço com os modelos do IBM® SPSS®](using_pm_service.html).
+
+Para obter mais informações sobre a API, consulte
+[API de serviço para modelos Spark e Python](pm_service_api_spark.html)
+ou [API de serviço para modelos IBM® SPSS®](pm_service_api_spss.html).
+
+Para obter mais informações sobre o IBM® SPSS® Modeler e os algoritmos de modelagem que ele fornece, consulte o [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Para obter mais informações sobre o IBM Data Science Experience e os algoritmos de modelagem que ele fornece, consulte [https://datascience.ibm.com](https://datascience.ibm.com).

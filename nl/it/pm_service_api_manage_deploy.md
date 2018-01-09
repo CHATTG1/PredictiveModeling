@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,20 +14,22 @@ lastupdated: "2017-09-07"
 
 # Distribuzione o aggiornamento di un modello predittivo
 
-
-PUT http://{PA Bluemix load balancer
-URL}/pm/v1/model/{contextId}?accesskey={access_key for this bound
-application}
-
-Utilizza questa API per caricare un file che contiene il ramo di calcolo del punteggio sviluppato
-        da IBM SPSS Modeler che desideri distribuire.
-Viene reso disponibile per il calcolo del punteggio dei
+Per distribuire o aggiornare un modello predittivo utilizzando il servizio, utilizza una chiamata API per caricare un file che contiene il ramo di calcolo che è stato distribuito utilizzando IBM® SPSS®
+Modeler. Viene reso disponibile per il calcolo del punteggio dei
         dati nelle tue applicazioni. A ogni
 file di modello viene dato un ID contesto come un pratico alias da utilizzare per
 fare riferimento al modello distribuito nelle successive chiamate di servizio. Se esiste
 un modello per un ID contesto, esso viene sostituito da questa chiamata PUT come
 un modo per aggiornare l'analisi predittiva utilizzata dalle tue
 applicazioni.
+{: shortdesc}
+
+```
+PUT http://{PA Bluemix load balancer
+URL}/pm/v1/model/{contextId}?accesskey={access_key for this bound
+application}
+```
+{: codeblock}
 
 Esempio di
 richiesta:
@@ -69,3 +71,18 @@ Risposta quando la distribuzione non riesce:
         }
 ```
 {: codeblock}
+
+## Ulteriori informazioni
+
+Sei pronto a iniziare? Per creare un'istanza di un servizio o per eseguire il bind
+di un'applicazione, vedi [Utilizzo del servizio con i modelli Spark e Python](using_pm_service_dsx.html) oppure
+[Utilizzo del servizio con i modelli IBM® SPSS®](using_pm_service.html).
+
+Per ulteriori informazioni sull'API, vedi [API del servizio per i modelli Spark e Python](pm_service_api_spark.html) o [API del
+servizio per i modelli IBM® SPSS®](pm_service_api_spss.html).
+
+Per ulteriori informazioni su IBM® SPSS® Modeler e sugli algoritmi di modellazione che fornisce, consulta
+[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Per ulteriori informazioni su IBM Data Science Experience e sugli algoritmi di
+modellazione che fornisce, vedi [https://datascience.ibm.com](https://datascience.ibm.com).

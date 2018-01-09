@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,31 +12,39 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# 部署流式模型 <span class='tag--beta'>Beta</span>
+# 部署流式模型
 
-**注**：此功能目前在 Beta 中提供，且仅可用于使用 Spark MLlib。如果您想要参与，请将您自己加入等待列表！
-有关更多信息，请参阅：[https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist)。
+可以使用 {{site.data.keyword.pm_full}} 服务来部署模型，并通过对已部署的流式模型发出评分请求来生成预测性分析。
+{: shortdesc}
 
 **场景名称**：观点分析。
 
 **场景描述**：市场营销代理希望了解关于特定主题的观点。
-该代理希望我们开发出一种模型，用于将给定阐述分类为 POSITIVE 或 NEGATIVE。为此，数据研究员准备了一个预测模型并将其与您（开发者）共享。您的任务是部署模型，并通过对已部署的模型发出评分请求来生成预测性分析。
+该代理希望我们开发出一种模型，用于将阐述分类为 POSITIVE 或 NEGATIVE。为此，数据研究员准备了一个预测模型并将其与您（开发者）共享。您的任务是部署模型，并通过对已部署的模型发出评分请求来生成预测性分析。
 
 请参阅此[文档](https://github.com/pmservice/tweet-sentiment-prediction)以获取更多信息。
 
+## 先决条件
+
+要使用此示例，需要具有以下资源：
+
+* [Message Hub](https://console.bluemix.net/catalog/services/message-hub) 主题详细信息，将用作模型输入（推文文本），以及模型输出的存储（预测结果）。确保创建两个主题：具有推文文本的输入以及输出主题。
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) 服务实例凭证。请使用[此链接](https://console.bluemix.net/catalog/services/apache-spark)来创建凭证。
+
+
 ## 使用样本模型
 
-1. 转至 IBM® Watson™ Machine Learning“仪表板”的“样本”选项卡。
-2. 在“样本模型”部分中，找到“观点预测”磁贴，并单击“添加模型”按钮 (+)。
+1. 转至 {{site.data.keyword.pm_full}}“仪表板”的**样本**选项卡。
+2. 在**样本模型**部分中，找到**观点预测**磁贴，并单击“添加模型”图标 (+)。
 
-现在，您将在“模型”选项卡上的可用模型列表中看到样本“观点预测”模型。
+“观点预测”样本模型将显示在“模型”选项卡上的可用模型列表中。
 
 
 ## 使用 IBM Message Hub 创建流式部署
 
-1.  转至 IBM® Watson™ Machine Learning“仪表板”的“模型”选项卡。
-2.  从“操作”菜单中，选择“创建部署”。
-3.  在“创建部署”表单中，提供“名称”、“描述”和“流类型”。
+1.  转至 {{site.data.keyword.pm_full}}“仪表板”的**模型**选项卡。
+2.  从**操作**菜单中，单击**创建部署**。
+3.  在**创建部署**表单中，填写**名称**、**描述**和**流类型**字段。
 4.  必须提供以下输入：
 
     **输入连接**：IBM Message Hub 主题详细信息，将用作模型输入（推文），以及模型输出的存储（预测结果）。
@@ -93,7 +101,7 @@ lastupdated: "2017-09-07"
     ```
     {: codeblock}
 
-    **Spark 连接**：Spark 服务凭证位于 Bluemix Spark 服务仪表板的“服务凭证”选项卡上。
+    **Spark 连接**：Spark 服务凭证位于 {{site.data.keyword.Bluemix_notm}} Spark 服务仪表板的“服务凭证”选项卡上。
 
      ```
 {
@@ -118,12 +126,22 @@ lastupdated: "2017-09-07"
 
 可以检查状态以及与部署的模型相关的参数。
 
-1. 转至 IBM® Watson™ Machine Learning“仪表板”的“部署”选项卡。
+1. 转至 {{site.data.keyword.pm_full}}“仪表板”的**部署**选项卡。
 2. 从**操作**菜单中，单击**查看详细信息**。
 
 ## 删除流式部署
 
-如果不再需要该部署，那么可以使用查询将其删除（如以下样本所示）。
+如果不再需要该部署，那么可以通过运行查询将其删除（如以下样本所示）。
 
-1. 转至 IBM® Watson™ Machine Learning“仪表板”的“部署”选项卡。
-2. 从“操作”菜单中，选择“删除”。
+1. 转至 {{site.data.keyword.pm_full}}“仪表板”的**部署**选项卡。
+2. 从**操作**菜单中，单击**删除**。
+
+## 了解更多信息
+
+准备好开始了吗？要创建服务的实例或绑定应用程序，请参阅[将服务用于 Spark 和 Python 模型](using_pm_service_dsx.html)或[将服务用于 IBM® SPSS® 模型](using_pm_service.html)。
+
+有关该 API 的更多信息，请参阅 [Spark 和 Python 模型的服务 API](pm_service_api_spark.html) 或 [IBM® SPSS® 模型的服务 API](pm_service_api_spss.html)。
+
+有关 IBM® SPSS® Modeler 及其提供的建模算法的更多信息，请参阅 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+
+有关 IBM Data Science Experience 及其提供的建模算法的更多信息，请参阅 [https://datascience.ibm.com](https://datascience.ibm.com)。

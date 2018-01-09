@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,18 +12,20 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Anwendungen zur Nutzung implementierter SPSS-Modelle entwickeln
+# Anwendungen zur Nutzung bereitgestellter SPSS-Modelle entwickeln
 
+Sie können {{site.data.keyword.pm_full}}-Anwendungen mithilfe von IBM® SPSS® -Modellen entwickeln.  
+{: shortdesc}
 
-*  [Scoring mit implementiertem Vorhersagemodell durchführen](#scoring-with-a-deployed-predictive-model)
+*  [Scoring mit bereitgestelltem Vorhersagemodell durchführen](#scoring-with-a-deployed-predictive-model)
 
-*  [Metadaten für implementiertes Vorhersagemodell abrufen](#retrieving-metadata-for-a-deployed-predictive-model)
+*  [Metadaten für bereitgestelltes Vorhersagemodell abrufen](#retrieving-metadata-for-a-deployed-predictive-model)
 
 *  [WADL-Zusammenfassung (Web Application Description Language) dieses Service abrufen](#retrieving-the-web-application-description-language-wadl-summary-of-this-service)
 
-## Scoring mit implementiertem Vorhersagemodell durchführen
+## Scoring mit bereitgestelltem Vorhersagemodell durchführen
 
-Verwenden Sie den folgenden API-Aufruf, um die Eingabedaten zu veröffentlichen, die vom implementierten Modell zum Generieren und Zurückgeben der Vorhersageanalyse in den Scoring-Ergebnissen verwendet werden sollen. 
+Verwenden Sie den folgenden API-Aufruf, um die Eingabedaten zu veröffentlichen, die vom bereitgestellten Modell zum Generieren und Zurückgeben der Vorhersageanalyse in den Scoring-Ergebnissen verwendet werden sollen.
 
 ```
 POST http://{PA Bluemix load balancer
@@ -78,9 +80,10 @@ Antwort für fehlgeschlagene Scoring-Anforderung:
 ```
 {: codeblock}
 
-## Metadaten für implementiertes Vorhersagemodell abrufen
+## Metadaten für bereitgestelltes Vorhersagemodell abrufen
 
-Verwenden Sie diesen API-Aufruf zum Abrufen von Metadaten für die Scoring-Verzweigung eines implementierten IBM SPSS Modeler-Datenstroms. Geben Sie bei dieser Methode keinen Anforderungshauptteil an.
+Verwenden Sie den folgenden API-Aufruf zum Abrufen von Metadaten für die Scoring-Verzweigung
+eines bereitgestellten IBM® SPSS® Modeler-Datenstroms. Geben Sie bei dieser Methode keinen Anforderungshauptteil an.
 
 ```
 GET http://{service
@@ -208,3 +211,18 @@ Antwort bei fehlgeschlagener WADL-Anforderung:
         } 
 ```
 {: codeblock}
+
+## Weitere Informationen
+
+Sind Sie bereit? Informationen zum Erstellen einer Serviceinstanz oder zum Binden
+einer Anwendung finden Sie unter [Service mit Spark- und Python-Modellen verwenden](using_pm_service_dsx.html) oder
+[Service mit IBM® SPSS®-Modellen verwenden](using_pm_service.html).
+
+Weitere Informationen zur API finden Sie unter [Service-API für Spark- und Python-Modelle](pm_service_api_spark.html) oder [Service-
+API für IBM® SPSS® Modelle] (pm_service_api_spss.html).
+
+Weitere Informationen zu IBM® SPSS® Modeler und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie im [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Weitere Informationen zu IBM Data Science Experience und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie unter [https://datascience.ibm.com](https://datascience.ibm.com).

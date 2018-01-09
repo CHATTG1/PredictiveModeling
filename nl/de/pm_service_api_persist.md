@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,48 +14,29 @@ lastupdated: "2017-09-07"
 
 # Modelle als persistent definieren
 
-
-*  [Modellpersistenz und Versionssteuerung](#model-persistence-and-version-control)
-
-   *  [Zugriffstoken generieren](#generating-the-access-token)
-
-   *  [Pipeline-Metadaten erstellen](#creating-pipeline-metadata)
-
-   *  [Pipeline-Version erstellen](#creating-pipeline-version)
-
-   *  [Pipeline-Inhalt hochladen](#uploading-pipeline-content)
-
-   *  [Pipeline-Metadaten für Modell erstellen](#creating-pipeline-model-metadata)
-
-   *  [Pipeline-Modellversion erstellen](#creating-pipeline-model-version)
-
-   *  [Pipeline-Modellinhalt hochladen](#uploading-pipeline-model-content)
-
-Data-Scientists bemühen sich darum, ihre Modelle im Rahmen
-von Forschung und Entwicklung zu verbessern. Sie fügen unter
-Umständen neue Funktionen zu vorhandenen Modellen hinzu und
-optimieren die Modellparameter.
-Wenn Data-Scientists Modelle iterativ
-entwickeln, kann es schnell schwierig werden, einen Überblick über die
-Änderungen zu behalten. Im Folgenden zeigen wir Wege, wie
-Data-Scientists mithilfe von Modellversionierung und guter
-Organisation des gesamten Prozesses die Kontrolle
-behalten.
-
-Wenn Sie sich zunächst für die Modellentwicklung interessieren,
-sollten Sie die folgenden Notizbücher lesen:
-
-*  [Entwickeln von SparkML-Modellen mit Python](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
-
-*  [Entwickeln von SparkML-Modellen mit Scala](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)
+Verwenden Sie den {{site.data.keyword.pm_full}}-Service, um die Modellversionen bereitzustellen und den Maschinenlernprozesses gut organisiert zu halten. Dies können Sie mithilfe der Funktionen für Versionierung, Metadaten und Zugriffstoken des {{site.data.keyword.pm_short}}-Service tun.
+{: shortdesc}
 
 ## Modellpersistenz und Versionssteuerung
+
+Im ständigen Bestreben, Ihre Modelle im Rahmen Ihrer Forschungs-
+und Entwicklungsarbeit zu verbessern, können Sie neue Features zu vorhandenen
+Modellen hinzufügen oder Modellparameter optimieren. Wenn Sie Modelle auf diese Weise iterativ entwickeln,
+kann es schnell schwierig werden, einen Überblick über die Änderungen zu behalten. Durch die Verwendung der folgenden Datenmodellversionsfunktionen von {{site.data.keyword.pm_short}} können Sie den gesamten Prozess gut organisiert halten. 
+
+*  [Zugriffstoken generieren](#generating-the-access-token)
+*  [Pipeline-Metadaten erstellen](#creating-pipeline-metadata)
+*  [Pipeline-Version erstellen](#creating-pipeline-version)
+*  [Pipeline-Inhalt hochladen](#uploading-pipeline-content)
+*  [Pipeline-Metadaten für Modell erstellen](#creating-pipeline-model-metadata)
+*  [Pipeline-Modellversion erstellen](#creating-pipeline-model-version)
+*  [Pipeline-Modellinhalt hochladen](#uploading-pipeline-model-content)
 
 ### Zugriffstoken generieren
 
 Generieren Sie mithilfe des Benutzers und des Kennworts, die auf der Registerkarte
-Serviceberechtigungsnachweise der IBM® Watson™ Machine Learning-Serviceinstanz
-angegeben sind, ein Zugriffstoken (access token).
+'Serviceberechtigungsnachweise' der {{site.data.keyword.pm_full}}-Serviceinstanz
+angegeben sind, ein Zugriffstoken.
 
 Anforderungsbeispiel:
 
@@ -72,24 +53,23 @@ Ausgabebeispiel:
 {: codeblock}
 
 Verwenden Sie den folgenden Terminalbefehl, um Ihren Tokenwert der
-Umgebungsvariablen access_token zuzuweisen:
+Umgebungsvariablen `access_token` zuzuweisen:
 
 ```
 access_token="<tokenwert>"
 ```
 {: codeblock}
 
-Anschließend erstellen Sie die Pipeline und die
-Pipeline-Metadaten für das Modell ebenso wie die
-Pipeline-Modellversion und laden diese hoch, um die Pipeline und das
-Pipeline-Modell zu speichern. Details finden Sie in den folgenden
-Abschnitten.
+Speichern Sie die Pipeline und das Pipelinemodell. Erstellen Sie
+die Pipeline- und die Pipeline-Metadaten, die Pipeline- und die
+Pipeline-Modellversion und laden Sie die Pipeline und die Pipeline-
+Modellversion hoch. 
 
 ### Pipeline-Metadaten erstellen
 
 Zum Erstellen von Metadaten für Ihre Pipeline beschreiben Sie die
 grundlegenden Eigenschaften Ihrer Pipeline in einer
-curl-Anforderung, wie im folgenden Beispiel gezeigt:
+`curl`-Anforderung, wie im folgenden Beispiel gezeigt:
 
 ```
 curl -i \
@@ -129,9 +109,9 @@ Beispielantwort:
 
 ### Pipeline-Version erstellen
 
-Zum Erstellen einer Version für Ihre Pipeline
-geben Sie parentVersionHref für Ihre Pipeline in einer
-curl-Anforderung an, wie im folgenden Beispiel gezeigt:
+Zum Erstellen einer Version für Ihre Pipeline geben Sie den Wert
+`parentVersionHref` für Ihre Pipeline in einer `curl`-Anforderung an, wie im
+folgenden Beispiel gezeigt:
 
 ```
 curl -i \
@@ -164,7 +144,7 @@ Beispielantwort:
 
 Damit Sie Pipeline-Inhalt hochladen können, muss Ihre Pipeline
 ein binäres Format aufweisen. Rufen Sie dafür die Methode
-save aus der SparkML-Pipeline auf. Sie können
+`save` aus der SparkML-Pipeline auf. Sie können
 Ihren binären Inhalt hochladen, indem Sie die ID Ihrer Pipeline und
 die Version in einem Endpunkt bereitstellen, wie im folgenden
 Beispiel gezeigt:
@@ -285,7 +265,7 @@ Beispielantwort:
 
 Wenn Sie eine Version für Ihr Pipeline-Modell
 erstellen möchten, verwenden
-Sie eine curl-Anforderung, um Details wie den
+Sie eine `curl`-Anforderung, um Details wie den
 Speicherort Ihrer Trainingsdaten und die Modellevaluierungsmethode
 anzugeben. Siehe das folgende Beispiel:
 
@@ -352,7 +332,7 @@ Beispielantwort:
 Damit Sie Pipeline-Modellinhalt hochladen können, muss Ihr
 Pipeline-Modell ein
 binäres Format aufweisen. Rufen Sie dafür die Methode
-save aus dem SparkML-Pipeline-Modell auf. Sie können
+`save` aus dem SparkML-Pipeline-Modell auf. Sie können
 Ihren binären Inhalt hochladen, indem Sie die ID Ihrer Pipeline und
 die Version in einem Endpunkt bereitstellen, wie im folgenden
 Beispiel gezeigt:
@@ -382,3 +362,10 @@ Beispielantwort:
 {"ok":"true"}
 ```
 {: codeblock}
+
+## Weitere Informationen
+
+Weitere Informationen zur Modellentwicklung finden Sie in den folgenden Notizbüchern:
+
+*  [Entwickeln von SparkML-Modellen mit Python](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
+*  [Entwickeln von SparkML-Modellen mit Scala](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)

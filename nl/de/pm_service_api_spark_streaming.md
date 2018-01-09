@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,11 +12,12 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Streamingmodelle bereitstellen <span class='tag--beta'>Beta</span>
+# Streamingmodelle bereitstellen
 
-
-**Hinweis:** Diese Funktion ist aktuell nur als Betaversion vorhanden und steht nur für die Verwendung mit Spark MLlib zur Verfügung. Wenn Sie daran teilnehmen möchten, fügen Sie sich selbst zur Warteliste hinzu! Weitere
-Informationen finden Sie unter [https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist).
+Mit dem {{site.data.keyword.pm_full}}-Service können Sie ein Modell bereitstellen und
+prädiktive Analysen generieren, indem Sie Scoring-Anforderungen für
+das bereitgestellte Modell erstellen.
+{: shortdesc}
 
 **Szenarioname:** Stimmungsanalyse.
 
@@ -26,16 +27,27 @@ eine gemachte Aussage als positiv (POSITIVE) oder
 negativ (NEGATIVE) einstuft. Ein Data-Scientist bereitet ein
 Vorhersagemodell vor und teilt es mit Ihnen (dem Entwickler). Ihre Aufgabe ist es, das Modell bereitzustellen und eine
 Vorhersageanalyse zu generieren, indem Sie Scoring-Anforderungen für
-das implementierte Modell erstellen.
+das bereitgestellte Modell erstellen.
+
+**Hinweis:** Sie können sich auch [mit einem Beispiel-Python-Notizbuch vertraut machen](https://apsportal.ibm.com/analytics/notebooks/913a7daa-cf39-414d-9017-3a7840a53c59/view?access_token=f1ebc10873a226f248f744b26ee7f71d53c81d5752b9d940e23a33518a3e115d), das ein Beispielmodell erstellt und Tweets klassifiziert.
 
 Weitere Informationen finden Sie in diesem Dokument.
 
+
+## Voraussetzungen
+Um mit diesem Beispiel arbeiten zu können, benötigen Sie:
+* Details zu [Message Hub](https://console.bluemix.net/catalog/services/message-hub)-Themen, die als Eingabe (Tweet-Text) für das Modell und den Speicherort für die Modellausgabe (Vorhersageergebnisse) verwendet werden. Stellen Sie sicher, dass zwei Themen erstellt werden: Eingabe mit Tweet-Text und Ausgabe-Thema.
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark): Berechtigungsnachweise für die Serviceinstanz. Sie können diesen [Link](https://console.bluemix.net/catalog/services/apache-spark) verwenden, um einen zu erstellen.
+
+
+
 ## Beispielmodell verwenden
 
-1. Wechseln Sie zur Registerkarte Beispiele des IBM® Watson™ Machine Learning-Dashboards.
+1. Wechseln Sie zur Registerkarte 'Beispiele' des {{site.data.keyword.pm_full}}-
+   Dashboards. 
 
-2. Suchen Sie im Abschnitt Beispielmodelle die Kachel für die Stimmungsvorhersage
-und klicken Sie auf die Schaltfläche Modell hinzufügen (+).
+2. Suchen Sie im Abschnitt 'Beispielmodelle' nach der Kachel 'Stimmungsvorhersage'
+   und klicken Sie auf das Symbol 'Modell hinzufügen' (+).
 
 Jetzt sehen Sie das Beispielmodell zur Stimmungsvorhersage in der
 Liste mit verfügbaren Modellen auf der Registerkarte Modelle.
@@ -61,7 +73,7 @@ Ausgabebeispiel:
 {: codeblock}
 
 Verwenden Sie den folgenden Terminalbefehl, um Ihren Tokenwert dem
-Umgebungsvariablentoken zuzuweisen: 
+Umgebungsvariablentoken zuzuweisen:
 
 ```
 token="<token_value>"
@@ -69,7 +81,7 @@ token="<token_value>"
 {: codeblock}
 
 ## Mit veröffentlichten Modellen arbeiten
-Verwenden Sie den folgenden API-Aufruf, um Ihre Instanzdetails abzurufen. Zum Beispiel: 
+Verwenden Sie den folgenden API-Aufruf, um Ihre Instanzdetails abzurufen. Zum Beispiel:
 * Veröffentlichte Modelle `URL`
 * Bereitstellungen `URL`
 * Nutzungsinformationen
@@ -106,14 +118,14 @@ Ausgabebeispiel:
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
 {: codeblock}
 
 
-Verwenden Sie bei der URL von veröffentlichten Modellen (**published_models** `url`) den folgenden API-Aufruf, um Modelldetails abzurufen: 
+Verwenden Sie bei der URL von veröffentlichten Modellen (**published_models** `url`) den folgenden API-Aufruf, um Modelldetails abzurufen:
 
 Anforderungsbeispiel:
 
@@ -211,8 +223,7 @@ Ausgabebeispiel:
 ```
 {: codeblock}
 
-Bitte beachten Sie die `URL` der **Bereitstellung**, die für das Erstellen einer Stapelbereitstellung im nächsten Schritt erforderlich ist. 
-
+Notieren Sie den `URL`-Wert für **Bereitstellungen**, den Sie für die Erstellung der folgenden Stapelbereitstellung benötigen.
 
 ## Streamingbereitstellung mit IBM Message Hub erstellen
 
@@ -224,34 +235,32 @@ Details angeben:
 *  Das im vorherigen Schritt erstellte Zugriffstoken
 
 *  Spark-Serviceberechtigungsnachweise, die Sie auf der Registerkarte
-Serviceberechtigungsnachweise des Bluemix Spark-Servicedashboards finden. Bevor die
-Bereitstellungsanforderung gestellt werden kann, müssen Spark-Berechtigungsnachweise
-als Base64 decodiert und im Header einer 'curl'-Anforderung als
-X-Spark-Serviceinstanz übergeben werden.
+   'Serviceberechtigungsnachweise' des {{site.data.keyword.Bluemix_notm}} Spark-Servicedashboards finden. Bevor die
+   Bereitstellungsanforderung gestellt werden kann, müssen Spark-Berechtigungsnachweise
+   als Base64 decodiert und im Header einer `curl`-Anforderung
+   als X-Spark-Serviceinstanz übergeben werden.
 
    Setzen Sie abhängig vom verwendeten Betriebssystem einen der folgenden folgenden Terminalbefehle ab, um die Base64-Decodierung auszuführen, und weisen Sie ihn der Umgebungsvariablen zu.
 
-   Verwenden Sie unter dem Betriebssystem macOS den folgenden Befehl:
+   Verwenden Sie unter dem Betriebssystem **macOS** den folgenden Befehl:
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   Verwenden Sie unter den Betriebssystemen Microsoft Windows und Linux den Parameter `--wrap=0` im Befehl `base64`, um die
-Base64-Decodierung auszuführen:
+   Verwenden Sie unter den Betriebssystemen **Microsoft Windows** oder **Linux** den Parameter `--wrap=0` mit dem Befehl `base64`, um die Base64-Codierung auszuführen:
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
    ```
    {: codeblock}
 
-*  Details zu IBM Message Hub-Themen, die als Eingabe (Tweets) für
-das Modell verwendet werden, und der Speicherort für die
-Modellausgabe
-(Vorhersageergebnisse).
+*  Details zu IBM Message Hub-Themen, die als Eingabe
+   (Tweets) für das Modell verwendet werden, und der Speicherort für die Modellausgabe
+   (Vorhersageergebnisse)
 
-*  Um eine Bereitstellung zu erstellen, verwenden Sie **Bereitstellungen** `URL` aus dem vorherigen Abschnitt.
+*  Der `URL`-Wert für **Bereitstellungen**
 
 Anforderungsbeispiel:
 
@@ -613,3 +622,16 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 2025130991
 ```
 {: codeblock}
+
+## Weitere Informationen
+
+Sind Sie bereit? Informationen zum Erstellen einer Serviceinstanz oder zum Binden
+einer Anwendung finden Sie unter [Service mit Spark- und Python-Modellen verwenden](using_pm_service_dsx.html) oder
+[Service mit IBM® SPSS®-Modellen verwenden](using_pm_service.html).
+
+Weitere Informationen zur API finden Sie unter [Service-API für Spark- und Python-Modelle](pm_service_api_spark.html) oder [Service-
+API für IBM® SPSS® Modelle] (pm_service_api_spss.html).
+
+Weitere Informationen zu IBM® SPSS® Modeler und den von ihm bereitgestellten Modellierungsalgorithmen finden Sie im [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Weitere Informationen zu IBM Data Science Experience und den von ihm bereitgestellten Modellierungsalgorithmen finden Sie unter [https://datascience.ibm.com](https://datascience.ibm.com).

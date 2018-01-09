@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,34 +12,39 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# 部署批次模型<span class='tag--beta'>測試版</span>
+# 部署批次模型
 
-**附註**：此功能目前為測試版，只提供搭配 Spark MLlib 使用。如果您有興趣參與，請將自己新增到等待清單！
-如需相關資訊，請參閱：[https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist)。
+使用 {{site.data.keyword.pm_full}} 服務，您可以部署模型，並且針對已部署模型提出評分要求來產生預測分析。
+{: shortdesc}
+
 
 **情境名稱**：客戶滿意度預測。
 
 **情境說明**：電信公司想要知道哪些客戶有離開的風險。呈現的模型預測客戶流失。資料科學家開發出一套預測模型，並將其與您（開發人員）分享。您的工作是部署模型，然後對已配置的模型提出評分要求，以產生預測分析模型。
 
+## 必要條件
+
+若要使用此範例，您需要下列服務：
+
+* [Object Storage](https://console.bluemix.net/catalog/services/object-storage) 實例詳細資料，用來作為模型的輸入（要評分的客戶資料），以及模型輸出的儲存空間。在[這裡](https://raw.githubusercontent.com/pmservice/wml-sample-models/master/spark/customer-satisfaction-prediction/data/scoreInput.csv)，下載範例輸入資料 .csv 檔案。您應該將輸入檔新增至 Object Storage 實例。
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) 服務實例認證。您可以使用[此鏈結](https://console.bluemix.net/catalog/services/apache-spark)進行建立。
+
+
 ## 使用範例模型
 
-1.  移至「IBM® Watson™ Machine Learning 儀表板」的「範例」標籤。
+1.  移至「{{site.data.keyword.pm_full}} 儀表板」的「範例」標籤。
+2.  在「範例模型」區段中，尋找「客戶滿意度預測」磚，然後按一下「新增模型」圖示 (+)。
 
-2.  在「範例模型」區段中，尋找「客戶滿意度預測」磚，然後按一下「新增模型」按鈕 (+)。
-
-現在您會在「模型」標籤上看到範例「客戶滿意度預測」模型列在可用的模型清單中。
+範例「客戶滿意度預測」模型會出現在「模型」標籤的可用模型清單中。
 
 ## 使用 Object Storage 來建立批次部署
 
-1.  移至「IBM® Watson™ Machine Learning 儀表板」的「模型」標籤。
-
+1.  移至「{{site.data.keyword.pm_full}} 儀表板」的「模型」標籤。
 2.  從**動作**功能表選取**建立部署**。
-
-3.  在「建立部署」表單中提供「名稱」、「說明」及「批次類型」。
-
+3.  在「建立部署」表單中，提供「名稱」、「說明」及「批次類型」。
 4.  您必須提供下列輸入：
 
-    **輸入連線**：Object Storage 詳細資料，將會用來作為模型的輸入（要評分的客戶資料），以及模型輸出的儲存空間（在此案例中為 results.csv，這是自動建立的檔案）。
+    **輸入連線**：Object Storage 詳細資料，用來作為模型的輸入（要評分的客戶資料），以及模型輸出的儲存空間（在此案例中為 results.csv，這是自動建立的檔案）。
 
     ```
        {
@@ -85,11 +90,11 @@ lastupdated: "2017-09-07"
     ```
     {: codeblock}
 
-    **Spark 連線**：Spark 服務認證可以在 Bluemix Spark 服務儀表板的「服務認證」標籤上找到。
+    **Spark 連線**：Spark 服務認證可以在 {{site.data.keyword.Bluemix_short}} Spark 服務儀表板的「服務認證」標籤上找到。
 
     ```
-       {
-          "credentials":{
+    {
+        "credentials":{
             "tenant_id": "s745-299dcf850a6390-35c9a7ecf27a",
             "tenant_id_full": "ba3dde5a-ee64-4057-9749-299dcf850a63_4c55eb1c-d6fe-4f0a-9390-35c9a7ecf27a",
             "cluster_master_url": "https://spark.bluemix.net",
@@ -136,17 +141,25 @@ Fiber optic, Month-to-month, 1, 79.35, 1
 
 ## 取得部署詳細資料
 
-您可以檢查與已部署模型相關的狀態和參數。
+您可以檢查與已部署模型相關的狀態及參數。
 
-1. 移至「IBM® Watson™ Machine Learning 儀表板」的「部署」標籤。
-
-2. 從「動作」功能表選取「檢視詳細資料」。
-
+1. 移至「{{site.data.keyword.pm_full}} 儀表板」的「部署」標籤。
+2. 從**動作**功能表選取**檢視詳細資料**。
 
 ## 刪除批次部署
 
 您可以使用查詢來刪除不再需要的部署，如下列範例所示。
 
-1. 移至「IBM® Watson™ Machine Learning 儀表板」的「部署」標籤。
+1. 移至「{{site.data.keyword.pm_full}} 儀表板」的「部署」標籤。
 
-2. 從「動作」功能表選取「刪除」。
+2. 從**動作**功能表中，按一下**刪除**。
+
+## 進一步瞭解
+
+準備好要開始了嗎？若要建立服務的實例或是連結應用程式，請參閱[搭配使用服務與 Spark 及 Python 模型](using_pm_service_dsx.html)或[搭配使用服務與 IBM® SPSS® 模型](using_pm_service.html)。
+
+如需 API 的相關資訊，請參閱 [Spark 及 Python 模型的服務 API](pm_service_api_spark.html) 或 [IBM® SPSS® 模型的服務 API](pm_service_api_spss.html)。
+
+如需 IBM® SPSS® Modeler 及其提供之建模演算法的相關資訊，請參閱 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+
+如需 IBM Data Science Experience 及其提供之建模演算法的相關資訊，請參閱 [https://datascience.ibm.com](https://datascience.ibm.com)。

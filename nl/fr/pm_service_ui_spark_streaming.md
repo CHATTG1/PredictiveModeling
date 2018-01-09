@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,33 +12,42 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Déploiement des modèles de modèles de données en flux <span class='tag--beta'>Beta</span>
+# Déploiement de modèles de données en flux
 
-**Remarque **: cette fonctionnalité est actuellement en version bêta et n'est disponible que pour son utilisation avec Spark MLlib. Si vous désirez participer, inscrivez-vous sur la liste d'attente. Pour plus d'informations,  voir : [https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist).
+Le service {{site.data.keyword.pm_full}} permet de déployer le modèle et générer des analyses prédictives en effectuant des requêtes de score à partir du modèle en flux déployé.
+{: shortdesc}
 
 **Nom du scénario **: analyse d'opinions.
 
-**Description du scénario **: une agence de marketing désire connaître les opinions sur un sujet spécifique. Elle désire que nous développions un modèle classant une déclaration comme POSITIVE ou NEGATIVE. Un spécialiste des données prépare un modèle prédictif et le partage avec vous (le développeur). Votre tâche consiste à déployer le modèle et à générer des analyses prédictives en effectuant des requêtes de score à partir du modèle déployé.
+**Description du scénario **: une agence de marketing désire connaître les opinions sur un sujet spécifique. L'agence nous demande de développer un modèle qui classifie une instruction comme étant POSITIVE ou NEGATIVE. Un spécialiste des données prépare un
+modèle prédictif et le partage avec vous (le développeur). Votre tâche consiste à déployer le modèle et à générer des analyses prédictives en effectuant des requêtes de score à partir du modèle déployé.
 
 Voir ce [document](https://github.com/pmservice/tweet-sentiment-prediction) pour plus d'informations.
 
+## Conditions requises
+
+Pour pouvoir utiliser cet exemple, vous devez disposer des ressources suivantes :
+
+* Des informations de la rubrique [Message Hub](https://console.bluemix.net/catalog/services/message-hub) qui seront utilisées comme entrées (tweets) pour le modèle et lieu de stockage pour la sortie du modèle (résultats de la prévision). Assurez-vous que deux rubriques soient créées : une rubrique d'entrée avec des tweets et une rubrique de sortie.
+* Des données d'identification de l'instance de service [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark). Utilisez [ce lien](https://console.bluemix.net/catalog/services/apache-spark) pour en créer une.
+
+
 ## Utilisation de l'exemple de modèle
 
-1. Accédez à l'onglet Exemples du tableau de bord IBM® Watson™ Machine Learning.
-2. Dans la section Exemples de modèles, recherchez la vignette Pronostics des opinions et cliquez sur le bouton Ajouter le modèle (+).
+1. Accédez à l'onglet **Exemples** du tableau de bord {{site.data.keyword.pm_full}}.
+2. Dans la section **Exemples de modèles**, recherchez la vignette **Pronostics des opinions** et cliquez sur l'icône Ajouter le modèle (+).
 
-Vous pouvez observer à présent le modèle Pronostics des opinions dans la liste des modèles disponibles sous l'onglet Modèles.
+L'exemple de modèle Pronostics des opinions s'affiche dans la liste des modèles disponibles sous l'onglet Modèles.
 
 
 ## Création d'un déploiement en flux à l'aide d'IBM Message Hub
 
-1.  Accédez à l'onglet Modèles du tableau de bord d'IBM® Watson™ Machine Learning.
-2.  Dans le menu ACTIONS, sélectionnez Créer un déploiement.
-3.  Dans le formulaire Créer un déploiement, entrez un nom, une description et un type de flux.
+1.  Accédez à l'onglet **Modèles** du tableau de bord {{site.data.keyword.pm_full}}.
+2.  Dans le menu **Actions**, cliquez sur **Créer un déploiement**.
+3.  Dans le formulaire **Créer un déploiement**, renseignez les zones **Nom**, **Description** et **Type de flux**.
 4.  Vous devez fournir les informations suivantes :
 
-    **Input Connection** : Informations de la rubrique IBM Message Hub qui sont utilisées comme entrées (tweets) pour le modèle et lieu de stockage pour la sortie du modèle
-(résultats de la prévision).
+    **Connexion d'entrée** : Informations de la rubrique IBM Message Hub qui sont utilisées comme entrées (tweets) pour le modèle et lieu de stockage pour la sortie du modèle (résultats de la prévision).
 
     ```
   {
@@ -92,8 +101,7 @@ Vous pouvez observer à présent le modèle Pronostics des opinions dans la list
     ```
     {: codeblock}
 
-    **Spark Connection** : les données d'identification du service Spark se trouvent sur l'onglet Données d'identification pour le service du tableau de bord du
-service Bluemix Spark.
+    **Connexion Spark** : Les données d'identification du service Spark sont disponibles sous l'onglet Données d'identification pour le service du tableau de bord du service {{site.data.keyword.Bluemix_notm}} Spark.
 
      ```
 {
@@ -117,12 +125,26 @@ Les résultats de prévision sont envoyés à une rubrique MessageHub définie (
 ## Obtention des détails de déploiement
 
 Vous pouvez vérifier le statut et les paramètres associés au modèle déployé.
-1. Accédez à l'onglet Déploiements du tableau de bord d'IBM® Watson™ Machine Learning.
+
+1. Accédez à l'onglet **Déploiements** du tableau de bord {{site.data.keyword.pm_full}}.
 2. Dans le menu **Actions**, cliquez sur **Afficher les détails**.
 
 ## Suppression d'un déploiement en flux
 
-Si vous n'en avez plus besoin, vous pouvez supprimer le déploiement à l'aide d'une requête similaire à l'exemple suivant.
+Si vous n'en avez plus besoin, vous pouvez supprimer le déploiement en exécutant une requête similaire à l'exemple suivant.
 
-1. Accédez à l'onglet Déploiements du tableau de bord d'IBM® Watson™ Machine Learning.
-2. Dans le menu ACTIONS, sélectionnez Supprimer.
+1. Accédez à l'onglet **Déploiements** du tableau de bord {{site.data.keyword.pm_full}}.
+2. Dans le menu **Actions**, cliquez sur **Supprimer**.
+
+## En savoir plus
+
+Prêt à commencer ? Pour créer une instance de service ou lier
+une application, voir [Utilisation du service avec des modèles Spark et Python](using_pm_service_dsx.html) ou
+[Utilisation du service avec des modèles IBM® SPSS®](using_pm_service.html).
+
+Pour plus d'informations sur l'API, voir [API de service pour les modèles Spark et Python](pm_service_api_spark.html) ou [API
+de service pour les modèles IBM® SPSS®](pm_service_api_spss.html).
+
+Pour plus d'informations sur IBM® SPSS® Modeler et les algorithmes de modélisation qu'il utilise, reportez-vous à la documentation du site [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+Pour plus d'informations sur IBM Data Science Experience et les algorithmes de modélisation
+qu'il propose, accédez au site [https://datascience.ibm.com](https://datascience.ibm.com).

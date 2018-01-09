@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,11 +14,14 @@ lastupdated: "2017-09-07"
 
 # Evaluation par score avec un modèle prédictif déployé
 
+Le service {{site.data.keyword.pm_full}} permet de publier les données d'entrée à utiliser par le modèle déployé via un appel API. Cette méthode permet de générer et de renvoyer les analyses prédictives dans les résultats du score.
+{: shortdesc}
 
+```
 POST http://{PA Bluemix load balancer
 URL}/pm/v1/score/{contextId}?accesskey={access_key pour cette application liée}
-
-Cet appel API permet de poster des données d'entrée devant être utilisées par le modèle déployé pour générer et renvoyer les analyses prédictives dans les résultats du score.
+```
+{: codeblock}
 
 Exemple de requête :
 
@@ -65,3 +68,13 @@ Réponse en cas d'échec de la requête de score :
         }  
 ```
 {: codeblock}
+
+## Informations supplémentaires
+
+Prêt à commencer ? Pour créer une instance de service ou lier une application, voir [Utilisation du service avec des modèles Spark et Python](using_pm_service_dsx.html) ou [Utilisation du service avec des modèles IBM® SPSS®](using_pm_service.html).
+
+Pour plus d'informations sur l'API, voir [API de service pour les modèles Spark et Python](pm_service_api_spark.html) ou [API de service pour les modèles IBM® SPSS®](pm_service_api_spss.html).
+
+Pour plus d'informations sur IBM® SPSS® Modeler et les algorithmes de modélisation qu'il utilise, reportez-vous à la documentation du site [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Pour plus d'informations sur IBM Data Science Experience et les algorithmes de modélisation qu'il propose, accédez au site [https://datascience.ibm.com](https://datascience.ibm.com).

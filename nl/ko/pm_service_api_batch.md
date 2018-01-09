@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -13,41 +13,18 @@ lastupdated: "2017-09-07"
 
 # IBM SPSS Modeler 모델에 대한 Machine Learning 서비스 일괄처리 작업 API
 
+{{site.data.keyword.pm_full}} 서비스용 일괄처리 작업 API는 모델 훈련, 모델 평가 및 일괄처리 스코어링과 관련된 장기 실행 태스크를 지원합니다.
+이 API는 두 가지 자산 유형(일괄처리 작업에서 사용되는 IBM® SPSS® Modeler 스트림 파일 및 제출된 작업 정의)을 관리합니다.
+{: shortdesc}
 
-*  [작업 삭제](#deleting-jobs)
+사용자가 업로드하는 각 SPSS® Modeler 스트림 파일에는 제출된 다양한 유형의 여러 작업이 있을 수 있습니다. 특정 작업에 Modeler 스트림 파일 컨텐츠를 업데이트할 가능성이 있는 경우, 수정된 파일은 작업 결과 첨부 파일에 포함됩니다.
+모델 평가 작업 유형에서, 생성된 모든 평가 파일은 작업 결과 첨부 파일에 있습니다. 
 
-*  [작업 상태 확인](#checking-the-status-of-a-job)
-
-*  [작업 다시 제출](#resubmit-a-job)
-
-*  [업로드한 Modeler 스트림 파일에 대해 작업 제출](#submit-a-job-against-an-uploaded-modeler-stream-file)
-
-*  [작업에서 사용할 스트림 파일 업로드](#upload-a-stream-file-to-use-in-your-jobs)
-
-*  [작업 유형](#job-types)
-
-*  [작업 상태](#job-status)
-
-*  [작업 API 세부사항](#job-api-details)
-
-*  [작업 정의 JSON](#job-definition-json)
-
-*  [일괄처리 작업 API 세부사항](#batch-job-api-details)
-
-Machine Learning 서비스의 일괄처리 작업 API는 모델 훈련, 모델 평가 및 일괄처리 스코어링과 관련된 장기 실행 태스크를 지원합니다. 
-이 API는 두 가지 자산 유형(일괄처리 작업에서 사용되는 SPSS Modeler 스트림 파일 및 제출된 작업 정의)을 관리합니다. 
-업로드된 각 Modeler 스트림 파일마다 여러 유형의 여러 작업이 제출될 수 있습니다. 
-작업에 Modeler 스트림 파일 컨텐츠의 업데이트 가능성이 있는 경우, 수정된 파일은 작업 결과 첨부 파일에 포함됩니다. 
-모델 평가 작업 유형에서, 생성된 모든 평가 파일은 작업 결과의 첨부 파일에 있습니다. 
-
-일괄처리 작업 선정의 예제는 다음 노트북을 참조하십시오. [From SPSS stream to batch scoring with
-Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37).
-
-**참고**: 업로드 기능의 데이터를 포함하여 대시보드에 표시되는 데이터는 실시간 예측에만 관련됩니다.
+**참고**: 업로드 기능의 데이터와 같이, 대시보드에 표시되는 데이터는 실시간 예측에만 관련됩니다. 
 
 ## 작업 삭제
 
-작업을 삭제할 수 있으며, 현재 실행 중이면 작업이 취소됩니다. `job ID`와 함께 `DELETE` 명령을 사용하십시오. 여러 ID를 전달하여 한 번에 두 개 이상의 작업을 취소할 수 있습니다.
+작업은 삭제할 수 있습니다. 특정 작업이 실행 중인 경우, 해당 작업을 삭제하면 이 작업이 먼저 취소됩니다. `job ID`와 함께 `DELETE` 명령을 사용하십시오. 여러 ID를 전달하여 한 번에 두 개 이상의 작업을 취소할 수 있습니다.
 
 ```
 DELETE https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job ID
@@ -55,12 +32,12 @@ DELETE https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job ID
 ```
 {: codeblock}
 
-리턴은 요청에서 ID로 참조된 작업의 삭제된 수를 표시합니다. 
-이 숫자가 요청에서 전달된 목록과 일치하지 않으면 개별 작업의 상태를 검사해야 합니다. 
+리턴 결과는 요청의 ID로 참조된 작업이 삭제된 개수를 표시합니다. 이 개수가 요청에 전달한 목록과 일치하지 않는 경우에는 개별 작업의 상태를 검사해야 합니다. 
 
 ## 작업 상태 확인
 
 `GET` 명령을 사용하여 언제든지 `job ID`의 상태를 가져올 수 있습니다.
+
 
 ```
 GET https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -68,12 +45,13 @@ ID}/status?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-리턴된 JSON은 작업 상태, 그리고 작업이 성공적으로 완료된 경우
-생성된 모든 파일 컨텐츠를 확보하기 위해 사용할 수 있는 dataUrl을 표시합니다. 
+리턴된 JSON 파일은 작업 상태를 표시하며, 해당 작업이 완료된 경우에는 모든 생성된 파일 컨텐츠를 얻는 데 사용할 수 있는 데이터 URL도 표시합니다. 
 
 ## 작업 다시 제출
 
-작업을 다시 제출하려면 `job ID`와 함께 `PUT` 명령을 사용하십시오. 작업이 실행 상태가 아니어야 합니다.
+작업을 다시 제출하려면 `job ID`와 함께 `PUT` 명령을 사용하십시오. 작업을 다시 제출하려면 해당 작업이 실행 중이 아니어야 합니다. 
+
+참조한 ID가 없는 경우에는 다음 호출이 새 작업을 작성합니다. 리턴 상태는 201 또는 200(둘 중 발생한 쪽을 표시함)입니다. 사용자는 이 실행에서 사용되는 작업 정의 JSON 파일을 전달해야 합니다. 
 
 ```
 PUT https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -81,10 +59,7 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-content_type "application/json"(요청의 본문에 신규 또는 업데이트된 작업 정의 JSON 포함). 
-
-참조된 ID가 존재하지 않으면 이 호출은 실제로 새 작업을 작성하며, 201 대비 200 리턴은 이 중에서 발생한 사항을 표시합니다. 
-사용자는 이 실행에서 사용되는 작업 정의 JSON을 전달해야 합니다. 
+`content_type` v값을 "application/json"으로 설정하여 작업을 다시 제출하십시오. 요청의 본문에 신규 또는 업데이트된 작업 정의 JSON 파일을 포함시켜야 합니다. 
 
 ## 업로드한 Modeler 스트림 파일에 대해 작업 제출
 
@@ -96,20 +71,16 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-content_type "application/json"(요청의 본문에 작업 정의 JSON 포함). 
+`content_type` v값을 "application/json"으로 설정하여 작업을 제출하십시오. 요청의 본문에 신규 또는 업데이트된 작업 정의 JSON 파일을 포함시켜야 합니다. 
 
-이 요청은 즉시 리턴되며, 작업 정의가 실행 큐에 지정되면 성공을 표시합니다. 
+이 요청의 결과는 즉시 리턴되며, 작업 정의가 실행 큐에 삽입되면 성공을 표시합니다. 
 작업 정의에 구성된 대로 Modeler 스트림을 성공적으로 실행하는 기능의 테스트는 없습니다. 작업은 클라우드의
-Machine Learning 작업 서버 중 하나에 의해 실행되며,
-해당 상태를 모니터할 수 있습니다. 모델 훈련을 수행 중이며 자동으로 새로 고치기를 원한다고
-표시하는 경우, 작업은 작업의 실행이 성공할 때 원래 Modeler 스트림 파일을 대체합니다. 
-
-작업 정의 JSON에 대한 자세한 정보는 [작업 정의 JSON](#job-definition-json)의 내용을 참조하십시오. 
+{{site.data.keyword.pm_short}} 작업 서버 중 하나에 의해 실행되며, 사용자는 해당 상태를 모니터할 수 있습니다.
+모델 훈련을 수행 중이며 자동으로 새로 고치기를 수행하도록 표시하는 경우 이 작업은 작업 실행이 성공하면 원래 Modeler 스트림 파일을 대체합니다. 
 
 ## 작업에서 사용할 스트림 파일 업로드
 
-**참고**: Machine Learning 대시보드는 실시간
-스코어링 전용입니다.
+**참고**: {{site.data.keyword.pm_short}} 대시보드는 실시간 스코어링 전용입니다. 
 작업 실행(일괄처리 스코어링)에는 이를 사용할 수 없습니다. 
 
 작업에서 Modeler 스트림 파일에 액세스할 수 있게 하려면 다음과 같이 `PUT` 명령을 사용하십시오.
@@ -129,7 +100,7 @@ content_type "multipart/form-data"(요청에서 파일을 전달함).
 동일한 파일의 `PUT` 명령은 현재 사본을
 암시적으로 대체합니다.
 
-작업에 업로드된 모든 파일 목록을 생성하려면 `GET` 명령을 사용하십시오. 단, `file ID` 매개변수는 생략하십시오. 특정 파일을 검색하려면 `file ID` 매개변수와 함께 `GET` 명령을 사용하십시오. `DELETE` 명령을 실행하면 업로드된 파일을 삭제할 수도 있습니다. 그러면 파일을 참조하는 보류 중인 작업 실행 시 오류가 발생합니다.
+작업에 업로드된 모든 파일 목록을 생성하려면 `GET` 명령을 사용하십시오. 단, `file ID` 매개변수는 생략하십시오. 특정 파일을 검색하려면 `file ID` 매개변수와 함께 `GET` 명령을 사용하십시오. `DELETE` 명령을 실행하여 업로드된 파일을 삭제할 수도 있습니다. 그러면 파일을 참조하는 보류 중인 작업 실행 시 오류가 발생합니다.
 
 요청 예제: 
 
@@ -195,9 +166,7 @@ Modeler 스트림 파일에 모델 빌드 노드에서 평가 및 스코어링 �
 적용된 터미널 노드의 실행이며, 이 Modeler 스트림 디자인의
 스코어링 분기임을 표시합니다. 작업 정의는 소스 세부사항은 물론 내보내기를 지정해야 합니다. 
 
-**Run Stream**: 실행은 스트림 특성의 실행 탭에서 선택된
-Run this script 옵션으로 Modeler의 초록색 "실행" 단추를 클릭하는 것과
-유사합니다. 
+**Run Stream**: 실행은 스트림 특성의 실행 탭에서 Run this script 옵션을 선택한 상태로 Modeler의 초록색 "실행" 아이콘을 클릭하는 것과 유사합니다. 
 사용법에서는 모델 훈련 또는 기타 작업 유형의 스크립트된 실행에 대한 필요성을 커버합니다. 
 스크립트의 모든 동적 제어는 작업정의에서 매개변수값을 전달하여 스트림 매개변수로 처리해야 합니다. 
 
@@ -240,7 +209,7 @@ Run this script 옵션으로 Modeler의 초록색 "실행" 단추를 클릭하�
 ```
 {: codeblock}
 
-사용자 지정 `job ID`. Machine Learning 서비스 인스턴스에 고유해야 합니다. 
+사용자 지정 `job ID`. {{site.data.keyword.pm_short}} 서비스 인스턴스에 고유해야 합니다. 
 
 ```
 @PathParam("id")
@@ -550,7 +519,7 @@ JSON 작업 정의(작업 정의 JSON 참조):
 ID는 `PUT` API에서 사용된 `file ID`와
 동일해야 합니다. name은 필수는 아니지만, 모델 훈련 및 자동으로 새로 고치기의 경우
 작업 결과는 여기서 정의된 이름을 사용하여 저장됩니다. name이 정의되지 않은 경우,
-Machine Learning 서비스는 사전 정의된 이름 지정 규칙에 따라 결과를 생성합니다. 
+{{site.data.keyword.pm_short}} 서비스는 사전 정의된 이름 지정 규칙에 따라 결과를 생성합니다. 
 
 ### 작업 설정
 
@@ -607,8 +576,7 @@ DB 서비스 인스턴스에 지정된 연결이며, 다수의 DB 유형은 '옵
                "dbRef”; “db2”,
                "table": "DRUG1N",
           },
-          "node": "ScoreInput",
-          "attributes": []
+          "node": "ScoreInput"
      }
 ],
 ```
@@ -631,30 +599,6 @@ table은 Modeler 스트림에서 제공된 분기의 입력으로 사용되는 �
 
 **Refresh** – 새 행을 삽입하기 전에 테이블의 기존 행이 삭제됨
    
-대량 로드를 사용하여 삽입 성능을 향상시킬 수 있습니다.
-대량 로드 지원은 다음과 같은 bulkLoading 속성을 통해 사용할 수 있습니다.
-
-**Off** - 대량 로드 사용 안함
-
-**ODBC** - ODBC 드라이버를 통해 대량 로드
-
-
-```
-"exports": [
-     {
-          "odbc": {
-               "dbRef”; “db1”,
-               "table": "DRUGSCORES",
-               “insertMode”:”Append”
-          },
-          "node": "ExportScores",
-          "attributes": [],
-          "bulkLoading": "Off"
-     }
-],
-```
-{: codeblock}
-
 table은 작업 결과가 쓰여지는 데이터베이스 테이블 이름입니다. node는 스트림의 터미널 노드 이름입니다. 소스 노드 설정과 유사하게 node는
 제공된 해당 매개변수로 생성된 DB 내보내기 노드로 대체될 Modeler 스트림의 원래 출력 노드를 식별합니다. 
 
@@ -714,11 +658,10 @@ table은 작업 결과가 쓰여지는 데이터베이스 테이블 이름입니
           "inputs": [
                     {
                          "odbc": {
-                                   "dbRef”; “db”,
+               "dbRef”; “db”,
                                    "table": "DRUG1N",
                          },
-                         "node": "ScoreInput",
-                         "attributes": []
+                         "node": "ScoreInput"
                     }
           ],
           "parameterOverride": [
@@ -738,12 +681,11 @@ table은 작업 결과가 쓰여지는 데이터베이스 테이블 이름입니
 
 ## 일괄처리 작업 API 세부사항
 
-다음 섹션에서는 일괄처리 작업
-SPSS Modeler 파일 관리 API 세부사항을 제공합니다. 
+다음 섹션은 일괄처리 작업 IBM® SPSS® Modeler 파일 관리 API 세부사항을 제공합니다. 
 
 `PUT /v1/file/{id}`
 
-설명: 일괄처리 작업에서 사용할 SPSS Modeler 스트림 파일을 업로드합니다. 
+설명: 일괄처리 작업에서 사용할 IBM® SPSS® Modeler 스트림 파일을 업로드합니다. 
 
 **참고**: 지정된 ID로 저장된 파일이 이미 있으면
 이 파일을 대체합니다. 
@@ -876,7 +818,7 @@ SPSS Modeler 파일 관리 API 세부사항을 제공합니다.
 
 `GET /v1/file/{id}`
 
-설명: 지정된 ID로 처리 중인 일괄처리 작업에서 사용하기 위해 저장된 SPSS Modeler 스트림 파일을 검색합니다. 
+설명: 지정된 ID로 처리 중인 일괄처리 작업에서 사용하기 위해 저장된 IBM® SPSS® Modeler 스트림 파일을 검색합니다. 
 
 컨텐츠 유형:
 
@@ -903,7 +845,7 @@ SPSS Modeler 파일 관리 API 세부사항을 제공합니다.
 
 응답:
 
-성공. SPSS Modeler 파일을 리턴합니다.
+성공. IBM® SPSS® Modeler 파일을 리턴합니다. 
 
 ```
 @ApiResponse(code = 200)
@@ -923,3 +865,9 @@ SPSS Modeler 파일 관리 API 세부사항을 제공합니다.
 @ApiResponse(code = 500)
 ```
 {: codeblock}
+
+## 자세히 보기
+
+노트북의 일괄처리 작업 선정에 대한 예는 [From SPSS stream to batch scoring with Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37)을 참조하십시오. 
+
+작업 정의 JSON에 대한 자세한 정보는 [작업 정의 JSON](#job-definition-json)의 내용을 참조하십시오. 

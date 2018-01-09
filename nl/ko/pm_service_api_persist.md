@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,40 +14,25 @@ lastupdated: "2017-09-07"
 
 # 지속 모델
 
-
-*  [모델 지속성 및 버전 제어](#model-persistence-and-version-control)
-
-   *  [액세스 토큰 생성](#generating-the-access-token)
-
-   *  [파이프라인 메타데이터 작성](#creating-pipeline-metadata)
-
-   *  [파이프라인 버전 작성](#creating-pipeline-version)
-
-   *  [파이프라인 컨텐츠 업로드](#uploading-pipeline-content)
-
-   *  [파이프라인 모델 메타데이터 작성](#creating-pipeline-model-metadata)
-
-   *  [파이프라인 모델 버전 작성](#creating-pipeline-model-version)
-
-   *  [파이프라인 모델 컨텐츠 업로드](#uploading-pipeline-model-content)
-
-데이터 과학자는 연구 및 개발의 일부로 모델을 개선하기 위해 끊임없이 노력하고
-있습니다. 새로운 기능을 기존 모델에 추가하고 모델 매개변수를 최적화할 수 있습니다. 데이터 과학자가
-반복적인 방식으로 모델을 개발하는 경우 변경사항을 꾸준히 파악하고 있으면 신속하게 문제를 확인할 수
-있습니다. 다음은 모델 버전화를 제공하고 전체 프로세스를 올바르게 구성함으로써 데이터 과학자를 지원하는 방법을 보여줍니다. 
-
-시작하기 전에 모델 개발에 처음으로 관심을 갖는 경우라면 다음 노트북을 참조하십시오. 
-
-*  [Python을 사용하여 SparkML 모델 개발](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
-
-*  [Scala를 사용하여 SparkML 모델 개발](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)
+모델 버전화를 제공하고 기계 학습 프로세스가 적절히 정리된 상태를 유지하려면 {{site.data.keyword.pm_full}} 서비스를 사용하십시오. {{site.data.keyword.pm_short}} 서비스의 버전화, 메타데이터 및 액세스 토큰 기능을 사용하여 이를 수행할 수 있습니다.
+{: shortdesc}
 
 ## 모델 지속성 및 버전 제어
 
+연구 및 개발 노력의 일환으로서 지속적으로 모델을 개선하다 보면, 기존 모델에 새 기능을 추가하거나 모델 매개변수를 최적화하는 경우가 발생합니다. 이러한 방식을 반복하여 모델을 개발하는 경우에는
+변경사항을 추적하는 것이 어려워질 수 있습니다. {{site.data.keyword.pm_short}}의 다음 데이터 모델 버전화 기능을 사용하면 전체 프로세스가 정리된 상태를 유지할 수 있습니다.  
+
+*  [액세스 토큰 생성](#generating-the-access-token)
+*  [파이프라인 메타데이터 작성](#creating-pipeline-metadata)
+*  [파이프라인 버전 작성](#creating-pipeline-version)
+*  [파이프라인 컨텐츠 업로드](#uploading-pipeline-content)
+*  [파이프라인 모델 메타데이터 작성](#creating-pipeline-model-metadata)
+*  [파이프라인 모델 버전 작성](#creating-pipeline-model-version)
+*  [파이프라인 모델 컨텐츠 업로드](#uploading-pipeline-model-content)
+
 ### 액세스 토큰 생성
 
-IBM® Watson™ Machine Learning 서비스 인스턴스의 서비스 신임 정보 탭에서 사용 가능한 사용자 및
-비밀번호를 사용하여 액세스 토큰을 생성하십시오. 
+{{site.data.keyword.pm_full}} 서비스 인스턴스의 서비스 신임 정보 탭에서 사용 가능한 사용자 및 비밀번호를 사용하여 액세스 토큰을 생성하십시오. 
 
 요청 예제: 
 
@@ -63,19 +48,19 @@ curl --basic --user username:password https://ibm-watson-ml.mybluemix.net/v3/ide
 ```
 {: codeblock}
 
-토큰 값을 access_token 환경 변수에 지정하려면 다음 터미널 명령을 사용하십시오. 
+다음 터미널 명령을 사용하여 토큰 값을 환경 `access_token` 변수에 지정하십시오. 
 
 ```
 access_token="<token_value>"
 ```
 {: codeblock}
 
-다음으로, 파이프라인 및 파이프라인 모델을 저장하려면, 파이프라인 및 파이프라인 모델 메타데이터를 작성하고,
-파이프라인 및 파이프라인 모델 버전을 작성한 후, 파이프라인 및 파이프라인 모델 버전을 업로드합니다. 세부사항은 다음 섹션을 참조하십시오. 
+파이프라인 및 파이프라인 모델을 저장하십시오. 파이프라인 및 파이프라인 모델 메타데이터를 작성하고, 파이프라인 및 파이프라인 모델 버전을 작성하고 업로드하십시오.  
 
 ### 파이프라인 메타데이터 작성
 
-파이프라인에 대한 메타데이터를 작성하려면 다음 예제에 표시된 대로 curl 요청에 파이프라인의 기본 특성을 설명하십시오. 
+파이프라인에 대한 메타데이터를 작성하려면, 다음 예제에서 표시된 대로 `curl` 요청에
+파이프라인의 기본 특성을 설명하십시오. 
 
 ```
 curl -i \
@@ -116,7 +101,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/pipelines
 
 ### 파이프라인 버전 작성
 
-파이프라인에 대한 버전을 작성하려면 다음 예제에 표시된 대로 curl 요청에 파이프라인에 대한 parentVersionHref를 지정하십시오. 
+파이프라인의 버전을 작성하려면, 다음 예에 표시되어 있는 바와 같이 `curl` 요청에 파이프라인의 `parentVersionHref` 값을 지정하십시오. 
 
 ```
 curl -i \
@@ -148,7 +133,8 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/pipelines/1314f74d-a2a7-46d3-8f
 
 ### 파이프라인 컨텐츠 업로드
 
-파이프라인 컨텐츠를 업로드하려면, 파이프라인이 2진 형식이어야 합니다. 이를 수행하려면 SparkML 파이프라인에서 save 메소드를 호출하십시오. 다음 예제에 표시된 대로
+파이프라인 컨텐츠를 업로드하려면, 파이프라인이 2진 형식이어야 합니다. 이를 수행하려면, SparkML 파이프라인에서
+`save` 메소드를 호출하십시오. 다음 예제에 표시된 대로
 파이프라인의 ID 및 버전을 엔드포인트에 제공하여 2진 컨텐츠를 업로드할 수 있습니다. 
 
 ```
@@ -266,7 +252,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/models
 
 ### 파이프라인 모델 버전 작성
 
-파이프라인 모델에 대한 버전을 작성하려면 curl 요청을 사용하여
+파이프라인 모델에 대한 버전을 작성하려면, `curl` 요청을 사용하여
 훈련 데이터를 저장하는 위치 및 모델 평가 메소드와 같은 세부사항을 지정하십시오. 다음 예제를
 참조하십시오. 
 
@@ -331,7 +317,8 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/models/30ed894b-4018-4c88-9e53-
 
 ### 파이프라인 모델 컨텐츠 업로드
 
-파이프라인 모델 컨텐츠를 업로드하려면, 파이프라인 모델이 2진 형식이어야 합니다. 이를 수행하려면 SparkML 파이프라인 모델에서 save 메소드를 호출하십시오. 다음 예제에 표시된 대로
+파이프라인 모델 컨텐츠를 업로드하려면, 파이프라인 모델이 2진 형식이어야 합니다. 이를 수행하려면,
+SparkML 파이프라인 모델에서 `save` 메소드를 호출하십시오. 다음 예제에 표시된 대로
 파이프라인의 ID 및 버전을 엔드포인트에 제공하여 2진 컨텐츠를 업로드할 수 있습니다. 
 
 ```
@@ -360,3 +347,10 @@ https://ibm-watson-ml.mybluemix.net/ v2/artifacts/pipelines/1314f74d-a2a7-46d3-8
 {"ok":"true"}
 ```
 {: codeblock}
+
+## 자세히 보기
+
+모델 개발에 대해 자세히 알아보려면 다음 노트북을 참조하십시오. 
+
+*  [Python을 사용하여 SparkML 모델 개발](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
+*  [Scala를 사용하여 SparkML 모델 개발](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)

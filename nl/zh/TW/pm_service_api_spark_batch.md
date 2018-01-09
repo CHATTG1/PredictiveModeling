@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,26 +12,37 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# 部署批次模型<span class='tag--beta'>測試版</span>
+# 部署批次模型
 
-**附註**：此功能目前為測試版，只提供搭配 Spark MLlib 使用。如果您有興趣參與，請將自己新增到等待清單！
-如需相關資訊，請參閱：[https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist)。
+使用 {{site.data.keyword.pm_full}} 服務，您可以部署模型，並且針對已部署模型提出評分要求來產生預測分析。
+{: shortdesc}
+
 
 **情境名稱**：客戶滿意度預測。
 
 **情境說明**：電信公司想要知道哪些客戶有離開的風險。呈現的模型預測客戶流失。資料科學家開發出一套預測模型，並將其與您（開發人員）分享。您的工作是部署模型，然後對已配置的模型提出評分要求，以產生預測分析模型。
 
+**附註：**您也可以試用範例 Python [記事本](https://apsportal.ibm.com/analytics/notebooks/5e4963d9-faea-455d-a7db-ff6302d1d8f5/view?access_token=5d23d36be72dea35ebbde9b4b5f4a16d0053ee898f1ab2ab73cf1301ce9322be)，它會建立範例模型以及預測客戶流失。
+
+## 必要條件
+
+若要使用此範例，您必須具有下列資源：
+
+* [Object Storage](https://console.bluemix.net/catalog/services/object-storage) 實例詳細資料，用來作為模型的輸入（要評分的客戶資料），以及模型輸出的儲存空間。您可以從[這裡](https://raw.githubusercontent.com/pmservice/wml-sample-models/master/spark/customer-satisfaction-prediction/data/scoreInput.csv)下載範例輸入資料 .csv 檔案。您應該將輸入檔新增至 Object Storage 實例。
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) 服務實例認證。您可以使用[此鏈結](https://console.bluemix.net/catalog/services/apache-spark)予以建立。
+
+
+
 ## 使用範例模型
 
-1. 移至「IBM® Watson™ Machine Learning 儀表板」的「範例」標籤。
+1. 移至「{{site.data.keyword.pm_full}} 儀表板」的**範例**標籤。
+2. 在**範例模型**區段中，尋找**客戶滿意度預測**磚，然後按一下**新增模型**圖示 (+)。
 
-2. 在「範例模型」區段中，尋找「客戶滿意度預測」磚，然後按一下「新增模型」按鈕 (+)。
-
-現在您會在「模型」標籤上看到範例「客戶滿意度預測」模型列在可用的模型清單中。
+範例「客戶滿意度預測」模型即會出現在**模型**標籤的可用模型清單中。
 
 ## 產生存取記號
 
-使用 IBM Watson Machine Learning 服務實例的「服務認證」標籤上所提供之使用者和密碼，產生存取記號。
+使用 {{site.data.keyword.pm_full}} 服務實例的「服務認證」標籤中所提供的使用者和密碼來產生存取記號。
 
 要求範例：
 
@@ -56,9 +67,11 @@ token="<token_value>"
 {: codeblock}
 
 ## 使用已發佈的模型
-使用下列 API 呼叫來取得您的實例詳細資料，例如：
-* 已發佈模型 `url`
-* 部署 `url`
+
+使用下列 API 呼叫來取得實例詳細資料，其中包括下列項目：
+
+* 已發佈模型 `url` 值
+* 部署 `url` 值
 * 用量資訊
 
 要求範例：
@@ -93,14 +106,13 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
 {: codeblock}
 
-
-讓 **published_models** `url` 使用下列 API 呼叫取得模型的詳細資料：
+提供 **published_models** `url` 值，即可使用下列 API 呼叫來取得模型詳細資料：
 
 要求範例：
 
@@ -117,7 +129,8 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
    "resources":[
       {
          "metadata":{
-            "guid":"dc46315a-c30e-46a3-8e30-33518e6f7976",
+
+                     "guid":"dc46315a-c30e-46a3-8e30-33518e6f7976",
             "url":"https://ibm-watson-ml.stage1.mybluemix.net/v3/wml_instances/7a0f9c88-3cf6-4433-89ee-92a641f26e89/published_models/dc46315a-c30e-46a3-8e30-33518e6f7976",
             "created_at":"2017-03-21T13:49:38.711Z",
             "modified_at":"2017-03-21T13:49:38.802Z"
@@ -423,8 +436,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
                   },
                   {
                      "metadata":{
-
-                     },
+      },
                      "type":"string",
                      "name":"StreamingTV",
                      "nullable":true
@@ -486,28 +498,25 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 ```
 {: codeblock}
 
-
-請記下**部署** `url`，這在下一步建立批次部署時會需要。
-
+請記下**部署** `url` 值，在建立下列批次部署時需要該值。
 
 ## 使用 Object Storage 來建立批次部署
 
 若要使用 REST API 呼叫來建立預測模型的批次部署，請提供下列詳細資料：
 
 *  在前一個步驟中建立的存取記號
-
-*  Spark 服務認證（可以在 Bluemix Spark 服務儀表板的「服務認證」標籤上找到）。在提出部署要求之前，必須先將 Spark 認證解碼為 base64，並傳入 curl 要求的標頭中，成為 X-Spark-Service-Instance。
+*  Spark 服務認證（可以在 {{site.data.keyword.Bluemix_notm}} Spark 服務儀表板的「服務認證」標籤上找到）。在提出部署要求之前，必須先將 Spark 認證解碼為 base64，並傳入 `curL` 要求的標頭中，成為 X-Spark-Service-Instance。
 
    視您正在使用的作業系統而定，您必須發出下列其中一個終端機指令來執行 base64 解碼，並將其指派至環境變數。
 
-   在 macOS 作業系統上，請使用下列指令：
+   在 **macOS** 作業系統上，請使用下列指令：
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   在 Microsoft Windows 或 Linux 作業系統上，您必須使用 `--wrap=0` 參數與 `base64` 指令來執行 base64 解碼：
+   在 **Microsoft Windows** 或 **Linux** 作業系統上，您必須搭配使用 `--wrap=0` 參數與 `base64` 指令來執行 base64 解碼：
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
@@ -515,8 +524,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
    {: codeblock}
 
 *  Object Storage 詳細資料，將會用來作為模型的輸入（要評分的客戶資料），以及模型輸出的儲存空間（在此案例中為 results.csv，這是自動建立的檔案）。
-
-*  若要建立部署，請使用前一節的**部署** `url`。
+*  若要建立部署，請使用前一節的**部署** `url` 值。
 
 
 要求範例：
@@ -655,11 +663,9 @@ curl -v -XPOST \
 
 **附註**：您也可以使用該儀表板來建立批次部署。
 
-
 ## 取得部署詳細資料
 
-您可以使用 **meta 資料** `url` 檢查與部署模型相關的狀態和參數（請參閱上述輸出範例）。
-
+您可以使用 **meta 資料** `url` 值，來檢查與部署模型相關的狀態及參數。
 要求範例：
 
 ```
@@ -751,7 +757,7 @@ curl -v -XGET -H "Content-Type:application/json" -H "Authorization: Bearer $toke
 ```
 {: codeblock}
 
-預測結果會儲存至 IBM Object Storage 中的 .csv 檔案。以下是範例列。
+預測結果會儲存至 IBM Object Storage 中的 .csv 檔案。如需輸出範例，請參閱下列範例列。
 
 輸入檔預覽：
 
@@ -782,7 +788,7 @@ Fiber optic, Month-to-month, 1, 79.35, 1
 
 ## 刪除批次部署
 
-您可以使用查詢來刪除不再需要的部署，如下列範例所示。
+若要刪除部署，請使用下列查詢：
 
 要求範例：
 
@@ -807,3 +813,13 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 1600446575
 ```
 {: codeblock}
+
+## 進一步瞭解
+
+準備好要開始了嗎？若要建立服務的實例或是連結應用程式，請參閱[搭配使用服務與 Spark 及 Python 模型](using_pm_service_dsx.html)或[搭配使用服務與 IBM® SPSS® 模型](using_pm_service.html)。
+
+如需 API 的相關資訊，請參閱 [Spark 及 Python 模型的服務 API](pm_service_api_spark.html) 或 [IBM® SPSS® 模型的服務 API](pm_service_api_spss.html)。
+
+如需 IBM® SPSS® Modeler 及其提供之建模演算法的相關資訊，請參閱 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+
+如需 IBM Data Science Experience 及其提供之建模演算法的相關資訊，請參閱 [https://datascience.ibm.com](https://datascience.ibm.com)。

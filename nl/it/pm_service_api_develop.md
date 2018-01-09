@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,6 +14,8 @@ lastupdated: "2017-09-07"
 
 # Sviluppo di applicazioni che si avvalgono di modelli SPSS distribuiti
 
+Puoi sviluppare le applicazioni {{site.data.keyword.pm_full}} utilizzando i modelli IBM® SPSS®.  
+{: shortdesc}
 
 *  [Calcolo del punteggio con un modello predittivo distribuito](#scoring-with-a-deployed-predictive-model)
 
@@ -84,8 +86,8 @@ Risposta quando la richiesta di calcolo di punteggio non riesce:
 
 ## Richiamo dei metadati per un modello predittivo distribuito
 
-Utilizza questa chiamata API per richiamare i metadati per il ramo di calcolo del punteggio
-        di un flusso IBM SPSS Modeler distribuito. Non fornire un corpo della richiesta con questo metodo.
+Utilizza la seguente chiamata API per richiamare i metadati per il ramo di calcolo del punteggio di un flusso
+IBM® SPSS® Modeler distribuito. Non fornire un corpo della richiesta con questo metodo.
 
 ```
 GET http://{service
@@ -215,3 +217,18 @@ Risposta quando la richiesta WADL non riesce:
         } 
 ```
 {: codeblock}
+
+## Ulteriori informazioni
+
+Sei pronto a iniziare? Per creare un'istanza di un servizio o per eseguire il bind
+di un'applicazione, vedi [Utilizzo del servizio con i modelli Spark e Python](using_pm_service_dsx.html) oppure
+[Utilizzo del servizio con i modelli IBM® SPSS®](using_pm_service.html).
+
+Per ulteriori informazioni sull'API, vedi [API del servizio per i modelli Spark e Python](pm_service_api_spark.html) o [API del
+servizio per i modelli IBM® SPSS®](pm_service_api_spss.html).
+
+Per ulteriori informazioni su IBM® SPSS® Modeler e sugli algoritmi di modellazione che fornisce, consulta
+[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Per ulteriori informazioni su IBM Data Science Experience e sugli algoritmi di
+modellazione che fornisce, vedi [https://datascience.ibm.com](https://datascience.ibm.com).

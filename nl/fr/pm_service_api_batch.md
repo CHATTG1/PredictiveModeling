@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -13,39 +13,16 @@ lastupdated: "2017-09-07"
 
 # API de travail par lots du service Machine Learning pour les modèles IBM SPSS Modeler
 
+L'API de travail par lots du service {{site.data.keyword.pm_full}} prend en charge les tâches à exécution longues relatives à l'apprentissage de modèle, à l'évaluation de modèle et à l'évaluation par lots. Elle gère deux types d'actifs : les fichiers de flux IBM® SPSS® Modeler utilisés dans les travaux par lots et les définitions de travaux qui sont soumises.
+{: shortdesc}
 
-*  [Suppression de travaux](#deleting-jobs)
+Pour chaque fichier de flux SPSS® Modeler que vous téléchargez, il peut y avoir de nombreux travaux de plusieurs types qui sont soumis. Si un travail a la capacité de mettre à jour le contenu d'un fichier de flux Modeler, le fichier modifié est inclus dans les pièces jointes de résultat de travail. Dans un type de travail d'évaluation de modèle, tous les fichiers d'évaluation générés figurent dans les pièces jointes des résultats de travail.
 
-*  [Vérification du statut d'un travail](#checking-the-status-of-a-job)
-
-*  [Nouvelle soumission d'un travail](#resubmit-a-job)
-
-*  [Soumission d'un travail vis à vis d'un fichier de flux Modeler téléchargé](#submit-a-job-against-an-uploaded-modeler-stream-file)
-
-*  [Téléchargement d'un fichier de flux pour son utilisation dans vos travaux](#upload-a-stream-file-to-use-in-your-jobs)
-
-*  [Types de travail](#job-types)
-
-*  [Etat de travail](#job-status)
-
-*  [Détails d'API de travail](#job-api-details)
-
-*  [JSON de définition de travail](#job-definition-json)
-
-*  [Détails de l'API de travail par lots](#batch-job-api-details)
-
-L'API de travail par lots pour le service Machine Learning prend en charge les tâches à exécution longue relatives à l'apprentissage par le modèle, son évaluation et l'évaluation par lots. Cette API gère deux types d'actif : les fichiers de flux SPSS Modeler utilisés dans les travaux par lots et les définitions de travail soumises. Pour chaque fichier de flux Modeler téléchargé, il se peut que de nombreux travaux de différents types soient soumis. Si un travail a la capacité de mettre à jour le contenu d'un fichier de flux Modeler, le fichier modifié sera inclus dans les pièces jointes de résultat de travail. Dans un type de travail d'évaluation de modèle, tous les fichiers d'évaluation générés figurent dans les pièces jointes de résultat de travail.
-
-Pour un exemple d'adoption de travail par lots, reportez-vous au dossier suivant :
-[From SPSS stream to batch scoring with
-Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37).
-
-**Remarque** : Les données qui s'affichent sur le tableau de bord concernent uniquement les prévisions en temps réel, y compris les données de la fonction de
-téléchargement.
+**Remarque** : Les données qui s'affichent sur le tableau de bord concernent uniquement des prédictions en temps réel, par exemple les données de la fonction de téléchargement.
 
 ## Suppression de travaux
 
-Vous pouvez supprimer des travaux, ce qui entraîne leur annulation s'ils sont en cours d'exécution. Utilisez la commande `DELETE` avec `job ID`. Vous
+Vous avez la possibilité de supprimer des travaux. Si un travail est en cours d'exécution, sa suppression entraîne d'abord son annulation. Utilisez la commande `DELETE` avec `job ID`. Vous
 pouvez annuler plusieurs travaux à la fois en transférant plusieurs ID.
 
 ```
@@ -54,11 +31,12 @@ DELETE https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job ID
 ```
 {: codeblock}
 
-Les données obtenues en retour indiquent combien de travaux référencés par un ID dans la demande ont été supprimés. Si ce nombre ne correspond pas à la liste de travaux transmise via la demande, vous devez vérifier le statut de chacun des travaux.
+Les données obtenues en retour indiquent le nombre de travaux, référencés par un ID dans la requête, qui ont été supprimés. Si ce nombre ne correspond pas à la liste de travaux transmise via la requête, vérifiez le statut de chacun des travaux.
 
 ## Vérification du statut d'un travail
 
 Vous pouvez obtenir le statut de votre `job ID` à tout moment à l'aide de la commande `GET` :
+
 
 ```
 GET https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -66,11 +44,13 @@ ID}/status?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-L'objet JSON renvoyé indique l'ID de travail (jobstatus) et, si le travail a abouti, une URL de données (dataUrl) que vous pouvez utiliser pour obtenir le contenu complet du fichier généré.
+Le fichier JSON renvoyé indique le statut du travail et, si le travail a abouti, une URL de données que vous pouvez utiliser pour obtenir le contenu complet du fichier généré.
 
 ## Nouvelle soumission d'un travail
 
-Pour soumettre à nouveau un travail, utilisez la commande `PUT` avec le `job ID`. Le travail ne doit pas être en cours d'exécution.
+Pour soumettre à nouveau un travail, utilisez la commande `PUT` avec le `job ID`. Pour ce faire, le travail ne doit pas être en cours d'exécution.
+
+Si l'ID référencé n'existe pas, l'appel suivant crée un nouveau travail. Le code de statut renvoyé est alors 201 et non 200 (indiquant celui qui s'est produit). Vous devez transmettre le fichier JSON de définition de travail à utiliser dans cette exécution.
 
 ```
 PUT https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -78,9 +58,7 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-avec content_type "application/json" en incluant dans le corps de la demande la nouvelle définition de travail JSON (ou celle mise à jour).
-
-En réalité, cet appel crée un nouveau travail si l'ID référencé n'existe pas, et le code réponse 201 ou 200 est renvoyé pour indiquer lequel de ces travaux a été exécuté. Vous devez transmettre le JSON de définition de travail à utiliser dans cette exécution.
+Soumettez à nouveau le travail avec la valeur `content_type` définie sur "application/json". Vous devez inclure dans le corps de la requête le fichier JSON de définition de travail nouveau ou mis à jour.
 
 ## Soumission d'un travail vis à vis d'un fichier de flux Modeler téléchargé
 
@@ -92,16 +70,13 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-avec content_type "application/json" en incluant dans le corps de la demande la définition de travail JSON.
+Soumettez le travail avec la valeur `content_type` définie sur "application/json". Vous devez inclure dans le corps de la requête le fichier JSON de définition de travail nouveau ou mis à jour.
 
-Cette demande génère un retour immédiat, indiquant que l'opération a abouti si la définition de travail a été placée dans la file d'attente d'exécution. Il n'existe aucun test permettant de vérifier la capacité à exécuter le flux Modeler tel qu'il est configuré dans votre définition de travail. Le travail sera exécuté par l'un des serveurs de travaux Machine Learning dans le cloud et vous pourrez surveiller son statut. Si
-vous effectuez un entraînement de modèle et indiquez qu'une opération d'actualisation automatique est nécessaire, le travail remplacera le fichier de flux Modeler d'origine à la fin de son exécution.
-
-Pour plus d'informations sur l'objet JSON de définition de travail, voir [Objet JSON de définition de travail](#job-definition-json).
+Cette requête génère un retour immédiat et indique que l'opération a abouti si la définition de travail a été placée dans la file d'attente d'exécution. Il n'existe aucun test permettant de vérifier la capacité à exécuter le flux Modeler tel qu'il est configuré dans votre définition de travail. Le travail sera exécuté par l'un des serveurs de travaux {{site.data.keyword.pm_short}} dans le cloud et vous pourrez surveiller son statut. Si vous effectuez un apprentissage de modèle et que vous indiquez qu'une opération d'actualisation automatique est nécessaire, le travail remplace le fichier de flux Modeler d'origine à la fin de son exécution.
 
 ## Téléchargement d'un fichier de flux à utiliser dans vos travaux
 
-**Remarque** : le tableau de bord de Machine Learning permet uniquement les évaluations en temps réel. Vous ne pouvez pas l'utiliser pour exécuter des travaux (évaluation par lots).
+**Remarque ** : Le tableau de bord de {{site.data.keyword.pm_short}} a été conçu uniquement pour les évaluations en temps réel. Vous ne pouvez pas l'utiliser pour exécuter des travaux (évaluation par lots).
 
 Pour rendre un fichier de flux Modeler accessible aux travaux, utilisez la commande `PUT` :
 
@@ -118,8 +93,7 @@ ainsi que la référence de modèle dans vos définitions de travaux. Notez que 
 sous le même `file ID` remplace implicitement la copie en cours.
 
 Pour générer une liste de tous les fichiers téléchargés pour vos travaux, utilisez une commande `GET`, mais omettez le paramètre `file ID`. Pour
-extraire un fichier spécifique, utilisez une commande `GET` avec le paramètre `file ID`. Vous pouvez également supprimer un fichier téléchargé en émettant une
-commande `DELETE`. Ceci entraînera des erreurs dans toutes les exécutions de travaux en suspens faisant référence au fichier.
+extraire un fichier spécifique, utilisez une commande `GET` avec le paramètre `file ID`. Vous pouvez également supprimer un fichier téléchargé en émettant une commande `DELETE`. Ceci entraînera des erreurs dans toutes les exécutions de travaux en suspens faisant référence au fichier.
 
 Exemple de requête :
 
@@ -163,20 +137,18 @@ Réponse en cas d'échec du déploiement :
 
 ## Types de travail
 
-**Training** : ce type de travail indique que tous les noeuds terminal "générateur de modèle" doivent être exécutés dans le flux Modeler. Une fois le travail exécuté, un
-flux Modeler mis à jour avec des nuggets de modèle à nouveau entraînés figurent dans les résultats de travail pouvant être extraits. Si le fichier de flux Modeler comporte des liens entre les
-noeuds génération de modèle et les nuggets de modèle entraînés dans l'évaluation et les branches d'évaluation, cela provoque une actualisation de ces noeuds.
+**Apprentissage** : Ce type de travail indique que tous les noeuds terminal "générateur de modèle" doivent être exécutés dans le flux Modeler. Une fois le travail exécuté, un
+flux Modeler mis à jour avec des nuggets de modèle à nouveau formés figurent dans les résultats de travail pouvant être extraits. Si le fichier de flux Modeler comporte des liens entre les
+noeuds génération de modèle et les nuggets de modèle formés dans l'évaluation et les branches d'évaluation, cela provoque une actualisation de ces noeuds.
 
 **Evaluation** : ce type de travail déclenche l'exécution de tous les noeuds terminal "générateur de document" (principalement depuis les onglets Graphiques et Sortie dans le client Modeler) qui génèrent un contenu de fichier de rapport statique pouvant être transmis à l'appelant. La branche d'évaluation n'est pas considérée comme faisant partie de ce type de travail.
 
-**Auto-Refresh** : version du type de travail `TRAINING` dans laquelle le fichier de flux Modeler d'origine figurant dans la liste des fichiers par
-lots sera mis à jour si le travail aboutit. La décision d'évaluation explicite concernant un événement d'actualisation des flux Modeler déployés pour l'évaluation en temps réel est supposée et elle n'est pas abordée dans la section sur l'actualisation automatique à ce stade.
+**Actualisation automatique** : Vversion du type de travail `TRAINING` dans laquelle le fichier de flux Modeler d'origine figurant dans la liste des fichiers par lots sera mis à jour si le travail aboutit. La décision d'évaluation explicite concernant un événement d'actualisation des flux Modeler déployés pour l'évaluation en temps réel est supposée et elle n'est pas abordée dans la section sur l'actualisation automatique à ce stade.
 
-**Batch Score** : exécution du noeud terminal auquel vous avez appliqué l'option Utiliser en tant que branche d'évaluation, indiquant qu'il s'agit de la branche
+**Evaluation par lots** : Exécution du noeud terminal auquel vous avez appliqué l'option Utiliser en tant que branche d'évaluation, indiquant qu'il s'agit de la branche
 d'évaluation dans cette conception de flux Modeler. La définition de travail doit spécifier les détails relatifs à l'exportation et à la source.
 
-**Run Stream** : l'exécution revient à cliquer sur le bouton vert "run" dans Modeler avec l'option Exécuter ce script sélectionnée sur l'onglet Exécution des propriétés
-de flux. L'utilisation couvre le besoin d'exécution du script d'entraînement du modèle ou d'autres types de travail. Tout le contrôle dynamique du script doit être géré par des paramètres de flux, avec des valeurs de paramètre transmises dans la définition de travail.
+**Exécution en flux** : Exécution similaire à un clic de souris sur l'icône verte "Exécuter" dans Modeler avec l'option Exécuter ce script sélectionnée sur l'onglet Exécution des propriétés de flux. L'utilisation couvre le besoin d'exécution du script d'entraînement du modèle ou d'autres types de travail. Tout le contrôle dynamique du script doit être géré par des paramètres de flux, avec des valeurs de paramètre transmises dans la définition de travail.
 
 ## Etat de travail
 
@@ -216,7 +188,7 @@ Clé d'accès renvoyée en tant que données d'identification pour la mise à di
 ```
 {: codeblock}
 
-`job ID` spécifié par l'utilisateur. Doit être unique pour l'instance de service Machine Learning :
+`job ID` spécifié par l'utilisateur. Doit être unique pour une instance de service {{site.data.keyword.pm_short}} :
 
 ```
 @PathParam("id")
@@ -505,7 +477,7 @@ téléchargement.
 
 **TRAINING** – Exécute l'entraînement du noeud "générateur de modèle" ou l'actualisation de nuggets de modèle. Le flux Modeler mis à jour est extrait dans les résultats de travail.
 
-**EVALUATION** – Exécute les noeuds analyse et générateur de documents qui évaluent le modèle entraîné
+**EVALUATION** – Exécute les noeuds analyse et générateur de documents qui évaluent le modèle formé
 
 **AUTO_REFRESH** – Exécute une action TRAINING et met à jour le contenu du fichier dans l'espace de téléchargement des fichiers de traitement par lots.
 
@@ -524,7 +496,7 @@ Model : ID tel que spécifié dans l'action de téléchargement de fichier pour 
 ```
 {: codeblock}
 
-Notez que l'ID doit être identique au `file ID` utilisé dans l'API `PUT`. Le nom n'est pas obligatoire, mais dans le cas d'apprentissage par le modèle et d'actualisation, le résultat du travail sera sauvegardé sous le nom défini ici. S'il n'a pas été défini, le service Machine Learning générera le résultat compte tenu de règles de nommage prédéfinies.
+Notez que l'ID doit être identique au `file ID` utilisé dans l'API `PUT`. Le nom n'est pas obligatoire, mais dans le cas d'apprentissage par le modèle et d'actualisation, le résultat du travail sera sauvegardé sous le nom défini ici. Si le nom n'a pas été défini, le service {{site.data.keyword.pm_short}} génère le résultat en fonction des règles de nommage prédéfinies.
 
 ### Paramètres de travail
 
@@ -581,8 +553,7 @@ Connectivité et table de base de données de référence utilisées pour défin
                "dbRef”; “db2”,
                "table": "DRUG1N",
           },
-          "node": "ScoreInput",
-          "attributes": []
+          "node": "ScoreInput"
      }
 ],
 ```
@@ -604,30 +575,6 @@ Méthode de contrôle utilisée lorsque des données persistantes sont communiqu
 
 **Refresh** – des lignes de la table sont supprimées avant l'insertion de nouvelles lignes
    
-Le chargement par lots peut être utilisé pour améliorer les performances d'insertion.
-La prise en charge du chargement par lots peut être activée à l'aide de l'attribut bulkLoading :
-
-**Off** - le chargement par lots est désactivé
-
-**ODBC** - chargement par lots via le pilote ODBC
-
-
-```
-"exports": [
-     {
-          "odbc": {
-               "dbRef”; “db1”,
-               "table": "DRUGSCORES",
-               “insertMode”:”Append”
-          },
-          "node": "ExportScores",
-          "attributes": [],
-          "bulkLoading": "Off"
-     }
-],
-```
-{: codeblock}
-
 Le paramètre table désigne le nom de la table de base de données dans laquelle consigner les résultats du travail.
 Le paramètre node désigne le nom du noeud terminal pour le flux. Comme pour les paramètres de noeud source, le paramètre node identifie le noeud de sortie d'origine dans le flux Modeler qui doit être remplacé par un noeud d'exportation de base de données construit avec les paramètres fournis.
 
@@ -689,8 +636,7 @@ Les formats suivants sont pris en charge : HTML, JPG, PNG, RTF, SAV, TAB et XML.
                                    "dbRef”; “db”,
                                    "table": "DRUG1N",
                          },
-                         "node": "ScoreInput",
-                         "attributes": []
+                         "node": "ScoreInput"
                     }
           ],
           "parameterOverride": [
@@ -710,11 +656,11 @@ Les formats suivants sont pris en charge : HTML, JPG, PNG, RTF, SAV, TAB et XML.
 
 ## Détails de l'API de travail par lots
 
-Les sections ci-après fournissent des informations détaillées sur l'API de gestion de fichier de SPSS Modeler pour travaux par lots.
+Les sections ci-après fournissent des informations détaillées sur l'API de gestion de fichiers IBM® SPSS® Modeler pour travaux par lots.
 
 `PUT /v1/file/{id}`
 
-Description : télécharge un fichier de flux SPSS Modeler à utiliser dans des travaux par lots.
+Description : télécharge un fichier de flux IBM® SPSS® Modeler à des fins d'utilisation dans des travaux par lots.
 
 **Remarque **: si un fichier est déjà stocké sous l'ID spécifié, il sera écrasé.
 
@@ -846,7 +792,7 @@ Autre erreur. Un JSON d'exception est renvoyé :
 
 `GET /v1/file/{id}`
 
-Description : extrait le fichier de flux SPSS Modeler stocké pour utilisation dans le traitement de travail par lots sous l'ID spécifié.
+Description : extrait le fichier de flux IBM® SPSS® Modeler stocké pour utilisation dans le traitement de travail par lots sous l'ID spécifié.
 
 Content Types:
 
@@ -873,7 +819,7 @@ ID spécifié par l'utilisateur pour le fichier lors de son téléchargement :
 
 Réponses :
 
-Réussite. Le fichier SPSS Modeler est renvoyé :
+Réussite. Le fichier IBM® SPSS® Modeler est renvoyé :
 
 ```
 @ApiResponse(code = 200)
@@ -893,3 +839,9 @@ Autre erreur. Un JSON d'exception est renvoyé :
 @ApiResponse(code = 500)
 ```
 {: codeblock}
+
+## Informations supplémentaires
+
+Pour un exemple d'adoption de travail par lots, reportez-vous au dossier [Du flux SPSS à l'évaluation par lots avec Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37).
+
+Pour plus d'informations sur l'objet JSON de définition de travail, voir [Objet JSON de définition de travail](#job-definition-json).

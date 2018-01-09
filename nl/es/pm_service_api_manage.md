@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-06-23"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,25 +14,33 @@ lastupdated: "2017-06-23"
 
 # Gestión de los modelos SPSS desplegados
 
+Puede utilizar la API de servicio de {{site.data.keyword.pm_full}} para cargar un archivo que contenga la rama de puntuación de IBM® SPSS® Modeler para desplegar. Cuando se haya cargado, estará disponible para puntuar datos de las aplicaciones.
+{: shortdesc}
+
+Específicamente, puede realizar las tareas siguientes:
 
 *  [Despliegue o renovación de un modelo de predicción](#deploying-or-refreshing-a-predictive-model)
-
 *  [Recuperación de una lista de todos los modelos desplegados actualmente](#retrieving-a-list-of-all-currently-deployed-models)
-
 *  [Descarga una copia de un determinado archivo del modelo desplegado](#downloading-a-copy-of-a-specific-deployed-model-file)
-
 *  [Supresión de un modelo de predicción desplegado](#deleting-a-deployed-predictive-model)
 
 ## Despliegue o renovación de un modelo de predicción
 
+A cada archivo del modelo se le asigna un ID de contexto, que sirve como alias para hacer referencia al modelo desplegado en las siguientes llamadas al servicio. Si existe un
+modelo para un ID de contexto, se sustituye por la siguiente llamada `PUT` como método
+de renovar el análisis predictivo que utilizan las
+aplicaciones.
+
+Ejemplo de solicitud:
+
+```
 PUT http://{PA Bluemix load balancer
 URL}/pm/v1/model/{contextId}?accesskey={access_key for this bound
 application}
+```
+{: codeblock}
 
-Utilice esta llamada a la API para cargar un archivo que contenga el sistema de puntuación desarrollado por IBM SPSS Modeler que desea desplegar.
-Está disponible para puntuar los datos de las aplicaciones. A cada archivo del modelo se le asigna un ID de contexto, que sirve como alias para hacer referencia al modelo desplegado en las siguientes llamadas al servicio. Si un modelo ya existe para un ID de contexto, se sustituye por esta llamada PUT como método de renovar el análisis predictivo que utilizan las aplicaciones.
-
-Ejemplo de solicitud: 
+Parámetros de solicitud:
 
 ```
     Content-Type: multipart/form-data
@@ -46,7 +54,7 @@ Ejemplo de solicitud:
 ```
 {: codeblock}
 
-Respuesta cuando el despliegue se ejecuta correctamente: 
+Respuesta cuando el despliegue se ejecuta correctamente:
 
 ```
     Content-Type: application/json
@@ -59,7 +67,7 @@ Respuesta cuando el despliegue se ejecuta correctamente:
 ```
 {: codeblock}
 
-Respuesta cuando el despliegue falla: 
+Respuesta cuando el despliegue falla:
 
 ```
     Content-Type: application/json
@@ -74,13 +82,19 @@ Respuesta cuando el despliegue falla:
 
 ## Recuperación de una lista de todos los modelos desplegados actualmente
 
+Utilice la llamada de API siguiente para recuperar un resumen de todos los modelos actualmente desplegados en
+esta instancia de servicio.
+
+Ejemplo de solicitud:
+
+```
 GET http://{PA Bluemix load balancer
 URL}/pm/v1/model?accesskey={access_key for this bound
 application}
+```
+{: codeblock}
 
-Recupere un resumen de todos los modelos actualmente desplegados en esta instancia del servicio.
-
-Ejemplo de solicitud: 
+Parámetros de solicitud:
 
 ```
     Content-Type: */*
@@ -90,7 +104,7 @@ Ejemplo de solicitud:
 ```
 {: codeblock}
 
-Respuesta cuando la solicitud de resumen de un modelo desplegado se ejecuta correctamente: 
+Respuesta cuando la solicitud de resumen de un modelo desplegado se ejecuta correctamente:
 
 ```
     Content-Type: application/json
@@ -110,7 +124,7 @@ Respuesta cuando la solicitud de resumen de un modelo desplegado se ejecuta corr
 ```
 {: codeblock}
 
-Respuesta cuando la solicitud de resumen de un modelo desplegado falla: 
+Respuesta cuando la solicitud de resumen de un modelo desplegado falla:
 
 ```
     Content-Type: application/json
@@ -125,13 +139,18 @@ Respuesta cuando la solicitud de resumen de un modelo desplegado falla:
 
 ## Descarga una copia de un determinado archivo del modelo desplegado
 
+Utilice la siguiente llamada de API para descargar una copia de un archivo del modelo desplegado específico.
+
+Ejemplo de solicitud:
+
+```
 GET http://{PA Bluemix load balancer
 URL}/pm/v1/model/{contextId}?accesskey={access_key for this bound
 application}
+```
+{: codeblock}
 
-Utilice esta llamada a la API para descargar una copia de un determinado archivo del modelo desplegado.
-
-Ejemplo de solicitud: 
+Parámetros de solicitud:
 
 ```
     Content-Type: */*
@@ -143,7 +162,7 @@ Ejemplo de solicitud:
 ```
 {: codeblock}
 
-Respuesta cuando la solicitud de descarga se ejecuta correctamente: 
+Respuesta cuando la solicitud de descarga se ejecuta correctamente:
 
 ```
     Content-Type: application/octet-stream
@@ -168,13 +187,21 @@ Respuesta cuando la solicitud de descarga falla:
 
 ## Supresión de un modelo de predicción desplegado
 
+Utilice la siguiente llamada de API para suprimir el modelo predictivo de la instancia de servicio de Machine
+Learning. Después de ejecutar esta llamada, el modelo predictivo
+dejará de estar disponible para su descarga o para puntuar datos en las
+aplicaciones.
+
+Ejemplo de solicitud:
+
+```
 DELETE http://{service
 instance}/pm/v1/model/{contextId}?accesskey={access_key for this
 bound application}
+```
+{: codeblock}
 
-Utilice esta llamada a la API para suprimir el modelo de predicción de la instancia del servicio Machine Learning. Después esta llamada, el modelo de predicción dejará de estar disponible para su descarga o para puntuar datos en las aplicaciones.
-
-Ejemplo de solicitud: 
+Parámetros de solicitud:
 
 ```
     Content-Type: */*
@@ -199,15 +226,28 @@ Respuesta cuando la eliminación del despliegue se ejecuta correctamente:
 ```
 {: codeblock}
 
-Respuesta cuando la eliminación del despliegue falla: 
+Respuesta cuando la eliminación del despliegue falla:
 
 ```
     Content-Type: application/json
     Status code: 200
     body:
         {
-           "flag":false, 
+           "flag":false,
            "message":"reason"
         }
 ```
 {: codeblock}
+
+## Información adicional
+
+¿Preparado para ponerse en marcha? Para crear una instancia de servicio o enlazar
+una aplicación, consulte [Utilización del servicio con modelos Spark y Python](using_pm_service_dsx.html) o
+[Utilización del servicio con modelos IBM® SPSS®](using_pm_service.html).
+
+Para obtener más información sobre la API, consulte [API del servicio para modelos Spark y Python](pm_service_api_spark.html) o [API del servicio para modelos IBM® SPSS®](pm_service_api_spss.html).
+
+Para obtener más información sobre IBM® SPSS® Modeler y los algoritmos de modelado que proporciona,
+consulte [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Para obtener más información sobre IBM Data Science Experience y los algoritmos de modelado que proporciona, consulte [https://datascience.ibm.com](https://datascience.ibm.com).

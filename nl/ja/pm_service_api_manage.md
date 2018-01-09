@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,20 +14,21 @@ lastupdated: "2017-09-07"
 
 # デプロイされた SPSS モデルの管理
 
+{{site.data.keyword.pm_full}} サービス API を使用して、デプロイ対象の IBM® SPSS® Modeler スコアリング枝が含まれているファイルをアップロードできます。そのファイルは、アップロードされた後、アプリケーションでデータをスコアリングするために使用可能にされます。
+{: shortdesc}
+
+具体的には、以下のタスクを実行できます。
 
 *  [予測モデルのデプロイまたは最新表示](#deploying-or-refreshing-a-predictive-model)
-
 *  [現在デプロイされている全モデルのリストの取得](#retrieving-a-list-of-all-currently-deployed-models)
-
 *  [デプロイされた特定モデル・ファイルのコピーをダウンロードする](#downloading-a-copy-of-a-specific-deployed-model-file)
-
 *  [デプロイされた予測モデルの削除](#deleting-a-deployed-predictive-model)
 
 ## 予測モデルのデプロイまたは最新表示
 
-この API 呼び出しを使用して、デプロイ対象の IBM SPSS Modeler の開発済みスコアリング枝が含まれるファイルをアップロードします。
-これは、お使いのアプリケーションでデータをスコアリングするために使用可能です。
-各モデル・ファイルには、以降のサービス呼び出しでデプロイ済みモデルを参照するために使用する便利な別名として context ID が与えられます。特定の context ID にモデルが存在する場合、既存のモデルは、アプリケーションで使用中の予測分析を最新表示する手段として、この PUT 呼び出しによって置き換えられます。
+各モデル・ファイルには、以降のサービス呼び出しでデプロイ済みモデルを参照するために使用する便利な別名として context ID が与えられます。特定の context ID のモデルが存在する場合、そのモデルは、アプリケーションで使用中の予測分析を最新表示する手段として、以下の `PUT` 呼び出しによって置き換えられます。
+
+要求の例:
 
 ```
 PUT http://{PA Bluemix load balancer
@@ -35,7 +36,7 @@ URL}/pm/v1/model/{contextId}?accesskey={access_key for this bound
 application}```
 {: codeblock}
 
-要求の例:
+要求パラメーター:
 
 ```
     Content-Type: multipart/form-data
@@ -77,7 +78,9 @@ application}```
 
 ## 現在デプロイされている全モデルのリストの取得
 
-このサービス・インスタンスに現在デプロイされているすべてのモデルのサマリーを取得します。
+このサービス・インスタンスに現在デプロイされているすべてのモデルのサマリーを取得するには、以下の API 呼び出しを使用します。
+
+要求の例:
 
 ```
 GET http://{PA Bluemix load balancer
@@ -85,7 +88,7 @@ URL}/pm/v1/model?accesskey={access_key for this bound
 application}```
 {: codeblock}
 
-要求の例:
+要求パラメーター:
 
 ```
     Content-Type: */*
@@ -130,13 +133,17 @@ application}```
 
 ## デプロイされた特定モデル・ファイルのコピーをダウンロードする
 
-GET http://{PA Bluemix load balancer
-URL}/pm/v1/model/{contextId}?accesskey={access_key for this bound
-application}
-
-この API 呼び出しを使用して、デプロイされた特定のモデル・ファイルのコピーをダウンロードします。
+以下の API 呼び出しを使用して、デプロイされた特定のモデル・ファイルのコピーをダウンロードします。
 
 要求の例:
+
+```
+GET http://{PA Bluemix load balancer
+URL}/pm/v1/model/{contextId}?accesskey={access_key for this bound
+application}```
+{: codeblock}
+
+要求パラメーター:
 
 ```
     Content-Type: */*
@@ -173,14 +180,17 @@ application}
 
 ## デプロイされた予測モデルの削除
 
-DELETE http://{service
-instance}/pm/v1/model/{contextId}?accesskey={access_key for this
-bound application}
-
-この API 呼び出しを使用して、Machine Learning サービス・インスタンスから予測モデルを削除します。この呼び出しの実行後は、予測モデルはアプリケーション内のダウンロードにもデータのスコアリングにも使用できなくなります。
-
+以下の API 呼び出しを使用して、Machine Learning サービス・インスタンスから予測モデルを削除します。この呼び出しの実行後は、予測モデルはアプリケーション内のダウンロードにもデータのスコアリングにも使用できなくなります。
 
 要求の例:
+
+```
+DELETE http://{service
+instance}/pm/v1/model/{contextId}?accesskey={access_key for this
+bound application}```
+{: codeblock}
+
+要求パラメーター:
 
 ```
     Content-Type: */*
@@ -217,3 +227,13 @@ bound application}
         }
 ```
 {: codeblock}
+
+## 詳細はこちら
+
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、『[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html)』または『[IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html)』を参照してください。
+
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API] (pm_service_api_spss.html) を参照してください。
+
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
+
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

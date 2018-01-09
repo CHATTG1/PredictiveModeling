@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -13,41 +13,16 @@ lastupdated: "2017-09-07"
 
 # IBM SPSS Modeler 模型的 Machine Learning 服务批处理作业 API
 
+{{site.data.keyword.pm_full}} 服务的批处理作业 API 支持与模型培训、模型评估和批量评分相关的长期运行的任务。此 API 可管理两种资产类型：用于批处理作业的 IBM® SPSS® Modeler 流文件和提交的作业定义。
+{: shortdesc}
 
-*  [删除作业](#deleting-jobs)
+对于您上传的每个 SPSS ® Modeler 流文件，可能已经提交有许多类型的大量作业。如果作业可能会更新 Modeler 流文件内容，那么修改后的文件可能会包含在作业结果附件中。在模型评估作业类型中，生成的所有评估文件将会位于作业结果附件中。
 
-*  [检查作业的状态](#checking-the-status-of-a-job)
-
-*  [重新提交作业](#resubmit-a-job)
-
-*  [根据已上传的 Modeler 流文件提交作业](#submit-a-job-against-an-uploaded-modeler-stream-file)
-
-*  [上传要在作业中使用的流文件](#upload-a-stream-file-to-use-in-your-jobs)
-
-*  [作业类型](#job-types)
-
-*  [作业状态](#job-status)
-
-*  [作业 API 详细信息](#job-api-details)
-
-*  [作业定义 JSON](#job-definition-json)
-
-*  [批处理作业 API 详细信息](#batch-job-api-details)
-
-Machine Learning 服务的批处理作业 API 支持与模型培训、模型评估和批量评分相关的长期运行的任务。
-此 API 可管理两种资产类型：用于批处理作业的 SPSS Modeler 流文件和提交的作业定义。
-对于上传的每一个 Modeler 流文件，可能提交了许多类型的许多作业。
-如果作业可能会更新 Modeler 流文件内容，那么修改的文件可能会包含在作业结果附件中。
-在模型评估作业类型中，生成的所有评估文件将会处于作业结果附件中。
-
-
-有关采用的批处理作业示例，请参阅以下配置页：[使用 Python 从 SPSS 流到批量评分](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37)。
-
-**注**：仪表板中显示的数据仅与实时预测相关，包括通过上传功能上传的数据。
+**注**：仪表板中显示的数据仅与实时预测相关，例如通过上传功能上传的数据。
 
 ## 删除作业
 
-您可以删除作业，如果作业当前正在运行，则会取消作业。请使用带 `job ID` 的 `DELETE` 命令。通过传递多个标识，可以一次取消多个作业。
+可以删除作业。如果作业正在运行，那么删除作业操作会先取消该作业。请使用带 `job ID` 的 `DELETE` 命令。通过传递多个标识，可以一次取消多个作业。
 
 ```
 DELETE https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job ID
@@ -55,12 +30,12 @@ DELETE https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job ID
 ```
 {: codeblock}
 
-返回的结果将指示已删除请求中该标识所参考的作业数。如果此数字与请求中传递的列表不匹配，那么您必须检验个别作业的状态。
-
+返回的结果会指示删除了多少个在请求中通过标识引用的作业。如果此数字与请求中传递的列表不匹配，那么必须检查各个作业的状态。
 
 ## 检查作业的状态
 
 通过使用 `GET` 命令，可以在任意点获取 `job ID` 的状态：
+
 
 ```
 GET https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -68,11 +43,13 @@ ID}/status?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-返回的 JSON 指示 jobstatus，如果作业成功完成，则指示您可用于获取所有已生成文件内容的 dataUrl。
+返回的 JSON 文件会指示作业状态，如果作业成功完成，那么会提供可用于获取所有已生成文件内容的数据 URL。
 
 ## 重新提交作业
 
-要重新提交作业，请使用带 `job ID` 的 `PUT` 命令。该作业不得处于正在运行状态。
+要重新提交作业，请使用带 `job ID` 的 `PUT` 命令。要重新提交作业，该作业不能正在运行。
+
+如果引用的标识不存在，那么以下调用将创建新作业。返回状态为 201 或 200（指示发生了其中哪种情况）。必须传递要在此执行中使用的作业定义 JSON 文件。
 
 ```
 PUT https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -80,11 +57,7 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-同时通过 content_type "application/json"，在请求的主体中，包括新的或更新的作业定义 JSON。
-
-如果所参考的标识不存在，此调用实际上会创建新的作业，同时返回 201 或 200，以指出发生的是哪一种情况。
-您必须传递要在此执行中使用的作业定义 JSON。
-
+重新提交作业，其中 `content_type` 值设置为“application/json”。必须在请求的主体中包含新的或更新的作业定义 JSON 文件。
 
 ## 根据已上传的 Modeler 流文件提交作业
 
@@ -96,19 +69,14 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-同时通过 content_type "application/json"，在请求的主体中，包括作业定义 JSON。
+提交作业，其中 `content_type` 值设置为“application/json”。必须在请求的主体中包含新的或更新的作业定义 JSON 文件。
 
-如果作业定义置于执行队列中，那么此请求会立即返回，指示成功。
-不会对成功执行 Modeler 流的能力进行测试，如作业定义中所配置。
-该作业将由云中的其中一个 Machine Learning 作业服务器执行，您可以监视其状态。
-如果执行模型培训并指示您要自动刷新，那么该作业将会在成功执行时替换原始 Modeler 流文件。
-
-
-有关作业定义 JSON 的更多信息，请参阅[作业定义 JSON](#job-definition-json)。
+如果作业定义已放入执行队列中，那么此请求会立即返回并指示成功。不会对成功执行 Modeler 流的能力进行测试，如作业定义中所配置。
+该作业将由云中的某个 {{site.data.keyword.pm_short}} 作业服务器执行，并且可以监视其状态。如果您在执行模型培训并指示要自动刷新，那么该作业在成功执行后将替换原始 Modeler 流文件。
 
 ## 上传要在作业中使用的流文件
 
-**注**：Machine Learning 仪表板仅用于实时评分。您无法将其用于运行作业（批量评分）。
+**注**：{{site.data.keyword.pm_short}} 仪表板仅用于实时评分。您无法将其用于运行作业（批量评分）。
 
 要使 Modeler 流文件可供作业访问，请使用 `PUT` 命令：
 
@@ -178,7 +146,7 @@ ID}?accesskey=xxxxxxxxxx
 
 **批量评分**：执行已应用“用作评分分支”选项的终端节点，指示这是此 Modeler 流设计中的评分分支。作业定义必须指定“导出”以及“评分”详细信息。
 
-**运行流**：执行类似于在已选中流属性“执行”选项卡上“运行此脚本”选项的情况下，单击 Modeler 中的绿色“运行”按钮。使用情况涵盖需要模型培训或其他作业类型的脚本执行。
+**运行流**：执行方式类似于以下情况：已选中流属性“执行”选项卡上的“运行此脚本”选项，并单击 Modeler 中的绿色“运行”图标。使用情况涵盖需要模型培训或其他作业类型的脚本执行。
 脚本的所有动态控制必须由流参数（在作业定义中传递参数值）处理。
 
 
@@ -220,8 +188,7 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-用户指定的 `job ID`。对于 Machine Learning 服务实例来说必须唯一：
-
+用户指定的 `job ID`。对于 {{site.data.keyword.pm_short}} 服务实例必须唯一：
 
 ```
 @PathParam("id")
@@ -544,8 +511,7 @@ Learning 服务实例上所有已定义作业的列表。
 {: codeblock}
 
 请注意，ID 应该与 `PUT` API 中使用的 `file ID` 相同。name 不是必要的，但是对于模型培训和自动刷新，将会使用在这里定义的名称来保存作业结果。
-如果未定义 name，那么 Machine Learning 服务将会根据预定义的命名规则生成结果。
-
+如果未定义 name，那么 {{site.data.keyword.pm_short}} 服务将会根据预定义的命名规则生成结果。
 
 ### 作业设置
 
@@ -604,8 +570,7 @@ Learning 服务实例上所有已定义作业的列表。
 "dbRef”; “db2”,
                "table": "DRUG1N",
           },
-          "node": "ScoreInput",
-          "attributes": []
+          "node": "ScoreInput"
      }
 ],
 ```
@@ -631,29 +596,6 @@ node 识别 Modeler 流中的原始源节点，该节点要由使用这些提供
 
 **Refresh** – 在插入新行之前先从表删除现有的行
    
-批量装入可用于提高插入性能。可以使用 bulkLoading 属性来启用批量装入支持：
-
-**Off** - 批量装入已禁用
-
-**ODBC** - 通过 ODBC 驱动程序批量装入
-
-
-```
-"exports": [
-     {
-          "odbc": {
-"dbRef”; “db1”,
-               "table": "DRUGSCORES",
-               “insertMode”:”Append”
-          },
-          "node": "ExportScores",
-          "attributes": [],
-          "bulkLoading": "Off"
-     }
-],
-```
-{: codeblock}
-
 table 是要将作业结果写入的数据库表名称。node 是流的终端节点名称。与源节点设置类似，node 识别 Modeler 流中的原始输出节点，该节点要由使用这些提供参数所构造的数据库导出节点替换。
 
 
@@ -717,8 +659,7 @@ table 是要将作业结果写入的数据库表名称。node 是流的终端节
 "dbRef”; “db”,
                                    "table": "DRUG1N",
                          },
-                         "node": "ScoreInput",
-                         "attributes": []
+                         "node": "ScoreInput"
                     }
           ],
           "parameterOverride": [
@@ -738,12 +679,11 @@ table 是要将作业结果写入的数据库表名称。node 是流的终端节
 
 ## 批处理作业 API 详细信息
 
-以下各部分提供了批处理作业 SPSS Modeler 文件管理 API 详细信息。
+以下各部分提供了批处理作业 IBM® SPSS® Modeler 文件管理 API 详细信息。
 
 `PUT /v1/file/{id}`
 
-描述：上传在批处理作业中使用的 SPSS Modeler 流文件。
-
+描述：上传要用于批处理作业的 IBM® SPSS® Modeler 流文件。
 
 **注**：如果在指定标识下已经存储有文件，那么会覆盖该文件。
 
@@ -883,8 +823,7 @@ table 是要将作业结果写入的数据库表名称。node 是流的终端节
 
 `GET /v1/file/{id}`
 
-描述：检索指定标识下存储用于批处理作业处理的 SPSS Modeler 流文件。
-
+描述：检索在指定标识下存储用于批处理作业处理的 IBM® SPSS® Modeler 流文件。
 
 内容类型：
 
@@ -912,7 +851,7 @@ table 是要将作业结果写入的数据库表名称。node 是流的终端节
 
 响应：
 
-成功。返回 SPSS Modeler 文件：
+成功。返回 IBM® SPSS® Modeler 文件：
 
 ```
 @ApiResponse(code = 200)
@@ -933,3 +872,9 @@ table 是要将作业结果写入的数据库表名称。node 是流的终端节
 @ApiResponse(code = 500)
 ```
 {: codeblock}
+
+## 了解更多信息
+
+有关在配置页中采用批处理作业的示例，请参阅[从 SPSS 流到使用 Python 的批量评分](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37)。
+
+有关作业定义 JSON 的更多信息，请参阅[作业定义 JSON](#job-definition-json)。

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,6 +14,8 @@ lastupdated: "2017-09-07"
 
 # Distribuzione di modelli online
 
+Per distribuire un modello e generare l'analisi predittiva effettuando richieste di punteggio sul modello distribuito, utilizza il servizio {{site.data.keyword.pm_full}}. Il seguente scenario ti fornisce un esempio su come farlo.
+{: shortdesc}
 
 **Nome scenario**: Previsione linea di prodotti.
 
@@ -25,48 +27,39 @@ di generare le previsioni dell'interesse del cliente effettuando richieste di pu
 
 ## Utilizzo del modello di esempio
 
-1. Vai alla scheda Esempi del dashboard IBM® Watson™ Machine
-   Learning.
+1. Vai alla scheda **Esempi** del dashboard {{site.data.keyword.pm_full}}.
+2. Nella sezione **Modelli di esempio**, cerca il tile **Previsione linea
+di prodotti** e fai clic sull'icona (+) **Aggiungi modello**.
 
-2. Nella sezione Modelli di esempio, cerca il tile Previsione linea di prodotti
-   e fai clic sul pulsante Aggiungi modello (+).
-
-Adesso vedrai il modello di esempio Previsione linea di prodotti nell'elenco
-di modelli disponibili sulla scheda Modelli.
+Viene visualizzato il modello
+di esempio **Previsione linea di prodotti** nell'elenco di modelli
+disponibili nella scheda **Modelli**.
 
 
 ## Creazione della distribuzione online
 
-1. Vai alla scheda Modelli del dashboard IBM® Watson™ Machine
-   Learning.
+1. Vai alla scheda **Modelli** del dashboard {{site.data.keyword.pm_full}}. 
+2. Dal menu **Azioni**, fai clic su **Crea distribuzione**.
+3. Nel modulo **Crea distribuzione** compila i campi **Nome**, **Descrizione** e **Tipo online**.
+4. Fai clic su **Salva**. 
 
-2. Dal menu AZIONI, seleziona Crea distribuzione.
-
-3. Nel modulo Crea distribuzione, fornisci Nome, Descrizione e Tipo online.
-
-4. Fai clic sul pulsante Salva.
-
-Adesso vedrai la distribuzione online nell'elenco di distribuzioni disponibili sulla scheda Distribuzioni.
-
+La distribuzione online viene visualizzata nell'elenco di distribuzioni disponibili nella scheda **Distribuzioni**.
 
 ## Recupero dei dettagli di distribuzione
 
 Puoi controllare lo stato, l'indirizzo dell'endpoint di calcolo del punteggio (`Scoring Endpoint`)
 e i parametri correlati al modello distribuito.
 
-1. Vai alla scheda Distribuzioni del dashboard IBM® Watson™ Machine
-   Learning.
+1. Vai alla scheda **Distribuzioni** del dashboard {{site.data.keyword.pm_full}}. 
+2. Dal menu **Azioni**, fai clic su **Visualizza dettagli**.
 
-2. Dal menu AZIONI, seleziona Visualizza dettagli.
-
-Nota che il valore `Scoring Endpoint` è necessario per effettuare richieste di calcolo del punteggio nel passo successivo.
+Prendi nota del valore `Scoring Endpoint`, che è necessario per effettuare le richieste di calcolo. 
 
 
 ## Esecuzione di richieste di punteggio
 
-Dal momento che il tuo endpoint di calcolo del punteggio è stato creato (`Scoring Endpoint`), puoi
-ora generare le previsioni effettuando richieste di punteggio. In questo scenario, i record dei clienti vengono passati al
-modello predittivo e viene restituita una previsione sui prodotti sportivi.
+Dopo avere creato un endpoint di calcolo, puoi generare le previsioni effettuando le richieste di calcolo. Nel seguente scenario, i record dei clienti vengono passati al
+modello predittivo e viene restituita una previsione sui prodotti sportivi. 
 
 Intestazione record
 di esempio:
@@ -182,3 +175,14 @@ Esempio di output:
 Possiamo vedere, ad esempio, che un dirigente di 55 anni è
 interessato a Mountaineering Equipment, mentre uno studente di 23 anni
 è interessato a Personal Accessories.
+
+## Ulteriori informazioni
+
+Per ulteriori informazioni sull'API, vedi [API del servizio per i modelli Spark e Python](pm_service_api_spark.html) o [API del
+servizio per i modelli IBM® SPSS®](pm_service_api_spss.html).
+
+Per ulteriori informazioni su IBM® SPSS® Modeler e sugli algoritmi di modellazione che fornisce, consulta
+[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Per ulteriori informazioni su IBM® Data Science Experience e sugli algoritmi di
+modellazione che fornisce, vedi [https://datascience.ibm.com](https://datascience.ibm.com).

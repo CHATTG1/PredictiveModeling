@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -16,17 +16,17 @@ lastupdated: "2017-09-07"
 
 # 故障诊断
 
-下面是与使用 IBM Watson Machine Learning 相关的常见故障诊断问题的解答。
+下面是对使用 {{site.data.keyword.pm_full}} 的相关常见故障诊断问题的解答。
 {: shortdesc}
 
-## 获取 Watson Machine Learning 的帮助和支持
+## 获取 Machine Learning 的帮助和支持
 {: #gettinghelp}
 
-如果在使用 Watson Machine Learning 时遇到问题或有疑问，您可以通过在论坛中搜索相关信息或进行提问来获取帮助。您还可以开具支持凭单。
+如果在使用 {{site.data.keyword.pm_short}} 时遇到问题或有疑问，您可以通过在论坛中搜索相关信息或进行提问来获取帮助。您还可以开具支持凭单。
 
-在使用论坛提问时，请对问题进行标记，以便机器学习开发团队能看到您的问题。
+在使用论坛提问时，请对问题进行标记，以便 {{site.data.keyword.pm_short}} 开发团队能看到您的问题。
 
-如果有关于机器学习的技术问题，请在 <a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">Stack Overflow <img src="../icons/launch-glyph.svg" alt="外部链接图标"></a> 上发布问题，并使用“ibm-bluemix”和“machine-learning”标记您的问题。
+如果有关于 {{site.data.keyword.pm_short}} 的技术问题，请在 <a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">Stack Overflow <img src="../icons/launch-glyph.svg" alt="外部链接图标"></a> 上发布问题，并使用“ibm-bluemix”和“machine-learning”标记您的问题。
 
 有关服务和入门指示信息的问题，请使用 <a href="https://developer.ibm.com/answers/topics/machine-learning/?smartspace=bluemix" target="_blank">IBM developerWorks dW Answers <img src="../icons/launch-glyph.svg" alt="外部链接图标"></a> 论坛。请包含“machine-learning”和“bluemix”标记。请参阅[获取帮助](https://console.bluemix.net/docs/support/index.html#getting-help)，以获取有关如何使用论坛的更多详细信息。
 
@@ -248,7 +248,7 @@ lastupdated: "2017-09-07"
 在补丁有效内容中仅使用一个操作，即 `replace` 操作
 {: tsResolve}
        
-## 给定的有效内容缺少必填字段 [${fields.mkString(\",\")}]，或这些字段的值已损坏。
+## 给定的有效内容缺少必填字段 FIELD，或这些字段的值已损坏。
 {: #ts_invalid_request_payload}
  
 无法处理与底层数据集访问权相关的操作。
@@ -260,7 +260,7 @@ lastupdated: "2017-09-07"
 更正数据集的访问权定义。
 {: tsResolve}
        
-## 不支持提供的评估方法：$method。支持的值：[${supported.mkString(\",\")}]。
+## 不支持提供的评估方法：METHOD。支持的值：VALUE。
 {: #ts_evaluation_method_not_supported}
  
 无法创建学习配置。
@@ -461,7 +461,7 @@ lastupdated: "2017-09-07"
 对 Spark 凭证进行基本 64 位解码或解析时发生问题。
 {: tsCauses}
  
-确保对正确的 Spark 凭证以正确方式进行基本 64 位编码。有关详细信息，请参阅相关文档。
+确保对正确的 Spark 凭证以正确方式进行基本 64 位编码。有关更多信息，请参阅文档。
 {: tsResolve}
        
 ## 禁止非 Beta 用户使用此功能。
@@ -561,7 +561,7 @@ lastupdated: "2017-09-07"
 用于评分的令牌到期时，会显示此消息。
 {: tsCauses}
 
-重新生成此 Watson Machine Learning 实例的令牌，然后重试。如果仍看到此问题，请联系 IBM 支持。
+重新生成此 {{site.data.keyword.pm_full}} 实例的令牌，然后重试。如果仍看到此问题，请联系 IBM 支持。
 {: tsResolve}
 
 ## 未知部署标识：404

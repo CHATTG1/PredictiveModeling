@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,13 +14,14 @@ lastupdated: "2017-09-07"
 
 # デプロイされた予測モデルの削除
 
+以下の API 呼び出しを使用して、Machine Learning サービス・インスタンスから予測モデルを削除します。この呼び出しの実行後は、予測モデルはアプリケーション内のダウンロードにもデータのスコアリングにも使用できなくなります。
+{: shortdesc}
 
+```
 DELETE http://{service
 instance}/pm/v1/model/{contextId}?accesskey={access_key for this
-bound application}
-
-この API 呼び出しを使用して、Machine Learning サービス・インスタンスから予測モデルを削除します。この呼び出しの実行後は、予測モデルはアプリケーション内のダウンロードにもデータのスコアリングにも使用できなくなります。
-
+bound application}```
+{: codeblock}
 
 要求の例:
 
@@ -59,3 +60,13 @@ bound application}
         }
 ```
 {: codeblock}
+
+## 詳細はこちら
+
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、『[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html)』または『[IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html)』を参照してください。
+
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API] (pm_service_api_spss.html) を参照してください。
+
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
+
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,40 +12,48 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Distribuzione di modelli streaming <span class='tag--beta'>Beta</span>
+# Distribuzione di modelli streaming
 
-**Nota**: questa funzionalità è attualmente in beta e disponibile solo
-per l'utilizzo con Spark MLlib. Se sei interessato a partecipare, inserisci il tuo nome nella lista di attesa. Per ulteriori informazioni, vedi: [https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist).
+Puoi utilizzare il servizio {{site.data.keyword.pm_full}} per distribuire
+il modello e generare l'analisi predittiva effettuando richieste di punteggio sul modello di streaming distribuito.
+{: shortdesc}
 
 **Nome scenario**: Analisi delle valutazioni.
 
 **Descrizione scenario**: un'agenzia di marketing vuole conoscere le
 valutazioni in merito a un determinato argomento. L'agenzia ci richiede di
-sviluppare un modello che classifichi una data istruzione come POSITIVA o
-NEGATIVA. Un data scientist prepara un modello predittivo e lo condivide con te (lo sviluppatore). Il tuo compito è quello di distribuire
+sviluppare un modello che classifichi un'istruzione come POSITIVA o
+NEGATIVA.  Un data scientist prepara un modello predittivo e lo condivide con te (lo sviluppatore). Il tuo compito è quello di distribuire
 il modello e di generare l'analisi predittiva effettuando richieste di punteggio sul modello distribuito.
 
 Per ulteriori informazioni, vedi questo [documento](https://github.com/pmservice/tweet-sentiment-prediction).
 
+## Prerequisiti
+
+Per utilizzare questo esempio, devi disporre delle seguenti risorse: 
+
+* I dettagli dell'argomento [Message Hub](https://console.bluemix.net/catalog/services/message-hub), che vengono utilizzati come input (testo del tweet) per il modello e archiviazione per l'output del modello (risultati della previsione). Assicurati che vengano creati due argomenti: l'argomento di output e di input con il testo del tweet.
+* Credenziali dell'istanza del servizio [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark). Utilizza [questo link](https://console.bluemix.net/catalog/services/apache-spark) per crearne una.
+
+
 ## Utilizzo del modello di esempio
 
-1. Vai alla scheda Esempi del dashboard IBM® Watson™ Machine
-   Learning.
-2. Nella sezione Modelli di esempio, cerca il tile Previsione
-   valutazioni e fai clic sul pulsante Aggiungi modello (+).
+1. Vai alla scheda **Esempi** del dashboard {{site.data.keyword.pm_full}}.
+2. Nella sezione **Modelli di esempio**, cerca il tile **Previsione linea
+di prodotti** e fai clic sull'icona (+) Aggiungi modello. 
 
-Adesso vedrai il modello di esempio Previsione valutazioni nell'elenco di
-modelli disponibili sulla scheda Modelli.
+Viene visualizzato il modello di esempio Previsione valutazioni nell'elenco di modelli
+disponibili nella scheda Modelli.
 
 
 ## Creazione di una distribuzione streaming con IBM Message Hub
 
-1.  Vai alla scheda Modelli del dashboard IBM® Watson™ Machine Learning.
-2.  Dal menu AZIONI, seleziona Crea distribuzione.
-3.  Nel modulo Crea distribuzione, fornisci Nome, Descrizione e Tipo stream.
+1.  Vai alla scheda **Modelli** del dashboard {{site.data.keyword.pm_full}}. 
+2.  Dal menu **Azioni**, fai clic su **Crea distribuzione**.
+3.  Nel modulo **Crea distribuzione** compila i campi **Nome**, **Descrizione** e **Tipo flusso**. 
 4.  Devi fornire i seguenti input:
 
-    **Connessione di input**: i dettagli degli argomenti di IBM Message Hub che verranno utilizzati come input (tweet) per il modello e archiviazione per l'output del modello  (risultati della previsione).
+    **Connessione di input**: i dettagli degli argomenti di IBM Message Hub che verranno utilizzati come input (tweet) per il modello e archiviazione per l'output del modello  (risultati della previsione). 
 
     ```
   {
@@ -99,7 +107,7 @@ modelli disponibili sulla scheda Modelli.
     ```
     {: codeblock}
 
-    **Connessione Spark**: le credenziali del servizio Spark possono essere trovate nella scheda Credenziali del servizio del dashboard del servizio Bluemix Spark.
+    **Connessione Spark**: le credenziali del servizio Spark possono essere trovate nella scheda Credenziali del servizio del dashboard del servizi {{site.data.keyword.Bluemix_notm}} Spark.
 
      ```
 {
@@ -124,15 +132,28 @@ Il risultato della previsione viene inviato all'argomento MessageHub definito (c
 
 Puoi controllare lo stato e i parametri correlati al modello distribuito.
 
-1. Vai alla scheda Distribuzioni del dashboard IBM® Watson™ Machine
-   Learning.
+1. Vai alla scheda **Distribuzioni** del dashboard {{site.data.keyword.pm_full}}.
 2. Dal menu **Azioni**, fai clic su **Visualizza dettagli**.
 
 ## Eliminazione di una distribuzione streaming
 
-Puoi eliminare una distribuzione che non ti serve più utilizzando una query come nel seguente
+Puoi eliminare una distribuzione che non ti serve più eseguendo una query come nel seguente
 esempio.
 
-1. Vai alla scheda Distribuzioni del dashboard IBM® Watson™ Machine
-   Learning.
-2. Dal menu AZIONI, seleziona Elimina.
+1. Vai alla scheda **Distribuzioni** del dashboard {{site.data.keyword.pm_full}}.
+2. 2. Dal menu **Azioni**, fai clic su **Elimina**.
+
+## Ulteriori informazioni
+
+Sei pronto a iniziare? Per creare un'istanza di un servizio o per eseguire il bind
+di un'applicazione, vedi [Utilizzo del servizio con i modelli Spark e Python](using_pm_service_dsx.html) oppure
+[Utilizzo del servizio con i modelli IBM® SPSS®](using_pm_service.html).
+
+Per ulteriori informazioni sull'API, vedi [API del servizio per i modelli Spark e Python](pm_service_api_spark.html) oppure [API del
+servizio per i modelli IBM® SPSS®](pm_service_api_spss.html).
+
+Per ulteriori informazioni su IBM® SPSS® Modeler e sugli algoritmi di modellazione che fornisce, consulta
+[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Per ulteriori informazioni su IBM Data Science Experience e sugli algoritmi di
+modellazione che fornisce, vedi [https://datascience.ibm.com](https://datascience.ibm.com).

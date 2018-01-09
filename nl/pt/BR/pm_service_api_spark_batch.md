@@ -1,8 +1,6 @@
 ---
 
-copyright:
-  years: 2016, 2017
-lastupdated: "2017-09-07"
+copyright: years: 2016, 2017 lastupdated: "2017-11-16"
 
 ---
 
@@ -12,10 +10,11 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Implementando modelos em lote <span class='tag--beta'>Beta</span>
+# Implementando modelos em lote
 
-**Nota**: essa funcionalidade no momento está em beta e disponível somente
-para uso com o Spark MLlib. Se estiver interessado em participar, inclua-se na lista de espera! Para obter mais informações, veja: [https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist).
+Usando o serviço {{site.data.keyword.pm_full}}, é possível implementar um modelo e gerar análise preditiva criando solicitações de pontuação com relação ao modelo implementado.
+{: shortdesc}
+
 
 **Nome do cenário**: predição de satisfação do cliente.
 
@@ -26,22 +25,35 @@ clientes. Um cientista de dados desenvolve um modelo preditivo e o compartilha c
 o modelo e gerar análise preditiva fazendo solicitações de
 pontuação em relação ao modelo implementado.
 
+**Nota:** Você também pode utilizar as
+[anotações](https://apsportal.ibm.com/analytics/notebooks/5e4963d9-faea-455d-a7db-ff6302d1d8f5/view?access_token=5d23d36be72dea35ebbde9b4b5f4a16d0053ee898f1ab2ab73cf1301ce9322be)
+de amostra python, que criam modelo de amostra e predizem a perda de clientes.
+
+## Pré-requisitos
+
+Para trabalhar com esse exemplo, deve-se ter os seguintes recursos:
+
+* Detalhes da instância de [Armazenamento de objetos](https://console.bluemix.net/catalog/services/object-storage), que são usados como entrada (dados do cliente para pontuação) para o modelo e armazenamento para a saída do modelo. O
+arquivo .csv de dados de entrada de amostra pode ser transferido por download [aqui](https://raw.githubusercontent.com/pmservice/wml-sample-models/master/spark/customer-satisfaction-prediction/data/scoreInput.csv). É necessário incluir o arquivo de entrada em sua instância de armazenamento de objetos.
+* Credenciais da instância de serviço do [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark). É possível usar [este link](https://console.bluemix.net/catalog/services/apache-spark) para criar um.
+
+
+
 ## Usando o modelo de amostra
 
-1. Acesse a guia Amostras do Painel IBM® Watson™ Machine
-Learning.
+1. Acesse a guia **Amostras** do
+{{site.data.keyword.pm_full}}
+Painel.
+2. Na seção **Modelos de amostra**, localize o quadro
+**Predição da satisfação do cliente** e clique no ícone (+)
+**Incluir modelo**.
 
-2. Na seção Modelos de amostra, localize o quadro Predição de
-satisfação do cliente e clique no botão Incluir modelo (+).
-
-Agora você verá o modelo de amostra Predição de satisfação do cliente
-na lista de modelos disponíveis na guia Modelos.
+O modelo de previsão de satisfação do cliente aparece na lista de modelos disponíveis na guia **Modelos**.
 
 ## Gerando o token de acesso
 
-Gere um token de acesso usando o usuário e a senha disponíveis
-na guia Credenciais de serviço da instância de serviço do IBM Watson Machine
-Learning.
+Gere um token de acesso utilizando o usuário e a senha disponíveis na guia
+Credenciais de serviço da instância de serviço do {{site.data.keyword.pm_full}}.
 
 Exemplo de solicitação:
 
@@ -65,9 +77,12 @@ token="<token_value>"
 {: codeblock}
 
 ## Trabalhando com modelos publicados
-Utilize a chamada de API a seguir para obter detalhes de sua instância, como:
-* `url` de modelos publicados 
-* `url` de implementações
+
+Use a chamada API a seguir para obter os detalhes da instância, que incluem os
+itens a seguir:
+
+* Valor da `url` dos modelos publicados
+* Valor da `url` das implementações
 * informações de uso
 
 Exemplo de solicitação:
@@ -100,17 +115,14 @@ Exemplo de saída:
       "region":"us-south",
       "deployments":{
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
-      },
-      "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      }, "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24", "plan":"lite"
    }
 }
 ```
 {: codeblock}
 
-
-Com a `url` de **published_models**, use a chamada de API a seguir
-para obter detalhes do modelo:
+Ao fornecer o valor **published_models** `url`,
+é possível usar a chamada API a seguir para obter os detalhes do modelo:
 
 Exemplo de solicitação:
 
@@ -496,10 +508,7 @@ Exemplo de saída:
 ```
 {: codeblock}
 
-
-Anote a `url` de **implementações** que é necessária para criar a
-implementação em lote na próxima etapa.
-
+Observe que o valor da `url` de **implementações** que é necessário para criar a implementação em lote a seguir.
 
 ## Criando uma implementação em lote com o Object Storage
 
@@ -507,23 +516,21 @@ Para usar uma chamada API REST para criar uma implementação
 em lote do seu modelo preditivo, forneça os seguintes detalhes:
 
 *  O token de acesso criado na etapa anterior
-
-*  As credenciais de serviço do Spark, que podem ser localizadas na guia
-Credenciais de serviço do painel de serviço do Bluemix Spark. Antes de
-fazer a solicitação de implementação, as credenciais do Spark devem ser
-decodificadas como base64 e passadas no cabeçalho de uma solicitação curL
-como X-Spark-Service-Instance.
+*  Credenciais de serviço do Spark, que podem ser localizadas na guia Credenciais de serviço do painel do serviço {{site.data.keyword.Bluemix_notm}} Spark. 
+Antes de fazer a solicitação de implementação, as credenciais do Spark devem ser
+decodificadas como base64 e passadas no cabeçalho de uma solicitação
+`curL` como X-Spark-Service-Instance.
 
    Dependendo do sistema operacional que você está usando, deve-se emitir um dos comandos de terminal a seguir para executar a decodificação base64 e designá-la à variável de ambiente.
 
-   No sistema operacional macOS, use o comando a seguir:
+   No sistema operacional **macOS**, use o comando a seguir:
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   Nos sistemas operacionais Microsoft Windows ou Linux, deve-se usar o parâmetro `--wrap=0` com o comando `base64` para executar a decodificação base64:
+   Nos sistemas operacionais **Microsoft Windows** ou **Linux**, deve-se usar o parâmetro `--wrap=0` com o comando `base64` para executar a decodificação de base64:
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
@@ -533,9 +540,7 @@ como X-Spark-Service-Instance.
 *  Detalhes do Object Storage, que serão usados como entrada (dados do
 cliente para pontuação) para o modelo e armazenamento para a saída do modelo
 (results.csv neste caso, que é criado automaticamente).
-
-*  Para criar uma implementação, use a `url` de **implementações**
-da seção anterior.
+*  Para criar uma implementação, use o valor `url` de **implementações** da seção anterior.
 
 
 Exemplo de solicitação:
@@ -675,12 +680,9 @@ Exemplo de saída:
 **Nota**: também é possível usar o Painel para criar uma implementação de
 lote.
 
-
 ## Obtendo detalhes da implementação
 
-É possível verificar o status e os parâmetros relacionados ao modelo de implementação usando
-a `url` de **metadados** (consulte o exemplo de saída acima).
-
+É possível verificar o status e os parâmetros relacionados ao modelo de implementação usando o valor `url` de **metadados**.
 Exemplo de solicitação:
 
 ```
@@ -772,8 +774,7 @@ Exemplo de saída:
 ```
 {: codeblock}
 
-O resultado da predição é salvo em um arquivo .csv no IBM Object
-Storage. Segue uma linha de amostra.
+O resultado da predição é salvo em um arquivo .csv no IBM Object Storage. Consulte a linha de amostra a seguir para obter um exemplo da saída.
 
 Visualização de arquivo de entrada:
 
@@ -804,8 +805,7 @@ Fiber optic, Month-to-month, 1, 79.35, 1
 
 ## Excluindo uma implementação em lote
 
-É possível excluir a implementação, se ela não é mais
-necessária, usando uma consulta como a amostra a seguir.
+Para excluir a implementação, use a consulta a seguir:
 
 Exemplo de solicitação:
 
@@ -830,3 +830,15 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 1600446575
 ```
 {: codeblock}
+
+## Saiba mais
+
+Pronto para começar? Para criar uma instância de um serviço ou ligar um aplicativo, consulte [Usando o serviço com modelos Spark e Python](using_pm_service_dsx.html) ou [Usando o serviço com os modelos do IBM® SPSS®](using_pm_service.html).
+
+Para obter mais informações sobre a API, consulte
+[API de serviço para modelos Spark e Python](pm_service_api_spark.html)
+ou [API de serviço para modelos IBM® SPSS®](pm_service_api_spss.html).
+
+Para obter mais informações sobre o IBM® SPSS® Modeler e os algoritmos de modelagem que ele fornece, consulte o [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Para obter mais informações sobre o IBM Data Science Experience e os algoritmos de modelagem que ele fornece, consulte [https://datascience.ibm.com](https://datascience.ibm.com).

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,13 +14,15 @@ lastupdated: "2017-09-07"
 
 # Suppression d'un modèle prédictif déployé
 
+Utilisez l'appel API suivant pour supprimer le modèle prédictif de l'instance de service Machine Learning. Après cet appel, le modèle prédictif n'est plus disponible en téléchargement ou pour l'évaluation par score des données de vos applications.
+{: shortdesc}
 
+```
 DELETE http://{service
 instance}/pm/v1/model/{contextId}?accesskey={access_key pour cette application
 liée}
-
-Cet appel d'API permet de supprimer de l'instance de service Machine
-Learning le modèle prédictif. Après cet appel, le modèle prédictif n'est plus disponible en téléchargement ou pour l'évaluation par score des données de vos applications.
+```
+{: codeblock}
 
 Exemple de requête :
 
@@ -59,3 +61,13 @@ Réponse en cas d'échec de l'annulation du déploiement :
         }
 ```
 {: codeblock}
+
+## Informations supplémentaires
+
+Prêt à commencer ? Pour créer une instance de service ou lier une application, voir [Utilisation du service avec des modèles Spark et Python](using_pm_service_dsx.html) ou [Utilisation du service avec des modèles IBM® SPSS®](using_pm_service.html).
+
+Pour plus d'informations sur l'API, voir [API de service pour les modèles Spark et Python](pm_service_api_spark.html) ou [API de service pour les modèles IBM® SPSS®](pm_service_api_spss.html).
+
+Pour plus d'informations sur IBM® SPSS® Modeler et les algorithmes de modélisation qu'il utilise, reportez-vous à la documentation du site [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Pour plus d'informations sur IBM Data Science Experience et les algorithmes de modélisation qu'il propose, accédez au site [https://datascience.ibm.com](https://datascience.ibm.com).

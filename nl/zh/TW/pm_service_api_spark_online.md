@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,21 +14,24 @@ lastupdated: "2017-09-07"
 
 # 部署線上模型
 
+使用 {{site.data.keyword.pm_full}} 服務，您可以部署模型，並且針對已部署模型提出評分要求來產生預測分析。
+{: shortdesc}
+
 **情境名稱**：產品線預測。
 
-**情境說明**：銷售戶外設備的公司想要建置模型，預測客戶對他們產品線的興趣。資料科學家準備了一套預測模型，並將其與您（開發人員）分享。您的工作是部署模型，然後對已配置的模型提出評分要求，以產生預測客戶興趣預測。
+**情境說明**：銷售戶外設備的公司想要建置一個用來預測客戶對特定產品線之興趣的模型。資料科學家準備了一套預測模型，並將其與您（開發人員）分享。您的工作是部署模型，然後對已配置的模型提出評分要求，以產生預測客戶興趣預測。
 
 ## 使用範例模型
 
-1. 移至「IBM® Watson™ Machine Learning 儀表板」的「範例」標籤。
+1. 移至「{{site.data.keyword.pm_full}} 儀表板」的「範例」標籤。
 
 2. 在「範例模型」區段中，尋找「產品線預測」磚，然後按一下「新增模型」圖示 (+)。
 
-現在您會在模型標籤上看到範例「產品線預測」模型列在可用的模型清單中。
+範例「產品線預測」模型即會出現在「模型」標籤的可用模型清單中。
 
 ## 產生存取記號
 
-使用 IBM Watson Machine Learning 服務實例的**服務認證**標籤上所提供之 `user` 和 `password`，產生存取記號。
+使用 {{site.data.keyword.pm_full}} 服務實例的**服務認證**標籤上所提供的 `user` 和 `password` 來產生存取記號。
 
 要求範例：
 
@@ -53,9 +56,11 @@ token="<token_value>"
 {: codeblock}
 
 ## 使用已發佈的模型
-使用下列 API 呼叫來取得您的實例詳細資料，例如：
-* 已發佈模型 `url`
-* 部署 `url`
+
+使用下列 API 呼叫來取得實例詳細資料，其中包括下列值：
+
+* 已發佈模型 `url` 值
+* 部署 `url` 值
 * 用量資訊
 
 要求範例：
@@ -90,7 +95,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
@@ -180,7 +185,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 {: codeblock}
 
 
-請記下**部署** `url`，這在下一步建立線上部署時會需要。
+請記下**部署** `url` 值，在建立下列線上部署時需要該值。
 
 
 ## 建立線上部署
@@ -401,7 +406,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 
 例如，我們可以看到 55 歲的主管對於 Mountaineering Equipment 有興趣，而 23 歲的學生則對 Personal Accessories 有興趣。
 
-**附註**：對於 scikit-learn 和 XGBoost 模型，在評分有效負載中只需要 `values` 欄位。
+**附註**：對於 scikit-learn 及 XGBoost 模型，在評分有效負載中只需要 `values` 欄位。
 
 要求範例：
 
@@ -409,3 +414,13 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header "Authorization: Bearer  $token" -d '{"values": [[0.0,1.0],[4.0,15.0]]}' https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}/published_models/{published_model_id}/deployments/{deployment_id}/online
 ```
 {: codeblock}
+
+## 進一步瞭解
+
+準備好要開始了嗎？若要建立服務的實例或是連結應用程式，請參閱[搭配使用服務與 Spark 及 Python 模型](using_pm_service_dsx.html)或[搭配使用服務與 IBM® SPSS® 模型](using_pm_service.html)。
+
+如需 API 的相關資訊，請參閱 [Spark 及 Python 模型的服務 API](pm_service_api_spark.html) 或 [IBM® SPSS® 模型的服務 API](pm_service_api_spss.html)。
+
+如需 IBM® SPSS® Modeler 及其提供之建模演算法的相關資訊，請參閱 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+
+如需 IBM Data Science Experience 及其提供之建模演算法的相關資訊，請參閱 [https://datascience.ibm.com](https://datascience.ibm.com)。

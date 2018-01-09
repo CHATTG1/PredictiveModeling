@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,36 +12,34 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Service-Dashboard
+# Dashboard
 
+Wenn er mit [REST-APIs](https://watson-ml-api.mybluemix.net/) verwendet wird, bietet der {{site.data.keyword.pm_short}}-Service ein Administrationsdashboard.
+Verwalten Sie Modelle im Administrationsdashboard und verwenden Sie das Dashboard, um Online-, Stapel- oder Streamingbereitstellungen zu erstellen, die in Ihre Anwendungen integriert sind.
+{: shortdesc}
 
-Der Machine Learning-Service auf den [REST APIs](https://watson-ml-api.mybluemix.net/) bietet ein Administrationsdashboard.
-Verwalten Sie Modelle im Administrationsdashboard und
-verwenden Sie das Dashboard, um Online-, Stapel- oder
-Streamingbereitstellungen zu erstellen, die in Ihre Anwendungen
-integriert sind.
-
-Verwalten Sie die Data Science Experience-Dateien (Spark- und Python-Modelle), die in einer Instanz des Machine Learning-Service
-über das Watson Machine Learning Dashboard verfügbar sind:
+Verwalten Sie die Data Science Experience-Dateien (Spark- und Python-Modelle),
+die in einer Instanz des {{site.data.keyword.pm_short}}-Service verfügbar sind,
+über das {{site.data.keyword.pm_full}}-Dashboard:
 
 *  Mit Beispielen arbeiten (Modelle, Notizbücher und Anwendungen)
 *  Modelldetails anzeigen
 *  Modell bereitstellen als:
-   *  Onlinebereitstellung (Scoring)
-   *  Stapelbereitstellung (mit Unterstützung für IBM Object
-Storage und
-DashDB)
-   *  Streamingbereitstellung (mit Unterstützung für IBM
-Message Hub)
+   *  Onlinebereitstellung
+   *  Stapelbereitstellung (unterstützt IBM Object Storage und {{site.data.keyword.dashdbshort}})
+   *  Datenstrombereitstellung (unterstützt IBM Message Hub)
 *  Bereitstellungsdetails abrufen
 *  Bereitstellung löschen
 *  Modell löschen
 *  Fortlaufendes Ausbildungssystem konfigurieren
+*  Fortlaufende Wiederholungen des Ausbildungssystems ausführen
 *  Modellerfolg überwachen
 
-**Hinweis**: Das Arbeiten mit mehreren Dashboardinstanzen, die auf separaten Registerkarten in demselben Browser geöffnet werden, wird nicht unterstützt. 
+**Hinweis**: Das Arbeiten mit mehreren Dashboardinstanzen, die auf separaten Registerkarten in demselben Browser geöffnet werden, wird nicht unterstützt.
 
-In den folgenden Abschnitten finden Sie Dashboardbeispiele für: 
+## Weitere Informationen
+
+Dashboard-Beispiele finden Sie in den folgenden Abschnitten:
 
 *  [Online-Bereitstellung](pm_service_ui_spark_online.html)
 *  [Stapelbereitstellung mit Object Storage (Beta)](pm_service_ui_spark_batch.html)

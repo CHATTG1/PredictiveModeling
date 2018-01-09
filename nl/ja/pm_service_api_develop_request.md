@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,10 +14,12 @@ lastupdated: "2017-09-07"
 
 # このサービスの Web アプリケーション記述言語 (WADL) サマリーの取得
 
+アプリケーション開発者は、Web アプリケーション記述言語 (WADL) を使用して、Web アプリケーションの使用を拡張できます。{{site.data.keyword.pm_full}} アプリケーション用の WADL を、API 呼び出しを使用して取得できます。
+{: shortdesc}
 
-OPTIONS http://{PA Bluemix load balancer URL}/pm/v1/wadl
-
-この API 呼び出しを使用して、このサービスの WADL を取得します。
+```
+OPTIONS http://{PA Bluemix load balancer URL}/pm/v1/wadl```
+{: codeblock}
 
 要求の例:
 
@@ -69,3 +71,14 @@ WADL 要求が失敗した場合の応答:
         } 
         ```
 {: codeblock}
+
+
+## 詳細はこちら
+
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、『[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html)』または『[IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html)』を参照してください。
+
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API] (pm_service_api_spss.html) を参照してください。
+
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
+
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,6 +14,8 @@ lastupdated: "2017-09-07"
 
 # デプロイされた SPSS モデルを利用するアプリケーションの開発
 
+IBM® SPSS® モデルを使用して {{site.data.keyword.pm_full}} アプリケーションを開発できます。  
+{: shortdesc}
 
 *  [デプロイされた予測モデルによるスコアリング](#scoring-with-a-deployed-predictive-model)
 
@@ -79,8 +81,7 @@ application}```
 
 ## デプロイされた予測モデル用メタデータの取得
 
-この API 呼び出しを使用して、デプロイされた IBM SPSS Modeler ストリームのスコアリング枝のメタデータを取得します。
-この方式では要求本文を指定しないでください。
+次の API 呼び出しを使用して、デプロイされた IBM® SPSS® Modeler ストリームのスコアリング枝のメタデータを取得します。この方式では要求本文を指定しないでください。
 
 ```
 GET http://{service
@@ -207,3 +208,13 @@ WADL 要求が失敗した場合の応答:
         } 
 ```
 {: codeblock}
+
+## 詳細はこちら
+
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、『[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html)』または『[IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html)』を参照してください。
+
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API] (pm_service_api_spss.html) を参照してください。
+
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
+
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

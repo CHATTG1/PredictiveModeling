@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,11 +14,14 @@ lastupdated: "2017-09-07"
 
 # Distribuzione di modelli online
 
+Utilizzando il servizio {{site.data.keyword.pm_full}}, puoi distribuire
+un modello e generare l'analisi predittiva effettuando richieste di punteggio sul modello distribuito.
+{: shortdesc}
 
 **Nome scenario**: Previsione soddisfazione del cliente.
 
-**Descrizione scenario**: una società Telco vuole sapere quali clienti sono a rischio di
-abbandono. La società ci chiede di fornire una soluzione che aiuti a rispondere a questa domanda. Un data scientist prepara un modello predittivo e lo condivide con te (lo sviluppatore). Il tuo compito è quello di distribuire
+**Descrizione scenario**: una società di telecomunicazioni vuole sapere
+quali clienti sono a rischio di abbandono. La società ci chiede di fornire una soluzione che aiuti a rispondere a questa domanda. Un data scientist prepara un modello predittivo e lo condivide con te (lo sviluppatore). Il tuo compito è quello di distribuire
 il modello e di generare l'analisi predittiva effettuando richieste di punteggio sul modello distribuito.
 
 ## Utilizzo del modello di esempio
@@ -78,8 +81,8 @@ distribuito:
    ```
    {: codeblock}
 
-   Risposta (il contenuto del modello verrà scaricato in un file
-   output.str):
+   Risposta, che scarica il contenuto del modello in un file
+   output.str:
 
    ```
    > GET /pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr HTTP/1.1
@@ -311,4 +314,17 @@ distribuito:
    ```
    {: codeblock}
 
+## Ulteriori informazioni
  
+Sei pronto a iniziare? Per creare un'istanza di un servizio o per eseguire il bind
+di un'applicazione, vedi [Utilizzo del servizio con i modelli Spark e Python](using_pm_service_dsx.html) oppure
+[Utilizzo del servizio con i modelli IBM® SPSS®](using_pm_service.html).
+
+Per ulteriori informazioni sull'API, vedi [API del servizio per i modelli Spark e Python](pm_service_api_spark.html) o [API del
+servizio per i modelli IBM® SPSS®](pm_service_api_spss.html).
+
+Per ulteriori informazioni su IBM® SPSS® Modeler e sugli algoritmi di modellazione che fornisce, consulta
+[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Per ulteriori informazioni su IBM Data Science Experience e sugli algoritmi di
+modellazione che fornisce, vedi [https://datascience.ibm.com](https://datascience.ibm.com).

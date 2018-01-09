@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -13,36 +13,16 @@ lastupdated: "2017-09-07"
 
 # IBM SPSS Modeler 模型的 Machine Learning 服務批次工作 API
 
+{{site.data.keyword.pm_full}} 服務的批次工作 API 支援與模型訓練、模型評估及批次評分相關的長時間執行作業。此 API 管理兩種資產類型：批次工作中所使用的 IBM® SPSS® Modeler 串流檔，以及所提交的工作定義。
+{: shortdesc}
 
-*  [刪除工作](#deleting-jobs)
+針對您上傳的每一個 SPSS® Modeler 串流檔，可能會提交許多類型的許多工作。如果工作可能會更新 Modeler 串流檔內容，則修改過的檔案會內含在工作結果附件中。在模型評估工作類型中，所有產生的評估檔案都位於工作結果附件中。
 
-*  [檢查工作的狀態](#checking-the-status-of-a-job)
-
-*  [重新提交工作](#resubmit-a-job)
-
-*  [針對已上傳的 Modeler 串流檔提交工作](#submit-a-job-against-an-uploaded-modeler-stream-file)
-
-*  [上傳要在工作中使用的串流檔](#upload-a-stream-file-to-use-in-your-jobs)
-
-*  [工作類型](#job-types)
-
-*  [工作狀態](#job-status)
-
-*  [工作 API 詳細資料](#job-api-details)
-
-*  [工作定義 JSON](#job-definition-json)
-
-*  [批次工作 API 詳細資料](#batch-job-api-details)
-
-Machine Learning 服務的批次工作 API 支援模型訓練、模型評估及批次評分的相關長時間執行作業。此 API 會管理兩種資產類型：批次工作中所使用的 SPSS Modeler 串流檔，以及提交的工作定義。針對每一個上傳的 Modeler 串流檔，可能會提交多種類型的許多工作。如果工作可能會更新 Modeler 串流檔內容，則修改過的檔案將會包括在工作結果附件中。在模型評估工作類型中，所有產生的評估檔案都會在工作結果的附件中。
-
-如需批次工作採用的範例，請參閱下列記事本：[From SPSS stream to batch scoring with Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37)。
-
-**附註**：儀表板中顯示的資料只與即時預測相關，包括來自上傳特性的資料。
+**附註**：儀表板中出現的資料只會與即時預測相關（例如來自上傳特性的資料）。
 
 ## 刪除工作
 
-您可以刪除工作，這樣會取消目前執行中的工作。請使用 `DELETE` 指令搭配 `job ID`。您可以傳遞多個 ID，一次取消多個工作。
+您可以刪除工作。如果工作正在執行，則刪除工作時會先取消工作。請使用 `DELETE` 指令搭配 `job ID`。您可以傳遞多個 ID，一次取消多個工作。
 
 ```
 DELETE https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job ID
@@ -50,11 +30,12 @@ DELETE https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job ID
 ```
 {: codeblock}
 
-這項傳回將指出已刪除要求中 ID 所參照的工作數目。如果此數目不符合要求中所傳遞的清單，您必須檢查個別工作的狀態。
+這項傳回指出已刪除要求中 ID 所參照的工作數目。如果此數目不符合要求中所傳遞的清單，則您必須檢查個別工作的狀態。
 
 ## 檢查工作的狀態
 
 您可以隨時使用 `GET` 指令，取得 `job ID` 的狀態：
+
 
 ```
 GET https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -62,11 +43,13 @@ ID}/status?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-傳回的 JSON 指出 jobstatus，因此，如果工作順利完成，則是可用來取得所有已產生檔案內容的 dataUrl。
+傳回的 JSON 檔案會指出工作狀態，因此，如果工作順利完成，則是可用來取得所有已產生檔案內容的資料 URL。
 
 ## 重新提交工作
 
-若要重新提交工作，請使用 `PUT` 指令搭配 `job ID`。它不得處於執行中狀態。
+若要重新提交工作，請使用 `PUT` 指令搭配 `job ID`。若要重新提交工作，則工作不得為執行中。
+
+如果您參照的 ID 不存在，則下列呼叫會建立新工作。傳回狀態為 201 及 200（指出發生的狀況）。您必須傳遞要在此執行作業中使用的工作定義 JSON 檔案。
 
 ```
 PUT https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -74,9 +57,7 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-具有在要求主體中包括全新或更新過之工作定義 JSON 的 content_type "application/json"。
-
-如果參照的 ID 不存在，則此呼叫實際上會建立新的工作，並傳回 201 及 200，指出發生其中哪個狀況。您必須傳遞要在此執行作業中使用的工作定義 JSON。
+將 `content_type` 值設為 "application/json"，以重新提交工作。您必須在要求主體中包括全新或更新過的工作定義 JSON 檔案。
 
 ## 針對已上傳的 Modeler 串流檔提交工作
 
@@ -88,15 +69,13 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-具有在要求主體中包括工作定義 JSON 的 content_type "application/json"。
+將 `content_type` 值設為 "application/json"，以提交工作。您必須在要求主體中包括全新或更新過的工作定義 JSON 檔案。
 
-此要求會立即傳回，並指出將工作定義放在執行佇列中時即成功。不會測試是否能夠順利執行工作定義中所配置的 Modeler 串流。雲端中的其中一個 Machine Learning 工作伺服器將會執行工作，而且您可以監視其狀態。如果執行模型訓練，並指出您要自動重新整理，則工作將會在順利執行工作時取代原始 Modeler 串流檔。
-
-如需工作定義 JSON 的相關資訊，請參閱[工作定義 JSON](#job-definition-json)。
+此要求會立即傳回，並指出將工作定義放在執行佇列中時即成功。不會測試是否能夠順利執行工作定義中所配置的 Modeler 串流。雲端中的其中一個 {{site.data.keyword.pm_short}} 工作伺服器將會執行工作，而且您可以監視其狀態。如果您要執行模型訓練，並指出您要自動重新整理，則工作會在順利執行工作時取代原始 Modeler 串流檔。
 
 ## 上傳要在工作中使用的串流檔
 
-**附註**：Machine Learning 儀表板僅適用於即時評分。您不可以將它用於執行工作（批次評分）。
+**附註**：{{site.data.keyword.pm_short}} 儀表板僅適用於即時評分。您不可以將它用於執行工作（批次評分）。
 
 若要讓 Modeler 串流檔可供工作存取，請使用 `PUT` 指令：
 
@@ -163,7 +142,7 @@ ID}?accesskey=xxxxxxxxxx
 
 **批次評分**：執行已套用「作為評分分支使用」選項的終端機節點，指出這是此 Modeler 串流設計中的評分分支。工作定義必須指定匯出及來源詳細資料。
 
-**執行串流**：執行方式與已在串流內容之「執行」標籤上選取「執行此 Script」選項的情況下，在 Modeler 中按一下綠色「執行」按鈕類似。用法會涵蓋模型訓練或其他工作類型之 Script 執行的需求。串流參數必須處理 Script 的所有動態控制，而且參數值是在工作定義中進行傳遞。
+**執行串流**：執行方式與已在串流內容之「執行」標籤上選取「執行此 Script」選項的情況下，在 Modeler 中按一下綠色「執行」圖示類似。用法會涵蓋模型訓練或其他工作類型之 Script 執行的需求。串流參數必須處理 Script 的所有動態控制，而且參數值是在工作定義中進行傳遞。
 
 ## 工作狀態
 
@@ -202,7 +181,7 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-使用者指定的 `job ID`。對於 Machine Learning 服務實例必須是唯一的：
+使用者指定的 `job ID`。對於 {{site.data.keyword.pm_short}} 服務實例必須是唯一的：
 
 ```
 @PathParam("id")
@@ -507,7 +486,7 @@ JSON 工作定義（請參閱工作定義 JSON）：
 ```
 {: codeblock}
 
-請注意，ID 應該與 `PUT` API 中所使用的 `file ID` 相同。不需要 name，但針對模型訓練及自動重新整理，將會使用這裡定義的名稱來儲存工作結果。如果未定義 name，Machine Learning 服務將會根據預先定義的命名規則來產生結果。
+請注意，ID 應該與 `PUT` API 中所使用的 `file ID` 相同。不需要 name，但針對模型訓練及自動重新整理，將會使用這裡定義的名稱來儲存工作結果。如果未定義 name，{{site.data.keyword.pm_short}} 服務將會根據預先定義的命名規則來產生結果。
 
 ### 工作設定
 
@@ -561,11 +540,10 @@ DB 服務實例中所指定的連線功能，許多 DB 類型都需要將特定�
 "inputs": [
      {
           "odbc": {
-               "dbRef"; "db2",
+               "dbRef”; “db2”,
                "table": "DRUG1N",
           },
-          "node": "ScoreInput",
-          "attributes": []
+          "node": "ScoreInput"
      }
 ],
 ```
@@ -587,29 +565,6 @@ table 是資料庫表格名稱。此表格用於置換串流來源節點。node 
 
 **Refresh** - 會先刪除表格中的現有列，再插入新列
    
-大量載入可用來改善插入效能。可以使用 bulkLoading 屬性啟用大量載入的支援：
-
-**Off** - 停用大量載入
-
-**ODBC** - 透過 ODBC 驅動程式大量載入
-
-
-```
-"exports": [
-     {
-          "odbc": {
-               "dbRef"; "db1",
-               "table": "DRUGSCORES",
-               "insertMode":"Append"
-          },
-          "node": "ExportScores",
-          "attributes": [],
-          "bulkLoading": "Off"
-     }
-],
-```
-{: codeblock}
-
 table 是要將工作結果寫入其中的資料庫表格名稱。node 是串流的終端機節點名稱。node 與「來源節點設定」類似，會將 Modeler 串流中的原始「輸出」節點識別成要取代為使用這些已提供參數所建構的 DB 匯出節點。
 
 **附註**：「匯出節點設定」及「來源節點設定」對於讓工作順利執行而言十分重要。
@@ -667,18 +622,17 @@ table 是要將工作結果寫入其中的資料庫表格名稱。node 是串流
           "inputs": [
                     {
                          "odbc": {
-                                   "dbRef"; "db",
+               "dbRef”; “db”,
                                    "table": "DRUG1N",
                          },
-                         "node": "ScoreInput",
-                         "attributes": []
+                         "node": "ScoreInput"
                     }
           ],
           "parameterOverride": [
                     {
                         "name": "p1",
-                        "value": "v1"
-                    },
+          "value": "v1"
+     },
                     {
                         "name": "p2",
                         "value": "v2"
@@ -691,11 +645,11 @@ table 是要將工作結果寫入其中的資料庫表格名稱。node 是串流
 
 ## 批次工作 API 詳細資料
 
-下列各節提供批次工作 SPSS Modeler 檔案管理 API 詳細資料。
+下列各節提供批次工作 IBM® SPSS® Modeler 檔案管理 API 詳細資料。
 
 `PUT /v1/file/{id}`
 
-說明：上傳 SPSS Modeler 串流檔以用於批次工作中。
+說明：上傳 IBM® SPSS® Modeler 串流檔以用於批次工作中。
 
 **附註**：如果檔案已儲存在指定的 ID 下，則會改寫它。
 
@@ -827,7 +781,7 @@ table 是要將工作結果寫入其中的資料庫表格名稱。node 是串流
 
 `GET /v1/file/{id}`
 
-說明：擷取在所指定 ID 下儲存用於批次工作處理的 SPSS Modeler 串流檔。
+說明：擷取在所指定 ID 下儲存用於批次工作處理的 IBM® SPSS® Modeler 串流檔。
 
 內容類型：
 
@@ -854,7 +808,7 @@ table 是要將工作結果寫入其中的資料庫表格名稱。node 是串流
 
 回應：
 
-成功。傳回 SPSS Modeler 檔案：
+成功。傳回 IBM® SPSS® Modeler 檔案：
 
 ```
 @ApiResponse(code = 200)
@@ -874,3 +828,9 @@ table 是要將工作結果寫入其中的資料庫表格名稱。node 是串流
 @ApiResponse(code = 500)
 ```
 {: codeblock}
+
+## 進一步瞭解
+
+如需記事本中批次工作採用的範例，請參閱 [From SPSS stream to batch scoring with Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37)。
+
+如需工作定義 JSON 的相關資訊，請參閱[工作定義 JSON](#job-definition-json)。

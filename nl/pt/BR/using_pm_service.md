@@ -1,8 +1,6 @@
 ---
 
-copyright:
-  years: 2016, 2017
-lastupdated: "2017-09-07"
+copyright: years: 2016, 2017 lastupdated: "2017-11-16"
 
 ---
 
@@ -14,42 +12,51 @@ lastupdated: "2017-09-07"
 
 # Usando o serviço
 
-Os métodos de modelagem disponíveis na paleta de modelagem SPSS Modeler permitem derivar novas informações de seus dados e desenvolver modelos preditivos. Cada método possui certas forças e é mais
-adequado para certos tipos de problemas.
+Usando os métodos de modelagem na paleta de modelagem do IBM® SPSS® Modeler, você
+pode derivar novas informações de seus dados e desenvolver modelos preditivos. Cada
+método possui certas forças e é mais adequado para certos tipos de problemas de
+aprendizado de máquina.
 {: .shortdesc}
 
-Para obter detalhes sobre o SPSS Modeler e a modelagem de algoritmos que ele fornece, consulte o [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+Para obter detalhes sobre o IBM® SPSS® Modeler e os algoritmos de modelagem que
+ele fornece, consulte [IBM
+Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
 
-Depois que os requisitos de entrada e saída de seu aplicativo Bluemix e do design de ramificação de pontuação SPSS Modeler
-são implementados, seu Data Analyst pode mudar qualquer aspecto interno da ramificação de pontuação. O
+Depois que os requisitos de entrada e saída de seu aplicativo
+{{site.data.keyword.Bluemix_notm}} e design de ramificação de escoragem do IBM®
+SPSS® Modeler são implementados, seu analista de dados pode mudar qualquer
+aspecto interno da ramificação de escoragem. O
 Data Analyst pode até alterar o(s) algoritmo(s) de modelo usado(s) em uma operação de atualização,
 assegurando sua capacidade de realizar ajuste fino de suas análises preditivas
 sem precisar regravar seus aplicativos.
 
 
-## Etapas para ligar o serviço ao aplicativo Bluemix
-Conclua as etapas a seguir para criar seu aplicativo Bluemix e ligá-lo ao serviço do Machine Learning.
+## Etapas para ligar o serviço com o aplicativo {{site.data.keyword.Bluemix_notm}}
 
-1. Faça download do código do aplicativo de amostra do Node.js no
-[repositório github](https://github.com/pmservice/customer-satisfaction-prediction).
+Conclua as etapas a seguir para criar seu aplicativo
+{{site.data.keyword.Bluemix_notm}} e ligá-lo ao serviço.
+{{site.data.keyword.pm_short}}
 
-2. Use o comando cf create-service para criar uma instância de
-serviço:
+1. Faça download do código do aplicativo de amostra Node.js no
+[repositório GitHub](https://github.com/pmservice/customer-satisfaction-prediction).
+
+2. Use o comando `cf create-service` para criar uma instância de serviço:
 
    ```
-   cf create-service pm-20 Free {local naming}
+   cf create-service pm-20 lite {local naming}
    ```
    {: codeblock}
 
    Por exemplo:
 
    ```
-   cf create-service pm-20 Free my_pm_free
+   cf create-service pm-20 lite my_pm_lite
    ```
    {: codeblock}
 
-   Esse comando cria uma instância de serviço de Machine Learning
-com o plano grátis denominado my_pm_free no espaço do Bluemix.
+   Esse comando cria uma instância de serviço do
+{{site.data.keyword.pm_short}} com o plano Lite chamado my_pm_lite em seu espaço
+do {{site.data.keyword.Bluemix_notm}}.
 
 3. Use o comando `cf create-service-key` para criar credenciais de serviço:
 
@@ -65,10 +72,10 @@ com o plano grátis denominado my_pm_free no espaço do Bluemix.
    ```
    {: codeblock}
 
-   Esse comando cria credenciais do serviço Machine Learning.
+   Esse comando cria as credenciais de serviço do {{site.data.keyword.pm_short}}.
 
-4. Use o comando cf bind-service para ligar a instância de serviço
-my_pm_free ao aplicativo.
+4. Use o comando `cf bind-service` para ligar a instância de
+serviço `my_pm_lite` ao seu aplicativo.
 
    ```
    cf bind-service AppName my_pm_service
@@ -78,25 +85,26 @@ my_pm_free ao aplicativo.
    Por exemplo:
 
    ```
-   cf bind-service my_app1 my_pm_free
+   cf bind-service my_app1 my_pm_lite
    ```
    {: codeblock}
 
-   Esse comando liga a instância de serviço de Machine Learning
-`my_pm_free` ao aplicativo Bluemix my_app1.
+   Esse comando liga a instância de serviço do {{site.data.keyword.pm_short}}
+`my_pm_lite` ao aplicativo {{site.data.keyword.Bluemix_notm}} my_app1.
 
-5. Credenciais do Machine Learning:
+5. Credenciais {{site.data.keyword.pm_short}}:
 
-   Depois que você liga a instância de serviço de Machine Learning ao
-aplicativo Bluemix, as credenciais do Machine Learning são
-incluídas na variável de ambiente `VCAP_SERVICES`:
+   Depois de ligar a instância de serviço do {{site.data.keyword.pm_short}}
+ao seu aplicativo {{site.data.keyword.Bluemix_notm}}, as credenciais do
+{{site.data.keyword.pm_short}} são incluídas na variável de ambiente
+`VCAP_SERVICES`:
 
 ```
     {   
         "pm-20": {      
             "name": "pm20-1",
             "label": "pm-20",
-            "plan": "Free",
+            "plan": "lite",
             "credentials": {
                 "url": "https://ibm-watson-ml.mybluemix.net",
                 "access_key": "XXXXXXXXXXXXX"
@@ -111,10 +119,10 @@ incluídas na variável de ambiente `VCAP_SERVICES`:
    <dl>
 
    <dt>plano</dt>
-   <dd>O plano do Machine Learning usado no fornecimento de serviço.</dd>
+   <dd>O plano do {{site.data.keyword.pm_short}} que é usado no fornecimento de serviço.</dd>
 
    <dt>url</dt>
-   <dd>O endereço da instância de serviço de Machine Learning.</dd>
+   <dd>O endereço da instância de serviço do {{site.data.keyword.pm_short}}.</dd>
 
    <dt>access_key</dt>
    <dd>O parâmetro de consulta accessKey a ser passado em todas as solicitações
@@ -140,3 +148,15 @@ da variável de ambiente `VCAP_SERVICES`:
     }
 ```
 {: codeblock}
+
+## Saiba mais
+
+Pronto para começar? Para criar uma instância de um serviço ou ligar um aplicativo, consulte [Usando o serviço com modelos Spark e Python](using_pm_service_dsx.html) ou [Usando o serviço com os modelos do IBM® SPSS®](using_pm_service.html).
+
+Para obter mais informações sobre a API, consulte
+[API de serviço para modelos Spark e Python](pm_service_api_spark.html)
+ou [API de serviço para modelos IBM® SPSS®](pm_service_api_spss.html).
+
+Para obter mais informações sobre o IBM® SPSS® Modeler e os algoritmos de modelagem que ele fornece, consulte o [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Para obter mais informações sobre o IBM Data Science Experience e os algoritmos de modelagem que ele fornece, consulte [https://datascience.ibm.com](https://datascience.ibm.com).

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -16,17 +16,17 @@ lastupdated: "2017-09-07"
 
 # 문제점 해결
 
-다음은 IBM Watson Machine Learning 사용에 대한 일반적인 문제점 해결 질문에 대한 응답입니다.
+다음은 {{site.data.keyword.pm_full}} 사용에 관한 일반적인 문제점 해결 질문에 대한 응답입니다.
 {: shortdesc}
 
-## Watson Machine Learning에 대한 도움말 및 지원 받기
+## Machine Learning에 대해 도움 및 지원 받기
 {: #gettinghelp}
 
-Watson Machine Learning을 사용할 때 문제점 또는 질문이 있으면 정보를 검색하거나 포럼을 통해 질문하여 도움을 받을 수 있습니다. 또한 지원 티켓을 열 수도 있습니다.
+{{site.data.keyword.pm_short}}을 사용하는 중에 문제점 또는 질문이 있는 경우에는 정보를 검색하거나 포럼을 통해 질문하여 도움을 받을 수 있습니다. 또한 지원 티켓을 열 수도 있습니다.
 
-포럼을 사용하여 질문을 할 때 기계 학습 개발 팀에서 볼 수 있도록 질문에 태그를 지정하십시오.
+포럼을 통해 질문하는 경우 {{site.data.keyword.pm_short}} 개발 팀이 볼 수 있도록 질문에 태그를 지정하십시오. 
 
-기계 학습에 대한 기술 질문이 있으면 <a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">스택 오버플로우 <img src="../icons/launch-glyph.svg" alt="외부 링크 아이콘"></a>에 질문을 게시하고 "ibm-bluemix" 및 "machine-learning"을 사용하여 질문에 태그를 지정하십시오.
+{{site.data.keyword.pm_short}}에 대한 기술적 질문이 있는 경우에는 <a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">Stack Overflow <img src="../icons/launch-glyph.svg" alt="외부 링크 아이콘"></a>에 질문을 게시하고 질문의 태그를 "ibm-bluemix" 및 "machine-learning"으로 지정하십시오. 
 
 서비스 및 시작하기 지시사항에 대한 질문은 <a href="https://developer.ibm.com/answers/topics/machine-learning/?smartspace=bluemix" target="_blank">IBM developerWorks dW 응답 <img src="../icons/launch-glyph.svg" alt="외부 링크 아이콘"></a> 포럼을 사용하십시오. "machine-learning" 및 "bluemix" 태그를 포함하십시오.
 포럼 사용에 대한 자세한 정보는 [도움말 가져오기](https://console.bluemix.net/docs/support/index.html#getting-help)를 참조하십시오.
@@ -252,7 +252,7 @@ REST API를 정상적으로 호출할 수 없습니다.
 `replace` 오퍼레이션인 패치 페이로드에서는 한 개의 오퍼레이션만 사용하십시오.
 {: tsResolve}
        
-## 지정된 페이로드에 필수 필드인 [${fields.mkString(\",\")}]이 누락되어 있거나 필드의 값이 손상되었습니다.
+## 지정된 페이로드에서 필수 필드 FIELD이(가) 누락되었거나 필드의 값이 손상되었습니다. 
 {: #ts_invalid_request_payload}
  
 기본 데이터 세트에 액세스하는 데 관련된 조치를 처리할 수 없습니다.
@@ -264,7 +264,7 @@ REST API를 정상적으로 호출할 수 없습니다.
 데이터 세트의 액세스 정의를 정정하십시오
 {: tsResolve}
        
-## 제공된 평가 메소드 $method이(가) 지원되지 않습니다. 지원되는 값은 [${supported.mkString(\",\")}]입니다.
+## 제공된 평가 메소드 METHOD이(가) 지원되지 않습니다. 지원되는 값: VALUE. 
 {: #ts_evaluation_method_not_supported}
  
 학습 구성을 작성할 수 없습니다.
@@ -465,7 +465,7 @@ Spark 신임 정보가 필요한 REST API를 호출할 수 없습니다.
 base-64 디코딩 또는 Spark 신임 정보를 구문 분석하는 데 문제가 있습니다.
 {: tsCauses}
  
-올바른 Spark 신임 정보가 base-64로 올바르게 인코딩되었는지 확인하십시오. 세부사항은 문서를 참조하십시오.
+올바른 Spark 신임 정보가 base-64로 올바르게 인코딩되었는지 확인하십시오. 자세한 정보는 문서를 참조하십시오.
 {: tsResolve}
        
 ## 이 기능은 베타가 아닌 사용자는 사용할 수 없습니다.
@@ -565,7 +565,7 @@ REST API를 정상적으로 호출할 수 없습니다.
 스코어링에 사용된 토큰이 만료되면 이 메시지가 표시됩니다.
 {: tsCauses}
 
-이 Watson Machine Learning 인스턴스의 토큰을 다시 생성하고 재시도하십시오. 여전히 이 문제가 발생하면 IBM 지원 센터에 문의하십시오.
+이 {{site.data.keyword.pm_full}} 인스턴스의 토큰을 다시 생성한 후 재시도하십시오. 여전히 이 문제가 발생하면 IBM 지원 센터에 문의하십시오.
 {: tsResolve}
 
 ## 알 수 없는 배치 ID: 404

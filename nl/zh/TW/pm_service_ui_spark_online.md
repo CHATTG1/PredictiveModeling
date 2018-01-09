@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,6 +14,8 @@ lastupdated: "2017-09-07"
 
 # 部署線上模型
 
+若要部署模型，並針對已部署模型提出評分要求來產生預測分析，請使用 {{site.data.keyword.pm_full}} 服務。下列情境提供如何執行此作業的範例。
+{: shortdesc}
 
 **情境名稱**：產品線預測。
 
@@ -21,40 +23,34 @@ lastupdated: "2017-09-07"
 
 ## 使用範例模型
 
-1. 移至「IBM® Watson™ Machine Learning 儀表板」的「範例」標籤。
+1. 移至「{{site.data.keyword.pm_full}} 儀表板」的**範例**標籤。
+2. 在**範例模型**區段中，尋找**產品線預測**磚，然後按一下**新增模型**圖示 (+)。
 
-2. 在「範例模型」區段中，尋找「產品線預測」磚，然後按一下「新增模型」按鈕 (+)。
-
-現在您會在模型標籤上看到範例「產品線預測」模型列在可用的模型清單中。
+範例**產品線預測**模型即會出現在**模型**標籤的可用模型清單中。
 
 
 ## 建立線上部署
 
-1. 移至「IBM® Watson™ Machine Learning 儀表板」的「模型」標籤。
+1. 移至「{{site.data.keyword.pm_full}} 儀表板」的**模型**標籤。
+2. 從**動作**功能表選取**建立部署**。
+3. 在**建立部署**表單中，完成**名稱**、**說明**及**線上類型**欄位。
+4. 按一下**儲存**。
 
-2. 從「動作」功能表選取「建立部署」。
-
-3. 在「建立部署」表單中提供「名稱」、「說明」及「線上類型」。
-
-4. 按「儲存」按鈕。
-
-現在您會在「部署」標籤上看到線上部署列在可用的部署清單中。
-
+線上部署即會出現在**部署**標籤的可用部署清單中。
 
 ## 取得部署詳細資料
 
 您可以檢查與所部署模型相關的狀態、評分端點位址 (`Scoring Endpoint`) 和參數。
 
-1. 移至「IBM® Watson™ Machine Learning 儀表板」的「部署」標籤。
+1. 移至「{{site.data.keyword.pm_full}} 儀表板」的**部署**標籤。
+2. 從**動作**功能表選取**檢視詳細資料**。
 
-2. 從「動作」功能表選取「檢視詳細資料」。
-
-請注意，需要 `Scoring Endpoint` 值，才能在下一步中提出評分要求。
+請記下 `Scoring Endpoint` 值，在提出評分要求時需要該值。
 
 
 ## 提出評分要求
 
-由於您的評分端點已建立 (`Scoring Endpoint`)，因此您現在可以提出評分要求來產生預測。在此情境中，客戶記錄會傳遞至預測模型，並且會傳回運動產品預測。
+建立評分端點之後，您可以提出評分要求來產生預測。在下列情境中，客戶記錄會傳遞至預測模型，並且會傳回運動產品預測。
 
 記錄標頭範例：
 
@@ -166,3 +162,11 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 {: codeblock}
 
 例如，我們可以看到 55 歲的主管對於 Mountaineering Equipment 有興趣，而 23 歲的學生則對 Personal Accessories 有興趣。
+
+## 進一步瞭解
+
+如需 API 的相關資訊，請參閱 [Spark 及 Python 模型的服務 API](pm_service_api_spark.html) 或 [IBM® SPSS® 模型的服務 API](pm_service_api_spss.html)。
+
+如需 IBM® SPSS® Modeler 及其提供之建模演算法的相關資訊，請參閱 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+
+如需 IBM® Data Science Experience 及其提供之建模演算法的相關資訊，請參閱 [https://datascience.ibm.com](https://datascience.ibm.com)。

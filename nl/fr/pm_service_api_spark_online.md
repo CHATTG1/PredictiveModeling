@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,22 +14,24 @@ lastupdated: "2017-09-07"
 
 # Déploiement de modèles en ligne
 
+Grâce au service {{site.data.keyword.pm_full}}, vous pouvez déployer un modèle et générer des analyses prédictives en effectuant des requêtes de score à partir du modèle déployé.
+{: shortdesc}
+
 **Nom du scénario **:  Pronostic de ligne de produits.
 
-**Description du scénario **: une entreprise qui commercialise des équipements de plein air désire construire un modèle pronostiquant l'intérêt des clients pour leur ligne de produits. Un spécialiste des données a développé un modèle prédictif et le partage avec vous (le développeur). Votre tâche consiste à déployer le modèle et à générer des pronostics de l'intérêt des clients en lançant des requêtes de score à partir du modèle déployé.
+**Description du scénario** : Une entreprise qui commercialise des équipements de plein air désire construire un modèle capable de prédire l'intérêt des clients pour une ligne de produits spécifique. Un spécialiste des données a développé un modèle prédictif et le partage avec vous (le développeur). Votre tâche consiste à déployer le modèle et à générer des pronostics de l'intérêt des clients en lançant des requêtes de score à partir du modèle déployé.
 
 ## Utilisation de l'exemple de modèle
 
-1. Accédez à l'onglet Exemples du tableau de bord IBM® Watson™ Machine Learning.
+1. Accédez à l'onglet Exemples du tableau de bord {{site.data.keyword.pm_full}}.
 
 2. Dans la section Exemples de modèles, recherchez la vignette Pronostics de ligne de produits et cliquez sur l'icône Ajouter le modèle (+).
 
-Vous pouvez observer à présent le modèle Pronostics de ligne de produits dans la liste des modèles disponibles sous l'onglet Modèles.
+L'exemple de modèle Pronostics de ligne de produits s'affiche dans la liste des modèles disponibles sous l'onglet Modèles.
 
 ## Génération du jeton d'accès
 
-Générez un jeton d'accès à l'aide du nom d'utilisateur (`user`) et du mot de passe (`password`) disponibles sur l'onglet **Données
-d'identification pour le service** de l'instance de service IBM Watson Machine Learning.
+Générez un jeton d'accès à l'aide des éléments `user` et `password` disponibles sur l'onglet **Données d'identification pour le service** de l'instance de service {{site.data.keyword.pm_full}}.
 
 Exemple de requête :
 
@@ -53,10 +55,12 @@ token="<token_value>"
 {: codeblock}
 
 ## Utilisation de modèles publiés
-Utilisez l'appel API suivant pour obtenir les détails de votre instance, par exemple :
-* `url` des modèles publiés
-* `url` des déploiements
-* informations sur l'utilisation
+
+Utilisez l'appel API suivant pour obtenir des détails sur votre instance, notamment :
+
+* l'adresse `url` des modèles publiés
+* l'adresse `url` des déploiements
+* des informations sur l'utilisation
 
 Exemple de requête :
 
@@ -90,7 +94,7 @@ Exemple de sortie :
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
@@ -180,7 +184,7 @@ Exemple de sortie :
 {: codeblock}
 
 
-Notez l'`url` **deployments** requise pour créer un déploiement en ligne à l'étape suivante.
+Notez la valeur **deployments** `url` nécessaire à la création du déploiement en ligne ci-dessous.
 
 
 ## Création du déploiement en ligne
@@ -400,7 +404,7 @@ Exemple de sortie :
 
 Nous pouvons constater, par exemple, qu'un cadre âgé de 55 ans est intéressé par les produits de la catégorie Equipements d'alpinisme, tandis qu'un étudiant âgé de 23 ans s'intéresse à la catégorie Accessoires personnels.
 
-**Remarque **: pour les modèles scikit-learn et XGBoost, seule la zone `values` est requise dans le contenu d'évaluation.
+**Remarque **: pour les modèles scikit-learn et XGBoost, seule la zone `values` est obligatoire dans le contenu d'évaluation.
 
 Exemple de requête :
 
@@ -408,3 +412,13 @@ Exemple de requête :
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header "Authorization: Bearer  $token" -d '{"values": [[0.0,1.0],[4.0,15.0]]}' https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}/published_models/{published_model_id}/deployments/{deployment_id}/online
 ```
 {: codeblock}
+
+## Informations supplémentaires
+
+Prêt à commencer ? Pour créer une instance de service ou lier une application, voir [Utilisation du service avec des modèles Spark et Python](using_pm_service_dsx.html) ou [Utilisation du service avec des modèles IBM® SPSS®](using_pm_service.html).
+
+Pour plus d'informations sur l'API, voir [API de service pour les modèles Spark et Python](pm_service_api_spark.html) ou [API de service pour les modèles IBM® SPSS®](pm_service_api_spss.html).
+
+Pour plus d'informations sur IBM® SPSS® Modeler et les algorithmes de modélisation qu'il utilise, reportez-vous à la documentation du site [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Pour plus d'informations sur IBM Data Science Experience et les algorithmes de modélisation qu'il propose, accédez au site [https://datascience.ibm.com](https://datascience.ibm.com).

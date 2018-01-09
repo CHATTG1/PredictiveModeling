@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,23 +12,32 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# 部署串流模型<span class='tag--beta'>測試版</span>
+# 部署串流模型
 
-
-**附註**：此功能目前為測試版，只提供搭配 Spark MLlib 使用。如果您有興趣參與，請將自己新增到等待清單！
-如需相關資訊，請參閱：[https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist)。
+使用 {{site.data.keyword.pm_full}} 服務，您可以部署模型，並且針對已部署模型提出評分要求來產生預測分析。
+{: shortdesc}
 
 **情境名稱**：觀感分析。
 
 **情境說明**：行銷機構想要瞭解有關特定主題的觀感。該機構想要我們開發出一種模型，以將給定的表達方式分類為 POSITIVE 或 NEGATIVE。資料科學家準備預測模型，並與身為開發人員的您分享。您的工作是部署模型，然後對已配置的模型提出評分要求，以產生預測分析模型。
 
+**附註：**您也可以試用[範例 Python 記事本](https://apsportal.ibm.com/analytics/notebooks/913a7daa-cf39-414d-9017-3a7840a53c59/view?access_token=f1ebc10873a226f248f744b26ee7f71d53c81d5752b9d940e23a33518a3e115d)，它會建立範例模型以及分類推文。
+
 如需相關資訊，請參閱此文件。
+
+
+## 必要條件
+若要使用此範例，您需要：
+* [Message Hub](https://console.bluemix.net/catalog/services/message-hub) 主題詳細資料，將用來作為模型的輸入（推文），以及模型輸出（預測結果）儲存空間。請確定已建立兩個主題：具有推文及輸出主題的輸入。
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) 服務實例認證。您可以使用此[鏈結](https://console.bluemix.net/catalog/services/apache-spark)予以建立。
+
+
 
 ## 使用範例模型
 
-1. 移至「IBM® Watson™ Machine Learning 儀表板」的「範例」標籤。
+1. 移至「{{site.data.keyword.pm_full}} 儀表板」的「範例」標籤。
 
-2. 在「範例模型」區段中，尋找「觀感預測」磚，然後按一下「新增模型」按鈕 (+)。
+2. 在「範例模型」區段中，尋找「觀感預測」磚，然後按一下「新增模型」圖示 (+)。
 
 現在您會在模型標籤上看到範例「觀感預測」模型列在可用的模型清單中。
 
@@ -96,7 +105,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
@@ -129,8 +138,8 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
             "runtime_environment":"spark-2.0",
             "author":{
                "name":"IBM",
-               "email":""
-            },
+            "email":""
+         },
             "name":"Sentiment Prediction",
             "description":"Predicts comment sentiment about particular topic for marketing company.",
             "label_col":"sentiment",
@@ -201,8 +210,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 ```
 {: codeblock}
 
-請記下**部署** `url`，這在下一步建立批次部署時會需要。
-
+請記下**部署** `url` 值，在建立下列批次部署時需要該值。
 
 ## 使用 IBM Message Hub 來建立串流部署
 
@@ -210,27 +218,27 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 
 *  在前一個步驟中建立的存取記號
 
-*  Spark 服務認證（可以在 Bluemix Spark 服務儀表板的「服務認證」標籤上找到）。在提出部署要求之前，必須先將 Spark 認證解碼為 base64，並傳入 curl 要求的標頭中，成為 X-Spark-Service-Instance。
+*  Spark 服務認證（可以在 {{site.data.keyword.Bluemix_notm}} Spark 服務儀表板的「服務認證」標籤上找到）。在提出部署要求之前，必須先將 Spark 認證解碼為 base64，並傳入 `curl` 要求的標頭中，成為 X-Spark-Service-Instance。
 
    視您正在使用的作業系統而定，您必須發出下列其中一個終端機指令來執行 base64 解碼，並將其指派至環境變數。
 
-   在 macOS 作業系統上，請使用下列指令：
+   在 **macOS** 作業系統上，請使用下列指令：
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   在 Microsoft Windows 或 Linux 作業系統上，您必須使用 `--wrap=0` 參數與 `base64` 指令來執行 base64 解碼：
+   在 **Microsoft Windows** 或 **Linux** 作業系統上，您必須搭配使用 `--wrap=0` 參數與 `base64` 指令來執行 base64 解碼：
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
    ```
    {: codeblock}
 
-*  IBM Message Hub 主題詳細資料，將會用來做為模型的的輸入（推文），以及模型輸出（預測結果）儲存空間。
+*  IBM Message Hub 主題詳細資料，用來作為模型的輸入（推文），以及模型輸出（預測結果）儲存空間
 
-*  若要建立部署，請使用前一節的**部署** `url`。
+*  **部署** `url` 值
 
 要求範例：
 
@@ -585,3 +593,13 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 2025130991
 ```
 {: codeblock}
+
+## 進一步瞭解
+
+準備好要開始了嗎？若要建立服務的實例或是連結應用程式，請參閱[搭配使用服務與 Spark 及 Python 模型](using_pm_service_dsx.html)或[搭配使用服務與 IBM® SPSS® 模型](using_pm_service.html)。
+
+如需 API 的相關資訊，請參閱 [Spark 及 Python 模型的服務 API](pm_service_api_spark.html) 或 [IBM® SPSS® 模型的服務 API](pm_service_api_spss.html)。
+
+如需 IBM® SPSS® Modeler 及其提供之建模演算法的相關資訊，請參閱 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+
+如需 IBM Data Science Experience 及其提供之建模演算法的相關資訊，請參閱 [https://datascience.ibm.com](https://datascience.ibm.com)。

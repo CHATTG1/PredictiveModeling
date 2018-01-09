@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,33 +12,36 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Dashboard del servizio
+# Dashboard
 
-
-Il servizio Machine Learning sulle [API REST](https://watson-ml-api.mybluemix.net/) fornisce il Dashboard di amministrazione.
+Il servizio {{site.data.keyword.pm_short}} quando utilizzato con le [API REST](https://watson-ml-api.mybluemix.net/) fornisce il dashboard di gestione.
 Gestisci i modelli
 nel dashboard di amministrazione e utilizza il dashboard per creare distribuzioni online, batch o streaming
 integrate con le tue applicazioni.
+{: shortdesc}
 
 Gestisci i file Data Science Experience (modelli Spark e Python)
-disponibili su un'istanza del servizio Machine Learning
-tramite il dashboard Watson Machine Learning:
+disponibili su un'istanza del servizio {{site.data.keyword.pm_short}}
+tramite il dashboard {{site.data.keyword.pm_full}}:
 
-*  Lavora con gli esempi (modelli, blocchi appunti e applicazioni)
+*  Lavora con gli esempi (modelli, blocchi appunti e applicazioni) 
 *  Visualizza dettagli del modello
 *  Distribuisci un modello come:
-   *  Distribuzione online (punteggio)
-   *  Distribuzione batch (supporta IBM Object Storage e DashDB)
-   *  Distribuzione streaming (supporta IBM MessageHub)
+   *  Distribuzione online 
+   *  Distribuzione batch (supporta IBM Object Storage e {{site.data.keyword.dashdbshort}})
+   *  Distribuzione flusso (supporta IBM Message Hub) 
 *  Richiama i dettagli di distribuzione
 *  Elimina una distribuzione
 *  Elimina modello
 *  Configura il sistema di apprendimento continuo
+*  Esegui le iterazioni del sistema di apprendimento continuo 
 *  Monitora le prestazioni del modello
 
 **Nota**: l'utilizzo di più istanze del dashboard aperte in schede separate di uno stesso browser non è supportato.
 
-Vedi le seguenti sezioni per degli esempi Dashboard di:
+## Ulteriori informazioni
+
+Vedi le seguenti sezioni per degli esempi dashboard: 
 
 *  [Distribuzione online](pm_service_ui_spark_online.html)
 *  [Distribuzione batch con Object Storage (beta)](pm_service_ui_spark_batch.html)

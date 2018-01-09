@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,36 +14,24 @@ lastupdated: "2017-09-07"
 
 # 持久存储模型
 
-
-*  [模型持久性和版本控制](#model-persistence-and-version-control)
-
-   *  [生成访问令牌](#generating-the-access-token)
-
-   *  [创建管道元数据](#creating-pipeline-metadata)
-
-   *  [创建管道版本](#creating-pipeline-version)
-
-   *  [上传管道内容](#uploading-pipeline-content)
-
-   *  [创建管道模型元数据](#creating-pipeline-model-metadata)
-
-   *  [创建管道模型版本](#creating-pipeline-model-version)
-
-   *  [上传管道模型内容](#uploading-pipeline-model-content)
-
-数据研究员的研究和开发工作包括不断努力改进模型。他们可能会向现有模型添加新功能，也可能优化模型参数。数据研究员以迭代方式开发模型时，跟踪变化很快就会成为问题。下面我们将说明如何通过提供模型版本控制并使整个流程保持组织有序来给予数据研究员帮助。
-
-开始之前，如果您是首次关注模型开发，请参阅以下配置页：
-
-*  [使用 Python 开发 SparkML 模型](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
-
-*  [使用 Scala 开发 SparkML 模型](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)
+使用 {{site.data.keyword.pm_full}} 服务可提供模型版本控制，并确保机器学习过程井然有序。为此，可以使用 {{site.data.keyword.pm_short}} 服务的版本控制、元数据和访问令牌功能。
+{: shortdesc}
 
 ## 模型持久性和版本控制
 
+在研发过程中，随着您不断努力改进模型，可能会向现有模型添加新功能或优化模型参数。以这类迭代方式开发模型时，您很快就会遇到如何跟踪更改的问题。通过使用 {{site.data.keyword.pm_short}} 的以下数据模型版本控制功能，可以使整个过程保持井然有序。 
+
+*  [生成访问令牌](#generating-the-access-token)
+*  [创建管道元数据](#creating-pipeline-metadata)
+*  [创建管道版本](#creating-pipeline-version)
+*  [上传管道内容](#uploading-pipeline-content)
+*  [创建管道模型元数据](#creating-pipeline-model-metadata)
+*  [创建管道模型版本](#creating-pipeline-model-version)
+*  [上传管道模型内容](#uploading-pipeline-model-content)
+
 ### 生成访问令牌
 
-使用 IBM® Watson™ Machine Learning 服务实例的“服务凭证”选项卡上提供的用户和密码来生成访问令牌。
+使用 {{site.data.keyword.pm_full}} 服务实例的“服务凭证”选项卡上提供的用户和密码来生成访问令牌。
 
 请求示例：
 
@@ -59,18 +47,18 @@ curl --basic --user username:password https://ibm-watson-ml.mybluemix.net/v3/ide
 ```
 {: codeblock}
 
-使用以下终端命令将令牌值分配给环境变量 access_token：
+使用以下终端命令将令牌值分配给环境变量 `access_token`：
 
 ```
 access_token="<token_value>"
 ```
 {: codeblock}
 
-接下来，为了保存管道和管道模型，将创建管道和管道模型元数据，创建管道和管道模型版本，以及上传管道和管道模型版本。请参阅以下各部分以获取详细信息。
+保存管道和管道模型。创建管道和管道模型元数据，创建管道和管道模型版本，然后上传管道和管道模型版本。 
 
 ### 创建管道元数据
 
-要创建管道的元数据，请在 curl 请求中描述管道的基本属性，如以下示例中所示：
+要创建管道的元数据，请在 `curl` 请求中描述管道的基本属性，如以下示例中所示：
 
 ```
 curl -i \
@@ -110,7 +98,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/pipelines
 
 ### 创建管道版本
 
-要创建管道的版本，请在 curl 请求中指定管道的 parentVersionHref，如以下示例中所示：
+要创建管道的版本，请在 `curl` 请求中指定管道的 `parentVersionHref` 值，如以下示例中所示：
 
 ```
 curl -i \
@@ -141,7 +129,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/pipelines/1314f74d-a2a7-46d3-8f
 
 ### 上传管道内容
 
-要上传管道内容，管道必须为二进制格式。为此，请从 SparkML 管道调用 save 方法。可以通过在端点中提供管道标识和版本来上传二进制内容，如以下示例中所示：
+要上传管道内容，管道必须为二进制格式。为此，请从 SparkML 管道调用 `save` 方法。可以通过在端点中提供管道标识和版本来上传二进制内容，如以下示例中所示：
 
 ```
 curl -i \
@@ -255,7 +243,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/models
 
 ### 创建管道模型版本
 
-要创建管道模型的版本，请使用 curl 请求来指定详细信息，例如培训数据的存储位置和模型求值方法。请参阅以下示例：
+要创建管道模型的版本，请使用 `curl` 请求来指定详细信息，例如培训数据的存储位置和模型评估方法。请参阅以下示例：
 
 ```
 curl -i \
@@ -317,7 +305,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/models/30ed894b-4018-4c88-9e53-
 
 ### 上传管道模型内容
 
-要上传管道模型内容，管道模型必须为二进制格式。为此，请从 SparkML 管道模型调用 save 方法。可以通过在端点中提供管道标识和版本来上传二进制内容，如以下示例中所示：
+要上传管道模型内容，管道模型必须为二进制格式。为此，请从 SparkML 管道模型调用 `save` 方法。可以通过在端点中提供管道标识和版本来上传二进制内容，如以下示例中所示：
 
 ```
 curl -i \
@@ -344,3 +332,10 @@ https://ibm-watson-ml.mybluemix.net/ v2/artifacts/pipelines/1314f74d-a2a7-46d3-8
 {"ok":"true"}
 ```
 {: codeblock}
+
+## 了解更多信息
+
+要了解有关模型开发的更多信息，请参阅以下配置页：
+
+*  [使用 Python 开发 SparkML 模型](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
+*  [使用 Scala 开发 SparkML 模型](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)

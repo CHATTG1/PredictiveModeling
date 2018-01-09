@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -16,17 +16,17 @@ lastupdated: "2017-09-07"
 
 # トラブルシューティング
 
-IBM Watson Machine Learning の使用に関する一般的なトラブルシューティングの質問と回答を示します。
+{{site.data.keyword.pm_full}} の使用に関する一般的なトラブルシューティングの質問と回答を示します。
 {: shortdesc}
 
-## Watson Machine Learning のヘルプの利用およびサポート
+## Machine Learning のヘルプの利用およびサポート
 {: #gettinghelp}
 
-Watson Machine Learning の使用時に問題または質問がある場合、フォーラムを通した情報検索または質問によってヘルプを利用できます。また、サポート・チケットをオープンすることも可能です。
+{{site.data.keyword.pm_short}} の使用時に問題または質問がある場合、フォーラムを通した情報検索または質問によってヘルプを利用できます。また、サポート・チケットをオープンすることも可能です。
 
-フォーラムで質問する際には、Machine Learning 開発チームによって認識されるように、質問にタグを付けてください。
+フォーラムで質問する際には、{{site.data.keyword.pm_short}} 開発チームによって認識されるように、質問にタグを付けてください。
 
-機械学習に関する技術的な質問がある場合は、<a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">スタック・オーバーフロー <img src="../icons/launch-glyph.svg" alt="外部リンク・アイコン"></a> に質問を投稿し、質問に「ibm-bluemix」と「machine-learning」のタグを付けてください。
+{{site.data.keyword.pm_short}}に関する技術的な質問がある場合は、<a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">スタック・オーバーフロー <img src="../icons/launch-glyph.svg" alt="外部リンク・アイコン"></a> に質問を投稿し、質問に「ibm-bluemix」と「machine-learning」のタグを付けてください。
 
 サービスと開始手順に関する質問については、<a href="https://developer.ibm.com/answers/topics/machine-learning/?smartspace=bluemix" target="_blank">IBM developerWorks dW Answers <img src="../icons/launch-glyph.svg" alt="外部リンク・アイコン"></a> フォーラムを使用してください。「machine-learning」と「bluemix」のタグを付けてください。
 フォーラムの利用について詳しくは、[ヘルプの利用](https://console.bluemix.net/docs/support/index.html#getting-help)を参照してください。
@@ -249,7 +249,7 @@ learning configuration のパッチを行うために patch REST API メソッ�
 パッチのペイロードでは、`replace` 操作である 1 つのみの操作を使用してください。
 {: tsResolve}
        
-## 指定されたペイロードに必須フィールド [${fields.mkString(\",\")}] が欠落しているか、フィールドの値が破損しています。
+## 指定されたペイロードに必須フィールド: FIELD が欠落しているか、フィールドの値が破損しています。
 {: #ts_invalid_request_payload}
  
 基礎にあるデータ・セットへのアクセスに関連したアクションを処理する可能性がありません。
@@ -261,7 +261,7 @@ learning configuration のパッチを行うために patch REST API メソッ�
 データ・セットのアクセス定義を修正してください。
 {: tsResolve}
        
-## 指定された評価メソッド $method はサポートされていません。サポートされている値は、[${supported.mkString(\",\")}] です。
+## 指定された評価メソッド: METHOD はサポートされていません。サポートされる値: VALUE。
 {: #ts_evaluation_method_not_supported}
  
 learning configuration を作成する可能性がありません。
@@ -562,7 +562,7 @@ REST API を正常に呼び出すことができません。
 このメッセージは、スコアリングに使用されるトークンの有効期限が切れている場合に表示されます。
 {: tsCauses}
 
-この Watson Machine Learning インスタンス用のトークンを再生成し、再試行してください。それでもこの問題が起こる場合は、IBM サポートにお問い合わせください。
+この {{site.data.keyword.pm_full}} インスタンス用のトークンを再生成し再試行してください。それでもこの問題が起こる場合は、IBM サポートにお問い合わせください。
 {: tsResolve}
 
 ## 不明デプロイメント ID: 404

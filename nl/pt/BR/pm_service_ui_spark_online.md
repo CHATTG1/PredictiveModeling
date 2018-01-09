@@ -1,8 +1,6 @@
 ---
 
-copyright:
-  years: 2016, 2017
-lastupdated: "2017-09-07"
+copyright: years: 2016, 2017 lastupdated: "2017-11-16"
 
 ---
 
@@ -14,6 +12,11 @@ lastupdated: "2017-09-07"
 
 # Implementando modelos on-line
 
+Para implementar um modelo e gerar novamente a análise preditiva fazendo
+solicitações de escore com relação ao modelo implementado, utilize o serviço
+{{site.data.keyword.pm_full}}. O cenário a seguir fornece um exemplo de como
+fazer isso.
+{: shortdesc}
 
 **Nome do cenário**: predição de linha de produto.
 
@@ -26,47 +29,43 @@ cliente, fazendo solicitações de escore com relação ao modelo implementado.
 
 ## Usando o modelo de amostra
 
-1. Acesse a guia Amostras do Painel IBM® Watson™ Machine
-Learning.
+1. Acesse a guia **Amostras** do
+{{site.data.keyword.pm_full}}
+Painel.
+2. Na seção **Modelos de amostra**, localize o quadrado **Predição de linha de produto** e clique no ícone **Incluir modelo** (+).
 
-2. Na seção Modelos de amostra, localize o quadro Predição de linha de produto
-e clique no botão Incluir modelo (+).
-
-Agora você verá o modelo de amostra Predição de linha de produto na
-lista de modelos disponíveis na guia Modelos.
+O modelo de **Previsão de linha de produto** de amostra aparece na lista de modelos
+disponíveis na guia **Modelos**.
 
 
 ## Criando a implementação on-line
 
-1. Acesse a guia Modelos do Painel do IBM® Watson™ Machine Learning.
+1. Acesse a guia **Modelos** do Painel do {{site.data.keyword.pm_full}}.
+2. No menu **Ações**, clique em **Criar implementação**.
+3. No formulário **Criar implementação**, preencha os
+campos **Nome**, **Descrição** e
+**Tipo on-line**.
+4. Clique em **Salvar**.
 
-2. No menu AÇÕES, selecione Criar implementação.
-
-3. No formulário Criar implementação, forneça o Nome, a Descrição e o Tipo on-line.
-
-4. Pressione o botão Salvar.
-
-Agora você verá a implementação on-line na lista de implementações disponíveis na guia Implementações.
-
+A implementação on-line aparece na lista de implementações disponíveis na guia
+**Implementações**.
 
 ## Obtendo detalhes da implementação
 
 É possível verificar o status, o endereço de terminal de pontuação (`Scoring Endpoint`)
 e parâmetros relacionados ao modelo implementado.
 
-1. Acesse a guia Implementações do Painel do IBM® Watson™ Machine Learning.
+1. Acesse a guia **Implementações** do {{site.data.keyword.pm_full}} Dashboard.
+2. No menu **Ações**, clique em **Visualizar detalhes**.
 
-2. No menu AÇÕES, selecione Visualizar detalhes.
-
-Observe que o valor de `Scoring Endpoint` é necessário para fazer solicitações
-de pontuação na próxima etapa.
+Anote o valor `Scoring Endpoint`, que será necessário para fazer solicitações de escore.
 
 
 ## Fazendo solicitações de escore
 
-Como seu terminal de pontuação foi criado (`Scoring Endpoint`), agora é possível
-gerar predições fazendo solicitações de pontuação. Nesse cenário, os registros do cliente são passados
-para o modelo preditivo e uma predição de produto de esporte é retornada.
+Depois de criar um terminal de pontuação, é possível gerar predições fazendo
+solicitações de escore. No cenário a seguir, os registros do cliente são passados para o
+modelo preditivo e uma previsão de produto de esporte é retornada.
 
 Cabeçalho de registro de amostra:
 
@@ -178,3 +177,13 @@ Exemplo de saída:
 Podemos ver, por exemplo, que um executivo de 55 anos está
 interessado em equipamento de montanhismo, enquanto um estudante de
 23 anos está interessado em acessórios pessoais.
+
+## Saiba mais
+
+Para obter mais informações sobre a API, consulte
+[API de serviço para modelos Spark e Python](pm_service_api_spark.html)
+ou [API de serviço para modelos IBM® SPSS®](pm_service_api_spss.html).
+
+Para obter mais informações sobre o IBM® SPSS® Modeler e os algoritmos de modelagem que ele fornece, consulte o [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Para obter mais informações sobre o IBM® Data Science Experience e os algoritmos de modelagem que ele fornece, consulte [https://datascience.ibm.com](https://datascience.ibm.com).

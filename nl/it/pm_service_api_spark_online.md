@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,30 +14,33 @@ lastupdated: "2017-09-07"
 
 # Distribuzione di modelli online
 
+Utilizzando il servizio {{site.data.keyword.pm_full}}, puoi distribuire
+un modello e generare l'analisi predittiva effettuando richieste di punteggio sul modello distribuito.
+{: shortdesc}
+
 **Nome scenario**: Previsione linea di prodotti.
 
 **Descrizione scenario**: una società che vende attrezzature esterne vuole
-creare un modello che preveda l'interesse dei clienti verso la sua linea di
-prodotti. Un data scientist ha preparato
+creare un modello che preveda l'interesse dei clienti verso una linea di
+prodotti in particolare. Un data scientist ha preparato
 un modello predittivo e lo condivide con te (lo sviluppatore). Il tuo compito è quello di distribuire il modello e
 di generare le previsioni dell'interesse del cliente effettuando richieste di punteggio in base al modello distribuito.
 
 ## Utilizzo del modello di esempio
 
-1. Vai alla scheda Esempi del dashboard IBM® Watson™ Machine
-   Learning.
+1. Vai alla scheda Esempi del dashboard {{site.data.keyword.pm_full}}. 
 
 2. Nella sezione Modelli di esempio, cerca il tile Previsione linea di prodotti
    e fai clic sull'icona Aggiungi modello (+).
 
-Adesso vedrai il modello di esempio Previsione linea di prodotti nell'elenco
-di modelli disponibili sulla scheda Modelli.
+Viene visualizzato il modello
+di esempio Previsione linea di prodotti nell'elenco di modelli
+disponibili nella scheda Modelli. 
 
 ## Generazione del token di accesso
 
-Genera un token di accesso utilizzando l'`user` e `password` disponibili
-nella scheda **Credenziali del servizio** dell'istanza del servizio IBM Watson Machine
-Learning.
+Genera un token di accesso che utilizza `user` e `password` disponibili
+nella scheda **Credenziali del servizio** dell'istanza del servizio {{site.data.keyword.pm_full}}.  
 
 Esempio di
 richiesta:
@@ -63,9 +66,11 @@ token="<token_value>"
 {: codeblock}
 
 ## Utilizzo di modelli pubblicati
-Utilizza la seguente chiamata API per richiamare i dettagli della tua istanza, ad esempio:
-* `url` dei modelli pubblicati
-* `url` delle distribuzioni
+
+Utilizza la seguente chiamata API per richiamare i dettagli della tua istanza, che includono i seguenti valori:
+
+* valore `url` dei modelli pubblicati
+* valore `url` delle distribuzioni
 * informazioni di utilizzo
 
 Esempio di
@@ -101,7 +106,7 @@ Esempio di output:
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
@@ -192,7 +197,7 @@ Esempio di output:
 {: codeblock}
 
 
-Nota che l'`url` delle **distribuzioni** è necessario per creare la distribuzione online nel passo successivo.
+Prendi nota del valore **deployments** `url` di cui hai bisogno per creare la seguente distribuzione online.
 
 
 ## Creazione della distribuzione online
@@ -422,7 +427,7 @@ Possiamo vedere, ad esempio, che un dirigente di 55 anni è
 interessato a Mountaineering Equipment, mentre uno studente di 23 anni
 è interessato a Personal Accessories.
 
-**Nota**: per i modelli scikit-learn e XGBoost, nel payload di calcolo del punteggio è richiesto solo il campo `values`.
+**Nota**: per i modelli scikit-learn e XGBoost, nel payload di calcolo del punteggio è richiesto solo il campo `values`. 
 
 Esempio di
 richiesta:
@@ -431,3 +436,18 @@ richiesta:
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header "Authorization: Bearer  $token" -d '{"values": [[0.0,1.0],[4.0,15.0]]}' https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}/published_models/{published_model_id}/deployments/{deployment_id}/online
 ```
 {: codeblock}
+
+## Ulteriori informazioni
+
+Sei pronto a iniziare? Per creare un'istanza di un servizio o per eseguire il bind
+di un'applicazione, vedi [Utilizzo del servizio con i modelli Spark e Python](using_pm_service_dsx.html) oppure
+[Utilizzo del servizio con i modelli IBM® SPSS®](using_pm_service.html).
+
+Per ulteriori informazioni sull'API, vedi [API del servizio per i modelli Spark e Python](pm_service_api_spark.html) o [API del
+servizio per i modelli IBM® SPSS®](pm_service_api_spss.html).
+
+Per ulteriori informazioni su IBM® SPSS® Modeler e sugli algoritmi di modellazione che fornisce, consulta
+[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Per ulteriori informazioni su IBM Data Science Experience e sugli algoritmi di
+modellazione che fornisce, vedi [https://datascience.ibm.com](https://datascience.ibm.com).

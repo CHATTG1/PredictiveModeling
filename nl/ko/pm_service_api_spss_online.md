@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,11 +14,12 @@ lastupdated: "2017-09-07"
 
 # 온라인 모델 배치
 
+{{site.data.keyword.pm_full}} 서비스를 사용하여, 모델을 배치하고 배치된 모델에 대해 스코어링을 요청함으로써 예측 분석을 생성할 수 있습니다.
+{: shortdesc}
 
 **시나리오 이름**: 고객 만족도 예측
 
-**시나리오 설명**: Telco Company에서는 어떤 고객이 떠날 위험성이 있는지 알려고 합니다. 회사는 해당 문제를 해결하는 데 도움이 되는 솔루션을 제공하도록 요청합니다. 데이터 과학자는 예측 모델을 준비하고
-사용자(개발자)와 이를 공유합니다. 여러분의 태스크는
+**시나리오 설명**: 통신사에서는 어떤 고객이 떠날 위험성이 있는지 알려고 합니다. 회사는 해당 문제를 해결하는 데 도움이 되는 솔루션을 제공하도록 요청합니다. 데이터 과학자는 예측 모델을 준비하고 사용자(개발자)와 이를 공유합니다. 여러분의 태스크는
 모델을 배치하고 배치된 모델에 대한 스코어 요청을 작성하여 예측 분석을 생성하는 것입니다. 
 
 ## 샘플 모델 사용
@@ -33,7 +34,7 @@ Git 저장소로부터 샘플 모델을 다운로드하십시오.
    ```
    {: codeblock}
 
-   응답: 
+   응답:
 
    ```
    {"flag":true,"message":"success to upload stream with given context id context_csp2","url":"http://pmdevlb.pmservice.ibmcloud.com:80/pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr"}
@@ -47,7 +48,7 @@ Git 저장소로부터 샘플 모델을 다운로드하십시오.
    ```
    {: codeblock}
 
-   응답: 
+   응답:
 
    ```
    {"flag":true,"message":"success to update stream with given context id context_csp2","url":"http://pmdevlb.pmservice.ibmcloud.com:80/pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr"}
@@ -61,7 +62,7 @@ Git 저장소로부터 샘플 모델을 다운로드하십시오.
    ```
    {: codeblock}
 
-   응답: 
+   응답:
 
    ```
    [{"stream":"customer-satisfaction-prediction.str","id":"context_csp2"}]
@@ -75,7 +76,7 @@ Git 저장소로부터 샘플 모델을 다운로드하십시오.
    ```
    {: codeblock}
 
-   응답(모델의 컨텐츠를 output.str 파일로 다운로드함): 
+   응답(모델의 컨텐츠를 output.str 파일로 다운로드함):
 
    ```
    > GET /pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr HTTP/1.1
@@ -83,9 +84,9 @@ Git 저장소로부터 샘플 모델을 다운로드하십시오.
    > Host: ibm-watson-ml-dev.stage1.mybluemix.net
 
    > User-Agent: curl/7.50.3
-
+   
    > Accept: */*
-
+   
    > Content-Type:*/*
 
    >
@@ -147,7 +148,7 @@ Git 저장소로부터 샘플 모델을 다운로드하십시오.
    ```
    {: codeblock}
 
-   응답: 
+   응답:
 
    ```
    > DELETE /pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr HTTP/1.1
@@ -155,7 +156,7 @@ Git 저장소로부터 샘플 모델을 다운로드하십시오.
    > Host: ibm-watson-ml-dev.stage1.mybluemix.net
 
    > User-Agent: curl/7.50.3
-
+   
    > Accept: */*
    
    > Content-Type:*/*
@@ -270,9 +271,9 @@ Git 저장소로부터 샘플 모델을 다운로드하십시오.
    > Host: ibm-watson-ml-dev.stage1.mybluemix.net
 
    > User-Agent: curl/7.50.3
-
+   
    > Accept: */*
-
+   
    > Content-Type:application/json;charset=UTF-8
 
    > Content-Length: 525
@@ -305,4 +306,13 @@ Git 저장소로부터 샘플 모델을 다운로드하십시오.
    ```
    {: codeblock}
 
+## 자세히 보기
  
+시작할 준비가 되셨습니까? 서비스의 인스턴스를 작성하거나 애플리케이션을 바인드하려면 [Spark 및 Python 모델과 함께 서비스 사용](using_pm_service_dsx.html) 또는
+[IBM® SPSS® 모델과 함께 서비스 사용](using_pm_service.html)을 참조하십시오. 
+
+API에 대한 자세한 정보는 [Spark 및 Python 모델용 서비스 API](pm_service_api_spark.html) 또는 [IBM® SPSS® 모델용 서비스 API](pm_service_api_spss.html)를 참조하십시오. 
+
+IBM® SPSS® Modeler 및 여기서 제공하는 모델링 알고리즘에 대한 자세한 정보는 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)를 참조하십시오. 
+
+IBM Data Science Experience 및 여기서 제공하는 모델링 알고리즘에 대한 자세한 정보는 [https://datascience.ibm.com](https://datascience.ibm.com)을 참조하십시오. 

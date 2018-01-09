@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,13 +14,16 @@ lastupdated: "2017-09-07"
 
 # Eliminazione di un modello predittivo distribuito
 
+Utilizza la seguente chiamata API per eliminare il modello predittivo dall'istanza del servizio Machine
+Learning. Dopo questa chiamata, il modello predittivo non sarà più disponibile per il download o il calcolo del punteggio dei dati nelle tue applicazioni.
+{: shortdesc}
 
+```
 DELETE http://{service
 instance}/pm/v1/model/{contextId}?accesskey={access_key for this
 bound application}
-
-Utilizza questa chiamata API per eliminare il modello predittivo dall'istanza del servizio Machine
-Learning. Dopo questa chiamata, il modello predittivo non sarà più disponibile per il download o il calcolo del punteggio dei dati nelle tue applicazioni.
+```
+{: codeblock}
 
 Esempio di
 richiesta:
@@ -60,3 +63,18 @@ Risposta quando l'annullamento della distribuzione non riesce:
         }
 ```
 {: codeblock}
+
+## Ulteriori informazioni
+
+Sei pronto a iniziare? Per creare un'istanza di un servizio o per eseguire il bind
+di un'applicazione, vedi [Utilizzo del servizio con i modelli Spark e Python](using_pm_service_dsx.html) oppure
+[Utilizzo del servizio con i modelli IBM® SPSS®](using_pm_service.html).
+
+Per ulteriori informazioni sull'API, vedi [API del servizio per i modelli Spark e Python](pm_service_api_spark.html) o [API del
+servizio per i modelli IBM® SPSS®](pm_service_api_spss.html).
+
+Per ulteriori informazioni su IBM® SPSS® Modeler e sugli algoritmi di modellazione che fornisce, consulta
+[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Per ulteriori informazioni su IBM Data Science Experience e sugli algoritmi di
+modellazione che fornisce, vedi [https://datascience.ibm.com](https://datascience.ibm.com).

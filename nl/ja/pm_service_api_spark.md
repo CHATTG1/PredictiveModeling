@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,23 +12,36 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# サービス API
+# REST API
 
+{{site.data.keyword.pm_short}} サービスは、任意のプログラミング言語から呼び出すことができ、アプリケーション内での Data Science Experience 分析の統合を可能にする、REST API セットです。{{site.data.keyword.Bluemix_short}} アプリケーションを {{site.data.keyword.pm_short}} サービス・インスタンスにバインドし、お使いのアプリケーションがユーザーに高い価値を提供するために必要な予測分析を生成します。[管理ダッシュボード](pm_service_ui_spark.html)でモデルを管理し、そのダッシュボードを使用して、アプリケーションと統合されたオンライン・デプロイメント、バッチ・デプロイメント、またはストリーミング・デプロイメントを作成します。
+{: shortdesc}
 
-Machine Learning サービスは、任意のプログラミング言語から呼び出される一連の REST API からなり、Data Science Experience で作成された分析をアプリケーションに統合することを可能にします。Bluemix アプリケーションを Machine Learning サービス・インスタンスにバインドして、アプリケーションがより高い価値をユーザーに提供するために必要な予測分析を生成します。[管理ダッシュボード](pm_service_ui_spark.html)でモデルを管理し、そのダッシュボードを使用して、アプリケーションと統合されたオンライン・デプロイメント、バッチ・デプロイメント、またはストリーミング・デプロイメントを作成します。
-
-強力な [REST API](https://watson-ml-api.mybluemix.net/) を使用して、サービス・インスタンスにデプロイされた Data Science Experience ファイル (Spark モデルおよび Python モデル) に対するアプリケーションを開発します。
+強力な [REST API](https://watson-ml-api.mybluemix.net/) を使用して、サービス・インスタンスにデプロイされた Spark モデル、Python モデル、および IBM® SPSS® モデルに対してアプリケーションを開発します。
 
 *  特定の予測モデル用のメタデータの取得
 *  モデルのデプロイおよびデプロイされたモデルの管理
     *  オンライン・デプロイメント (スコアリング)
-    *  バッチ・デプロイメント (Db2 Warehouse on Cloud をサポート)
-    *  ストリーミング・デプロイメント (IBM MessageHub をサポート)
+    *  バッチ・デプロイメント (IBM Cloud オブジェクト・ストレージおよび {{site.data.keyword.dashdbshort}} をサポート)
+    *  ストリーム・デプロイメント (IBM Cloud Message Hub をサポート)
 *  特定のデプロイメント用のメタデータの取得
-*  デプロイされたモデルにスコア要求を出すことによる予測分析の生成
+*  継続学習システムの使用によるデプロイされたモデルのモニターとリトレーニング
+*  デプロイされたモデルにスコアリング要求を出すことによる予測分析の生成
 
-REST API の使用例については、以下のセクションを参照してください。
+詳しくは、以下の REST API 使用例を参照してください。
 
-*  [オンライン・デプロイメントおよびスコアリング](pm_service_api_spark_online.html)
-*  [Db2 Warehouse on Cloud を使用するバッチ・デプロイメント](pm_service_api_spark_batch.html)
-*  [MessageHub を使用するストリーミング・デプロイメント](pm_service_api_spark_streaming.html)
+*  [オンライン・モデルのデプロイ](pm_service_api_spark_online.html)
+*  [オンライン・モデルのスコアリング](pm_service_api_develop_score.html)
+*  [バッチ・モデルのデプロイ](pm_service_api_spark_batch.html)
+*  [ストリーム・モデルのデプロイ](pm_service_api_spark_streaming.html)
+*  [継続学習システム](pm_service_api_spark_learning_system.html)
+
+## 詳細はこちら
+
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、『[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html)』または『[IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html)』を参照してください。
+
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API] (pm_service_api_spss.html) を参照してください。
+
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
+
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

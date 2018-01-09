@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -16,22 +16,20 @@ lastupdated: "2017-09-07"
 
 # Résolution des incidents
 
-Cette section contient des réponses aux questions communes concernant le traitement des incidents dans IBM Watson Machine Learning.
+Vous trouverez ici les réponses aux questions fréquentes liées au traitement des incidents concernant l'utilisation d'{{site.data.keyword.pm_full}}.
 {: shortdesc}
 
-## Support et assistance dans Watson Machine Learning
+## Aide et support pour Machine Learning
 {: #gettinghelp}
 
-Si vous avez des problèmes ou des questions concernant l'utilisation de Watson Machine Learning, vous pouvez obtenir de l'aide en recherchant des informations ou en posant des questions
-sur un forum. Vous pouvez également ouvrir un ticket de demande de service.
+Si vous avez des problèmes ou de questions quand vous utilisez {{site.data.keyword.pm_short}}, vous pouvez obtenir de l'aide en recherchant des informations précises ou en posant des questions via un forum. Vous pouvez également ouvrir un ticket de demande de service.
 
-Lorsque vous utilisez les forums pour poser une question, balisez votre question pour que les équipes de développement de Machine Learning puissent la voir.
+Si vous utilisez les forums pour poser une question, libellez votre question de sorte qu'elle soit vue par les équipes de développement {{site.data.keyword.pm_short}}.
 
-Si vous avez des questions techniques sur l'apprentissage automatique, publiez votre question sur <a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">Stack Overflow
-<img src="../icons/launch-glyph.svg" alt="External link icon"></a> et balisez votre question avec "ibm-bluemix" et "machine-learning".
+Si vous avez des questions d'ordre technique sur {{site.data.keyword.pm_short}}, publiez votre question sur <a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">Stack Overflow <img src="../icons/launch-glyph.svg" alt="Icône de lien externe"></a> et balisez votre question avec "ibm-bluemix" et "machine-learning".
 
 Pour toute question relative au service et aux instructions de mise en route, utilisez le
-forum <a href="https://developer.ibm.com/answers/topics/machine-learning/?smartspace=bluemix" target="_blank">IBM developerWorks dW Answers <img src="../icons/launch-glyph.svg" alt="External link icon"></a>. Incluez
+forum <a href="https://developer.ibm.com/answers/topics/machine-learning/?smartspace=bluemix" target="_blank">IBM developerWorks dW Answers <img src="../icons/launch-glyph.svg" alt="Icône de lien externe"></a>. Incluez
 les balises "machine-learning" et "bluemix".
 Consultez [Obtenir de l'aide](https://console.bluemix.net/docs/support/index.html#getting-help) pour obtenir plus de détails sur l'utilisation des forums.
 
@@ -254,7 +252,7 @@ Le contenu de correction contient plus d'une opération ou l'opération de corre
 Utilisez une seule opération dans le contenu de correction qui est une opération `replace`
 {: tsResolve}
        
-## Les zones obligatoires suivantes sont manquantes dans le contenu donné : [${fields.mkString(\",\")}] ou les valeurs des zones sont corrompues.
+## Les zones obligatoires suivantes sont absentes du contenu donné : FIELD ou les valeurs des zones sont corrompues.
 {: #ts_invalid_request_payload}
  
 L'opération en relation avec l'accès au jeu de données sous-jacentes ne peut pas être traitée.
@@ -266,7 +264,7 @@ L'accès au jeu de données n'est pas correctement défini.
 Corrigez la définition d'accès pour le jeu de données.
 {: tsResolve}
        
-## La méthode d'évaluation fournie $method n'est pas prise en charge. Valeurs prises en charge : [${supported.mkString(\",\")}].
+## Méthode d'évaluation fournie : METHOD n'est pas prise en charge. Valeurs prises en charge : VALUE.
 {: #ts_evaluation_method_not_supported}
  
 Impossible de créer une configuration d'apprentissage.
@@ -469,7 +467,7 @@ Impossible d'appeler l'API REST qui nécessite les données d'identification Spa
 Un problème lié au décodage en base-64 ou à l'analyse des données d'identification Spark est survenu.
 {: tsCauses}
  
-Vérifiez que les données d'identification Spark correctes ont été correctement codées en base-64. Pour obtenir des détails, veuillez consulter la documentation.
+Vérifiez que les données d'identification Spark correctes ont été correctement codées en base-64. Pour plus d'informations, consultez la documentation.
 {: tsResolve}
        
 ## Cette fonctionnalité est interdite pour les utilisateurs non bêta.
@@ -572,7 +570,7 @@ Le message suivant s'affiche lorsque vous tentez d'effectuer une évaluation en 
 Ce message s'affiche lorsque le jeton utilisé pour l'évaluation a expiré.
 {: tsCauses}
 
-Régénerez le jeton pour cette instance Watson Machine Learning puis renouvelez l'opération. Si le problème persiste, contactez le support IBM.
+Régénérez le jeton pour cette instance {{site.data.keyword.pm_full}}, puis essayez à nouveau. Si le problème persiste, contactez le support IBM.
 {: tsResolve}
 
 ## Identification de déploiement inconnue : 404

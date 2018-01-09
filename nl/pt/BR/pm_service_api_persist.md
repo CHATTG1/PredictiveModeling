@@ -1,8 +1,6 @@
 ---
 
-copyright:
-  years: 2016, 2017
-lastupdated: "2017-09-07"
+copyright: years: 2016, 2017 lastupdated: "2017-11-16"
 
 ---
 
@@ -14,49 +12,29 @@ lastupdated: "2017-09-07"
 
 # Modelos persistentes
 
-
-*  [Persistência de modelo e controle de versão](#model-persistence-and-version-control)
-
-   *  [Gerando o token de acesso](#generating-the-access-token)
-
-   *  [Criando metadados de pipeline](#creating-pipeline-metadata)
-
-   *  [Criando versão de pipeline](#creating-pipeline-version)
-
-   *  [Fazendo upload de conteúdo de pipeline](#uploading-pipeline-content)
-
-   *  [Criando metadados de modelo de pipeline](#creating-pipeline-model-metadata)
-
-   *  [Criando versão de modelo de pipeline](#creating-pipeline-model-version)
-
-   *  [Fazendo upload de conteúdo de modelo de pipeline](#uploading-pipeline-model-content)
-
-Os cientistas de dados se esforçam continuamente para
-melhorar seus modelos como parte de sua pesquisa e desenvolvimento. Eles podem incluir novos recursos em modelos existentes e
-otimizar os parâmetros de modelo.
-Quando os cientistas de dados
-desenvolvem modelos em um modo iterativo, mantendo o controle de
-mudanças, isso pode rapidamente se tornar um problema. Aqui
-vamos ilustrar maneiras de ajudar os cientistas de dados,
-fornecendo a versão do modelo e mantendo o processo inteiro bem
-organizado.
-
-Antes de iniciar, se você estiver interessado primeiramente em
-desenvolvimento de modelo, consulte as seguintes notas:
-
-*  [Desenvolvendo
-modelos SparkML com Python](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
-
-*  [Desenvolvendo
-modelos SparkML com Scala](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)
+Use o serviço {{site.data.keyword.pm_full}} para fornecer a versão do
+modelo e manter o processo de aprendizado de máquina bem organizado. Você pode fazer isso
+usando a versão, metadados e recursos de token de acesso do serviço
+{{site.data.keyword.pm_short}}.
+{: shortdesc}
 
 ## Persistência de modelo e controle de versão
 
+Conforme você se esforçar para melhorar continuamente seus modelos como parte de seus
+esforços de pesquisa e desenvolvimento, poderá incluir novos recursos em modelos
+existentes ou otimizar parâmetros de modelo. Quando você desenvolve modelos nesse tipo de modo iterativo, o controle de mudanças pode rapidamente se tornar um problema. Usando os seguintes recursos de versão do modelo de dados do {{site.data.keyword.pm_short}}, você pode manter o processo inteiro bem organizado. 
+
+*  [Gerando o token de acesso](#generating-the-access-token)
+*  [Criando metadados de pipeline](#creating-pipeline-metadata)
+*  [Criando versão de pipeline](#creating-pipeline-version)
+*  [Fazendo upload de conteúdo de pipeline](#uploading-pipeline-content)
+*  [Criando metadados de modelo de pipeline](#creating-pipeline-model-metadata)
+*  [Criando versão de modelo de pipeline](#creating-pipeline-model-version)
+*  [Fazendo upload de conteúdo de modelo de pipeline](#uploading-pipeline-model-content)
+
 ### Gerando o token de acesso
 
-Gere um token de acesso usando o usuário e a senha disponíveis na
-guia Credenciais de serviço da instância de serviço do IBM® Watson™ Machine
-Learning.
+Gere um token de acesso usando o usuário e a senha disponíveis na guia Credenciais de serviço da instância de serviço do {{site.data.keyword.pm_full}}.
 
 Exemplo de solicitação:
 
@@ -72,24 +50,20 @@ Exemplo de saída:
 ```
 {: codeblock}
 
-Use o comando de terminal a seguir para designar o valor do token à
-variável de ambiente access_token:
+Use o comando de terminal a seguir para designar seu valor do token para a variável de ambiente `access_token`:
 
 ```
 access_token="<token_value>"
 ```
 {: codeblock}
 
-Em seguida, para salvar o pipeline e o modelo de pipeline,
-você criará os metadados do modelo de pipeline e o pipeline,
-criará a versão do modelo de pipeline e o pipeline e fará
-upload da versão do modelo de pipeline e do pipeline. Consulte as seções a seguir para detalhes.
+Salve o pipeline e o modelo de pipeline. Crie o pipeline e os metadados do modelo
+de pipeline, crie o pipeline e a versão do modelo de pipeline e faça upload do pipeline e
+da versão do modelo de pipeline. 
 
 ### Criando metadados de pipeline
 
-Para criar metadados para seu pipeline, descreva as propriedades
-básicas de seu pipeline em uma solicitação curl, conforme mostrado no
-exemplo a seguir:
+Para criar metadados para seu pipeline, descreva as propriedades básicas de seu pipeline em uma solicitação `curl`, conforme mostrado no exemplo a seguir:
 
 ```
 curl -i \
@@ -129,9 +103,9 @@ Resposta de exemplo:
 
 ### Criando a versão de pipeline
 
-Para criar uma versão para seu pipeline, especifique o
-parentVersionHref do pipeline em uma solicitação curl, conforme mostrado no
-exemplo a seguir:
+Para criar uma versão para seu pipeline, especifique o valor
+`parentVersionHref` para seu pipeline em uma solicitação
+`curl`, conforme mostrado no exemplo a seguir:
 
 ```
 curl -i \
@@ -163,8 +137,8 @@ Resposta de exemplo:
 ### Fazendo upload de conteúdo de pipeline
 
 Para fazer upload de conteúdo de pipeline, seu pipeline deve
-estar no formato binário. Para fazer isso, chame o método de salvamento do pipeline
-SparkML. É possível fazer
+estar no formato binário. Para fazer isso, chame o método `save` do
+pipeline SparkML. É possível fazer
 upload do seu conteúdo binário, fornecendo o ID do seu pipeline
 e a versão em um terminal, conforme mostrado no
 exemplo a seguir:
@@ -283,9 +257,9 @@ Resposta de exemplo:
 
 ### Criando versão do modelo de pipeline
 
-Para criar uma versão para o modelo de pipeline, use uma solicitação curl
-para especificar detalhes, como o local que você armazena seus dados de
-treinamento e o método de avaliação de modelo. Consulte o seguinte exemplo:
+Para criar uma versão para o modelo de pipeline, use uma solicitação
+`curl` para especificar detalhes, como o local em que você armazena seus
+dados de treinamento e o método de avaliação de modelo. Consulte o seguinte exemplo:
 
 ```
 curl -i \
@@ -348,8 +322,8 @@ Resposta de exemplo:
 ### Fazendo upload do conteúdo do modelo de pipeline
 
 Para fazer upload de conteúdo do modelo de pipeline, seu
-modelo de pipeline deve estar no formato binário. Para fazer isso, chame o método de salvamento do
-modelo de pipeline SparkML. É possível fazer
+modelo de pipeline deve estar no formato binário. Para fazer isso, chame o método
+`save` do modelo de pipeline SparkML. É possível fazer
 upload do seu conteúdo binário, fornecendo o ID do seu pipeline
 e a versão em um terminal, conforme mostrado no
 exemplo a seguir:
@@ -379,3 +353,12 @@ Resposta de exemplo:
 {"ok":"true"}
 ```
 {: codeblock}
+
+## Saiba mais
+
+Para saber mais sobre o desenvolvimento de modelo, consulte as seguintes anotações:
+
+*  [Desenvolvendo
+modelos SparkML com Python](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
+*  [Desenvolvendo
+modelos SparkML com Scala](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)

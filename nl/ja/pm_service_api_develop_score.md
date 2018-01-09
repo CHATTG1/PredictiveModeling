@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,13 +14,14 @@ lastupdated: "2017-09-07"
 
 # デプロイされた予測モデルによるスコアリング
 
+{{site.data.keyword.pm_full}} サービスを使用して、デプロイされたモデルが使用する入力データを API 呼び出しによって送ることができます。予測分析を生成してスコアリング結果に戻すためにこのメソッドを使用できます。
+{: shortdesc}
 
+```
 POST http://{PA Bluemix load balancer
 URL}/pm/v1/score/{contextId}?accesskey={access_key for this bound
-application}
-
-予測分析を生成しスコアリング結果に戻すために、デプロイされたモデルが使用する入力データを、この API 呼び出しを使用して送ります。
-
+application}```
+{: codeblock}
 
 要求の例:
 
@@ -67,3 +68,13 @@ application}
         }  
 ```
 {: codeblock}
+
+## 詳細はこちら
+
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、『[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html)』または『[IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html)』を参照してください。
+
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API] (pm_service_api_spss.html) を参照してください。
+
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
+
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

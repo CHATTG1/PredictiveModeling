@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,12 +14,14 @@ lastupdated: "2017-09-07"
 
 # 現在デプロイされている全モデルのリストの取得
 
+この {{site.data.keyword.pm_full}} サービス・インスタンスに現在デプロイされているすべてのモデルのサマリーを取得します。
+{: shortdesc}
 
+```
 GET http://{PA Bluemix load balancer
 URL}/pm/v1/model?accesskey={access_key for this bound
-application}
-
-このサービス・インスタンスに現在デプロイされているすべてのモデルのサマリーを取得します。
+application}```
+{: codeblock}
 
 要求の例:
 
@@ -63,3 +65,13 @@ application}
          }
 ```
 {: codeblock}
+
+## 詳細はこちら
+
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、『[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html)』または『[IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html)』を参照してください。
+
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API] (pm_service_api_spss.html) を参照してください。
+
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
+
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,33 +12,46 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Stapelmodelle bereitstellen <span class='tag--beta'>Beta</span>
+# Stapelmodelle bereitstellen
 
-**Hinweis:** Diese Funktion ist aktuell nur als Betaversion vorhanden und steht nur für die Verwendung mit Spark MLlib zur Verfügung. Wenn Sie daran teilnehmen möchten, fügen Sie sich selbst zur Warteliste hinzu! Weitere
-Informationen finden Sie unter [https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist).
+Mit dem {{site.data.keyword.pm_full}}-Service können Sie ein Modell
+bereitstellen und prädiktive Analysen generieren, indem Sie Scoring-Anforderungen
+für das bereitgestellte Modell erstellen.
+{: shortdesc}
+
 
 **Szenarioname:** Kundenzufriedenheitsvorhersage.
 
 **Szenariobeschreibung:** Ein Telekommunikationsunternehmen möchte wissen, bei welchen Kunden die Gefahr besteht, dass sie zu
 einem anderen Anbieter wechseln. Das dargestellte Modell macht eine Vorhersage zur Abwanderung von Kunden. Ein Data-Scientist entwickelt ein Vorhersagemodell und teilt es mit Ihnen (dem Entwickler). Ihre Aufgabe ist es, das Modell bereitzustellen und eine
 Vorhersageanalyse zu generieren, indem Sie Scoring-Anforderungen für
-das implementierte Modell erstellen.
+das bereitgestellte Modell erstellen.
+
+**Hinweis:** Sie können sich auch mit dem Beispiel-Python-[Notizbuch](https://apsportal.ibm.com/analytics/notebooks/5e4963d9-faea-455d-a7db-ff6302d1d8f5/view?access_token=5d23d36be72dea35ebbde9b4b5f4a16d0053ee898f1ab2ab73cf1301ce9322be) vertraut machen, die ein Beispielmodell erstellt und die Abwanderung von Kunden vorhersagt.
+
+## Voraussetzungen
+
+Um mit diesem Beispiel arbeiten zu können, müssen Sie über die folgenden Ressourcen verfügen:
+
+* Details zu [Object Storage](https://console.bluemix.net/catalog/services/object-storage), die als Eingabe (zu bewertende Kundendaten) für das Modell und den Speicherort für die Modellausgabe verwendet werden. Die CSV-Beispieleingabedatei kann von [hier](https://raw.githubusercontent.com/pmservice/wml-sample-models/master/spark/customer-satisfaction-prediction/data/scoreInput.csv) heruntergeladen werden. Sie sollten die Eingabedatei zu Ihrer Object Storage-Instanz hinzufügen.
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark): Berechtigungsnachweise für die Serviceinstanz. Sie können [diesen Link](https://console.bluemix.net/catalog/services/apache-spark) verwenden, um einen zu erstellen.
+
+
 
 ## Beispielmodell verwenden
 
-1. Wechseln Sie zur Registerkarte Beispiele des IBM® Watson™ Machine Learning-Dashboards.
+1. Wechseln Sie zur Registerkarte **Beispiele** des {{site.data.keyword.pm_full}}-
+   Dashboards.
+2. Im Abschnitt **Beispielmodelle** suchen Sie die Kachel **Kundenzufriedenheitsvorhersage**
+   und klicken Sie auf das Symbol **Modell hinzufügen** (+).
 
-2. Suchen Sie im Abschnitt Beispielmodelle die Kachel für die Kundenzufriedenheitsvorhersage
-und klicken Sie auf die Schaltfläche Modell hinzufügen (+).
-
-Jetzt sehen Sie das Beispielmodell Kundenzufriedenheitsvorhersage in
-der Liste mit verfügbaren Modellen auf der Registerkarte Modelle.
+Das Beispielmodell für 'Kundenzufriedenheitsvorhersage' wird
+in der Liste mit verfügbaren Modellen auf der Registerkarte **Modelle** angezeigt.
 
 ## Zugriffstoken generieren
 
-Generieren Sie mithilfe des Benutzers und des Kennworts, die auf der Registerkarte
-Serviceberechtigungsnachweise der IBM Watson Machine Learning-Serviceinstanz
-angegeben sind, ein Zugriffstoken (access token).
+Generieren Sie ein Zugriffstoken, indem Sie den Benutzer und das Kennwort verwenden, die auf
+der Registerkarte 'Berechtigungsnachweise' der {{site.data.keyword.pm_full}}-Serviceinstanz angegeben sind.
 
 Anforderungsbeispiel:
 
@@ -55,7 +68,7 @@ Ausgabebeispiel:
 {: codeblock}
 
 Verwenden Sie den folgenden Terminalbefehl, um Ihren Tokenwert dem
-Umgebungsvariablentoken zuzuweisen: 
+Umgebungsvariablentoken zuzuweisen:
 
 ```
 token="<token_value>"
@@ -63,9 +76,11 @@ token="<token_value>"
 {: codeblock}
 
 ## Mit veröffentlichten Modellen arbeiten
-Verwenden Sie den folgenden API-Aufruf, um Ihre Instanzdetails abzurufen. Zum Beispiel: 
-* Veröffentlichte Modelle `URL`
-* Bereitstellungen `URL`
+
+Verwenden Sie den folgenden API-Aufruf, um Ihre Instanzdetails abzurufen. Dazu gehören die folgenden Elemente:
+
+* `URL`-Werte für veröffentlichte Modelle
+* `URL`-Wert für Bereitstellungen
 * Nutzungsinformationen
 
 Anforderungsbeispiel:
@@ -100,14 +115,13 @@ Ausgabebeispiel:
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
 {: codeblock}
 
-
-Verwenden Sie bei der URL von veröffentlichten Modellen (**published_models** `url`) den folgenden API-Aufruf, um Modelldetails abzurufen: 
+Wenn Sie den `URL`-Wert für **published_models** angeben, können Sie den folgenden API-Aufruf verwenden, um die Modelldetails abzurufen:
 
 Anforderungsbeispiel:
 
@@ -493,9 +507,7 @@ Ausgabebeispiel:
 ```
 {: codeblock}
 
-
-Bitte beachten Sie die `URL` der **Bereitstellung**, die für das Erstellen einer Stapelbereitstellung im nächsten Schritt erforderlich ist. 
-
+Notieren Sie den `URL`-Wert für **Bereitstellungen**, den Sie für die Erstellung der folgenden Stapelbereitstellung benötigen.
 
 ## Stapelbereitstellung mit Object Storage erstellen
 
@@ -504,24 +516,18 @@ Ihres Vorhersagemodells erstellen möchten, müssen Sie die folgenden
 Details angeben:
 
 *  Das im vorherigen Schritt erstellte Zugriffstoken
-
-*  Spark-Serviceberechtigungsnachweise, die Sie auf der Registerkarte
-Serviceberechtigungsnachweise des Bluemix Spark-Servicedashboards finden. Bevor die
-Bereitstellungsanforderung gestellt werden kann, müssen Spark-Berechtigungsnachweise
-als Base64 decodiert und im Header einer 'curL'-Anforderung als
-X-Spark-Serviceinstanz übergeben werden.
+*  Spark-Serviceberechtigungsnachweise, die Sie auf der Registerkarte 'Serviceberechtigungsnachweise' des {{site.data.keyword.Bluemix_notm}} Spark-Servicedashboards finden. Bevor Sie die Implementierungsanforderung stellen, müssen Spark-Berechtigungsnachweise als Base64 decodiert und im Header einer `curL`-Anforderung als X-Spark-Service-Instanz übergeben werden.
 
    Setzen Sie abhängig vom verwendeten Betriebssystem einen der folgenden Terminalbefehle ab, um die Base64-Decodierung auszuführen, und weisen Sie ihn der Umgebungsvariablen zu.
 
-   Verwenden Sie unter dem Betriebssystem macOS den folgenden Befehl:
+   Verwenden Sie unter dem Betriebssystem **macOS** den folgenden Befehl:
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   Verwenden Sie unter den Betriebssystemen Microsoft Windows und Linux den Parameter `--wrap=0` im Befehl `base64`, um die
-Base64-Decodierung auszuführen:
+   Verwenden Sie unter den Betriebssystemen **Microsoft Windows** oder **Linux** den Parameter `--wrap=0` mit dem Befehl `base64`, um die Base64-Codierung auszuführen:
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
@@ -531,8 +537,7 @@ Base64-Decodierung auszuführen:
 *  Object Storage-Details, die als Eingabe (zu bewertende Kundendaten) für das
 Modell verwendet werden, und der Speicherort für die Modellausgabe (in diesem Fall
 die Datei results.csv, die automatisch erstellt wird).
-
-*  Um eine Bereitstellung zu erstellen, verwenden Sie **Bereitstellungen** `URL` aus dem vorherigen Abschnitt.
+*  Um eine Bereitstellung zu erstellen, verwenden Sie den `URL`-Wert **Bereitstellungen** aus dem vorherigen Abschnitt.
 
 
 Anforderungsbeispiel:
@@ -672,11 +677,9 @@ Ausgabebeispiel:
 **Hinweis:** Sie können auch das Dashboard verwenden, um eine
 Stapelbereitstellung zu erstellen.
 
-
 ## Bereitstellungsdetails abrufen
 
-Sie können den Status und die Parameter im Zusammenhang mit dem Bereitstellungsmodell mithilfe der **Metadaten** `URL` (siehe obiges Ausgabebeispiel) überprüfen.
-
+Sie können den Status und die Parameter im Zusammenhang mit dem Bereitstellungsmodell mithilfe des `URL`-Werts **metadata** überprüfen.
 Anforderungsbeispiel:
 
 ```
@@ -768,8 +771,8 @@ Ausgabebeispiel:
 ```
 {: codeblock}
 
-Das Vorhersageergebnis wird in einer '.csv'-Datei in
-IBM Object Storage gespeichert. Im Folgenden finden Sie eine Beispielzeile.
+Das Vorhersageergebnis wird in einer CSV-Datei in IBM Object
+Storage gespeichert. Ein Beispiel für die Ausgabe finden Sie in der folgenden Beispielzeile.
 
 Eingabedateivorschau:
 
@@ -800,8 +803,7 @@ Fiber optic, Month-to-month, 1, 79.35, 1
 
 ## Stapelbereitstellung löschen
 
-Falls sie nicht mehr benötigt wird, können Sie die Bereitstellung
-mithilfe einer Abfrage wie der folgenden löschen.
+Verwenden Sie die folgende Abfrage, um die Bereitstellung zu löschen:
 
 Anforderungsbeispiel:
 
@@ -826,3 +828,18 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 1600446575
 ```
 {: codeblock}
+
+## Weitere Informationen
+
+Sind Sie bereit? Informationen zum Erstellen einer Serviceinstanz oder zum Binden
+einer Anwendung finden Sie unter [Service mit Spark- und Python-Modellen verwenden](using_pm_service_dsx.html) oder
+[Service mit IBM® SPSS®-Modellen verwenden](using_pm_service.html).
+
+Weitere Informationen zur API finden Sie unter [Service-API für Spark- und Python-Modelle](pm_service_api_spark.html) oder [Service-
+API für IBM® SPSS® Modelle] (pm_service_api_spss.html).
+
+Weitere Informationen zu IBM® SPSS® Modeler und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie im [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Weitere Informationen zu IBM Data Science Experience und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie unter [https://datascience.ibm.com](https://datascience.ibm.com).

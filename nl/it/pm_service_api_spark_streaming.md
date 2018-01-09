@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,11 +12,11 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Distribuzione di modelli streaming <span class='tag--beta'>Beta</span>
+# Distribuzione di modelli streaming
 
-
-**Nota**: questa funzionalità è attualmente in beta e disponibile solo
-per l'utilizzo con Spark MLlib. Se sei interessato a partecipare, inserisci il tuo nome nella lista di attesa. Per ulteriori informazioni, vedi: [https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist).
+Utilizzando il servizio {{site.data.keyword.pm_full}}, puoi distribuire
+un modello e generare l'analisi predittiva effettuando richieste di punteggio sul modello distribuito.
+{: shortdesc}
 
 **Nome scenario**: Analisi delle valutazioni.
 
@@ -26,15 +26,25 @@ sviluppare un modello che classifichi una data istruzione come POSITIVA o
 NEGATIVA. Un data scientist prepara un modello predittivo e lo condivide con te (lo sviluppatore). Il tuo compito è quello di distribuire
 il modello e di generare l'analisi predittiva effettuando richieste di punteggio sul modello distribuito.
 
+**Nota:** puoi anche utilizzare [un notebook python di esempio](https://apsportal.ibm.com/analytics/notebooks/913a7daa-cf39-414d-9017-3a7840a53c59/view?access_token=f1ebc10873a226f248f744b26ee7f71d53c81d5752b9d940e23a33518a3e115d) che crea un modello di esempio e classifica i tweet.
+
 Per ulteriori informazioni, vedi questo documento.
+
+
+## Prerequisiti
+Per utilizzare questo esempio avrai bisogno di:
+* I dettagli degli argomenti [Message Hub](https://console.bluemix.net/catalog/services/message-hub), che verranno utilizzati come input (testo del tweet) per il modello e archiviazione
+per l'output del modello (risultati della previsione). Assicurati che vengano creati due argomenti: l'argomento di output e di input con il testo del tweet.
+* Credenziali dell'istanza del servizio [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark). Puoi utilizzare questo [link](https://console.bluemix.net/catalog/services/apache-spark) per crearne uno.
+
+
 
 ## Utilizzo del modello di esempio
 
-1. Vai alla scheda Esempi del dashboard IBM® Watson™ Machine
-   Learning.
+1. Vai alla scheda Esempi del dashboard {{site.data.keyword.pm_full}}. 
 
 2. Nella sezione Modelli di esempio, cerca il tile Previsione
-   valutazioni e fai clic sul pulsante Aggiungi modello (+).
+   valutazioni e fai clic sull'icona Aggiungi modello (+). 
 
 Adesso vedrai il modello di esempio Previsione valutazioni nell'elenco di
 modelli disponibili sulla scheda Modelli.
@@ -107,7 +117,7 @@ Esempio di output:
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
@@ -213,42 +223,37 @@ Esempio di output:
 ```
 {: codeblock}
 
-Nota che l'`url` delle **distribuzioni** è necessario per creare la distribuzione batch nel passo successivo.
-
+Prendi nota del valore **deployments** `url` di cui hai bisogno per creare la seguente distribuzione batch.
 
 ## Creazione di una distribuzione streaming con IBM Message Hub
 
 Per utilizzare una chiamata dell'API REST per creare una distribuzione streaming del tuo modello predittivo, fornisci i seguenti
 dettagli:
 
-*  Il token di accesso creato nel passo precedente
+*  Il token di accesso che hai creato nel passo precedente 
 
-*  Le credenziali del servizio Spark, che è possibile trovare nella scheda Credenziali del
-   servizio del dashboard del servizio Bluemix Spark. Prima
-   di effettuare la richiesta di distribuzione, le credenziali Spark devono essere
-   decodificate in base64 e passate all'intestazione di una richiesta curl come
-   X-Spark-Service-Instance.
+*  Le credenziali del servizio Spark, che è possibile trovare nella scheda Credenziali del servizio del dashboard del servizio {{site.data.keyword.Bluemix_notm}} Spark. Prima di effettuare la richiesta di distribuzione, le credenziali Spark devono essere decodificate in base64 e passate all'intestazione di una richiesta `curl` come X-Spark-Service-Instance.
 
    A seconda del sistema operativo che stai utilizzando, devi immettere uno dei seguenti comandi di terminale per eseguire la decodifica in base64 e assegnarlo alla variabile di ambiente.
 
-   Sul sistema operativo macOS, utilizza il seguente comando:
+   Sul sistema operativo **macOS**, utilizza il seguente comando:
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   Sui sistemi operativi Microsoft Windows o Linux, per eseguire la decodifica in base64 devi utilizzare il parametro `--wrap=0` con il comando `base64`:
+   Sui sistemi operativi **Microsoft Windows** o **Linux**, per eseguire la decodifica in base64 devi utilizzare il parametro `--wrap=0` con il comando `base64`:
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
    ```
    {: codeblock}
 
-*  I dettagli dell'argomento IBM Message Hub, che verranno utilizzati come input (tweet) per il modello e archiviazione
-per l'output del modello (risultati della previsione).
+*  I dettagli dell'argomento IBM Message Hub, che vengono utilizzati come input (tweet) per il modello e archiviazione
+per l'output del modello (risultati della previsione) 
 
-*  Per creare una distribuzione, utilizza l'`url` delle **distribuzioni** dalla sezione precedente.
+*  Il valore `url` delle **distribuzioni** 
 
 Esempio di
 richiesta:
@@ -613,3 +618,18 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 2025130991
 ```
 {: codeblock}
+
+## Ulteriori informazioni
+
+Sei pronto a iniziare? Per creare un'istanza di un servizio o per eseguire il bind
+di un'applicazione, vedi [Utilizzo del servizio con i modelli Spark e Python](using_pm_service_dsx.html) oppure
+[Utilizzo del servizio con i modelli IBM® SPSS®](using_pm_service.html).
+
+Per ulteriori informazioni sull'API, vedi [API del servizio per i modelli Spark e Python](pm_service_api_spark.html) o [API del
+servizio per i modelli IBM® SPSS®](pm_service_api_spss.html).
+
+Per ulteriori informazioni su IBM® SPSS® Modeler e sugli algoritmi di modellazione che fornisce, consulta
+[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Per ulteriori informazioni su IBM Data Science Experience e sugli algoritmi di
+modellazione che fornisce, vedi [https://datascience.ibm.com](https://datascience.ibm.com).

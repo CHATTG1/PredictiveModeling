@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,26 +12,29 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# サービス API
+# REST API
 
+{{site.data.keyword.pm_short}} サービスは、任意のプログラミング言語から呼び出すことができ、アプリケーション内での IBM® SPSS® Modeler 分析との統合を提供する、REST API セットです。{{site.data.keyword.Bluemix_short}} アプリケーションを {{site.data.keyword.pm_short}} サービス・インスタンスにバインドし、お使いのアプリケーションがユーザーに高い価値を提供するために必要な予測分析を生成します。お使いの IBM® SPSS® モデルは管理ダッシュボードで管理し、そのダッシュボードを使用して、アプリケーションの停止も再デプロイもすることなくモデルの更新や最新表示をしてください。
+{: shortdesc}
 
-Machine Learning サービスは、任意のプログラミング言語から呼び出すことができる一連の REST API で構成され、IBM SPSS Modeler で作成された分析をアプリケーションに統合できるようにします。Bluemix アプリケーションを Machine Learning サービス・インスタンスにバインドして、アプリケーションがより高い価値をユーザーに提供するために必要な予測分析を生成します。お使いの SPSS モデルは管理ダッシュボードで管理し、そのダッシュボードを使用して、アプリケーションの停止も再デプロイもすることなくモデルの更新や最新表示をしてください。
+{{site.data.keyword.pm_short}} サービスのインスタンスにデプロイされた IBM® SPSS® Modeler ファイルを管理します。具体的には、以下のタスクを実行できます。
 
+*  新規予測モデルのデプロイ。
+*  デプロイされた予測モデルの最新表示。
+*  デプロイされた予測モデルのコピーのダウンロード。
+*  デプロイされた予測モデルの削除。
 
-Machine Learning サービスのインスタンスにデプロイされる SPSS Modeler ファイルを以下のように管理します。
+サービス・インスタンスにデプロイされた IBM® SPSS® Modeler ファイルを使用して、アプリケーションを開発します。
 
-*  新規予測モデルのデプロイ
+*  デプロイ済み予測モデル用のメタデータの取得。
+*  デプロイされた予測モデルにスコアリング要求を出すことによる予測分析の生成。
 
-*  デプロイされた予測モデルの最新表示
+## 詳細はこちら
 
-*  デプロイされた予測モデルのコピーのダウンロード
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、『[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html)』または『[IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html)』を参照してください。
 
-*  デプロイされた予測モデルの削除
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API] (pm_service_api_spss.html) を参照してください。
 
-サービス・インスタンスにデプロイされる IBM SPSS Modeler ファイルに対して次のようにアプリケーションを開発します。
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
 
-
-*  特定のデプロイ済み予測モデル用のメタデータの取得
-
-*  デプロイされた予測モデルにスコアリング要求を出すことによる予測分析の生成
-
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

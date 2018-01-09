@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,30 +12,38 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# ストリーミング・モデルのデプロイ (<span class='tag--beta'>ベータ</span>)
+# ストリーミング・モデルのデプロイ
 
-**注**: この機能は、現在はベータ版であり、Spark MLlib でのみ使用可能です。参加をご希望の場合は、ご自身を待機リストに追加してください。
-詳しくは、[https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist) を参照してください。
+{{site.data.keyword.pm_full}} サービスを使用して、モデルをデプロイし、デプロイされたストリーミング・モデルに対してスコアリング要求を行うことによって予測分析を生成することができます。
+{: shortdesc}
 
 **シナリオ名**: 感情分析。
 
-**シナリオの説明**: あるマーケティング代理店が、特定のトピックに関する感情を把握したいと考えています。その代理店は、特定の発言を肯定または否定に分類するモデルの開発を依頼したいと考えています。データ・サイエンティストが、予測モデルを準備し、それを開発者と共有します。開発者のタスクは、モデルをデプロイし、デプロイ済みモデルに対してスコア要求を行うことにより、予測分析を生成することです。
+**シナリオの説明**: あるマーケティング代理店が、特定のトピックに関する感情を把握したいと考えています。その代理店は、発言を肯定または否定に分類するモデルの開発を依頼したいと考えています。データ・サイエンティストが、予測モデルを準備し、それを開発者と共有します。開発者のタスクは、モデルをデプロイし、デプロイ済みモデルに対してスコアリング要求を行うことにより、予測分析を生成することです。
 
 詳細については、この[文書](https://github.com/pmservice/tweet-sentiment-prediction)を参照してください。
 
+## 前提条件
+
+この例を使用して作業するには、以下のリソースが必要です。
+
+* [Message Hub](https://console.bluemix.net/catalog/services/message-hub) トピックの詳細。モデルの入力 (ツイート・テキスト)、およびモデルの出力 (予測結果) のストレージとして使用されます。2 つのトピック (ツイート・テキストの入った入力トピックと、出力トピック) が作成されることを確認してください。
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) サービス・インスタンス資格情報。[このリンク](https://console.bluemix.net/catalog/services/apache-spark)を使用して作成できます。
+
+
 ## サンプル・モデルの使用
 
-1. IBM® Watson™ Machine Learning ダッシュボードの「サンプル」タブに移動します。
-2. 「サンプル・モデル (Sample Models)」セクションで「Sentiment Prediction」タイルを見つけて、「モデルの追加 (Add model)」ボタン (+) をクリックします。
+1. {{site.data.keyword.pm_full}} ダッシュボードの**「サンプル」**タブに移動します。
+2. **「サンプル・モデル (Sample Models)」**セクションで**「Sentiment Prediction」**タイルを見つけて、「モデルの追加」アイコン (+) をクリックします。
 
-これで、「モデル (Models)」タブの使用可能なモデルのリストに、サンプルの「Sentiment Prediction」モデルが表示されます。
+「モデル (Models)」タブの使用可能なモデルのリストに、サンプルの「Sentiment Prediction」モデルが表示されます。
 
 
 ## IBM Message Hub を使用するストリーミング・デプロイメントの作成
 
-1.  IBM® Watson™ Machine Learning ダッシュボードの「モデル」タブに移動します。
-2.  「アクション」メニューから「デプロイメントの作成」をクリックします。
-3.  「デプロイメントの作成」フォームで、名前、説明、およびストリーム・タイプを指定します。
+1.  {{site.data.keyword.pm_full}} ダッシュボードの**「モデル」**タブに移動します。
+2.  **「アクション」**メニューから、**「デプロイメントの作成」**をクリックします。
+3.  **「デプロイメントの作成 (Create Deployment)」**フォームの**「名前 (Name)」**、**「説明 (Description)」**、および**「ストリーム・タイプ (Stream Type)」**フィールドに入力します。
 4.  以下を入力する必要があります。
 
     **入力接続**: モデルの入力 (ツイート)、およびモデルの出力 (予測結果) のストレージとして使用される、IBM Message Hub トピックの詳細。
@@ -92,7 +100,7 @@ lastupdated: "2017-09-07"
     ```
     {: codeblock}
 
-    **Spark 接続**: Spark サービス資格情報は、Bluemix Spark サービス・ダッシュボードの「サービス資格情報」タブにあります。
+    **Spark 接続**: Spark サービス資格情報は、{{site.data.keyword.Bluemix_notm}} Spark サービス・ダッシュボードの「サービス資格情報」タブにあります。
 
      ```
 {
@@ -117,14 +125,22 @@ lastupdated: "2017-09-07"
 
 デプロイされたモデルに関連する状況およびパラメーターを確認できます。
 
-1. IBM® Watson™ Machine Learning ダッシュボードの「デプロイメント」タブに移動します。
+1. {{site.data.keyword.pm_full}} ダッシュボードの「デプロイメント」タブに移動します。
 
 2. 「アクション」メニューから「詳細の表示」をクリックします。
 
 ## ストリーミング・デプロイメントの削除
 
-以下の例のような照会を使用して、不要になったデプロイメントを削除できます。
+以下の例のような照会を実行して、不要になったデプロイメントを削除できます。
 
-1. IBM® Watson™ Machine Learning ダッシュボードの「デプロイメント」タブに移動します。
+1. {{site.data.keyword.pm_full}} ダッシュボードの「デプロイメント」タブに移動します。
 
-2. 「アクション」メニューから「削除」を選択します。
+2. 「アクション」メニューから「削除」をクリックします。
+
+## 詳細はこちら
+
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html) または [IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html) を参照してください。
+
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API](pm_service_api_spss.html) を参照してください。
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

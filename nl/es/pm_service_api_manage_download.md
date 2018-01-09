@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-06-23"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,14 +14,17 @@ lastupdated: "2017-06-23"
 
 # Descarga una copia de un determinado archivo del modelo desplegado
 
+Puede utilizar el servicio {{site.data.keyword.pm_full}} para descargar una copia de un determinado archivo del modelo desplegado haciendo una llamada de API.
+{: shortdesc}
 
+```
 GET http://{PA Bluemix load balancer
 URL}/pm/v1/model/{contextId}?accesskey={access_key for this bound
 application}
+```
+{: codeblock}
 
-Utilice esta llamada a la API para descargar una copia de un determinado archivo del modelo desplegado.
-
-Ejemplo de solicitud: 
+Ejemplo de solicitud:
 
 ```
     Content-Type: */*
@@ -33,7 +36,7 @@ Ejemplo de solicitud:
 ```
 {: codeblock}
 
-Respuesta cuando la solicitud de descarga se ejecuta correctamente: 
+Respuesta cuando la solicitud de descarga se ejecuta correctamente:
 
 ```
     Content-Type: application/octet-stream
@@ -55,3 +58,16 @@ Respuesta cuando la solicitud de descarga falla:
         }
 ```
 {: codeblock}
+
+## Información adicional
+
+¿Preparado para ponerse en marcha? Para crear una instancia de servicio o enlazar
+una aplicación, consulte [Utilización del servicio con modelos Spark y Python](using_pm_service_dsx.html) o
+[Utilización del servicio con modelos IBM® SPSS®](using_pm_service.html).
+
+Para obtener más información sobre la API, consulte [API del servicio para modelos Spark y Python](pm_service_api_spark.html) o [API del servicio para modelos IBM® SPSS®](pm_service_api_spss.html).
+
+Para obtener más información sobre IBM® SPSS® Modeler y los algoritmos de modelado que proporciona,
+consulte [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Para obtener más información sobre IBM Data Science Experience y los algoritmos de modelado que proporciona, consulte [https://datascience.ibm.com](https://datascience.ibm.com).

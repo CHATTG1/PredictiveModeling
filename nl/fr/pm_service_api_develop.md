@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,12 +14,15 @@ lastupdated: "2017-09-07"
 
 # Développement d'applications d'optimisation des modèles SPSS déployés
 
+Vous pouvez développer des applications {{site.data.keyword.pm_full}} à l'aide des modèles IBM® SPSS®.  
+{: shortdesc}
 
 *  [Evaluation par score avec un modèle prédictif déployé](#scoring-with-a-deployed-predictive-model)
 
 *  [Extraction des métadonnées d'un modèle prédictif déployé](#retrieving-metadata-for-a-deployed-predictive-model)
 
-*  [Extraction du récapitulatif WADL (Web Application Description Language) de ce service](#retrieving-the-web-application-description-language-wadl-summary-of-this-service)
+*  [Extraction du récapitulatif WADL (Web Application Description Language)
+de ce service](#retrieving-the-web-application-description-language-wadl-summary-of-this-service)
 
 ## Evaluation par score avec un modèle prédictif déployé
 
@@ -79,8 +82,7 @@ Réponse en cas d'échec de la requête de score :
 
 ## Extraction des métadonnées d'un modèle prédictif déployé
 
-Cet appel API permet d'extraire les métadonnées de la branche d'évaluation d'un flux IBM SPSS
-        Modeler déployé. Vous ne devez pas indiquer de corps de demande avec cette méthode.
+Utilisez l'appel API suivant pour extraire les métadonnées de la branche d'évaluation d'un flux IBM® SPSS® Modeler déployé. Vous ne devez pas indiquer de corps de demande avec cette méthode.
 
 ```
 GET http://{service
@@ -208,3 +210,13 @@ Réponse en cas d'échec de la requête WADL :
         } 
 ```
 {: codeblock}
+
+## Informations supplémentaires
+
+Prêt à commencer ? Pour créer une instance de service ou lier une application, voir [Utilisation du service avec des modèles Spark et Python](using_pm_service_dsx.html) ou [Utilisation du service avec des modèles IBM® SPSS®](using_pm_service.html).
+
+Pour plus d'informations sur l'API, voir [API de service pour les modèles Spark et Python](pm_service_api_spark.html) ou [API de service pour les modèles IBM® SPSS®](pm_service_api_spss.html).
+
+Pour plus d'informations sur IBM® SPSS® Modeler et les algorithmes de modélisation qu'il utilise, reportez-vous à la documentation du site [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Pour plus d'informations sur IBM Data Science Experience et les algorithmes de modélisation qu'il propose, accédez au site [https://datascience.ibm.com](https://datascience.ibm.com).

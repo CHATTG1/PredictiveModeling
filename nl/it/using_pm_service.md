@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,40 +14,41 @@ lastupdated: "2017-09-07"
 
 # Utilizzo del servizio
 
-I metodi di modellazione disponibili nella tavolozza dei modelli SPSS Modeler ti consentono di ricavare nuove
-informazioni dai tuoi dati e di sviluppare modelli predittivi. Ogni metodo ha determinati punti di forza e si presta meglio per particolari tipi di problemi.
+Utilizzando i metodi di modellazione nella tavolozza di modellazione IBM® SPSS®
+puoi ricavare nuove
+informazioni dai tuoi dati e sviluppare modelli predittivi. Ogni metodo ha determinati punti di forza e si presta meglio per particolari tipi di problemi machine learning.
 {: .shortdesc}
 
-Per i dettagli su SPSS Modeler e sugli algoritmi di modellazione che fornisce, consulta [IBM
-Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+Per i dettagli su IBM® SPSS® Modeler e sugli algoritmi di modellazione che fornisce, consulta
+[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7). 
 
-Dopo che sono stati implementati i requisiti di input e di output della progettazione della tua applicazione Bluemix e
-del ramo di calcolo del punteggio SPSS Modeler, il tuo analista dei dati può modificare qualsiasi aspetto interno del ramo di calcolo del
-punteggio. L'analista dei dati può anche modificare uno o più algoritmi di modello utilizzati in un'operazione di aggiornamento, assicurandoti di poter ottimizzare la tua analisi predittiva senza dover riscrivere le tue applicazioni.
+Dopo che sono stati implementati i requisiti di input e di output della progettazione della tua applicazione {{site.data.keyword.Bluemix_notm}} e
+del ramo di calcolo del punteggio IBM® SPSS® Modeler, il tuo analista dei dati può modificare
+qualsiasi aspetto interno del ramo di calcolo del punteggio. L'analista dei dati può anche modificare uno o più algoritmi di modello utilizzati in un'operazione di aggiornamento, assicurandoti di poter ottimizzare la tua analisi predittiva senza dover riscrivere le tue applicazioni.
 
 
-## Procedura per eseguire il bind del servizio all'applicazione Bluemix
-Completa la seguente procedura per creare la tua applicazione Bluemix ed eseguirne il bind al servizio Machine Learning.
+## Procedura per eseguire il bind del servizio all'applicazione {{site.data.keyword.Bluemix_notm}}
 
-1. Scarica il codice dell'applicazione di esempio Node.js dal [repository github](https://github.com/pmservice/customer-satisfaction-prediction).
+Completa la seguente procedura per creare la tua applicazione {{site.data.keyword.Bluemix_notm}} ed eseguirne il bind al servizio {{site.data.keyword.pm_short}}.
 
-2. Utilizza il comando cf create-service per creare un'istanza del
-   servizio:
+1. Scarica il codice dell'applicazione di esempio Node.js dal [repository GitHub](https://github.com/pmservice/customer-satisfaction-prediction).
+
+2. Utilizza il comando `cf create-service` per creare un'istanza del servizio:
 
    ```
-   cf create-service pm-20 Free {local naming}
+   cf create-service pm-20 lite {local naming}
    ```
    {: codeblock}
 
    Ad esempio:
 
    ```
-   cf create-service pm-20 Free my_pm_free
+   cf create-service pm-20 lite my_pm_lite
    ```
    {: codeblock}
 
-   Questo comando crea un'istanza del servizio Machine Learning
-   con il piano Gratuito denominato my_pm_free nel tuo spazio Bluemix.
+   Questo comando crea un'istanza del servizio {{site.data.keyword.pm_short}}
+   con il piano lite denominato my_pm_lite nel tuo spazio {{site.data.keyword.Bluemix_notm}}.
 
 3. Utilizza il comando `cf create-service-key` per creare le credenziali del servizio:
 
@@ -63,10 +64,11 @@ Completa la seguente procedura per creare la tua applicazione Bluemix ed eseguir
    ```
    {: codeblock}
 
-   Questo comando crea le credenziali del servizio Machine Learning.
+   Questo comando crea le credenziali del servizio
+{{site.data.keyword.pm_short}}.
 
-4. Utilizza il comando cf bind-service per eseguire il bind dell'istanza del servizio
-   my_pm_free alla tua applicazione.
+4. Utilizza il comando `cf bind-service` per eseguire il bind dell'istanza del servizio
+   `my_pm_lite` alla tua applicazione.
 
    ```
    cf bind-service AppName my_pm_service
@@ -76,25 +78,24 @@ Completa la seguente procedura per creare la tua applicazione Bluemix ed eseguir
    Ad esempio:
 
    ```
-   cf bind-service my_app1 my_pm_free
+   cf bind-service my_app1 my_pm_lite
    ```
    {: codeblock}
 
-   Questo comando esegue il bind dell'istanza del servizio Machine Learning
-   `my_pm_free` all'applicazione Bluemix my_app1.
+   Questo comando esegue il bind dell'istanza del servizio {{site.data.keyword.pm_short}}
+   `my_pm_lite` all'applicazione my_app1 di {{site.data.keyword.Bluemix_notm}}.
 
-5. Credenziali di Machine Learning:
+5. Credenziali {{site.data.keyword.pm_short}}:
 
-   Dopo che hai eseguito il bind dell'istanza del servizio Machine Learning alla tua
-   applicazione Bluemix, le credenziali di Machine Learning vengono
-   aggiunte alla variabile di ambiente `VCAP_SERVICES`:
+   Dopo che hai eseguito il bind dell'istanza del servizio {{site.data.keyword.pm_short}} alla tua applicazione
+{{site.data.keyword.Bluemix_notm}}, le credenziali {{site.data.keyword.pm_short}} vengono aggiunte alla variabile di ambiente `VCAP_SERVICES`.
 
 ```
     {   
         "pm-20": {      
             "name": "pm20-1",
             "label": "pm-20",
-            "plan": "Free",
+            "plan": "lite",
             "credentials": {
                 "url": "https://ibm-watson-ml.mybluemix.net",
                 "access_key": "XXXXXXXXXXXXX"
@@ -109,12 +110,12 @@ Completa la seguente procedura per creare la tua applicazione Bluemix ed eseguir
    <dl>
 
    <dt>piano</dt>
-   <dd>Il piano Machine Learning utilizzato nel provisioning del servizio.</dd>
+   <dd>Il piano {{site.data.keyword.pm_short}} utilizzato nel provisioning del servizio.</dd>
 
    <dt>url</dt>
-   <dd>L'indirizzo dell'istanza del servizio Machine Learning.</dd>
+   <dd>L'indirizzo dell'istanza del servizio {{site.data.keyword.pm_short}}.</dd>
 
-   <dt>chiave_accesso</dt>
+   <dt>access_key</dt>
    <dd>Il parametro di query accessKey da passare in tutte le richieste
             a questa istanza del servizio.</dd>
 
@@ -138,3 +139,18 @@ Get https://ibm-watson-ml.mybluemix.net/pm/v1/model/sales_model2?accesskey=XXXXX
     }
 ```
 {: codeblock}
+
+## Ulteriori informazioni
+
+Sei pronto a iniziare? Per creare un'istanza di un servizio o per eseguire il bind
+di un'applicazione, vedi [Utilizzo del servizio con i modelli Spark e Python](using_pm_service_dsx.html) oppure
+[Utilizzo del servizio con i modelli IBM® SPSS®](using_pm_service.html).
+
+Per ulteriori informazioni sull'API, vedi [API del servizio per i modelli Spark e Python](pm_service_api_spark.html) o [API del
+servizio per i modelli IBM® SPSS®](pm_service_api_spss.html).
+
+Per ulteriori informazioni su IBM® SPSS® Modeler e sugli algoritmi di modellazione che fornisce, consulta
+[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Per ulteriori informazioni su IBM Data Science Experience e sugli algoritmi di
+modellazione che fornisce, vedi [https://datascience.ibm.com](https://datascience.ibm.com).

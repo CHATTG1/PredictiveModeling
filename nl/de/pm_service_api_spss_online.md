@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,15 +14,18 @@ lastupdated: "2017-09-07"
 
 # Onlinemodelle bereitstellen
 
+Mit dem {{site.data.keyword.pm_full}}-Service können Sie ein Modell bereitstellen und
+prädiktive Analysen generieren, indem Sie Scoring-Anforderungen für
+das bereitgestellte Modell erstellen.
+{: shortdesc}
 
 **Szenarioname:** Kundenzufriedenheitsvorhersage.
 
-**Szenariobeschreibung:** Ein Telekommunikationsunternehmen möchte wissen,
-bei welchen Kunden die Gefahr besteht, dass sie zu einem anderen Anbieter wechseln. Das Unternehmen bittet uns um eine
-Lösung, die diese Frage beantwortet. Ein Data-Scientist bereitet ein
-Vorhersagemodell vor und teilt es mit Ihnen (dem Entwickler). Ihre Aufgabe ist es, das Modell bereitzustellen und eine
+**Szenariobeschreibung:** Ein Telekommunikationsunternehmen möchte wissen, bei welchen Kunden die Gefahr besteht, dass sie zu
+einem anderen Anbieter wechseln. Das Unternehmen bittet uns um eine
+Lösung, die diese Frage beantwortet. Ein Data-Scientist bereitet ein Vorhersagemodell vor und teilt es mit Ihnen (dem Entwickler). Ihre Aufgabe ist es, das Modell bereitzustellen und eine
 Vorhersageanalyse zu generieren, indem Sie Scoring-Anforderungen für
-das implementierte Modell erstellen.
+das bereitgestellte Modell erstellen.
 
 ## Beispielmodell verwenden
 
@@ -84,8 +87,8 @@ bestimmten bereitgestellten Modells herunterzuladen:
    ```
    {: codeblock}
 
-   Antwort (lädt den Inhalt des Modells in eine
-Datei output.str herunter):
+   Antwort, die den Inhalt des Modells in eine
+   output.str-Datei herunterlädt:
 
    ```
    > GET /pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr HTTP/1.1
@@ -316,4 +319,15 @@ Modell aus:
    ```
    {: codeblock}
 
+## Weitere Informationen
  
+Sind Sie bereit? Informationen zum Erstellen einer Serviceinstanz oder zum Binden
+einer Anwendung finden Sie unter [Service mit Spark- und Python-Modellen verwenden](using_pm_service_dsx.html) oder
+[Service mit IBM® SPSS®-Modellen verwenden](using_pm_service.html).
+
+Weitere Informationen zur API finden Sie unter [Service-API für Spark- und Python-Modelle](pm_service_api_spark.html) oder [Service-
+API für IBM® SPSS® Modelle] (pm_service_api_spss.html).
+
+Weitere Informationen zu IBM® SPSS® Modeler und den von ihm bereitgestellten Modellierungsalgorithmen finden Sie im [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Weitere Informationen zu IBM Data Science Experience und den von ihm bereitgestellten Modellierungsalgorithmen finden Sie unter [https://datascience.ibm.com](https://datascience.ibm.com).

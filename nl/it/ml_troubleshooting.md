@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -16,17 +16,17 @@ lastupdated: "2017-09-07"
 
 # Risoluzione dei problemi
 
-Qui troverai le risposte alle domande per la risoluzione dei problemi comuni relativi all'utilizzo di IBM Watson Machine Learning.
+Queste sono le risposte alle domande sulla risoluzione dei problemi comuni riguardanti l'utilizzo di {{site.data.keyword.pm_full}}.
 {: shortdesc}
 
-## Come ottenere aiuto e supporto per Watson Machine Learning
+## Come ottenere aiuto e supporto per Machine Learning
 {: #gettinghelp}
 
-Se hai dei problemi o delle domande quando utilizzi Watson Machine Learning, puoi ottenere aiuto ricercando le informazioni o facendo delle domande in un forum. Puoi anche aprire un ticket di supporto.
+Se hai dei problemi o delle domande quando utilizzi {{site.data.keyword.pm_short}}, puoi ottenere aiuto ricercando le informazioni o facendo delle domande in un forum. Puoi anche aprire un ticket di supporto.
 
-Quando utilizzi i forum per fare una domanda, contrassegnala con una tag in modo che sia visualizzabile dai team di sviluppo del machine learning. 
+Quando utilizzi i forum per fare una domanda, contrassegna con una tag la tua domanda in modo che sia visualizzabile dai team di sviluppo {{site.data.keyword.pm_short}}. 
 
-Se hai domande tecniche sul machine learning, inserisci la tua domanda in <a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">Stack Overflow <img src="../icons/launch-glyph.svg" alt="Icona link esterno"></a> e contrassegnala con le tag "ibm-bluemix" e "machine-learning".
+Se hai domande tecniche su {{site.data.keyword.pm_short}}, inserisci la tua domanda in <a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">Stack Overflow <img src="../icons/launch-glyph.svg" alt="External link icon"></a> e contrassegnala con le tag "ibm-bluemix" e "machine-learning".
 
 Per domande sul servizio e le istruzioni introduttive, utilizza il forum <a href="https://developer.ibm.com/answers/topics/machine-learning/?smartspace=bluemix" target="_blank">IBM developerWorks dW Answers <img src="../icons/launch-glyph.svg" alt="Icona link esterno"></a>. Includi le tag  "machine-learning" e "bluemix".
 Per ulteriori dettagli sull'utilizzo dei forum, vedi [Come ottenere supporto](https://console.bluemix.net/docs/support/index.html#getting-help).
@@ -249,7 +249,7 @@ Il payload di patch contiene una o più operazioni o l'operazione patch è diver
 Utilizza una sola operazione nel payload di patch che sia l'operazione `replace`
 {: tsResolve}
        
-## Nel payload fornito mancano dei campi obbligatori: [${fields.mkString(\",\")}] o i valori dei campi sono danneggiati.
+## Nel payload fornito mancano dei campi obbligatori: FIELD o i valori dei campi sono danneggiati.
 {: #ts_invalid_request_payload}
  
 Non c'è alcuna possibilità di elaborare l'azione correlata all'accesso al dataset sottostante.
@@ -261,7 +261,7 @@ L'accesso al dataset non è definito correttamente.
 Correggi la definizione di accesso per il dataset.
 {: tsResolve}
        
-## Il metodo di valutazione fornito: $method non è supportato. Valori supportati: [${supported.mkString(\",\")}].
+## Il metodo di valutazione fornito: METHOD non è supportato. Valori supportati: VALUE.
 {: #ts_evaluation_method_not_supported}
  
 Non c'è alcuna possibilità di creare la configurazione di apprendimento.
@@ -462,7 +462,7 @@ Non c'è alcuna possibilità di richiamare l'API REST che richiede le credenzial
 Si è verificato un problema con la decodifica in base-64 o con l'analisi delle credenziali Spark.
 {: tsCauses}
  
-Assicurati che le credenziali Spark valide siano codificate correttamente in base-64. Per i dettagli, consulta la documentazione.
+Assicurati che le credenziali Spark valide siano codificate correttamente in base-64. Per ulteriori informazioni, consulta la documentazione.
 {: tsResolve}
        
 ## Questa funzionalità non è consentita per gli utenti non beta.
@@ -562,7 +562,7 @@ Quando tenti di calcolare il punteggio online viene visualizzato il seguente mes
 Questo messaggio viene visualizzato quando il token utilizzato per il calcolo del punteggio è scaduto.
 {: tsCauses}
 
-Rigenera il token per questa istanza di Watson Machine Learning e ritenta l'operazione. Se riscontri ancora questo problema, contatta il supporto IBM.
+Rigenera il token per questa istanza di {{site.data.keyword.pm_full}} e ritenta l'operazione. Se riscontri ancora questo problema, contatta il supporto IBM.
 {: tsResolve}
 
 ## Identificazione di distribuzione sconosciuta:404

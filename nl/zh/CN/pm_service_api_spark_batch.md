@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,27 +12,38 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# 部署批处理模型 <span class='tag--beta'>Beta</span>
+# 部署批处理模型
 
-**注**：此功能目前在 Beta 中提供，且仅可用于使用 Spark MLlib。如果您想要参与，请将您自己加入等待列表！
-有关更多信息，请参阅：[https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist)。
+通过使用 {{site.data.keyword.pm_full}} 服务，可以部署模型，然后通过对已部署的模型发出评分请求来生成预测性分析。
+{: shortdesc}
+
 
 **场景名称**：客户满意度预测。
 
 **场景描述**：一家通信公司希望了解哪些客户有流失风险。
 展示的模型预测客户流失率。为此，数据研究员开发了一个预测模型并将其与您（开发者）共享。您的任务是部署模型，并通过对已部署的模型发出评分请求来生成预测性分析。
 
+**注**：您还可以利用样本 Python [配置页](https://apsportal.ibm.com/analytics/notebooks/5e4963d9-faea-455d-a7db-ff6302d1d8f5/view?access_token=5d23d36be72dea35ebbde9b4b5f4a16d0053ee898f1ab2ab73cf1301ce9322be)，此配置页用于创建样本模型和预测客户流失率。
+
+## 先决条件
+
+要使用此示例，必须具有以下资源：
+
+* [Object Storage](https://console.bluemix.net/catalog/services/object-storage) 实例详细信息，将用作模型的输入（要评分的客户数据）以及模型输出的存储。可以从[此处](https://raw.githubusercontent.com/pmservice/wml-sample-models/master/spark/customer-satisfaction-prediction/data/scoreInput.csv)下载样本输入数据 .csv 文件。您应该将输入文件添加到 Object Storage 实例。
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) 服务实例凭证。可以使用[此链接](https://console.bluemix.net/catalog/services/apache-spark)来创建凭证。
+
+
+
 ## 使用样本模型
 
-1. 转至 IBM® Watson™ Machine Learning“仪表板”的“样本”选项卡。
+1. 转至 {{site.data.keyword.pm_full}}“仪表板”的**样本**选项卡。
+2. 在**样本模型**部分中，找到**客户满意度预测**磁贴，并单击**添加模型**图标 (+)。
 
-2. 在“样本模型”部分中，找到“客户满意度预测”磁贴，并单击“添加模型”按钮 (+)。
-
-现在，您将在“模型”选项卡上的可用模型列表中看到“客户满意度预测”模型。
+样本“客户满意度预测”模型将显示在**模型**选项卡上的可用模型列表中。
 
 ## 生成访问令牌
 
-使用 IBM Watson Machine Learning 服务实例的“服务凭证”选项卡上提供的用户和密码来生成访问令牌。
+使用 {{site.data.keyword.pm_full}} 服务实例的“服务凭证”选项卡上提供的用户和密码来生成访问令牌。
 
 请求示例：
 
@@ -56,9 +67,11 @@ token="<token_value>"
 {: codeblock}
 
 ## 处理已发布的模型
-使用以下 API 调用来获取实例详细信息，例如：
-* published models `url`
-* deployments `url`
+
+使用以下 API 调用可获取实例详细信息，其中包含以下各项：
+
+* published models `url` 值
+* deployments `url` 值
 * usage information
 
 请求示例：
@@ -93,14 +106,13 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
 {: codeblock}
 
-
-具有 **published_models** `url` 时，请使用以下 API 调用来获取模型的详细信息：
+通过提供 **published_models** `url` 值，可以使用以下 API 调用来获取模型详细信息：
 
 请求示例：
 
@@ -117,17 +129,18 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
    "resources":[
       {
          "metadata":{
-            "guid":"dc46315a-c30e-46a3-8e30-33518e6f7976",
+
+                     "guid":"dc46315a-c30e-46a3-8e30-33518e6f7976",
             "url":"https://ibm-watson-ml.stage1.mybluemix.net/v3/wml_instances/7a0f9c88-3cf6-4433-89ee-92a641f26e89/published_models/dc46315a-c30e-46a3-8e30-33518e6f7976",
             "created_at":"2017-03-21T13:49:38.711Z",
             "modified_at":"2017-03-21T13:49:38.802Z"
          },
-         "entity":{
-            "runtime_environment":"spark-2.0",
+   "entity":{
+      "runtime_environment":"spark-2.0",
             "author":{
                "name":"IBM",
-               "email":""
-            },
+            "email":""
+         },
             "name":"Customer Satisfaction Prediction",
             "description":"Predicts Telco customer churn.",
             "label_col":"Churn",
@@ -135,89 +148,78 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
                "type":"struct",
                "fields":[
                   {
-                     "metadata":{
-
-                     },
+                     "metadata":{ 
+},
                      "type":"string",
                      "name":"customerID",
                      "nullable":true
                   },
                   {
-                     "metadata":{
-
-                     },
+                     "metadata":{ 
+},
                      "type":"string",
                      "name":"gender",
                      "nullable":true
                   },
                   {
-                     "metadata":{
-
-                     },
+                     "metadata":{ 
+},
                      "type":"integer",
                      "name":"SeniorCitizen",
                      "nullable":true
                   },
                   {
-                     "metadata":{
-
-                     },
+                     "metadata":{ 
+},
                      "type":"string",
                      "name":"Partner",
                      "nullable":true
                   },
                   {
-                     "metadata":{
-
-                     },
+                     "metadata":{ 
+},
                      "type":"string",
                      "name":"Dependents",
                      "nullable":true
                   },
                   {
-                     "metadata":{
-
-                     },
+                     "metadata":{ 
+},
                      "type":"integer",
                      "name":"tenure",
                      "nullable":true
                   },
                   {
-                     "metadata":{
-
-                     },
+                     "metadata":{ 
+},
                      "type":"string",
                      "name":"PhoneService",
                      "nullable":true
                   },
                   {
-                     "metadata":{
-
-                     },
+                     "metadata":{ 
+},
                      "type":"string",
                      "name":"MultipleLines",
                      "nullable":true
                   },
                   {
-                     "metadata":{
-
-                     },
+                     "metadata":{ 
+},
                      "type":"string",
                      "name":"InternetService",
                      "nullable":true
                   },
                   {
-                     "metadata":{
-
-                     },
+                     "metadata":{ 
+},
                      "type":"string",
                      "name":"OnlineSecurity",
                      "nullable":true
                   },
                   {
-                     "metadata":{
-
-                     },
+                     "metadata":{ 
+},
                      "type":"string",
                      "name":"OnlineBackup",
                      "nullable":true
@@ -305,10 +307,10 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
                "url":"https://ibm-watson-ml.stage1.mybluemix.net/v3/wml_instances/7a0f9c88-3cf6-4433-89ee-92a641f26e89/published_models/dc46315a-c30e-46a3-8e30-33518e6f7976/deployments"
             },
             "input_data_schema":{
-               "type": "struct",
-    "fields": [
-      {
-        "metadata":{ 
+               "type":"struct",
+               "fields":[
+                  {
+                     "metadata":{ 
 },
                      "type":"string",
                      "name":"customerID",
@@ -456,28 +458,25 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 ```
 {: codeblock}
 
-
-请记下在下一步中创建批量部署所需的 **deployments** `url`。
-
+请记下在下一步中创建批量部署所需的 **deployments** `url` 值。
 
 ## 使用 Object Storage 创建批量部署
 
 要使用 REST API 调用来创建预测模型的批量部署，请提供以下详细信息：
 
 *  在上一步中创建的访问令牌
-
-*  Spark 服务凭证，可在 Bluemix Spark 服务仪表板的“服务凭证”选项卡上找到。在发出部署请求之前，必须将 Spark 凭证解码为 base64，并在 curl 请求的头中作为 X-Spark-Service-Instance 传递。
+*  Spark 服务凭证，可在 {{site.data.keyword.Bluemix_notm}} Spark 服务仪表板的“服务凭证”选项卡上找到。在发出部署请求之前，必须将 Spark 凭证解码为 base64，并在 `curL` 请求的头中作为 X-Spark-Service-Instance 传递。
 
    根据所使用的操作系统，必须发出以下其中一个终端命令执行 base64 解码，并将其分配给环境变量。
 
-   在 macOS 操作系统上，使用以下命令：
+   在 **macOS** 操作系统上，请使用以下命令：
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   在 Microsoft Windows 或 Linux 操作系统上，必须使用 `--wrap=0` 参数搭配 `base64` 命令来执行 base64 解码：
+   在 **Microsoft Windows** 或 **Linux** 操作系统上，必须使用 `--wrap=0` 参数搭配 `base64` 命令来执行 base64 解码：
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
@@ -485,8 +484,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
    {: codeblock}
 
 *  Object Storage 详细信息，将用作模型输入（要评分的客户数据），以及模型输出的存储（在本例中为 results.csv，此文件会自动创建）。
-
-*  要创建部署，请使用上一部分中的 **deployments** `url`。
+*  要创建部署，请使用上一部分中的 **deployments** `url` 值。
 
 
 请求示例：
@@ -626,12 +624,9 @@ curl -v -XPOST \
 **注**：您还可以使用“仪表板”来创建批量部署。
 
 
-
 ## 获取部署详细信息
 
-可以使用 **metadata** `url` 来检查状态以及与部署模型相关的参数（请参阅上面的输出示例）。
-
-请求示例：
+可以使用 **metadata** `url` 值来检查状态以及与部署模型相关的参数。请求示例：
 
 ```
 curl -v -XGET -H "Content-Type:application/json" -H "Authorization: Bearer $token" https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}/published_models/{published_model_id}/deployments/{deployment_id}
@@ -722,8 +717,7 @@ curl -v -XGET -H "Content-Type:application/json" -H "Authorization: Bearer $toke
 ```
 {: codeblock}
 
-预测结果会保存到 IBM Object Storage 中的 .csv 文件。
-下面是样本行。
+预测结果会保存到 IBM Object Storage 中的 .csv 文件。请参阅以下样本行以了解输出示例。
 
 输入文件预览：
 
@@ -754,7 +748,7 @@ Fiber optic, Month-to-month, 1, 79.35, 1
 
 ## 删除批量部署
 
-如果不再需要该部署，那么可以使用查询将其删除（如以下样本所示）。
+要删除部署，请使用以下查询：
 
 请求示例：
 
@@ -779,3 +773,14 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 1600446575
 ```
 {: codeblock}
+
+## 了解更多信息
+
+准备好开始了吗？要创建服务的实例或绑定应用程序，请参阅[将服务用于 Spark 和 Python 模型](using_pm_service_dsx.html)或[将服务用于 IBM® SPSS® 模型](using_pm_service.html)。
+
+
+有关该 API 的更多信息，请参阅 [Spark 和 Python 模型的服务 API](pm_service_api_spark.html) 或 [IBM® SPSS® 模型的服务 API](pm_service_api_spss.html)。
+
+有关 IBM® SPSS® Modeler 及其提供的建模算法的更多信息，请参阅 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+
+有关 IBM Data Science Experience 及其提供的建模算法的更多信息，请参阅 [https://datascience.ibm.com](https://datascience.ibm.com)。

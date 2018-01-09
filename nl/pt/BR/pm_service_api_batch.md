@@ -1,8 +1,6 @@
 ---
 
-copyright:
-  years: 2016, 2017
-lastupdated: "2017-09-07"
+copyright: years: 2016, 2017 lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -13,48 +11,25 @@ lastupdated: "2017-09-07"
 
 # API de tarefa em lote do serviço Machine Learning para modelos IBM SPSS Modeler
 
+A API de tarefa em lote para o serviço {{site.data.keyword.pm_full}}
+suporta as tarefas de longa execução que estão relacionadas ao treinamento de modelo,
+avaliação de modelo e escoragem de lote. Essa API gerencia dois tipos de ativos: os
+arquivos de fluxo do IBM® SPSS® Modeler que são usados nas tarefas em lote e as
+definições de tarefa que são enviadas.
+{: shortdesc}
 
-*  [Excluindo tarefas](#deleting-jobs)
+Para cada arquivo de fluxo do SPSS® Modeler que você transfere por upload, pode
+haver muitas tarefas de muitos tipos que são enviadas. Se uma tarefa tiver o potencial
+para atualizar o conteúdo do arquivo de fluxo do Modeler, o arquivo modificado será
+incluído nos anexos do resultado da tarefa. Em um tipo de tarefa de avaliação de modelo,
+todos os arquivos de avaliação que são gerados estão nos anexos de resultados da tarefa.
 
-*  [Verificando o status de uma tarefa](#checking-the-status-of-a-job)
-
-*  [Reenviar uma tarefa](#resubmit-a-job)
-
-*  [Enviar uma tarefa em um arquivo de fluxo do Modeler transferido por upload](#submit-a-job-against-an-uploaded-modeler-stream-file)
-
-*  [Fazer upload de um arquivo de fluxo para usar em suas tarefas](#upload-a-stream-file-to-use-in-your-jobs)
-
-*  [Tipos de Job](#job-types)
-
-*  [Status do Trabalho](#job-status)
-
-*  [Detalhes da API de tarefa](#job-api-details)
-
-*  [JSON de definição de tarefa](#job-definition-json)
-
-*  [Detalhes da API de tarefa em lote](#batch-job-api-details)
-
-A API de tarefa em lote do serviço Machine Learning suporta as
-tarefas de longa execução relacionadas a treinamento de modelo, avaliação de modelo
-e escoragem de lote. Essa API gerencia dois tipos de ativos: os arquivos de fluxo do SPSS
-Modeler usados nas tarefas em lote e as definições de tarefa submetidas. Para cada
-arquivo de fluxo do Modeler transferido por upload, pode haver muitas tarefas de
-muitos tipos submetidas. Se uma tarefa tiver o potencial para atualizar o conteúdo do
-arquivo de fluxo do Modeler, o arquivo modificado será incluído nos anexos do resultado
-da tarefa. Em um tipo de tarefa de avaliação de modelo, todos os arquivos de avaliação
-gerados estarão nos anexos do resultado da tarefa.
-
-Para obter um exemplo de adoção de uma tarefa em lote, consulte as
-anotações a seguir: [Do fluxo de SPSS à escoragem de lote com o
-Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37).
-
-**Nota**: os dados que são mostrados no painel se referem somente a
-predições em tempo real, incluindo os dados do recurso de upload.
+**Nota**: os dados que aparecem no painel estão relacionados apenas
+a predições em tempo real, como os dados do recurso de upload.
 
 ## Excluindo tarefas
 
-É possível excluir tarefas, o que a cancelará se ela estiver em
-execução no momento. Use o comando `DELETE` com o `job ID`. É
+É possível excluir tarefas. Se uma tarefa estiver em execução, a exclusão de uma tarefa primeiramente a cancela. Use o comando `DELETE` com o `job ID`. É
 possível cancelar mais de uma tarefa por vez transmitindo múltiplos IDs.
 
 ```
@@ -63,14 +38,14 @@ DELETE https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job ID
 ```
 {: codeblock}
 
-O retorno indicará quantas tarefas referenciadas por ID na solicitação foram
-excluídas. Se esse número não corresponder à lista passada na solicitação, deve-se
-inspecionar o status das tarefas individuais.
+O retorno indica quantas tarefas, que são referenciadas por ID na solicitação, são excluídos. Se esse número não corresponder à lista passada na solicitação, deve-se
+inspecionar o status de tarefas individuais.
 
 ## Verificando o status de uma tarefa
 
 É possível obter o status de seu `job ID` em qualquer ponto usando o
 comando `GET`:
+
 
 ```
 GET https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -78,13 +53,17 @@ ID}/status?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-O JSON retornado indica jobstatus e, se a tarefa tiver sido concluída
-com sucesso, um dataUrl que poderá ser usado para obter todo o conteúdo de
+O arquivo JSON que é retornado indica o status da tarefa e, se a tarefa foi
+concluída com êxito, uma URL de dados que você pode usar para obter todo o conteúdo de
 arquivo gerado.
 
 ## Reenviar uma tarefa
 
-Para reenviar uma tarefa, utilize o comando `PUT` com o `job ID`. Ele não deve estar em um estado de execução.
+Para reenviar uma tarefa, utilize o comando `PUT` com o `job ID`. Para reenviar uma tarefa, ela não deve estar em execução.
+
+Se o ID que você referenciar não existir, a chamada a seguir criará uma nova tarefa. O
+status de retorno é 201 versus 200 (indicando qual desses ocorreu). Deve-se passar o
+arquivo JSON de definição de tarefa a ser usado nessa execução.
 
 ```
 PUT https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -92,12 +71,7 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-com content_type "application/json" incluindo o JSON da definição de
-tarefa nova ou atualizada no corpo da solicitação.
-
-Essa chamada de fato criará uma nova tarefa se o ID referenciado não existir, com o
-retorno de 201 em vez de 200 indicando qual desses ocorreu. Deve-se passar o JSON de
-definição de tarefa a ser usado nessa execução.
+Reenvie a tarefa com o valor `content_type` configurado como "application/json". Deve-se incluir o arquivo JSON de definição de tarefa novo ou atualizado no corpo da solicitação.
 
 ## Enviar uma tarefa em um arquivo de fluxo do modelador transferido por upload
 
@@ -109,23 +83,17 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-com content_type "application/json" incluindo o JSON de definição de
-tarefa no corpo da solicitação.
+Envie a tarefa com o valor `content_type` configurado como "application/json". Deve-se incluir o arquivo JSON de definição de tarefa novo ou atualizado no corpo da solicitação.
 
-Essa solicitação retorna imediatamente, indicando sucesso se a definição de tarefa foi
-colocada na fila de execução. Não há teste da capacidade de executar com sucesso o fluxo
+Essa solicitação retorna imediatamente e indica sucesso se a definição de tarefa
+foi colocada na fila de execução. Não há teste da capacidade de executar com sucesso o fluxo
 do Modeler conforme configurado em sua definição de tarefa. A tarefa será executada por
-um dos servidores de tarefa de Machine Learning na nuvem e será possível
-monitorar seu status. Se estiver executando treinamento de modelo e indicando
-que deseja uma atualização automática, a tarefa substituirá o arquivo de fluxo do Modeler
-original em caso de execução bem-sucedida da tarefa.
-
-Para obter mais informações sobre o JSON de definição de tarefa, veja [JSON
-de definição de tarefa](#job-definition-json).
+um dos servidores de tarefa {{site.data.keyword.pm_short}} na nuvem, e você pode
+monitorar seu status. Se você estiver executando treinamento de modelo e indicando que deseja uma atualização automática, a tarefa substituirá o arquivo de fluxo do Modeler original após a execução bem-sucedida da tarefa.
 
 ## Fazer upload de um arquivo de fluxo para usar em suas tarefas
 
-**Nota**: o painel do Machine Learning é somente para pontuação em tempo real. Não é possível usá-lo para executar tarefas (escoragem de
+**Nota**: o painel do {{site.data.keyword.pm_short}} é somente para pontuação em tempo real. Não é possível usá-lo para executar tarefas (escoragem de
 lote).
 
 Para tornar um arquivo de fluxo do Modeler acessível para tarefas, use o comando `PUT`:
@@ -147,9 +115,7 @@ mesmo `file ID` substitui implicitamente a cópia atual.
 
 Para gerar uma lista de todos os arquivos transferidos por upload para suas tarefas, use um comando
 `GET`, mas omita o parâmetro `file ID`. Para recuperar um arquivo
-específico, use um comando `GET` com o parâmetro `file ID`. Também é possível
-excluir um arquivo transferido por upload emitindo um comando `DELETE`.
-Isso causa erros na execução de quaisquer tarefas pendentes que façam referência ao arquivo.
+específico, use um comando `GET` com o parâmetro `file ID`. Você também pode excluir um arquivo transferido por upload emitindo um comando `DELETE`. Isso causa erros na execução de quaisquer tarefas pendentes que façam referência ao arquivo.
 
 Exemplo de solicitação:
 
@@ -218,8 +184,7 @@ como ramificação de pontuação, indicando que esta é a ramificação de pont
 Modeler. A definição de tarefa deve especificar
 os detalhes de Exportação, bem como os de Origem.
 
-**Executar fluxo**: a execução é semelhante a clicar no botão "Executar" verde no
-Modeler com a opção Executar este script selecionada na guia Execução das propriedades do fluxo. São
+**Executar fluxo**: a execução é semelhante a clicar no ícone verde "executar" no Modeler com a opção Executar este script selecionada na guia Execução das propriedades de fluxo. São
 necessárias coberturas de uso para execução do script do treinamento de modelo ou outros
 tipos de tarefa. Todo o controle dinâmico do script deve ser manipulado pelos parâmetros
 do fluxo, com os valores de parâmetro passados na definição de tarefa.
@@ -266,8 +231,7 @@ Chave de acesso retornada como credenciais na provisão ou ligação:
 ```
 {: codeblock}
 
-`job ID` especificado pelo usuário. Deve ser exclusivo para uma instância de serviço de
-Machine Learning:
+`job ID` especificado pelo usuário. Deve ser exclusivo para uma instância de serviço do {{site.data.keyword.pm_short}}:
 
 ```
 @PathParam("id")
@@ -330,7 +294,7 @@ Chave de acesso retornada como credenciais na provisão ou ligação:
 ```
 {: codeblock}
 
-`job ID` especificado pelo usuário: 
+`job ID` especificado pelo usuário:
 
 ```
 @PathParam("id")
@@ -437,8 +401,7 @@ Chave de acesso retornada como credenciais na provisão ou ligação:
 
 Respostas:
 
-Sucesso. Retorna o JSON que descreve a tarefa
-referenciada:
+Sucesso. Retorna o JSON que descreve a tarefa referenciada:
 
 ```
 @ApiResponse(code = 200)
@@ -565,8 +528,8 @@ O JSON de definição de tarefa contém as seções gerais a seguir:
 
 Referência de tipo de tarefa e modelo preditivo
 
-**Nota**: os dados que são mostrados no painel se referem somente a predições em
-tempo real, incluindo os dados do recurso de upload.
+**Nota**: os dados que são mostrados no painel se referem somente a
+predições em tempo real, incluindo os dados do recurso de upload.
 
 ### Tipos de Ações
 
@@ -602,8 +565,8 @@ para usar em suas tarefas. Observe que `/pm/v1/file` é usado.
 Observe que o ID deve ser o mesmo que o `file ID` usado na
 API `PUT`. O nome não é necessário, mas para treinamento e atualização automática
 de modelo, o resultado da tarefa será salvo usando o nome definido
-aqui. Se o nome não for definido, o serviço Machine Learning
-gerará o resultado de acordo com as regras de nomenclatura predefinidas.
+aqui. Se o nome não for definido, o serviço {{site.data.keyword.pm_short}} gerará
+o resultado de acordo com as regras de nomenclatura predefinidas.
 
 ### Definições do job
 
@@ -666,8 +629,7 @@ origem.
                "dbRef”; “db2”,
                "table": "DRUG1N",
           },
-          "node": "ScoreInput",
-          "attributes": []
+          "node": "ScoreInput"
      }
 ],
 ```
@@ -700,30 +662,6 @@ atributo insertMode:
 **Refresh** – as linhas existentes da tabela serão excluídas antes de
 inserir novas linhas
    
-Um carregamento em massa pode ser usado para melhorar o desempenho da inserção.
-O suporte para o carregamento em massa pode ser ativado usando o atributo bulkLoading:
-
-**Off** - o carregamento em massa está desativado
-
-**ODBC** - carregamento em massa por meio do driver ODBC
-
-
-```
-"exports": [
-     {
-          "odbc": {
-               "dbRef”; “db1”,
-               "table": "DRUGSCORES",
-               “insertMode”:”Append”
-          },
-          "node": "ExportScores",
-          "attributes": [],
-          "bulkLoading": "Off"
-     }
-],
-```
-{: codeblock}
-
 A tabela é o nome da tabela de banco de dados na qual gravar os resultados da tarefa.
 O nó é o nome do nó terminal para o fluxo. Semelhante às
 configurações do nó de origem, nó identifica o nó de saída original no
@@ -795,8 +733,7 @@ Os seguintes formatos são suportados: HTML, JPG, PNG, RTF, SAV, TAB e XML.
                                    "dbRef”; “db”,
                                    "table": "DRUG1N",
                          },
-                         "node": "ScoreInput",
-                         "attributes": []
+                         "node": "ScoreInput"
                     }
           ],
           "parameterOverride": [
@@ -816,15 +753,13 @@ Os seguintes formatos são suportados: HTML, JPG, PNG, RTF, SAV, TAB e XML.
 
 ## Detalhes da API de tarefa em lote
 
-As seções a seguir fornecem
-detalhes da API de gerenciamento de arquivos do SPSS Modeler em
-lote da tarefa.
+As seções a seguir fornecem detalhes da API de gerenciamento de arquivo do IBM®
+SPSS® Modeler da tarefa em lote.
 
 `PUT
 /v1/file/{id}`
 
-Descrição: faz upload de um arquivo de fluxo do SPSS Modeler para uso nas tarefas
-em lote.
+Descrição: faz upload de um arquivo de fluxo do IBM® SPSS® Modeler para uso em tarefas em lote.
 
 **Nota**: se houver um arquivo já armazenado sob o ID especificado, ele será
 sobrescrito.
@@ -965,8 +900,7 @@ Outro erro. JSON de exceção retornada:
 `GET
 /v1/file/{id}`
 
-Descrição: recupera o arquivo de fluxo do SPSS Modeler armazenado para
-uso no processamento de tarefa em lote com o ID especificado.
+Descrição: recupera o arquivo de fluxo do IBM® SPSS® Modeler armazenado para uso no processamento da tarefa em lote sob o ID especificado.
 
 Tipos de conteúdo:
 
@@ -993,7 +927,7 @@ ID especificado pelo usuário para o arquivo quando transferido por upload:
 
 Respostas:
 
-Sucesso. Retorna o arquivo do SPSS Modeler:
+Sucesso. Retorna o arquivo do IBM® SPSS® Modeler:
 
 ```
 @ApiResponse(code = 200)
@@ -1014,3 +948,11 @@ Outro erro. JSON de exceção retornada:
 @ApiResponse(code = 500)
 ```
 {: codeblock}
+
+## Saiba mais
+
+Para obter um exemplo de adoção de tarefa em lote em uma anotação, consulte
+[Do fluxo do SPSS para a escoragem de lote com Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37).
+
+Para obter mais informações sobre o JSON de definição de tarefa, veja [JSON
+de definição de tarefa](#job-definition-json).

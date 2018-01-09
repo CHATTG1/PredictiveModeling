@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,10 +12,12 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Distribuzione di modelli batch <span class='tag--beta'>Beta</span>
+# Distribuzione di modelli batch
 
-**Nota**: questa funzionalità è attualmente in beta e disponibile solo
-per l'utilizzo con Spark MLlib. Se sei interessato a partecipare, inserisci il tuo nome nella lista di attesa. Per ulteriori informazioni, vedi: [https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist).
+Utilizzando il servizio {{site.data.keyword.pm_full}}, puoi distribuire
+un modello e generare l'analisi predittiva effettuando richieste di punteggio sul modello distribuito.
+{: shortdesc}
+
 
 **Nome scenario**: Previsione soddisfazione del cliente.
 
@@ -24,22 +26,31 @@ quali clienti sono a rischio di abbandono. Il modello presentato prevede l'abban
 sviluppa un modello predittivo e lo condivide con te (lo sviluppatore). Il tuo compito è quello di distribuire
 il modello e di generare l'analisi predittiva effettuando richieste di punteggio sul modello distribuito.
 
+**Nota:** puoi anche utilizzare il [blocco appunti](https://apsportal.ibm.com/analytics/notebooks/5e4963d9-faea-455d-a7db-ff6302d1d8f5/view?access_token=5d23d36be72dea35ebbde9b4b5f4a16d0053ee898f1ab2ab73cf1301ce9322be) python di esempio che crea un modello di esempio e prevede l'abbandono dei clienti.
+
+## Prerequisiti
+
+Per utilizzare questo esempio, devi disporre delle seguenti risorse:
+
+* Dettagli dell'istanza [Object Storage](https://console.bluemix.net/catalog/services/object-storage) che sono utilizzati come input (dati cliente per il punteggio) per il modello e archiviazione per l'output del modello. Il file .csv dei dati di input di esempio può essere scaricato da [qui](https://raw.githubusercontent.com/pmservice/wml-sample-models/master/spark/customer-satisfaction-prediction/data/scoreInput.csv). Dovresti aggiungere il file di input alla tua istanza Object Storage.
+* Credenziali dell'istanza del servizio [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark). Puoi utilizzare [questo link](https://console.bluemix.net/catalog/services/apache-spark) per crearlo.
+
+
+
 ## Utilizzo del modello di esempio
 
-1. Vai alla scheda Esempi del dashboard IBM® Watson™ Machine
-   Learning.
+1. Vai alla scheda **Esempi** del dashboard {{site.data.keyword.pm_full}}.
+2. Nella sezione **Modelli di esempio**, cerca il tile **Previsione soddisfazione
+del cliente** e fai clic sull'icona (+) **Aggiungi modello**.
 
-2. Nella sezione Modelli di esempio, cerca il tile Previsione soddisfazione del
-   cliente e fai clic sul pulsante Aggiungi modello (+).
-
-Adesso vedrai il modello di esempio Previsione soddisfazione del cliente
-nell'elenco di modelli disponibili sulla scheda Modelli.
+Viene visualizzato il modello di esempio Previsione soddisfazione del cliente nell'elenco di modelli
+disponibili nella scheda **Modelli**. 
 
 ## Generazione del token di accesso
 
-Genera un token di accesso utilizzando l'utente e la password disponibili
-dalla scheda Credenziali del servizio dell'istanza del servizio IBM Watson Machine
-Learning.
+Genera un token di accesso utilizzando l'Utente e
+la Password disponibili dalla scheda Credenziali del servizio
+dell'istanza del servizio {{site.data.keyword.pm_full}}. 
 
 Esempio di
 richiesta:
@@ -65,9 +76,11 @@ token="<token_value>"
 {: codeblock}
 
 ## Utilizzo di modelli pubblicati
-Utilizza la seguente chiamata API per richiamare i dettagli della tua istanza, ad esempio:
-* `url` dei modelli pubblicati
-* `url` delle distribuzioni
+
+Utilizza la seguente chiamata API per richiamare i dettagli della tua istanza, che includono i seguenti elementi: 
+
+* valore `url` dei modelli pubblicati 
+* valore `url` delle distribuzioni
 * informazioni di utilizzo
 
 Esempio di
@@ -103,14 +116,13 @@ Esempio di output:
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
 {: codeblock}
 
-
-Avendo l'`url` dei **modelli_pubblicati**, utilizza la seguente chiamata API per richiamare i dettagli del modello:
+Fornendo il valore **published_models** `url`, puoi utilizzare la seguente chiamata API per richiamare i dettagli del modello:
 
 Esempio di
 richiesta:
@@ -497,9 +509,7 @@ Esempio di output:
 ```
 {: codeblock}
 
-
-Nota che l'`url` delle **distribuzioni** è necessario per creare la distribuzione batch nel passo successivo.
-
+Prendi nota del valore **deployments** `url` di cui hai bisogno per creare la seguente distribuzione batch.
 
 ## Creazione di una distribuzione batch con Object Storage
 
@@ -507,23 +517,18 @@ Per utilizzare una chiamata dell'API REST per creare una distribuzione batch del
 dettagli:
 
 *  Il token di accesso creato nel passo precedente
-
-*  Le credenziali del servizio Spark, che è possibile trovare nella scheda Credenziali del
-   servizio del dashboard del servizio Bluemix Spark. Prima
-   di effettuare la richiesta di distribuzione, le credenziali Spark devono essere
-   decodificate in base64 e passate all'intestazione di una richiesta curL come
-   X-Spark-Service-Instance.
+*  Le credenziali del servizio Spark, che è possibile trovare nella scheda Credenziali del servizio del dashboard del servizio {{site.data.keyword.Bluemix_notm}} Spark. Prima di effettuare la richiesta di distribuzione, le credenziali Spark devono essere decodificate in base64 e passate all'intestazione di una richiesta `curL` come X-Spark-Service-Instance.
 
    A seconda del sistema operativo che stai utilizzando, devi immettere uno dei seguenti comandi di terminale per eseguire la decodifica in base64 e assegnarlo alla variabile di ambiente.
 
-   Sul sistema operativo macOS, utilizza il seguente comando:
+   Sul sistema operativo **macOS**, utilizza il seguente comando:
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   Sui sistemi operativi Microsoft Windows o Linux, per eseguire la decodifica in base64 devi utilizzare il parametro `--wrap=0` con il comando `base64`:
+   Sui sistemi operativi **Microsoft Windows** o **Linux**, per eseguire la decodifica in base64 devi utilizzare il parametro `--wrap=0` con il comando `base64`:
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
@@ -533,8 +538,7 @@ dettagli:
 *  I dettagli di Object Storage, che verranno utilizzati come input (dati cliente per
    il punteggio) per il modello e archiviazione per l'output del modello
    (in questo caso results.csv, che viene creato automaticamente).
-
-*  Per creare una distribuzione, utilizza l'`url` delle **distribuzioni** dalla sezione precedente.
+*  Per creare una distribuzione, utilizza il valore `url` delle **distribuzioni** dalla sezione precedente.
 
 
 Esempio di
@@ -675,11 +679,9 @@ Esempio di output:
 **Nota**: puoi anche utilizzare il Dashboard per creare una distribuzione
 batch.
 
-
 ## Recupero dei dettagli di distribuzione
 
-Puoi controllare lo stato e i parametri correlati al modello di distribuzione utilizzando l'`url` dei **metadati** (vedi l'esempio di output precedente).
-
+Puoi controllare lo stato e i parametri correlati al modello di distribuzione utilizzando il valore `url` dei **metadati**.
 Esempio di
 richiesta:
 
@@ -773,7 +775,7 @@ Esempio di output:
 {: codeblock}
 
 Il risultato della previsione viene salvato in un file .csv in IBM Object
-Storage. Di seguito è riportata una riga di esempio.
+Storage. Fai riferimento alla seguente riga per un esempio di output.
 
 Anteprima file di
 input:
@@ -806,8 +808,7 @@ Fiber optic, Month-to-month, 1, 79.35, 1
 
 ## Eliminazione di una distribuzione batch
 
-Puoi eliminare una distribuzione che non ti serve più utilizzando una query come nel seguente
-esempio.
+Per eliminare la distrbuzione utilizza la seguente query:
 
 Esempio di
 richiesta:
@@ -833,3 +834,18 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 1600446575
 ```
 {: codeblock}
+
+## Ulteriori informazioni
+
+Sei pronto a iniziare? Per creare un'istanza di un servizio o per eseguire il bind
+di un'applicazione, vedi [Utilizzo del servizio con i modelli Spark e Python](using_pm_service_dsx.html) oppure
+[Utilizzo del servizio con i modelli IBM® SPSS®](using_pm_service.html).
+
+Per ulteriori informazioni sull'API, vedi [API del servizio per i modelli Spark e Python](pm_service_api_spark.html) o [API del
+servizio per i modelli IBM® SPSS®](pm_service_api_spss.html).
+
+Per ulteriori informazioni su IBM® SPSS® Modeler e sugli algoritmi di modellazione che fornisce, consulta
+[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Per ulteriori informazioni su IBM Data Science Experience e sugli algoritmi di
+modellazione che fornisce, vedi [https://datascience.ibm.com](https://datascience.ibm.com).

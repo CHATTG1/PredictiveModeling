@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -13,44 +13,24 @@ lastupdated: "2017-09-07"
 
 # API del lavoro batch del servizio Machine Learning per i modelli IBM SPSS Modeler
 
+L'API del lavoro batch per il servizio {{site.data.keyword.pm_full}} supporta
+le attività a esecuzione prolungata correlate alla formazione modello, alla valutazione del modello e
+al calcolo del punteggio batch. Questa API gestisce due tipi di asset: i file del flusso IBM® SPSS®
+Modeler utilizzati nei lavori batch e
+le definizioni del lavoro inviate.
+{: shortdesc}
 
-*  [Eliminazione lavori](#deleting-jobs)
+Per ogni file del flusso SPSS® Modeler che hai caricato,
+possono esserci molti lavori di vari tipi che vengono inviati. Se un lavoro ha il
+potenziale per aggiornare i contenuti del file del flusso Modeler, il file modificato
+viene incluso negli allegati del risultato del lavoro. In un tipo di lavoro di valutazione del modello, tutti i file valutati
+generati sono presenti negli allegati dei risultati del lavoro. 
 
-*  [Controllo dello stato di un lavoro](#checking-the-status-of-a-job)
-
-*  [Reinvia un lavoro](#resubmit-a-job)
-
-*  [Invia un lavoro in un file del flusso Modeler caricato](#submit-a-job-against-an-uploaded-modeler-stream-file)
-
-*  [Carica un file del flusso da utilizzare nei tuoi lavori](#upload-a-stream-file-to-use-in-your-jobs)
-
-*  [Tipi di lavoro](#job-types)
-
-*  [Stato del lavoro](#job-status)
-
-*  [Dettagli API lavoro](#job-api-details)
-
-*  [JSON della definizione del lavoro](#job-definition-json)
-
-*  [Dettagli API lavoro batch](#batch-job-api-details)
-
-L'API del lavoro batch per il servizio Machine Learning supporta le
-attività a esecuzione prolungata correlate alla formazione del modello, alla valutazione del modello e
-al calcolo del punteggio batch. Questa API gestisce due tipi di asset: i file del flusso SPSS Modeler utilizzati nei lavori batch e
-le definizioni del lavoro inviate. Per ogni file del flusso Modeler caricato, esistono più lavori e
-più tipi inviati. Se un lavoro ha il potenziale per aggiornare i contenuti del file del flusso Modeler, il file modificato
-sarà incluso negli allegati del risultato del lavoro. In un tipo di lavoro di valutazione del modello, tutti i file valutati
-generati saranno presenti negli allegati del risultato del lavoro.
-
-Per un esempio di adozione di lavoro batch, fai riferimento al
-seguente blocco appunti: [From SPSS stream to batch scoring with
-Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37).
-
-**Nota**: i dati visualizzati nel dashboard sono correlati solo alle previsioni in tempo reale, inclusi i dati della funzione di caricamento. 
+**Nota**: i dati visualizzati nel dashboard sono correlati solo alle previsioni in tempo reale, come i dati della funzione di caricamento. 
 
 ## Eliminazione lavori
 
-Puoi eliminare i lavori, che elimina il lavoro se è al momento in esecuzione. Utilizza il comando `DELETE` con `job ID`. Puoi annullare più di un lavoro alla volta passando più ID.
+Puoi anche eliminare i lavori. Se un lavoro è in esecuzione, eliminarlo, annulla il lavoro. Utilizza il comando `DELETE` con `job ID`. Puoi annullare più di un lavoro alla volta passando più ID.
 
 ```
 DELETE https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job ID
@@ -60,11 +40,12 @@ DELETE https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job ID
 
 Il valore restituito indica quanti lavori a cui fa riferimento l'ID nella richiesta sono stati eliminati. Se
 questo numero non corrisponde all'elenco trasmesso nella richiesta, devi controllare lo stato
-dei singoli lavori.
+dei singoli lavori. 
 
 ## Controllo dello stato di un lavoro
 
 Puoi ottenere lo stato del tuo `job ID` in qualsiasi momento utilizzando il comando `GET`:
+
 
 ```
 GET https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -72,13 +53,16 @@ ID}/status?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-Il JSON restituito indica jobstatus e, se il lavoro è terminato con esito
-positivo, un dataUrl che puoi utilizzare per ottenere tutto il contenuto del file
+Il file JSON indica lo stato del lavoro e, se il lavoro è terminato con esito
+positivo, un URL dei dati che puoi utilizzare per ottenere tutto il contenuto del file
 generato.
 
 ## Reinvia un lavoro
 
-Per inviare nuovamente un lavoro, utilizza il comando `PUT` con `job ID`. Non deve essere in stato di esecuzione.
+Per inviare nuovamente un lavoro, utilizza il comando `PUT` con `job ID`. Per reinviare un lavoro, deve essere in esecuzione.
+
+Se l'ID a cui fai riferimento non esiste, la seguente chiamata crea un nuovo lavoro. Lo stato di ritorno è 201 invece di 200 (che indica
+cosa è successo). Devi trasmettere il file JSON della definizione del lavoro da utilizzare in questa esecuzione. 
 
 ```
 PUT https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -86,11 +70,7 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-con content_type "application/json" che include il JSON della definizione del lavoro
-nuovo o aggiornato nel corpo della richiesta.
-
-Questa chiamata crea effettivamente un nuovo lavoro se l'ID di riferimento non esiste, con 201 su 200
-restituzioni che indica cosa è accaduto. Devi trasmettere il JSON della definizione del lavoro da utilizzare in questa esecuzione.
+Reinvia il lavoro con il valore `content_type` impostato su "application/json". Devi includere il file JSON della definizione del lavoro nuovo o aggiornato nel corpo della richiesta.
 
 ## Invia un lavoro in un file del flusso Modeler caricato
 
@@ -102,22 +82,18 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-Con content_type "application/json" che include il JSON della definizione del lavoro
-nel corpo della richiesta.
+Invia il lavoro con il valore `content_type` impostato su "application/json". Devi includere il file JSON della definizione del lavoro nuovo o aggiornato nel corpo della richiesta.
 
-Questa richiesta viene restituita immediatamente, il che significa un esito positivo se la definizione del lavoro è stata posizionata nella coda di
+Questa richiesta viene restituita immediatamente e indica un esito positivo se la definizione del lavoro è stata posizionata nella coda di
 esecuzione. Non esiste una verifica della capacità di eseguire correttamente il flusso Modeler
-come configurato nella tua definizione del lavoro. Il lavoro sarà eseguito da
-uno dei server del lavoro Machine Learning nel cloud e puoi monitorarne
-lo stato. Se esegui la formazione del modello e indichi che desideri eseguire l'aggiornamento automatico, il lavoro
-sostituirà il file del flusso Modeler originale nel momento dell'esecuzione positiva del lavoro.
-
-Per ulteriori informazioni sul JSON della definizione del lavoro, consulta [JSON della
-definizione del lavoro](#job-definition-json).
+come configurato nella tua definizione del lavoro. Il lavoro sarà eseguito da uno dei server del lavoro
+{{site.data.keyword.pm_short}} nel cloud e puoi monitorarne
+lo stato. Se stai eseguendo la formazione del modello e indichi che desideri eseguire l'aggiornamento automatico, il lavoro
+sostituisce il file del flusso Modeler originale nel momento dell'esecuzione positiva del lavoro. 
 
 ## Carica un file del flusso da utilizzare nei tuoi lavori
 
-**Nota**: il dashboard Machine Learning serve solo per il calcolo del punteggio
+**Nota**: il dashboard {{site.data.keyword.pm_short}} serve solo per il calcolo del punteggio
 in tempo reale. Non puoi utilizzarlo per eseguire i lavori (calcolo batch).
 
 Per rendere un file del flusso Modeler accessibile ai lavori, utilizza il comando `PUT`:
@@ -204,7 +180,7 @@ Utilizza come ramo di calcolo, che indica che questo è il ramo di calcolo del p
 in questa progettazione del flusso Modeler. La definizione del lavoro deve specificare
 i dettagli dell'esportazione così come i dettagli dell'origine.
 
-**Esegui flusso**: l'esecuzione è simile al fare clic sul pulsante di "esecuzione" verde in
+**Esegui flusso**: l'esecuzione è simile al fare clic sull'icona di "esecuzione" verde in
 Modeler con l'opzione Esegui questo script selezionata nella scheda
 Esecuzione delle proprietà del flusso. L'utilizzo copre i bisogni dell'esecuzione con script
 della formazione del modello o di altri tipi di lavoro. Tutto il controllo dinamico dello script deve essere gestito dai parametri del flusso,
@@ -253,8 +229,7 @@ bind:
 ```
 {: codeblock}
 
-`job ID` specificato dall'utente. Deve essere univoco per un'istanza del servizio Machine
-Learning:
+`job ID` specificato dall'utente. Deve essere univoco per un'istanza del servizio {{site.data.keyword.pm_short}}:
 
 ```
 @PathParam("id")
@@ -541,7 +516,7 @@ Il JSON della definizione del lavoro contiene le seguenti sezioni generali:
 
 Riferimento al modello predittivo e tipo di lavoro
 
-**Nota**: i dati visualizzati nel dashboard sono correlati solo alle previsioni in tempo reale, inclusi i dati della funzione di caricamento. 
+**Nota**: i dati visualizzati nel dashboard sono correlati solo alle previsioni in tempo reale, inclusi i dati della funzione di caricamento.
 
 ### Tipi di azione
 
@@ -577,8 +552,8 @@ da utilizzare nei tuoi lavori. Nota che viene utilizzato
 Nota che l'ID deve essere uguale al `file ID` utilizzato
 nell'API `PUT`. Il nome non è obbligatorio, ma per la formazione e l'aggiornamento automatico del modello
 il risultato del lavoro verrà salvato utilizzando il nome definito
-qui. Se il nome non viene definito, il servizio Machine Learning
-genererà il risultato in base alle regole di denominazione predefinite.
+qui. Se name non è stato definito, il servizio {{site.data.keyword.pm_short}} genererà il risultato
+in base alle regole di denominazione predefinite.
 
 ### Impostazioni lavoro
 
@@ -638,8 +613,7 @@ come identificato dal nome del nodo di origine.
                "dbRef”; “db2”,
                "table": "DRUG1N",
           },
-          "node": "ScoreInput",
-          "attributes": []
+          "node": "ScoreInput"
      }
 ],
 ```
@@ -671,30 +645,6 @@ insertMode:
 **Refresh** – le righe esistenti della tabella vengono eliminate prima di inserire nuove
 righe
    
-Il caricamento generico può essere utilizzato per migliorare le prestazioni di inserimento.
-È possibile abilitare il supporto per il caricamento generico utilizzando l'attributo bulkLoading:
-
-**Off** - il caricamento generico è disabilitato
-
-**ODBC** - caricamento generico tramite il driver ODBC
-
-
-```
-"exports": [
-     {
-          "odbc": {
-               "dbRef”; “db1”,
-               "table": "DRUGSCORES",
-               “insertMode”:”Append”
-          },
-          "node": "ExportScores",
-          "attributes": [],
-          "bulkLoading": "Off"
-     }
-],
-```
-{: codeblock}
-
 Il valore table è il nome della tabella del database in cui scrivere i risultati del lavoro.
 Il valore node è il nome del nodo del terminale per il flusso. Analogamente alle impostazioni
 del nodo di origine, node identifica il nodo di output originale
@@ -764,14 +714,13 @@ Sono supportati i seguenti formati: HTML, JPG, PNG, RTF, SAV, TAB e XML.
                                    "dbRef”; “db”,
                                    "table": "DRUG1N",
                          },
-                         "node": "ScoreInput",
-                         "attributes": []
+                         "node": "ScoreInput"
                     }
           ],
           "parameterOverride": [
                     {
                         "name": "p1",
-                        "value": "v1"
+          "value": "v1"
                     },
                     {
                         "name": "p2",
@@ -785,12 +734,11 @@ Sono supportati i seguenti formati: HTML, JPG, PNG, RTF, SAV, TAB e XML.
 
 ## Dettagli API del lavoro batch
 
-Le seguenti sezioni forniscono i dettagli dell'API di gestione del file
-Modeler SPSS del lavoro batch.
+Le seguenti sezioni forniscono i dettagli dell'API di gestione del file IBM® SPSS® Modeler del lavoro batch.
 
 `PUT /v1/file/{id}`
 
-Descrizione: carica un file del flusso Modeler SPSS da utilizzare nei lavori
+Descrizione: carica un file del flusso IBM® SPSS® Modeler da utilizzare nei lavori
 batch.
 
 **Nota**: se c'è già un file memorizzato nell'ID specificato,
@@ -929,7 +877,7 @@ Altro errore. Restituito JSON dell'eccezione:
 
 `GET /v1/file/{id}`
 
-Descrizione: richiama il file del flusso Modeler SPSS memorizzato da
+Descrizione: richiama il file del flusso IBM® SPSS® Modeler memorizzato da
 utilizzare nell'elaborazione del lavoro batch nell'ID specificato.
 
 Tipi di contenuto:
@@ -958,7 +906,7 @@ ID specificato dall'utente per il file quando caricato:
 
 Risposte:
 
-Esito positivo. Restituisce il file Modeler SPSS:
+Esito positivo. Restituisce il file IBM® SPSS® Modeler:
 
 ```
 @ApiResponse(code = 200)
@@ -978,3 +926,11 @@ Altro errore. Restituito JSON dell'eccezione:
 @ApiResponse(code = 500)
 ```
 {: codeblock}
+
+## Ulteriori informazioni
+
+Per un esempio di adozione di lavoro batch in un notebook, consulta [From SPSS stream to batch scoring with
+Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37).
+
+Per ulteriori informazioni sul JSON della definizione del lavoro, consulta [JSON della
+definizione del lavoro](#job-definition-json).

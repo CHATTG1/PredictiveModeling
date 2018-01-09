@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -13,39 +13,24 @@ lastupdated: "2017-09-07"
 
 # Machine Learning-Service-Stapeljob-API für IBM SPSS Modeler-Modelle
 
+Die Stapeljob-API für den {{site.data.keyword.pm_full}}-Service unterstützt die
+lange laufenden Tasks im Zusammenhang mit Modelltraining, Modellevaluierung
+und Stapel-Scoring. Diese API verwaltet zwei Assettypen: die IBM® SPSS®
+Modeler-Datenstromdateien, die in den Stapeljobs verwendet werden, und die
+Jobdefinitionen, die übergeben werden.
+{: shortdesc}
 
-*  [Jobs löschen](#deleting-jobs)
+Für jede SPSS® Modeler-Datenstromdatei, die Sie hochladen,
+kann es viele Jobs mit vielen Typen geben, die übergeben werden. Falls ein Job das Potenzial
+hat, den Inhalt der Modeler-Datenstromdatei zu aktualisieren, wird die
+geänderte Datei in den Anhang der Jobergebnisse einbezogen. Beim Jobtyp
+der Modellevaluierung befinden sich alle Auswertungsdateien, die generiert werden, in den Anhängen der Jobergebnisse.
 
-*  [Status eines Jobs überprüfen](#checking-the-status-of-a-job)
-
-*  [Job erneut übergeben](#resubmit-a-job)
-
-*  [Job für eine hochgeladene Modeler-Datenstromdatei übergeben](#submit-a-job-against-an-uploaded-modeler-stream-file)
-
-*  [Datenstromdatei zur Verwendung in Ihren Jobs hochladen](#upload-a-stream-file-to-use-in-your-jobs)
-
-*  [Jobtypen](#job-types)
-
-*  [Jobstatus](#job-status)
-
-*  [Job-API - Details](#job-api-details)
-
-*  [Jobdefinition JSON](#job-definition-json)
-
-*  [Stapeljob-API - Details](#batch-job-api-details)
-
-Die Stapeljob-API für den Machine Learning-Service unterstützt die lange laufenden Tasks im Zusammenhang mit Modelltraining,
-Modellevaluierung und Stapelscoring. Diese API verwaltet zwei Assettypen: die in den Stapeljobs verwendeten SPSS Modeler-Datenstromdateien und die übergebenen Jobdefinitionen. Für jede hochgeladene Modeler-Datenstromdatei können zahlreiche Jobs verschiedener Typen übergeben werden. Falls ein Job das Potenzial hat, den Inhalt der Modeler-Datenstromdatei zu aktualisieren, wird die geänderte Datei in den Anhang der Jobergebnisse einbezogen. Beim Jobtyp der Modellevaluierung befinden sich alle generierten Evaluierungsdateien in den Anhängen der Jobergebnisse.
-
-Ein Beispiel für eine Stapeljobakzeptanz finden Sie im folgenden
-Notizbuch: [Vom SPSS-Datenstrom zum Stapel-Scoring mit
-Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37).
-
-**Hinweis**: Die im Dashboard angezeigten Daten einschließlich der Daten der Hochladefunktion beziehen sich nur auf Echtzeitprognosen. 
+**Hinweis**: Die im Dashboard angezeigten Daten beziehen sich nur auf Echtzeitvorhersagen, z. B. die Daten aus der Upload-Funktion.
 
 ## Jobs löschen
 
-Sie können Jobs löschen, was zu einem Abbruch des Jobs führt, falls er zu diesem Zeitpunkt noch ausgeführt wird. Verwenden Sie den Befehl `LÖSCHEN` mit der `Job-ID`. Sie können durch Übergeben mehrerer IDs mehr als einen Job gleichzeitig abbrechen. 
+Jobs können gelöscht werden. Wenn ein Job ausgeführt wird, bricht das Löschen eines Jobs zuerst den Job ab. Verwenden Sie den Befehl `LÖSCHEN` mit der `Job-ID`. Sie können durch Übergeben mehrerer IDs mehr als einen Job gleichzeitig abbrechen.
 
 ```
 DELETE https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job ID
@@ -53,11 +38,13 @@ DELETE https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job ID
 ```
 {: codeblock}
 
-Die Rückgabe zeigt, wie viele der Jobs, die durch die ID in der Anforderung referenziert werden, gelöscht wurden. Wenn diese Anzahl nicht mit der Liste übereinstimmt, die in der Anforderung übergeben wurde, müssen Sie den Status der einzelnen Jobs überprüfen.
+Die Rückgabe zeigt, wie viele der Jobs, die durch die ID in der Anforderung referenziert werden, gelöscht werden. Wenn diese Zahl nicht mit der Liste übereinstimmt, die Sie in der Anforderung übergeben haben, müssen Sie den Status
+der einzelnen Jobs überprüfen.
 
 ## Status eines Jobs überprüfen
 
-Sie können den Status Ihrer `Job-ID` zu jedem beliebigen Zeitpunkt mit dem Befehl `GET` abrufen: 
+Sie können den Status Ihrer `Job-ID` zu jedem beliebigen Zeitpunkt mit dem Befehl `GET` abrufen:
+
 
 ```
 GET https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -65,12 +52,17 @@ ID}/status?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-Die zurückgegebene JSON gibt den Jobstatus an und (falls der Job erfolgreich ausgeführt wurde) eine dataUrl, mit
-der Sie alle generierten Dateiinhalte abrufen können.
+Die zurückgegebene JSON-Datei gibt den Jobstatus an und,
+falls der Job erfolgreich ausgeführt wurde, eine Daten-URL, mit der Sie alle
+generierten Dateiinhalte abrufen können.
 
 ## Job erneut übergeben
 
-Um einen Job erneut abzuschicken, verwenden Sie den Befehl `PUT` mit der `Job-ID`. Dieser muss sich nicht im aktiven Status (running) befinden. 
+Um einen Job erneut abzuschicken, verwenden Sie den Befehl `PUT` mit der `Job-ID`. Zum erneuten Abschicken eines Jobs muss dieser Job nicht ausgeführt werden.
+
+Wenn die ID, auf die Sie verweisen, nicht vorhanden ist, wird durch den folgenden Aufruf ein neuer Job erstellt. Der Rückgabestatus ist 201 versus 200 (womit
+angegeben wird, was davon aufgetreten ist). Sie müssen die JSON-Datei für die Jobdefinition, die in dieser
+Ausführung verwendet werden soll, übergeben.
 
 ```
 PUT https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -78,13 +70,11 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-wobei content_type "application/json" die neue oder aktualisierte Jobdefinition JSON im Hauptteil der Anforderung enthält.
-
-Dieser Aufruf erstellt aktuell einen neuen Job, falls die referenzierte ID nicht vorhanden ist. Dabei geben 201 versus 200 Rückgaben an, welcher der beiden Fälle eingetreten ist. Sie müssen die Jobdefinition JSON, die in dieser Ausführung verwendet werden soll, übergeben.
+Übergeben Sie den Job erneut mit dem Wert `content_type`, der auf "application/json" gesetzt ist. Sie müssen die neue oder aktualisierte JSON-Datei für die Jobdefinition in den Hauptteil der Anforderung einschließen.
 
 ## Job für eine hochgeladene Modeler-Datenstromdatei übergeben
 
-Verwenden Sie den Befehl `PUT`, um einen Job in die Ausführungswarteschlange zu stellen: 
+Verwenden Sie den Befehl `PUT`, um einen Job in die Ausführungswarteschlange zu stellen:
 
 ```
 PUT https://{PA Bluemix load balancer URL}/pm/v1/jobs/{job
@@ -92,16 +82,18 @@ ID}?accesskey=xxxxxxxxxx
 ```
 {: codeblock}
 
-wobei content_type "application/json" die Jobdefinition JSON im Hauptteil der Anforderung enthält.
+Übergeben Sie den Job, wobei der Wert `content_type` auf 'application/json' festgelegt ist. Sie müssen die neue oder aktualisierte JSON-Datei für die Jobdefinition in den Hauptteil der Anforderung einschließen.
 
-Diese Anforderung wird sofort zurückgegeben und zeigt den Erfolg an, falls die Jobdefinition in die Warteschlange gestellt worden ist. Es gibt keinen Test der möglichen erfolgreichen Ausführung des Modeler-Datenstroms so wie dieser in Ihrer Jobdefinition konfiguriert ist. Der Job
-wird von einem der Machine Learning-Job-Server in der Cloud ausgeführt und Sie können seinen Status überwachen. Falls Sie ein Modelltraining ausführen und angeben, dass Sie ein automatisches Aktualisieren wünschen, wird der Job in der ursprünglichen Modeler-Datenstromdatei ersetzt, wenn er erfolgreich ausgeführt worden ist.
-
-Weitere Informationen zur Jobdefinition JSON finden Sie unter [Jobdefinition JSON](#job-definition-json).
+Diese Anforderung wird sofort zurückgegeben und zeigt den Erfolg an, wenn die
+Jobdefinition in die Warteschlange gestellt wurde. Es gibt keinen Test der möglichen erfolgreichen Ausführung des Modeler-Datenstroms so wie dieser in Ihrer Jobdefinition konfiguriert ist. Der Job wird von einem der {{site.data.keyword.pm_short}}-Job-Server
+in der Cloud ausgeführt und Sie können seinen
+Status überwachen. Wenn Sie ein Modelltraining ausführen und angeben,
+dass Sie ein automatisches Aktualisieren wünschen, wird der Job in der
+ursprünglichen Modeler-Datenstromdatei ersetzt, wenn er erfolgreich ausgeführt wurde.
 
 ## Datenstromdatei zur Verwendung in Ihren Jobs hochladen
 
-**Hinweis**: Das Machine Learning-Dashboard dient nur dem Echtzeit-Scoring. Sie können es nicht zur Ausführung von Jobs (Stapel-Scoring) verwenden.
+**Hinweis**: Das {{site.data.keyword.pm_short}}-Dashboard dient nur dem Echtzeitscoring. Sie können es nicht zur Ausführung von Jobs (Stapel-Scoring) verwenden.
 
 Um eine Modeler-Datenstromdatei für Jobs zugänglich zu machen, verwenden Sie den Befehl `PUT`:
 
@@ -113,7 +105,7 @@ ID}?accesskey=xxxxxxxxxx
 
 wobei content_type "multipart/form-data" die Datei an die Anforderung übergibt.
 
-Der verwendete eindeutige Name (`Datei-ID` im Aufruf `PUT`) ist Ihre Referenz im Aufruf `DELETE` an die Datei-API und dient ferner als Modellreferenz in Ihren Jobdefinitionen. Beachten Sie, dass der Namensbereich von Dateien, die in Ihren Jobs verwendet werden, sich vollständig in Ihrer Kontrolle befindet. Der Befehl `PUT` für eine Datei unter derselben `Datei-ID` ersetzt implizit die aktuell gehaltene Kopie. 
+Der verwendete eindeutige Name (`Datei-ID` im Aufruf `PUT`) ist Ihre Referenz im Aufruf `DELETE` an die Datei-API und dient ferner als Modellreferenz in Ihren Jobdefinitionen. Beachten Sie, dass der Namensbereich von Dateien, die in Ihren Jobs verwendet werden, sich vollständig in Ihrer Kontrolle befindet. Der Befehl `PUT` für eine Datei unter derselben `Datei-ID` ersetzt implizit die aktuell gehaltene Kopie.
 
 Um eine Liste aller für Ihre Jobs hochgeladenen Dateien zu generieren, verwenden Sie den Befehl `GET`, lassen jedoch den Parameter `Datei-ID` aus. Um eine spezifische Datei abzurufen, verwenden Sie den Befehl `GET` mit dem Parameter `Datei-ID`. Sie können auch eine hochgeladene Datei durch Ausgabe des Befehls `DELETE` löschen. Dies führt zu Fehlern in allen ausstehenden Jobausführungen, die auf die Datei verweisen.
 
@@ -174,17 +166,18 @@ verwenden zugewiesen haben, womit Sie darauf hinweisen, dass dies die Scoring-Ve
 in diesem Modeler-Datenstromdesign ist. Die Jobdefinition muss die Angabe Export sowie
 Details zur Quelle enthalten.
 
-**Datenstrom ausführen**: Die Ausführung ist ähnlich wie das Klicken auf die grüne Schaltfläche für die Ausführung ("run") in
-Modeler, wobei die Option Dieses Script ausführen auf der Registerkarte Ausführung der Datenstromeigenschaften ausgewählt ist. Die Verwendung deckt die Notwendigkeit der Scriptausführung eines Modelltrainings oder anderer Jobtypen ab. Alle dynamischen Steuerelemente des Scripts müssen von Datenstromparametern gehandhabt werden, deren Parameterwerte in der Jobdefinition übergeben wurden.
+**Datenstrom ausführen**: Die Ausführung ist ähnlich wie das Klicken auf das grüne Symbol
+für die Ausführung ("run") in Modeler, wobei die Option 'Dieses Script ausführen' auf der Registerkarte
+'Ausführung' der Datenstromeigenschaften ausgewählt ist. Die Verwendung deckt die Notwendigkeit der Scriptausführung eines Modelltrainings oder anderer Jobtypen ab. Alle dynamischen Steuerelemente des Scripts müssen von Datenstromparametern gehandhabt werden, deren Parameterwerte in der Jobdefinition übergeben wurden.
 
 ## Jobstatus
 
-**Anstehend**: Die Jobdefinition wurde übergeben jedoch noch nicht von einem Job-Server zur Ausführung übernommen. 
+**Anstehend**: Die Jobdefinition wurde übergeben jedoch noch nicht von einem Job-Server zur Ausführung übernommen.
 
 **Aktiv**: Die Jobdefinition wurde von einem Job-Server übernommen
-und wird ausgeführt. 
+und wird ausgeführt.
 
-**Wird abgebrochen**: Der Job wird gerade abgebrochen. 
+**Wird abgebrochen**: Der Job wird gerade abgebrochen.
 
 **Abgebrochen**: Der Job wurde abgebrochen.
 
@@ -218,8 +211,7 @@ Bereitstellung oder Bindung zurückgegeben:
 ```
 {: codeblock}
 
-Benutzerdefinierte `Job-ID`. Muss eindeutig für eine Machine Learning-Serviceinstanz
-sein:
+Benutzerdefinierte `Job-ID`. Muss eindeutig für die {{site.data.keyword.pm_short}}-Serviceinstanz sein:
 
 ```
 @PathParam("id")
@@ -505,7 +497,7 @@ Die Jobdefinition JSON enthält die folgenden allgemeinen Abschnitte:
 
 Jobtyp und Vorhersagemodellreferenz
 
-**Hinweis**: Die im Dashboard angezeigten Daten einschließlich der Daten der Hochladefunktion beziehen sich nur auf Echtzeitprognosen. 
+**Hinweis**: Die im Dashboard angezeigten Daten einschließlich der Daten der Hochladefunktion beziehen sich nur auf Echtzeitprognosen.
 
 ### Aktionstypen
 
@@ -513,7 +505,7 @@ Jobtyp und Vorhersagemodellreferenz
 
 **EVALUATION** – Führt das Dokumenterstellungsprogramm aus und analysiert Knoten, die das Trainingsmodell evaluieren.
 
-**AUTO_REFRESH** – Führt TRAINING aus und aktualisiert Dateiinhalte im Hochladebereich der Stapeldatei. 
+**AUTO_REFRESH** – Führt TRAINING aus und aktualisiert Dateiinhalte im Hochladebereich der Stapeldatei.
 
 **BATCH_SCORE** – Führt die Scoring-Verzweigung aus und exportiert die Ergebnisdaten als von der Jobdefinition gesteuert.
 
@@ -533,8 +525,8 @@ angegeben. Weitere Informationen finden Sie unter Datenstromdatei zur Verwendung
 
 Beachten Sie, dass die ID mit der `Datei-ID` übereinstimmen sollte, die in der API `PUT` verwendet wird. Der Name ist nicht erforderlich. Beim Modelltraining und beim
 automatischen Aktualisieren wird das Jobergebnis jedoch mithilfe des hier definierten
-Namens gespeichert. Falls der Name name nicht definiert ist, generiert der Machine
-Learning-Service das Ergebnis entsprechend der vordefinierten Namensregeln.
+Namens gespeichert. Wenn der Name nicht definiert ist, generiert der {{site.data.keyword.pm_short}}-Service
+das Ergebnis entsprechend den vordefinierten Namensregeln.
 
 ### Jobeinstellungen
 
@@ -591,8 +583,7 @@ Referenzieren Sie die Datenbankkonnektivität und die verwendete Tabelle, um ein
                "dbRef”; “db2”,
                "table": "DRUG1N",
           },
-          "node": "ScoreInput",
-          "attributes": []
+          "node": "ScoreInput"
      }
 ],
 ```
@@ -620,36 +611,13 @@ Steuerungsmethode, die verwendet wird, wenn als persistent definierte Daten
 
 **Refresh** – vorhandene Zeilen aus der Tabelle werden gelöscht, bevor sie in neue Zeilen eingefügt werden
    
-Das Laden von Massendaten kann verwendet werden, um die Einfügeleistung zu verbessern. Unterstützung für das Laden von Massendaten kann mit dem Attribut bulkLoading aktiviert werden:
-
-**Off** - Laden von Massendaten ist inaktiviert.
-
-**ODBC** - Laden von Massendaten über den ODBC-Treiber.
-
-
-```
-"exports": [
-     {
-          "odbc": {
-               "dbRef”; “db1”,
-               "table": "DRUGSCORES",
-               “insertMode”:”Append”
-          },
-          "node": "ExportScores",
-          "attributes": [],
-          "bulkLoading": "Off"
-     }
-],
-```
-{: codeblock}
-
 Die Tabelle table ist der Name der Datenbanktabelle, in die die Jobergebnisse geschrieben werden.
 Der Knoten node ist der Name des Endknotens für den
 Datenstrom. Ähnlich wie bei Quellenknoteneinstellungen gibt node den ursprünglichen Ausgabeknoten
 im Modeler-Datenstrom an, der durch einen DB-Exportknoten ersetzt wird, der mit den zur Verfügung
 gestellten Parametern konstruiert wurde.
 
-**Hinweis**: Die Einstellungen des Exportknotens und die Quellenknoteneinstellungen sind entscheidend dafür, dass Ihr Job erfolgreich ausgeführt wird. 
+**Hinweis**: Die Einstellungen des Exportknotens und die Quellenknoteneinstellungen sind entscheidend dafür, dass Ihr Job erfolgreich ausgeführt wird.
 
 ### Überschreibungen von Parameterwerten
 
@@ -710,8 +678,7 @@ Die folgenden Formate werden unterstützt: HTML, JPG, PNG, RTF, SAV, TAB und XML
                                    "dbRef”; “db”,
                                    "table": "DRUG1N",
                          },
-                         "node": "ScoreInput",
-                         "attributes": []
+                         "node": "ScoreInput"
                     }
           ],
           "parameterOverride": [
@@ -731,16 +698,13 @@ Die folgenden Formate werden unterstützt: HTML, JPG, PNG, RTF, SAV, TAB und XML
 
 ## Stapeljob-API - Details
 
-In
-den folgenden Abschnitten finden Sie Details zur SPSS
-Modeler-Dateiverwaltungs-API für Stapeljobs.
+In den folgenden Abschnitten finden Sie Details zur IBM® SPSS® Modeler-Dateiverwaltungs-API für Stapeljobs.
 
 `PUT /v1/file/{id}`
 
-Beschreibung: Lädt eine SPSS Modeler-Datenstromdatei für die Verwendung in Stapeljobs
-hoch.
+Beschreibung: Lädt eine IBM® SPSS®-Modeler-Datenstromdatei für die Verwendung in Stapeljobs hoch.
 
-**Hinweis**: Wenn bereits eine Datei unter der angegebenen ID gespeichert ist, wird diese überschrieben. 
+**Hinweis**: Wenn bereits eine Datei unter der angegebenen ID gespeichert ist, wird diese überschrieben.
 
 ### Inhaltstypen
 
@@ -859,7 +823,7 @@ Bereitstellung oder Bindung zurückgegeben:
 
 Antworten:
 
-Erfolg. Gibt einen JSON-Bereich mit Werten für die `Datei-ID` zurück: 
+Erfolg. Gibt einen JSON-Bereich mit Werten für die `Datei-ID` zurück:
 
 ```
 @ApiResponse(code = 200)
@@ -875,8 +839,7 @@ Anderer Fehler. JSON der Ausnahmebedingung zurückgegeben.
 
 `GET /v1/file/{id}`
 
-Beschreibung: Ruft die SPSS Modeler-Datenstromdatei ab, die für die Verwendung in der
-Stapeljobverarbeitung unter der angegebenen ID gespeichert wurde.
+Beschreibung: Ruft die IBM® SPSS®-Datenstromdatei ab, die für die Verwendung in der Stapeljobverarbeitung unter der angegebenen ID gespeichert wurde.
 
 Inhaltstypen:
 
@@ -904,7 +867,7 @@ Benutzerdefinierte ID für die Datei nach dem Hochladen:
 
 Antworten:
 
-Erfolg. Gibt die SPSS Modeler-Datei zurück:
+Erfolg. Gibt die IBM® SPSS® Modeler-Datei zurück:
 
 ```
 @ApiResponse(code = 200)
@@ -924,3 +887,10 @@ Anderer Fehler. JSON der Ausnahmebedingung zurückgegeben.
 @ApiResponse(code = 500)
 ```
 {: codeblock}
+
+## Weitere Informationen
+
+Ein Beispiel für eine Stapeljobakzeptanz in einem Notizbuch finden Sie unter [Vom SPSS-Datenstrom zum Stapel-Scoring mit Python
+](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37).
+
+Weitere Informationen zur Jobdefinition JSON finden Sie unter [Jobdefinition JSON](#job-definition-json).

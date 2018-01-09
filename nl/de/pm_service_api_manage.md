@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,23 +14,26 @@ lastupdated: "2017-09-07"
 
 # Implementierte SPSS-Modelle verwalten
 
+Sie können die {{site.data.keyword.pm_full}}-Service-API verwenden, um eine Datei hochzuladen, die die bereitzustellende Scoring-Verzweigung von IBM® SPSS® Modeler enthält. Nach dem Hochladen wird sie für die Scoring-Daten in Ihren Anwendungen verfügbar gemacht.
+{: shortdesc}
+
+Insbesondere können Sie die folgenden Tasks ausführen:
 
 *  [Vorhersagemodell implementieren oder aktualisieren](#deploying-or-refreshing-a-predictive-model)
-
-*  [Liste aller momentan implementierten Modelle abrufen](#retrieving-a-list-of-all-currently-deployed-models)
-
-*  [Kopie einer bestimmten implementierten Modelldatei herunterladen](#downloading-a-copy-of-a-specific-deployed-model-file)
-
+*  [Liste aller momentan bereitgestellten Modelle abrufen](#retrieving-a-list-of-all-currently-deployed-models)
+*  [Kopie einer bestimmten bereitgestellten Modelldatei herunterladen](#downloading-a-copy-of-a-specific-deployed-model-file)
 *  [Implementiertes Vorhersagemodell löschen](#deleting-a-deployed-predictive-model)
 
 ## Vorhersagemodell implementieren oder aktualisieren
 
-Verwenden Sie diesen API-Aufruf, um eine Datei hochzuladen, die die von IBM SPSS Modeler entwickelte Scoring-Verzweigung enthält, die implementiert werden soll.
-Sie wird für das Scoring von Daten in Ihren Anwendungen zur Verfügung gestellt. Jeder Modelldatei
-wird eine Kontext-ID als Alias zugeordnet, der zum Referenzieren des implementierten Modells
-in nachfolgenden Serviceaufrufen verwendet wird. Wenn für eine Kontext-ID ein Modell vorhanden ist,
-wird sie durch diesen PUT-Aufruf ersetzt, um die momentan von Ihren Anwendungen benutzte Vorhersageanalyse
+Jeder Modelldatei
+wird eine Kontext-ID als Alias zugeordnet, der zum Referenzieren des bereitgestellten Modells
+in nachfolgenden Serviceaufrufen verwendet wird. Wenn ein
+Modell für eine Kontext-ID vorhanden ist, wird es durch den folgenden `PUT`-Aufruf
+ersetzt, um die Vorhersageanalyse, die von Ihren Anwendungen verwendet wird,
 zu aktualisieren.
+
+Anforderungsbeispiel:
 
 ```
 PUT http://{PA Bluemix load balancer
@@ -39,7 +42,7 @@ application}
 ```
 {: codeblock}
 
-Anforderungsbeispiel:
+Anforderungsparameter:
 
 ```
     Content-Type: multipart/form-data
@@ -79,9 +82,12 @@ Antwort bei fehlgeschlagener Implementierung:
 ```
 {: codeblock}
 
-## Liste aller momentan implementierten Modelle abrufen
+## Liste aller momentan bereitgestellten Modelle abrufen
 
-Rufen Sie eine Zusammenfassung aller Modelle ab, die momentan in dieser Serviceinstanz implementiert sind.
+Verwenden Sie den folgenden API-Aufruf, um alle Modelle abzurufen, die aktuell in dieser
+Serviceinstanz bereitgestellt sind.
+
+Anforderungsbeispiel:
 
 ```
 GET http://{PA Bluemix load balancer
@@ -90,7 +96,7 @@ application}
 ```
 {: codeblock}
 
-Anforderungsbeispiel:
+Anforderungsparameter:
 
 ```
     Content-Type: */*
@@ -100,7 +106,7 @@ Anforderungsbeispiel:
 ```
 {: codeblock}
 
-Antwort bei erfolgreicher Anforderung einer Zusammenfassung für ein implementiertes Modell:
+Antwort bei erfolgreicher Anforderung einer Zusammenfassung für ein bereitgestelltes Modell:
 
 ```
     Content-Type: application/json
@@ -120,7 +126,7 @@ Antwort bei erfolgreicher Anforderung einer Zusammenfassung für ein implementie
 ```
 {: codeblock}
 
-Antwort bei fehlgeschlagener Anforderung einer Zusammenfassung für ein implementiertes Modell:
+Antwort bei fehlgeschlagener Anforderung einer Zusammenfassung für ein bereitgestelltes Modell:
 
 ```
     Content-Type: application/json
@@ -133,15 +139,20 @@ Antwort bei fehlgeschlagener Anforderung einer Zusammenfassung für ein implemen
 ```
 {: codeblock}
 
-## Kopie einer bestimmten implementierten Modelldatei herunterladen
+## Kopie einer bestimmten bereitgestellten Modelldatei herunterladen
 
+Verwenden Sie den folgenden API-Aufruf, um eine Kopie einer bestimmten bereitgestellten Modelldatei herunterzuladen.
+
+Anforderungsbeispiel:
+
+```
 GET http://{PA Bluemix load balancer
 URL}/pm/v1/model/{contextId}?accesskey={access_key for this bound
 application}
+```
+{: codeblock}
 
-Verwenden Sie diesen API-Aufruf, um eine Kopie einer bestimmten implementierten Modelldatei herunterzuladen.
-
-Anforderungsbeispiel:
+Anforderungsparameter:
 
 ```
     Content-Type: */*
@@ -178,14 +189,21 @@ Antwort bei fehlgeschlagener Downloadanforderung:
 
 ## Implementiertes Vorhersagemodell löschen
 
+Verwenden Sie den folgenden API-Aufruf, um das Vorhersagemodell aus der
+Machine Learning-Serviceinstanz zu löschen. Nach diesem Aufruf steht das Vorhersagemodell
+nicht mehr zum Download oder zum Scoring von Daten in Ihren
+Anwendungen zur Verfügung.
+
+Anforderungsbeispiel:
+
+```
 DELETE http://{service
 instance}/pm/v1/model/{contextId}?accesskey={access_key for this
 bound application}
+```
+{: codeblock}
 
-Verwenden Sie diesen API-Aufruf, um das Vorhersagemodell aus der
-Machine Learning-Serviceinstanz zu löschen. Nach diesem Aufruf steht das Vorhersagemodell nicht mehr zum Download oder zum Scoring von Daten in Ihren Anwendungen zur Verfügung.
-
-Anforderungsbeispiel:
+Anforderungsparameter:
 
 ```
     Content-Type: */*
@@ -222,3 +240,18 @@ Antwort bei fehlgeschlagener Deimplementierung:
         }
 ```
 {: codeblock}
+
+## Weitere Informationen
+
+Sind Sie bereit? Informationen zum Erstellen einer Serviceinstanz oder zum Binden
+einer Anwendung finden Sie unter [Service mit Spark- und Python-Modellen verwenden](using_pm_service_dsx.html) oder
+[Service mit IBM® SPSS®-Modellen verwenden](using_pm_service.html).
+
+Weitere Informationen zur API finden Sie unter [Service-API für Spark- und Python-Modelle](pm_service_api_spark.html) oder [Service-
+API für IBM® SPSS® Modelle] (pm_service_api_spss.html).
+
+Weitere Informationen zu IBM® SPSS® Modeler und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie im [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Weitere Informationen zu IBM Data Science Experience und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie unter [https://datascience.ibm.com](https://datascience.ibm.com).

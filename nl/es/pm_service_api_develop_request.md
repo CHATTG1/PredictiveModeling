@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-06-23"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,19 +14,22 @@ lastupdated: "2017-06-23"
 
 # Recuperación del resumen de Web Application Description Language (WADL) de este servicio
 
+Los desarrolladores de aplicaciones utilizan WADL (Web Application Description Language) para ampliar el uso de aplicaciones web. Puede recuperar el WADL para una aplicación {{site.data.keyword.pm_full}} utilizando una llamada de API.
+{: shortdesc}
 
+```
 OPCIONES http://{PA Bluemix load balancer URL}/pm/v1/wadl
+```
+{: codeblock}
 
-Utilice esta llamada a la API para recuperar el WADL correspondiente a este servicio.
-
-Ejemplo de solicitud: 
+Ejemplo de solicitud:
 
 ```
     Content-Type: */*
 ```
 {: codeblock}
 
-Respuesta cuando la solicitud WADL se ejecuta correctamente: 
+Respuesta cuando la solicitud WADL se ejecuta correctamente:
 
 ```
     Content-Type: application/vnd.sun.wadl+xml
@@ -69,3 +72,17 @@ Respuesta cuando la solicitud WADL falla:
         } 
         ```
 {: codeblock}
+
+
+## Información adicional
+
+¿Preparado para ponerse en marcha? Para crear una instancia de servicio o enlazar
+una aplicación, consulte [Utilización del servicio con modelos Spark y Python](using_pm_service_dsx.html) o
+[Utilización del servicio con modelos IBM® SPSS®](using_pm_service.html).
+
+Para obtener más información sobre la API, consulte [API del servicio para modelos Spark y Python](pm_service_api_spark.html) o [API del servicio para modelos IBM® SPSS®](pm_service_api_spss.html).
+
+Para obtener más información sobre IBM® SPSS® Modeler y los algoritmos de modelado que proporciona,
+consulte [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Para obtener más información sobre IBM Data Science Experience y los algoritmos de modelado que proporciona, consulte [https://datascience.ibm.com](https://datascience.ibm.com).

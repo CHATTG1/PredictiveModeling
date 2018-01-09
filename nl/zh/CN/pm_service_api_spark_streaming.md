@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,24 +12,33 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# 部署流式模型 <span class='tag--beta'>Beta</span>
+# 部署流式模型
 
-
-**注**：此功能目前在 Beta 中提供，且仅可用于使用 Spark MLlib。如果您想要参与，请将您自己加入等待列表！
-有关更多信息，请参阅：[https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist)。
+通过使用 {{site.data.keyword.pm_full}} 服务，可以部署模型，然后通过对已部署的模型发出评分请求来生成预测性分析。
+{: shortdesc}
 
 **场景名称**：观点分析。
 
 **场景描述**：市场营销代理希望了解关于特定主题的观点。
 该代理希望我们开发出一种模型，用于将给定阐述分类为 POSITIVE 或 NEGATIVE。为此，数据研究员准备了一个预测模型并将其与您（开发者）共享。您的任务是部署模型，并通过对已部署的模型发出评分请求来生成预测性分析。
 
+**注：**您还可以利用[样本 Python 配置页](https://apsportal.ibm.com/analytics/notebooks/913a7daa-cf39-414d-9017-3a7840a53c59/view?access_token=f1ebc10873a226f248f744b26ee7f71d53c81d5752b9d940e23a33518a3e115d)，此配置页用于创建样本模型并对推文进行分类。
+
 请参阅此文档以了解更多信息。
+
+
+## 先决条件
+要使用此示例，需要具有以下各项：
+* [Message Hub](https://console.bluemix.net/catalog/services/message-hub) 主题详细信息，将用作模型输入（推文文本），以及模型输出的存储（预测结果）。确保创建两个主题：具有推文文本的输入以及输出主题。
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) 服务实例凭证。可以使用此[链接](https://console.bluemix.net/catalog/services/apache-spark)来创建凭证。
+
+
 
 ## 使用样本模型
 
-1. 转至 IBM® Watson™ Machine Learning“仪表板”的“样本”选项卡。
+1. 转至 {{site.data.keyword.pm_full}}“仪表板”的“样本”选项卡。
 
-2. 在“样本模型”部分中，找到“观点预测”磁贴，并单击“添加模型”按钮 (+)。
+2. 在“样本模型”部分中，找到“观点预测”磁贴，并单击“添加模型”图标 (+)。
 
 现在，您将在“模型”选项卡上的可用模型列表中看到样本“观点预测”模型。
 
@@ -96,7 +105,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
@@ -135,10 +144,10 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
             "description":"Predicts comment sentiment about particular topic for marketing company.",
             "label_col":"sentiment",
             "training_data_schema":{
-               "type": "struct",
-    "fields": [
-      {
-        "metadata":{ 
+               "type":"struct",
+               "fields":[
+                  {
+                     "metadata":{ 
 },
                      "type":"integer",
                      "name":"id",
@@ -171,10 +180,10 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
                "url":"https://ibm-watson-ml.stage1.mybluemix.net/v3/wml_instances/7a0f9c88-3cf6-4433-89ee-92a641f26e89/published_models/f96d7e00-cd2d-40d1-9b9e-730efaa5dbe5/deployments"
             },
             "input_data_schema":{
-               "type": "struct",
-    "fields": [
-      {
-        "metadata":{ 
+               "type":"struct",
+               "fields":[
+                  {
+                     "metadata":{ 
 },
                      "type":"integer",
                      "name":"id",
@@ -196,8 +205,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 ```
 {: codeblock}
 
-请记下在下一步中创建批量部署所需的 **deployments** `url`。
-
+请记下在下一步中创建批量部署所需的 **deployments** `url` 值。
 
 ## 使用 IBM Message Hub 创建流式部署
 
@@ -205,27 +213,27 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 
 *  在上一步中创建的访问令牌
 
-*  Spark 服务凭证，可在 Bluemix Spark 服务仪表板的“服务凭证”选项卡上找到。在发出部署请求之前，必须将 Spark 凭证解码为 base64，并在 curl 请求的头中作为 X-Spark-Service-Instance 传递。
+*  Spark 服务凭证，可在 {{site.data.keyword.Bluemix_notm}} Spark 服务仪表板的“服务凭证”选项卡上找到。在发出部署请求之前，必须将 Spark 凭证解码为 base64，并在 `curl` 请求的头中作为 X-Spark-Service-Instance 传递。
 
    根据所使用的操作系统，必须发出以下其中一个终端命令执行 base64 解码，并将其分配给环境变量。
 
-   在 macOS 操作系统上，使用以下命令：
+   在 **macOS** 操作系统上，请使用以下命令：
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   在 Microsoft Windows 或 Linux 操作系统上，必须使用 `--wrap=0` 参数搭配 `base64` 命令来执行 base64 解码：
+   在 **Microsoft Windows** 或 **Linux** 操作系统上，必须使用 `--wrap=0` 参数搭配 `base64` 命令来执行 base64 解码：
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
    ```
    {: codeblock}
 
-*  IBM Message Hub 主题详细信息，将用作模型输入（推文），以及模型输出的存储（预测结果）。
+*  IBM Message Hub 主题详细信息，将用作模型输入（推文），以及模型输出的存储（预测结果）
 
-*  要创建部署，请使用上一部分中的 **deployments** `url`。
+*  **deployments** `url` 值
 
 请求示例：
 
@@ -581,3 +589,14 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 2025130991
 ```
 {: codeblock}
+
+## 了解更多信息
+
+准备好开始了吗？要创建服务的实例或绑定应用程序，请参阅[将服务用于 Spark 和 Python 模型](using_pm_service_dsx.html)或[将服务用于 IBM® SPSS® 模型](using_pm_service.html)。
+
+
+有关该 API 的更多信息，请参阅 [Spark 和 Python 模型的服务 API](pm_service_api_spark.html) 或 [IBM® SPSS® 模型的服务 API](pm_service_api_spss.html)。
+
+有关 IBM® SPSS® Modeler 及其提供的建模算法的更多信息，请参阅 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+
+有关 IBM Data Science Experience 及其提供的建模算法的更多信息，请参阅 [https://datascience.ibm.com](https://datascience.ibm.com)。

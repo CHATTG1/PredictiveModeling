@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,23 +12,33 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# ストリーミング・モデルのデプロイ (<span class='tag--beta'>ベータ</span>)
+# ストリーミング・モデルのデプロイ
 
-
-**注**: この機能は、現在はベータ版であり、Spark MLlib でのみ使用可能です。参加をご希望の場合は、ご自身を待機リストに追加してください。
-詳しくは、[https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist) を参照してください。
+{{site.data.keyword.pm_full}} サービスを使用して、モデルをデプロイし、デプロイされたモデルに対してスコアリング要求を行うことによって予測分析を生成することができます。
+{: shortdesc}
 
 **シナリオ名**: 感情分析。
 
-**シナリオの説明**: あるマーケティング代理店が、特定のトピックに関する感情を把握したいと考えています。その代理店は、特定の発言を肯定または否定に分類するモデルの開発を依頼したいと考えています。データ・サイエンティストが、予測モデルを準備し、それを開発者と共有します。開発者のタスクは、モデルをデプロイし、デプロイ済みモデルに対してスコア要求を行うことにより、予測分析を生成することです。
+**シナリオの説明**: あるマーケティング代理店が、特定のトピックに関する感情を把握したいと考えています。その代理店は、特定の発言を肯定または否定に分類するモデルの開発を依頼したいと考えています。データ・サイエンティストが、予測モデルを準備し、それを開発者と共有します。開発者のタスクは、モデルをデプロイし、デプロイ済みモデルに対してスコアリング要求を行うことにより、予測分析を生成することです。
+
+**注:** [サンプルの python ノートブック](https://apsportal.ibm.com/analytics/notebooks/913a7daa-cf39-414d-9017-3a7840a53c59/view?access_token=f1ebc10873a226f248f744b26ee7f71d53c81d5752b9d940e23a33518a3e115d)を試してみることもできます。これは、サンプル・モデルを作成し、ツイートを分類します。
 
 詳細については、この文書を参照してください。
 
+
+## 前提条件
+この例を使用して作業するには、以下のものが必要です。
+* [Message Hub](https://console.bluemix.net/catalog/services/message-hub) トピックの詳細。モデルの入力 (ツイート・テキスト)、およびモデルの出力 (予測結果) のストレージとして、使用されます。2 つのトピック (ツイート・テキストの入った入力トピックと、出力トピック) が作成されることを確認してください。
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) サービス・インスタンス資格情報。この[リンク](https://console.bluemix.net/catalog/services/apache-spark)を使用して作成できます。
+
+
+
 ## サンプル・モデルの使用
 
-1. IBM® Watson™ Machine Learning ダッシュボードの「サンプル」タブに移動します。
+1. {{site.data.keyword.pm_full}} ダッシュボードの「サンプル」タブに移動します。
 
-2. 「サンプル・モデル (Sample Models)」セクションで「Sentiment Prediction」タイルを見つけて、「モデルの追加 (Add model)」ボタン (+) をクリックします。
+2. 「サンプル・モデル (Sample Models)」セクションで、 「Sentiment Prediction」タイルを見つけ、「モデルの追加 (Add model)」アイコン
+(「+」) をクリックします。
 
 これで、「モデル (Models)」タブの使用可能なモデルのリストに、サンプルの「Sentiment Prediction」モデルが表示されます。
 
@@ -95,7 +105,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
@@ -138,24 +148,21 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
                "fields":[
                   {
                      "metadata":{
-
-                     },
+            },
                      "type":"integer",
                      "name":"id",
                      "nullable":true
                   },
                   {
                      "metadata":{
-
-                     },
+            },
                      "type":"string",
                      "name":"text",
                      "nullable":true
                   },
                   {
                      "metadata":{
-
-                     },
+            },
                      "type":"string",
                      "name":"label",
                      "nullable":true
@@ -177,16 +184,14 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
                "fields":[
                   {
                      "metadata":{
-
-                     },
+            },
                      "type":"integer",
                      "name":"id",
                      "nullable":true
                   },
                   {
                      "metadata":{
-
-                     },
+            },
                      "type":"string",
                      "name":"text",
                      "nullable":true
@@ -200,35 +205,34 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 ```
 {: codeblock}
 
-**deployments** `url` は次のステップでバッチ・デプロイメントを作成するために必要なのでメモしておいてください。
-
+**deployments** `url` 値は以下のバッチ・デプロイメントを作成するために必要なのでメモしておいてください。
 
 ## IBM Message Hub を使用するストリーミング・デプロイメントの作成
 
 REST API 呼び出しを使用して予測モデルのストリーミング・デプロイメントを作成するには、以下の詳細を指定します。
 
-*  直前のステップで作成されたアクセス・トークン。
+*  前のステップで作成したアクセス・トークン。
 
-*  Bluemix Spark サービス・ダッシュボードの「サービス資格情報」タブにある Spark サービス資格情報。デプロイメント要求を行う前に、Spark 資格情報を base64 としてデコードし、curl 要求のヘッダー内で X-Spark-Service-Instance として渡す必要があります。
+*  {{site.data.keyword.Bluemix_notm}} Spark サービス・ダッシュボードの「サービス資格情報」タブにある Spark サービス資格情報。デプロイメント要求を行う前に、Spark 資格情報を base64 としてデコードし、`curl` 要求のヘッダー内で X-Spark-Service-Instance として渡す必要があります。
 
    使用しているオペレーティング・システムに応じて、以下のいずれかの端末コマンドを発行して base64 デコードを実行し、それを環境変数に割り当てる必要があります。
 
-   macOS オペレーティング・システムでは、以下のコマンドを使用します。
+   **macOS** オペレーティング・システムでは、以下のコマンドを使用します。
 
    ```
 spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)```
    {: codeblock}
 
-   Microsoft Windows または Linux オペレーティング・システムでは、以下のように `base64` コマンドで `--wrap=0` パラメーターを使用して、base64 デコードを実行する必要があります。
+   **Microsoft Windows** または **Linux** オペレーティング・システムでは、以下のように `base64` コマンドで `--wrap=0` パラメーターを使用して、base64 デコードを実行する必要があります。
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
    ```
    {: codeblock}
 
-*  IBM Message Hub のトピックの詳細。モデルの入力 (ツイート)、およびモデルの出力 (予測結果) のストレージとして、使用されます。
+*  モデルの入力 (ツイート)、およびモデルの出力 (予測結果) のストレージとして使用される、IBM Message Hub のトピックの詳細
 
-*  デプロイメントを作成するには、前のセクションからの **deployments** `url` を使用します。
+*  **デプロイメント** `url` 値
 
 要求の例:
 
@@ -583,3 +587,13 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 2025130991
 ```
 {: codeblock}
+
+## 詳細はこちら
+
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、『[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html)』または『[IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html)』を参照してください。
+
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API] (pm_service_api_spss.html) を参照してください。
+
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
+
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

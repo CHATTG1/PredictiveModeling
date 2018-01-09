@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,26 +12,37 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# バッチ・モデルのデプロイ (<span class='tag--beta'>ベータ</span>)
+# バッチ・モデルのデプロイ
 
-**注**: この機能は、現在はベータ版であり、Spark MLlib でのみ使用可能です。参加をご希望の場合は、ご自身を待機リストに追加してください。
-詳しくは、[https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist) を参照してください。
+{{site.data.keyword.pm_full}} サービスを使用して、モデルをデプロイし、デプロイされたモデルに対してスコアリング要求を行うことによって予測分析を生成することができます。
+{: shortdesc}
+
 
 **シナリオ名**: 顧客満足度予測。
 
-**シナリオの説明**: ある通信会社が、解約する恐れがあるのはどの顧客であるかを知りたいと考えています。提供されたモデルは、顧客のチャーン (契約/解約を繰り返す顧客の流動現象) を予測します。データ・サイエンティストが、予測モデルを開発し、それを開発者と共有します。開発者のタスクは、モデルをデプロイし、デプロイ済みモデルに対してスコア要求を行うことにより、予測分析を生成することです。
+**シナリオの説明**: ある通信会社が、解約する恐れがあるのはどの顧客であるかを知りたいと考えています。提供されたモデルは、顧客のチャーン (契約/解約を繰り返す顧客の流動現象) を予測します。データ・サイエンティストが、予測モデルを開発し、それを開発者と共有します。開発者のタスクは、モデルをデプロイし、デプロイ済みモデルに対してスコアリング要求を行うことにより、予測分析を生成することです。
+
+**注:** サンプルの python [ノートブック](https://apsportal.ibm.com/analytics/notebooks/5e4963d9-faea-455d-a7db-ff6302d1d8f5/view?access_token=5d23d36be72dea35ebbde9b4b5f4a16d0053ee898f1ab2ab73cf1301ce9322be)を試してみることもできます。これは、サンプル・モデルを作成し、顧客のチャーンを予測します。
+
+## 前提条件
+
+この例を使用して作業するには、以下のリソースが必要です。
+
+* モデルの入力 (スコアリングする顧客データ)、およびモデルの出力のストレージとして使用される、[オブジェクト・ストレージ](https://console.bluemix.net/catalog/services/object-storage)・インスタンスの詳細。サンプル入力データ .csv ファイルは、[ここ](https://raw.githubusercontent.com/pmservice/wml-sample-models/master/spark/customer-satisfaction-prediction/data/scoreInput.csv)からダウンロードできます。 入力ファイルはオブジェクト・ストレージ・インスタンスに追加する必要があります。
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) サービス・インスタンス資格情報。[このリンク](https://console.bluemix.net/catalog/services/apache-spark)を使用して作成できます。
+
+
 
 ## サンプル・モデルの使用
 
-1. IBM® Watson™ Machine Learning ダッシュボードの「サンプル」タブに移動します。
+1. {{site.data.keyword.pm_full}} ダッシュボードの**「サンプル」**タブに移動します。
+2. **「サンプル・モデル (Sample Models)」**セクションで**「Customer Satisfaction Prediction」**タイルを見つけて、**「モデルの追加」**アイコン (+) をクリックします。
 
-2. 「サンプル・モデル (Sample Models)」セクションで、「Customer Satisfaction Prediction」タイルを見つけて、「モデルの追加 (Add model)」ボタン (+) をクリックします。
-
-これで、「モデル (Models)」タブの使用可能なモデルのリストに、サンプルの「Customer Satisfaction Prediction」モデルが表示されます。
+**「モデル (Models)」**タブの使用可能なモデルのリストに、サンプルの「Customer Satisfaction Prediction」モデルが表示されます。
 
 ## アクセス・トークンの生成
 
-IBM Watson Machine Learning サービス・インスタンスの「サービス資格情報」タブに提供されているユーザーおよびパスワードを使用して、アクセス・トークンを生成します。
+{{site.data.keyword.pm_full}} サービス・インスタンスの「サービス資格情報」タブで提供されているユーザーおよびパスワードを使用して、アクセス・トークンを生成します。
 
 要求の例:
 
@@ -55,9 +66,11 @@ token="<token_value>"
 {: codeblock}
 
 ## 公開モデルの処理
-次のようなインスタンス詳細を取得するには、以下の API 呼び出しを使用します。
-* 公開モデルの `url`
-* デプロイメントの `url`
+
+インスタンス詳細を取得するには、以下の API 呼び出しを使用します。詳細には次の項目が含まれます。
+
+* 公開されたモデルの `url` 値
+* デプロイメントの `url` 値
 * 使用情報
 
 要求の例:
@@ -92,14 +105,13 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
 {: codeblock}
 
-
-**published_models** の `url` が分かったので、次の API 呼び出しを使用してモデルの詳細を取得します。
+**published_models** `url` 値を指定することによって、以下の API 呼び出しを使用してモデル詳細を取得できます。
 
 要求の例:
 
@@ -125,8 +137,8 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
       "runtime_environment":"spark-2.0",
             "author":{
                "name":"IBM",
-            "email":""
-         },
+               "email":""
+            },
             "name":"Customer Satisfaction Prediction",
             "description":"Predicts Telco customer churn.",
             "label_col":"Churn",
@@ -444,28 +456,25 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 ```
 {: codeblock}
 
-
-**deployments** `url` は次のステップでバッチ・デプロイメントを作成するために必要なのでメモしておいてください。
-
+**deployments** `url` 値は以下のバッチ・デプロイメントを作成するために必要なのでメモしておいてください。
 
 ## オブジェクト・ストレージを使用するバッチ・デプロイメントの作成
 
 REST API 呼び出しを使用して予測モデルのバッチ・デプロイメントを作成するには、以下の詳細を指定します。
 
 *  直前のステップで作成されたアクセス・トークン。
-
-*  Bluemix Spark サービス・ダッシュボードの「サービス資格情報」タブにある Spark サービス資格情報。デプロイメント要求を行う前に、Spark 資格情報を base64 としてデコードし、curl 要求のヘッダー内で X-Spark-Service-Instance として渡す必要があります。
+*  {{site.data.keyword.Bluemix_notm}} Spark サービス・ダッシュボードの「サービス資格情報」タブにある Spark サービス資格情報。デプロイメント要求を行う前に、Spark 資格情報を base64 としてデコードし、`curL` 要求のヘッダー内で X-Spark-Service-Instance として渡す必要があります。
 
    使用しているオペレーティング・システムに応じて、以下のいずれかの端末コマンドを発行して base64 デコードを実行し、それを環境変数に割り当てる必要があります。
 
-   macOS オペレーティング・システムでは、以下のコマンドを使用します。
+   **macOS** オペレーティング・システムでは、以下のコマンドを使用します。
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   Microsoft Windows または Linux オペレーティング・システムでは、以下のように `base64` コマンドで `--wrap=0` パラメーターを使用して、base64 デコードを実行する必要があります。
+   **Microsoft Windows** または **Linux** オペレーティング・システムでは、以下のように `base64` コマンドで `--wrap=0` パラメーターを使用して、base64 デコードを実行する必要があります。
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
@@ -473,8 +482,7 @@ REST API 呼び出しを使用して予測モデルのバッチ・デプロイ�
    {: codeblock}
 
 *  オブジェクト・ストレージの詳細。モデルの入力 (スコアリングする顧客データ)、およびモデルの出力 (この場合は results.csv であり、自動的に作成される) のストレージとして、使用されます。
-
-*  デプロイメントを作成するには、前のセクションからの **deployments** `url` を使用します。
+*  デプロイメントを作成するには、前のセクションからの **deployments** `url` 値を使用します。
 
 
 要求の例:
@@ -613,11 +621,9 @@ curl -v -XPOST \
 
 **注**: ダッシュボードを使用してバッチ・デプロイメントを作成することもできます。
 
-
 ## デプロイメントの詳細の取得
 
-デプロイメント・モデルに関連する状況およびパラメーターを **metadata** `url` を使用して確認できます (上の出力例を参照してください)。
-
+デプロイメント・モデルに関連する状況およびパラメーターを **metadata** `url` 値を使用して確認できます。
 要求の例:
 
 ```
@@ -709,7 +715,7 @@ curl -v -XGET -H "Content-Type:application/json" -H "Authorization: Bearer $toke
 ```
 {: codeblock}
 
-予測結果は、IBM オブジェクト・ストレージ内の .csv ファイルに保存されます。サンプル行を以下に示します。
+予測結果は、IBM オブジェクト・ストレージ内の .csv ファイルに保存されます。出力例については、以下のサンプル行を参照してください。
 
 入力ファイルのプレビュー:
 
@@ -740,7 +746,7 @@ Fiber optic, Month-to-month, 1, 79.35, 1
 
 ## バッチ・デプロイメントの削除
 
-以下の例のような照会を使用して、不要になったデプロイメントを削除できます。
+デプロイメントを削除するには、以下の照会を使用します。
 
 要求の例:
 
@@ -765,3 +771,13 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 1600446575
 ```
 {: codeblock}
+
+## 詳細はこちら
+
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、『[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html)』または『[IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html)』を参照してください。
+
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API] (pm_service_api_spss.html) を参照してください。
+
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
+
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

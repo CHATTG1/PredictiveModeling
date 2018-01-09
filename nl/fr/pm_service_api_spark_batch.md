@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,25 +12,37 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Déploiement de modèles de traitement par lots <span class='tag--beta'>bêta</span>
+# Déploiement de modèles de traitement par lots
 
-**Remarque **: cette fonctionnalité est actuellement en version bêta et n'est disponible que pour son utilisation avec Spark MLlib. Si vous désirez participer, inscrivez-vous sur la liste d'attente. Pour plus d'informations,  voir : [https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist).
+Grâce au service {{site.data.keyword.pm_full}}, vous pouvez déployer un modèle et générer des analyses prédictives en effectuant des requêtes de score à partir du modèle déployé.
+{: shortdesc}
+
 
 **Nom du scénario **: Pronostic de satisfaction des clients.
 
 **Description du scénario **: Une entreprise de télécommunications désire savoir quels clients risquent de les abandonner. Le modèle présenté pronostique une attrition de la clientèle. Un spécialiste des données développe un modèle prédictif et le partage avec vous (le développeur). Votre tâche consiste à déployer le modèle et à générer des analyses prédictives en effectuant des requêtes de score à partir du modèle déployé.
 
+**Remarque** : Vous pouvez également vous familiariser avec l'exemple de [notebook](https://apsportal.ibm.com/analytics/notebooks/5e4963d9-faea-455d-a7db-ff6302d1d8f5/view?access_token=5d23d36be72dea35ebbde9b4b5f4a16d0053ee898f1ab2ab73cf1301ce9322be) Python qui crée un exemple de modèle et prédit la perte de clientèle.
+
+## Conditions requises
+
+Pour pouvoir utiliser cet exemple, vous devez disposer des ressources suivantes :
+
+* Des informations détaillées sur l'instance [Object Storage](https://console.bluemix.net/catalog/services/object-storage), qui seront utilisées comme entrées (données client auxquelles attribuer un score) pour le modèle et lieu de stockage de la sortie du modèle. Vous pouvez télécharger l'exemple de fichier .csv de données d'entrée [ici](https://raw.githubusercontent.com/pmservice/wml-sample-models/master/spark/customer-satisfaction-prediction/data/scoreInput.csv). Ajoutez le fichier d'entrée dans votre instance Object Storage.
+* Des données d'identification de l'instance de service [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark). Utilisez [ce lien](https://console.bluemix.net/catalog/services/apache-spark) pour en créer une.
+
+
+
 ## Utilisation de l'exemple de modèle
 
-1. Accédez à l'onglet Exemples du tableau de bord IBM® Watson™ Machine Learning.
+1. Accédez à l'onglet **Exemples** du tableau de bord {{site.data.keyword.pm_full}}.
+2. Dans la section **Exemples de modèles**, recherchez la vignette **Pronostic de satisfaction des clients** et cliquez sur l'icône **Ajouter le modèle** (+).
 
-2. Dans la section Exemples de modèles, recherchez la vignette Pronostic de satisfaction des clients et cliquez sur le bouton Ajouter le modèle (+).
-
-Vous pouvez observer à présent l'exemple de modèle Pronostic de satisfaction des clients dans la liste des modèles disponibles sous l'onglet Modèles.
+Le modèle Pronostic de satisfaction des clients s'affiche dans la liste des modèles disponibles sous l'onglet **Modèles**.
 
 ## Génération du jeton d'accès
 
-Générez un jeton d'accès à partir de l'ID et du mot de passe utilisateur affichés dans l'onglet Données d'identification pour le service de l'instance de service IBM Watson Machine Learning.
+Générez un jeton d'accès à l'aide du nom d'utilisateur et du mot de passe disponibles sur l'onglet Données d'identification pour le service de l'instance de service {{site.data.keyword.pm_full}}.
 
 Exemple de requête :
 
@@ -54,9 +66,11 @@ token="<token_value>"
 {: codeblock}
 
 ## Utilisation de modèles publiés
-Utilisez l'appel API suivant pour obtenir les détails de votre instance, par exemple :
-* `url` des modèles publiés
-* `url` des déploiements
+
+Utilisez l'appel API suivant pour obtenir des détails sur votre instance, notamment :
+
+* l'adresse `url` des modèles publiés
+* l'adresse `url` des déploiements
 * informations sur l'utilisation
 
 Exemple de requête :
@@ -91,14 +105,13 @@ Exemple de sortie :
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
 {: codeblock}
 
-
-Avec l'`url` **published_models**, utilisez l'appel API suivant pour obtenir les détails du modèle :
+En fournissant la valeur `url` des modèles publiés (**published_models**), vous pouvez utiliser l'appel API suivant pour obtenir des détails sur le modèle :
 
 Exemple de requête :
 
@@ -484,29 +497,25 @@ Exemple de sortie :
 ```
 {: codeblock}
 
-
-Notez l'`url` **deployments** requise pour créer un déploiement par lots à l'étape suivante.
-
+Notez la valeur `url` de la section **deployments** sur laquelle créer le déploiement par lots.
 
 ## Création d'un déploiement par lots à l'aide d'Object Storage
 
 Pour utiliser un appel d'API REST pour créer un déploiement par lots de votre modèle prédictif, fournissez les informations suivantes :
 
 *  Le jeton d'accès créé à l'étape précédente
-
-*  Les données d'identification pour le service Spark, que vous pouvez trouver dans l'onglet Données d'identification pour le service du tableau de bord du service Bluemix Spark. Avant de soumettre la demande de déploiement, les données d'identification Spark doivent être décodées en base64 et transmises dans l'en-tête d'une requête curL sous la forme
-Instance-Service-X-Spark.
+*  Les données d'identification du service Spark, que vous pouvez trouver dans l'onglet Données d'identification du service du tableau de bord du service {{site.data.keyword.Bluemix_notm}} Spark. Avant de soumettre la demande de déploiement, les données d'identification Spark doivent être décodées en base64 et transmises dans l'en-tête d'une requête `curL` sous la forme X-Spark-Service-Instance.
 
    Selon le système d'exploitation que vous utilisez, vous devez exécuter l'une des commandes de terminal suivantes pour effectuer un décodage en base64 et l'affecter à la variable d'environnement.
 
-   Sur système d'exploitation macOS, utilisez la commande suivante :
+   Sur le système d'exploitation **macOS**, utilisez la commande suivante :
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   Sur système d'exploitation Microsoft Windows ou Linux, vous devez utiliser le paramètre `--wrap=0` avec la commande `base64` pour effectuer un décodage en base64 :
+   Sur les systèmes d'exploitation **Microsoft Windows** ou **Linux**, vous devez utiliser le paramètre `--wrap=0` avec la commande `base64` pour effectuer un décodage en base64 :
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
@@ -515,8 +524,7 @@ Instance-Service-X-Spark.
 
 *  Informations d'Object Storage, qui seront utilisées comme entrées (données client auxquelles attribuer un score) pour le modèle et
 stockage de la sortie du modèle (results.csv, en l'occurrence, qui est créé automatiquement).
-
-*  Pour créer un déploiement, utilisez l'`url` **deployments** de la section précédente.
+*  Pour créer un déploiement, utilisez la valeur **deployments** `url` de la section précédente.
 
 
 Exemple de requête :
@@ -655,11 +663,9 @@ Exemple de sortie :
 
 **Remarque **: vous pouvez également utiliser le tableau de bord pour créer un déploiement par lots.
 
-
 ## Obtention des détails du déploiement
 
-Vous pouvez vérifier le statut et les paramètres relatifs au modèle de déploiement à l'aide de l'`url` **metadata** (voir exemple de sortie ci-dessus).
-
+Vous pouvez vérifier le statut et les paramètres relatifs au modèle de déploiement à l'aide de la valeur **metadata** `url`.
 Exemple de requête :
 
 ```
@@ -751,7 +757,8 @@ Exemple de sortie :
 ```
 {: codeblock}
 
-Le résultat du pronostic est enregistré dans un fichier .csv dans IBM Object Storage. Un exemple de lignes figure ci-dessous.
+Le résultat de la prévision est enregistré dans un fichier .csv sous IBM Object
+Storage. Reportez-vous à l'exemple de ligne ci-dessous pour voir un exemple de la sortie.
 
 Aperçu du fichier d'entrée :
 
@@ -782,7 +789,7 @@ Fiber optic, Month-to-month, 1, 79.35, 1
 
 ## Suppression d'un déploiement par lots
 
-Si vous n'en avez plus besoin, vous pouvez supprimer le déploiement à l'aide d'une requête similaire à l'exemple suivant.
+Pour supprimer le déploiement, utilisez la requête suivante :
 
 Exemple de requête :
 
@@ -807,3 +814,13 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 1600446575
 ```
 {: codeblock}
+
+## Informations supplémentaires
+
+Prêt à commencer ? Pour créer une instance de service ou lier une application, voir [Utilisation du service avec des modèles Spark et Python](using_pm_service_dsx.html) ou [Utilisation du service avec des modèles IBM® SPSS®](using_pm_service.html).
+
+Pour plus d'informations sur l'API, voir [API de service pour les modèles Spark et Python](pm_service_api_spark.html) ou [API de service pour les modèles IBM® SPSS®](pm_service_api_spss.html).
+
+Pour plus d'informations sur IBM® SPSS® Modeler et les algorithmes de modélisation qu'il utilise, reportez-vous à la documentation du site [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Pour plus d'informations sur IBM Data Science Experience et les algorithmes de modélisation qu'il propose, accédez au site [https://datascience.ibm.com](https://datascience.ibm.com).

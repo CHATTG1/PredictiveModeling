@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,28 +14,35 @@ lastupdated: "2017-09-07"
 
 # Onlinemodelle bereitstellen
 
+Mit dem {{site.data.keyword.pm_full}}-Service können Sie ein Modell
+bereitstellen und prädiktive Analysen generieren, indem Sie Scoring-Anforderungen für
+das bereitgestellte Modell erstellen.
+{: shortdesc}
+
 **Szenarioname:** Produktlinienvorhersage.
 
-**Szenariobeschreibung:** Eine Firma für Outdoorausrüstung möchte
-ein Modell erstellen, das das Kundeninteresse an ihren Produktlinien
-vorhersagt. Ein Data-Scientist entwickelt ein Vorhersagemodell und
+**Szenariobeschreibung**: Eine Firma für Outdoorausrüstung möchte
+ein Modell erstellen, das das Kundeninteresse an einer bestimmten
+Produktlinie vorhersagt. Ein Data-Scientist hat ein Vorhersagemodell vorbereitet und
 teilt es mit Ihnen (dem Entwickler). Ihre Aufgabe ist es, das Modell bereitzustellen und eine Vorhersage zu generieren, indem Sie
-Scoring-Anforderungen für das implementierte Modell erstellen.
+Scoring-Anforderungen für das bereitgestellte Modell erstellen.
 
 ## Beispielmodell verwenden
 
-1. Wechseln Sie zur Registerkarte Beispiele des IBM® Watson™ Machine Learning-Dashboards.
+1. Wechseln Sie zur Registerkarte 'Beispiele' des {{site.data.keyword.pm_full}}-
+   Dashboards.
 
 2. Suchen Sie im Abschnitt Beispielmodelle die Kachel für die Produktlinienvorhersage
-und klicken Sie auf das Symbol 'Modell hinzufügen' (+). 
+und klicken Sie auf das Symbol 'Modell hinzufügen' (+).
 
-Jetzt sehen Sie das Beispielmodell
-zur Produktlinienvorhersage in der Liste mit verfügbaren Modellen auf der Registerkarte
-Modelle.
+Das Beispiel für das Vorhersagemodell in der
+Liste von verfügbaren Modellen auf der Registerkarte 'Modelle'.
 
 ## Zugriffstoken generieren
 
-Generieren Sie mithilfe des `Benutzers` und `Kennworts`, die auf der Registerkarte **Serviceberechtigungsnachweise** der IBM Watson Machine Learning-Serviceinstanz verfügbar sind, ein Zugriffstoken. 
+Generieren Sie ein Zugriffstoken, das den `Benutzer` und das `Kennwort` verwendet, die auf
+der Registerkarte **Serviceberechtigungsnachweise** der {{site.data.keyword.pm_full}}-
+Serviceinstanz verfügbar ist.
 
 Anforderungsbeispiel:
 
@@ -52,7 +59,7 @@ Ausgabebeispiel:
 {: codeblock}
 
 Verwenden Sie den folgenden Terminalbefehl, um Ihren Tokenwert dem
-Umgebungsvariablentoken zuzuweisen: 
+Umgebungsvariablentoken zuzuweisen:
 
 ```
 token="<token_value>"
@@ -60,9 +67,11 @@ token="<token_value>"
 {: codeblock}
 
 ## Mit veröffentlichten Modellen arbeiten
-Verwenden Sie den folgenden API-Aufruf, um Ihre Instanzdetails abzurufen. Zum Beispiel: 
-* Veröffentlichte Modelle `URL`
-* Bereitstellungen `URL`
+
+Verwenden Sie den folgenden API-Aufruf, um Ihre Instanzdetails abzurufen. Dazu gehören die folgenden Werte: 
+
+* `URL`-Werte für veröffentlichte Modelle
+* `URL`-Wert für Bereitstellungen
 * Nutzungsinformationen
 
 Anforderungsbeispiel:
@@ -97,14 +106,14 @@ Ausgabebeispiel:
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
 {: codeblock}
 
 
-Verwenden Sie bei der URL von veröffentlichten Modellen (**published_models** `url`) den folgenden API-Aufruf, um Modelldetails abzurufen: 
+Verwenden Sie bei der URL von veröffentlichten Modellen (**published_models** `url`) den folgenden API-Aufruf, um Modelldetails abzurufen:
 
 Anforderungsbeispiel:
 
@@ -187,7 +196,7 @@ Ausgabebeispiel:
 {: codeblock}
 
 
-Bitte beachten Sie die `URL` der **Bereitstellung**, die für das Erstellen einer Onlinebereitstellung im nächsten Schritt erforderlich ist. 
+Notieren Sie den `URL`-Wert für **Bereitstellungen**, den Sie für die Erstellung der folgenden Online-Bereitstellung benötigen.
 
 
 ## Onlinebereitstellung erstellen
@@ -246,7 +255,7 @@ Ausgabebeispiel:
 ## Bereitstellungsdetails abrufen
 
 Sie können den Status, die Scoring-Endpunktadresse (`scoring_url`)  und die Parameter des
-bereitgestellten Modells prüfen. 
+bereitgestellten Modells prüfen.
 
 Anforderungsbeispiel:
 
@@ -414,7 +423,7 @@ Wir können beispielsweise erkennen, dass ein 55 Jahre alter Angestellter sich
 für Bergsteigerausrüstung interessiert, während ein 23 Jahre alter Student sich für
 Persönliches Zubehör interessiert.
 
-**Hinweis**: In den Scoring-Nutzdaten ist für scikit-learn- und XGBoost-Modelle nur das Feld `Werte` erforderlich.
+**Hinweis**: Für 'scikit-learn'- und 'XGBoost'-Modelle ist nur das Feld `Werte` in den Scoring-Nutzdaten erforderlich.
 
 Anforderungsbeispiel:
 
@@ -422,3 +431,18 @@ Anforderungsbeispiel:
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header "Authorization: Bearer  $token" -d '{"values": [[0.0,1.0],[4.0,15.0]]}' https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}/published_models/{published_model_id}/deployments/{deployment_id}/online
 ```
 {: codeblock}
+
+## Weitere Informationen
+
+Sind Sie bereit? Informationen zum Erstellen einer Serviceinstanz oder zum Binden
+einer Anwendung finden Sie unter [Service mit Spark- und Python-Modellen verwenden](using_pm_service_dsx.html) oder
+[Service mit IBM® SPSS®-Modellen verwenden](using_pm_service.html).
+
+Weitere Informationen zur API finden Sie unter [Service-API für Spark- und Python-Modelle](pm_service_api_spark.html) oder [Service-
+API für IBM® SPSS® Modelle](pm_service_api_spss.html).
+
+Weitere Informationen zu IBM® SPSS® Modeler und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie im [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Weitere Informationen zu IBM Data Science Experience und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie unter [https://datascience.ibm.com](https://datascience.ibm.com).

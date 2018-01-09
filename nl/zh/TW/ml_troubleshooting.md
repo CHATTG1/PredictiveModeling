@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -16,17 +16,17 @@ lastupdated: "2017-09-07"
 
 # 疑難排解
 
-以下是關於使用 IBM Watson Machine Learning 的一般疑難排解問題的回答。
+以下是關於使用 {{site.data.keyword.pm_full}} 的常見疑難排解問題的回答。
 {: shortdesc}
 
-## 取得 Watson Machine Learning 的協助及支援
+## 取得 Machine Learning 的協助及支援
 {: #gettinghelp}
 
-如果您使用 Watson Machine Learning 時有問題或疑問，可以搜尋資訊或透過討論區提問來取得協助。您也可以開立支援問題單。
+如果您在使用 {{site.data.keyword.pm_short}} 時有問題或疑問，可以搜尋資訊或透過討論區提問來取得協助。您也可以開立支援問題單。
 
-使用討論區提問時，請標記您的問題，以便 Machine Learning 開發團隊能看到它。
+使用討論區提問時，請標記您的問題，以讓 {{site.data.keyword.pm_short}} 開發團隊能看到它。
 
-如果您有 Machine Learning 的相關技術問題，請將問題張貼在 <a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">Stack Overflow <img src="../icons/launch-glyph.svg" alt="外部鏈結圖示"></a>，並使用 "ibm-bluemix" 和 "machine-learning" 來標記您的問題。
+如果您有 {{site.data.keyword.pm_short}} 的相關技術問題，請將問題張貼在 <a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">Stack Overflow <img src="../icons/launch-glyph.svg" alt="外部鏈結圖示"></a>，並使用 "ibm-bluemix" 和 "machine-learning" 來標記您的問題。
 
 若為服務及開始使用指示的相關問題，請使用 <a href="https://developer.ibm.com/answers/topics/machine-learning/?smartspace=bluemix" target="_blank">IBM developerWorks dW Answers <img src="../icons/launch-glyph.svg" alt="外部鏈結圖示"></a> 討論區。請包含 "machine-learning" 和 "bluemix" 標籤。
 如需使用討論區的詳細資料，請參閱[取得協助](https://console.bluemix.net/docs/support/index.html#getting-help)。
@@ -249,7 +249,7 @@ lastupdated: "2017-09-07"
 請在修補有效負載中使用只有一個的作業，且該作業是 `replace`
 {: tsResolve}
        
-## 給定的有效負載遺漏必要欄位：[${fields.mkString(\",\")}] 或欄位的值已毀損。
+## 給定的有效負載遺漏必要欄位：FIELD 或欄位的值已毀損。
 {: #ts_invalid_request_payload}
  
 無法處理與基礎資料集存取相關的動作。
@@ -261,7 +261,7 @@ lastupdated: "2017-09-07"
 請更正資料集的存取定義。
 {: tsResolve}
        
-## 不支援提供的評估方法：$method。支援的值：[${supported.mkString(\",\")}]。
+## 不支援提供的評估方法：METHOD。支援的值：VALUE。
 {: #ts_evaluation_method_not_supported}
  
 無法建立學習配置。
@@ -462,7 +462,7 @@ lastupdated: "2017-09-07"
 base-64 解碼或剖析 Spark 認證時發生問題。
 {: tsCauses}
  
-請確定正確的 Spark 認證已正確地進行 base-64 編碼。如需詳細資料，請參閱文件。
+請確定正確的 Spark 認證已正確地進行 base-64 編碼。如需相關資訊，請參閱文件。
 {: tsResolve}
        
 ## 對於非測試版使用者已禁止此功能。
@@ -562,7 +562,7 @@ base-64 解碼或剖析 Spark 認證時發生問題。
 當用於評分的記號已過期時會顯示此訊息。
 {: tsCauses}
 
-請針對此 Watson Machine Learning 實例重新產生記號，然後重試一次。如果仍有這個問題，請與 IBM 支援中心聯絡。
+請針對此 {{site.data.keyword.pm_full}} 實例重新產生記號，然後重試一次。如果仍有這個問題，請與 IBM 支援中心聯絡。
 {: tsResolve}
 
 ## 不明的部署識別：404

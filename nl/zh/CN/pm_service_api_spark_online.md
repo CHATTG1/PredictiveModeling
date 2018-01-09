@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,22 +14,24 @@ lastupdated: "2017-09-07"
 
 # 部署联机模型
 
+通过使用 {{site.data.keyword.pm_full}} 服务，可以部署模型，然后通过对已部署的模型发出评分请求来生成预测性分析。
+{: shortdesc}
+
 **场景名称**：产品系列预测。
 
-**场景描述**：一家卖户外设备的公司想要构建模型，以预测客户对其产品系列的兴趣。
-为此，数据研究员准备了一个预测模型并将其与您（开发者）共享。您的任务是部署模型，并通过对已部署的模型发出评分请求来生成客户兴趣预测。
+**场景描述**：一家卖户外装备的公司想要构建模型，以预测客户对特定产品系列的兴趣。为此，数据研究员准备了一个预测模型并将其与您（开发者）共享。您的任务是部署模型，并通过对已部署的模型发出评分请求来生成客户兴趣预测。
 
 ## 使用样本模型
 
-1. 转至 IBM® Watson™ Machine Learning“仪表板”的“样本”选项卡。
+1. 转至 {{site.data.keyword.pm_full}}“仪表板”的“样本”选项卡。
 
 2. 在“样本模型”部分中，找到“产品系列预测”磁贴，并单击“添加模型”图标 (+)。
 
-现在，您将在“模型”选项卡上的可用模型列表中看到样本“产品系列预测”模型。
+样本“产品系列预测”模型将显示在“模型”选项卡上的可用模型列表中。
 
 ## 生成访问令牌
 
-使用 IBM Watson Machine Learning 服务实例的**服务凭证**选项卡上提供的 `user` 和 `password` 来生成访问令牌。
+使用 {{site.data.keyword.pm_full}} 服务实例的**服务凭证**选项卡上提供的 `user` 和 `password` 来生成访问令牌。
 
 请求示例：
 
@@ -53,9 +55,11 @@ token="<token_value>"
 {: codeblock}
 
 ## 处理已发布的模型
-使用以下 API 调用来获取实例详细信息，例如：
-* published models `url`
-* deployments `url`
+
+使用以下 API 调用可获取实例详细信息，其中包含以下值：
+
+* published models `url` 值
+* deployments `url` 值
 * usage information
 
 请求示例：
@@ -90,7 +94,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
@@ -136,10 +140,10 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
                "url":"https://ibm-watson-ml-dev.stage1.mybluemix.net/v3/wml_instances/{instance_id}/published_models/{publipublished_model_id}/deployments"
             },
             "input_data_schema":{
-               "type": "struct",
-    "fields": [
-      {
-        "metadata":{ 
+               "type":"struct",
+               "fields":[
+                  {
+                     "metadata":{ 
 },
                      "type":"string",
                      "name":"GENDER",
@@ -176,7 +180,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 {: codeblock}
 
 
-请记下在下一步中创建联机部署所需的 **deployments** `url`。
+请记下在下一步中创建联机部署所需的 **deployments** `url` 值。
 
 
 ## 创建联机部署
@@ -405,3 +409,14 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header "Authorization: Bearer  $token" -d '{"values": [[0.0,1.0],[4.0,15.0]]}' https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}/published_models/{published_model_id}/deployments/{deployment_id}/online
 ```
 {: codeblock}
+
+## 了解更多信息
+
+准备好开始了吗？要创建服务的实例或绑定应用程序，请参阅[将服务用于 Spark 和 Python 模型](using_pm_service_dsx.html)或[将服务用于 IBM® SPSS® 模型](using_pm_service.html)。
+
+
+有关该 API 的更多信息，请参阅 [Spark 和 Python 模型的服务 API](pm_service_api_spark.html) 或 [IBM® SPSS® 模型的服务 API](pm_service_api_spss.html)。
+
+有关 IBM® SPSS® Modeler 及其提供的建模算法的更多信息，请参阅 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+
+有关 IBM Data Science Experience 及其提供的建模算法的更多信息，请参阅 [https://datascience.ibm.com](https://datascience.ibm.com)。

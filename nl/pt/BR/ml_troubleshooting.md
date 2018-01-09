@@ -1,8 +1,6 @@
 ---
 
-copyright:
-  years: 2016, 2017
-lastupdated: "2017-09-07"
+copyright: years: 2016, 2017 lastupdated: "2017-11-16"
 
 ---
 {:new_window: target="_blank"}
@@ -16,17 +14,23 @@ lastupdated: "2017-09-07"
 
 # Resolução de Problemas
 
-Aqui estão as respostas para perguntas comuns de resolução de problemas sobre o uso do IBM Watson Machine Learning.
+Aqui estão as respostas para perguntas comuns sobre resolução de problemas no uso do {{site.data.keyword.pm_full}}.
 {: shortdesc}
 
-## Obtendo ajuda e suporte para o Watson Machine Learning
+## Obtendo ajuda e suporte para aprendizado de máquina
 {: #gettinghelp}
 
-Se você tiver problemas ou perguntas ao usar o Watson Machine Learning, será possível obter ajuda procurando por informações ou fazendo perguntas por meio de um fórum. Também é possível abrir um chamado de suporte.
+Se você tiver problemas ou perguntas ao usar o
+{{site.data.keyword.pm_short}}, poderá obter ajuda procurando informações ou
+fazendo perguntas em fórum. Também é possível abrir um chamado de suporte.
 
-Ao usar os fóruns para fazer uma pergunta, marque sua pergunta para que ela seja vista pelas equipes de desenvolvimento de aprendizado por máquina.
+Ao usar os fóruns para fazer uma pergunta, marque a sua pergunta
+para que ela possa ser vista pelas equipes de desenvolvimento do {{site.data.keyword.pm_short}}.
 
-Se você tiver perguntas técnicas sobre aprendizado por máquina, poste sua pergunta no <a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">Estouro de pilha <img src="../icons/launch-glyph.svg" alt="Ícone de link externo"></a> e marque sua pergunta com "ibm-bluemix" e "machine-learning".
+Se você tiver questões técnicas sobre {{site.data.keyword.pm_short}}, poste sua pergunta em
+<a href="http://stackoverflow.com/search?q=machine-learning+ibm-bluemix" target="_blank">Estouro
+de pilha <img src="../icons/launch-glyph.svg" alt="Ícone de link externo"></a> e
+identifique sua pergunta com "ibm-bluemix" e "machine-learning".
 
 Para perguntas sobre o serviço e sobre as instruções de introdução, use o fórum <a href="https://developer.ibm.com/answers/topics/machine-learning/?smartspace=bluemix" target="_blank">Respostas do IBM developerWorks dW <img src="../icons/launch-glyph.svg" alt="Ícone de link externo"></a>. Inclua as tags "machine-learning" e "bluemix".
 Veja [Obtendo ajuda](https://console.bluemix.net/docs/support/index.html#getting-help) para obter mais detalhes sobre o uso dos fóruns.
@@ -249,7 +253,7 @@ A carga útil da correção contém mais de uma operação ou a operação de co
 Use somente uma operação na carga útil da correção que seja a operação `replace`
 {: tsResolve}
        
-## A carga útil fornecida não possui os campos obrigatórios: [${fields.mkString(\",\")}] ou os valores dos campos estão corrompidos.
+## A carga útil fornecida não possui campos obrigatórios: FIELD ou os valores dos campos estão corrompidos.
 {: #ts_invalid_request_payload}
  
 Não há possibilidade de processar a ação que está relacionada ao acesso ao conjunto de dados subjacente.
@@ -261,7 +265,7 @@ O acesso ao conjunto de dados não está definido corretamente.
 Corrija a definição de acesso para o conjunto de dados.
 {: tsResolve}
        
-## O método de avaliação fornecido: $method não é suportado. Valores suportados: [${supported.mkString(\",\")}].
+## O método de avaliação fornecido: METHOD não é suportado. Valores suportados: VALUE.
 {: #ts_evaluation_method_not_supported}
  
 Não há possibilidade de criar a configuração de aprendizado.
@@ -462,7 +466,7 @@ Não há possibilidade de chamar a API de REST que requer credenciais do Spark
 Há um problema com a decodificação base-64 ou com a análise de credenciais do Spark.
 {: tsCauses}
  
-Assegure-se de que as credenciais corretas do Spark foram codificadas corretamente com base-64. Para obter detalhes, consulte a documentação.
+Assegure-se de que as credenciais corretas do Spark foram codificadas corretamente com base-64. Para obter mais informações, consulte a documentação.
 {: tsResolve}
        
 ## Esta funcionalidade é proibida para usuários não beta.
@@ -562,7 +566,7 @@ A mensagem a seguir é exibida ao tentar efetuar uma pontuação on-line: **Falh
 Esta mensagem é exibida quando o token que é usado para pontuação expira.
 {: tsCauses}
 
-Gere novamente o token para essa instância do Watson Machine Learning e tente novamente. Se este problema ainda ocorrer, entre em contato com o Suporte IBM.
+Gere novamente o token para essa instância do {{site.data.keyword.pm_full}} e tente novamente. Se este problema ainda ocorrer, entre em contato com o Suporte IBM.
 {: tsResolve}
 
 ## Identificação de implementação desconhecida: 404
@@ -579,7 +583,7 @@ Certifique-se de que você está fornecendo o ID de implementação correto. Cas
 ## Erro do servidor interno: 500
 {: #os_internal_error}
 
-A mensagem a seguir é exibida ao tentar efetuar uma pontuação on-line: **Erro de servidor interno**. {: osSymptoms}
+A mensagem a seguir é exibida ao tentar efetuar uma pontuação on-line: **Erro de servidor interno**.  {: osSymptoms}
 
 Esta mensagem será exibida se o fluxo de recebimento de dados do qual a pontuação on-line depende falhar.
 {: tsCauses}

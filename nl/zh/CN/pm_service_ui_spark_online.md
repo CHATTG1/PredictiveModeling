@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,6 +14,8 @@ lastupdated: "2017-09-07"
 
 # 部署联机模型
 
+要部署模型并通过对已部署的模型发出评分请求来生成预测性分析，请使用 {{site.data.keyword.pm_full}} 服务。以下场景提供了如何执行此操作的示例。
+{: shortdesc}
 
 **场景名称**：产品系列预测。
 
@@ -22,40 +24,34 @@ lastupdated: "2017-09-07"
 
 ## 使用样本模型
 
-1. 转至 IBM® Watson™ Machine Learning“仪表板”的“样本”选项卡。
+1. 转至 {{site.data.keyword.pm_full}}“仪表板”的**样本**选项卡。
+2. 在**样本模型**部分中，找到**产品系列预测**磁贴，并单击**添加模型**图标 (+)。
 
-2. 在“样本模型”部分中，找到“产品系列预测”磁贴，并单击“添加模型”按钮 (+)。
-
-现在，您将在“模型”选项卡上的可用模型列表中看到样本“产品系列预测”模型。
+样本**产品系列预测**模型将显示在**模型**选项卡上的可用模型列表中。
 
 
 ## 创建联机部署
 
-1. 转至 IBM® Watson™ Machine Learning“仪表板”的“模型”选项卡。
+1. 转至 {{site.data.keyword.pm_full}}“仪表板”的**模型**选项卡。
+2. 从**操作**菜单中，单击**创建部署**。
+3. 在**创建部署**表单中，填写**名称**、**描述**和**联机类型**字段。
+4. 单击**保存**。
 
-2. 从“操作”菜单中，选择“创建部署”。
-
-3. 在“创建部署”表单中，提供“名称”、“描述”和“联机类型”。
-
-4. 按“保存”按钮。
-
-现在，您将在“部署”选项卡上的可用部署列表中看到联机部署。
-
+联机部署将显示在**部署**选项卡上的可用部署列表中。
 
 ## 获取部署详细信息
 
 可以检查状态、评分端点地址 (`Scoring Endpoint`) 以及与部署的模型相关的参数。
 
-1. 转至 IBM® Watson™ Machine Learning“仪表板”的“部署”选项卡。
+1. 转至 {{site.data.keyword.pm_full}}“仪表板”的**部署**选项卡。
+2. 从**操作**菜单中，单击**查看详细信息**。
 
-2. 从“操作”菜单中，选择“查看详细信息”。
-
-请注意，下一步中需要 `Scoring Endpoint` 值来发出评分请求。
+请记下发出评分请求所需要的`评分端点`值。
 
 
 ## 发出评分请求
 
-评分端点 (`Scoring Endpoint`) 已创建，所以现在可以通过发出评分请求来生成预测。在此场景中，客户记录会传递到预测模型，并返回运动产品预测。
+创建评分端点后，可以通过发出评分请求来生成预测。在以下场景中，客户记录会传递到预测模型，并返回运动产品预测。
 
 样本记录头：
 
@@ -167,3 +163,11 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 {: codeblock}
 
 例如，您可以看到 55 岁的管理人员对 Mountaineering Equipment 感兴趣，而 23 岁的学生则对 Personal Accessories 感兴趣。
+
+## 了解更多信息
+
+有关该 API 的更多信息，请参阅 [Spark 和 Python 模型的服务 API](pm_service_api_spark.html) 或 [IBM® SPSS® 模型的服务 API](pm_service_api_spss.html)。
+
+有关 IBM® SPSS® Modeler 及其提供的建模算法的更多信息，请参阅 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+
+有关 IBM® Data Science Experience 及其提供的建模算法的更多信息，请参阅 [https://datascience.ibm.com](https://datascience.ibm.com)。

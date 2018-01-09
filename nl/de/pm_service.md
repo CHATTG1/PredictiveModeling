@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,25 +12,23 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Erste Schritte mit Machine Learning
+# Erste Schritte mit IBM Watson Machine Learning
 
+{{site.data.keyword.pm_full}} ist ein vollständiges Angebot für den
+{{site.data.keyword.Bluemix_notm}}-Service, das Entwicklern und Data-Scientists die
+Kooperation bei der Integration von Vorhersageanalysen mit ihren
+Anwendungen erleichtert. Verwenden Sie {{site.data.keyword.pm_short}} für die Entwicklung von Anwendungen, die intelligentere Entscheidungen treffen, schwierige Probleme lösen und die Ergebnisse der Benutzer verbessern. Der {{site.data.keyword.pm_short}}-Service besteht aus einer Gruppe von REST-APIs, die über jede Programmiersprache aufgerufen werden können.
+{: shortdesc}
 
-IBM Watson™  Machine Learning ist ein vollständiges Angebot für den Bluemix-Service, das
-Entwicklern und Data-Scientists die Kooperation bei der Integration
-von Vorhersageanalysen mit ihren Anwendungen erleichtert.
+Da der Schwerpunkt des {{site.data.keyword.pm_short}}-Service auf der Bereitstellung liegt, müssen Sie für die Erstellung von Modellen und Pipelines und die Arbeit mit ihnen zusätzliche Produkte verwenden, z. B. IBM® SPSS® Modeler oder IBM® Data Science Experience. Sowohl IBM® SPSS®
+Modeler als auch IBM® Data Science Experience (unter Verwendung von Apache Spark)
+bieten verschiedene Modellierungsmethoden, die aus den Bereichen des maschinellen
+Lernens, der künstlichen Intelligenz und der Statistik abgeleitet werden.
 
-Machine Learning ermöglicht Ihnen die Entwicklung von Anwendungen, die smartere Entscheidungen treffen, schwierige Probleme lösen und die Ergebnisse der Benutzer verbessern.
+## Weitere Informationen
 
-Der Machine Learning-Service besteht aus einer Gruppe von REST-APIs, die über jede Programmiersprache aufgerufen werden können.
+Weitere Informationen zu IBM® SPSS® Modeler und den von ihm bereitgestellten
+Modellierungsalgorithmen finden Sie im [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/v1/content/SS3RA7_18.1.1/modeler_mainhelp_client_ddita/modeler_mainhelp_client_ddita-gentopic1.html).
 
-Der Fokus des Machine Learning-Service ist die Bereitstellung. Beachten Sie jedoch, dass IBM
-SPSS Modeler oder Data Science
-Experience für das Authoring und die Arbeit mit Modellen
-und Pipelines erforderlich ist. Sowohl SPSS Modeler als auch Data Science Experience (unter Verwendung von Apache Spark) bieten verschiedene Modellierungsmethoden, die
-aus den Bereichen des maschinellen Lernens, der künstlichen Intelligenz und der Statistik abgeleitet wurden.
-
-Details zum SPSS Modeler und den von ihm bereitgestellten Modellierungsalgorithmen finden Sie im [IBM
-Knowledge Center]().
-
-Details zu Data Science Experience und den von diesem Produkt bereitgestellten Modellierungsalgorithmen finden Sie unter
-[https://datascience.ibm.com](https://datascience.ibm.com).
+Weitere Informationen zu IBM Data Science Experience und den von ihm bereitgestellten
+Algorithmen finden Sie unter [https://datascience.ibm.com](https://datascience.ibm.com).

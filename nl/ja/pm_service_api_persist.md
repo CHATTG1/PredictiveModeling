@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,36 +14,25 @@ lastupdated: "2017-09-07"
 
 # モデルの永続化
 
-
-*  [モデルの永続性とバージョン管理](#model-persistence-and-version-control)
-
-   *  [アクセス・トークンの生成](#generating-the-access-token)
-
-   *  [パイプライン・メタデータの作成](#creating-pipeline-metadata)
-
-   *  [パイプライン・バージョンの作成](#creating-pipeline-version)
-
-   *  [パイプライン・コンテンツのアップロード](#uploading-pipeline-content)
-
-   *  [パイプライン・モデル・メタデータの作成](#creating-pipeline-model-metadata)
-
-   *  [パイプライン・モデル・バージョンの作成](#creating-pipeline-model-version)
-
-   *  [パイプライン・モデル・コンテンツのアップロード](#uploading-pipeline-model-content)
-
-データ・サイエンティストは、研究開発の一環として、絶えずモデルの改善に努めています。既存のモデルに新機能を追加したり、モデルのパラメーターを最適化したりします。データ・サイエンティストが反復的な方法でモデルを開発している場合、変更を追跡することはすぐに難しくなります。ここで、モデルのバージョン管理を提供し、プロセス全体を十分に整理された状態にすることによって、データ・サイエンティストを支援する方法を示します。
-
-始める前に、先にモデル開発について確認するには、以下のノートブックを参照してください。
-
-*  [Developing SparkML models with Python](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
-
-*  [Developing SparkML models with Scala](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)
+{{site.data.keyword.pm_full}} サービスを使用して、モデルのバージョン管理を提供し、機械学習プロセスを適切に整理された状態に保つことができます。{{site.data.keyword.pm_short}} サービスのバージョン管理、メタデータ、およびアクセス・トークンの機能を使用することによって、これを行うことができます。
+{: shortdesc}
 
 ## モデルの永続性とバージョン管理
 
+調査と開発の一環としてモデルを改善することに常に取り組んでいると、既存のモデルに新しいフィーチャーを追加したり、モデルのパラメーターを最適化したりすることがよくあります。
+このように反復的にモデルを開発していると、継続的に変更を追跡することはすぐに難しくなります。{{site.data.keyword.pm_short}} の以下のデータ・モデル・バージョン管理フィーチャーを使用することによって、プロセス全体を適切に整理された状態に保つことができます。 
+
+*  [アクセス・トークンの生成](#generating-the-access-token)
+*  [パイプライン・メタデータの作成](#creating-pipeline-metadata)
+*  [パイプライン・バージョンの作成](#creating-pipeline-version)
+*  [パイプライン・コンテンツのアップロード](#uploading-pipeline-content)
+*  [パイプライン・モデル・メタデータの作成](#creating-pipeline-model-metadata)
+*  [パイプライン・モデル・バージョンの作成](#creating-pipeline-model-version)
+*  [パイプライン・モデル・コンテンツのアップロード](#uploading-pipeline-model-content)
+
 ### アクセス・トークンの生成
 
-IBM® Watson™ Machine Learning サービス・インスタンスの「サービス資格情報」タブで提供されているユーザーおよびパスワードを使用して、アクセス・トークンを生成します。
+{{site.data.keyword.pm_full}} サービス・インスタンスの「サービス資格情報」タブで提供されているユーザーおよびパスワードを使用して、アクセス・トークンを生成します。
 
 要求の例:
 
@@ -58,17 +47,18 @@ curl --basic --user username:password https://ibm-watson-ml.mybluemix.net/v3/ide
 {"token":"**********"}```
 {: codeblock}
 
-以下の端末コマンドを使用して、トークン値を環境変数 access_token に割り当てます。
+以下の端末コマンドを使用して、環境変数 `access_token` にトークン値を割り当てます。
 
 ```
 access_token="<token_value>"```
 {: codeblock}
 
-次に、パイプラインとパイプライン・モデルを保存するために、パイプラインとパイプライン・モデルのメタデータを作成し、パイプラインとパイプライン・モデルのバージョンを作成してアップロードします。詳細については、以下のセクションを参照してください。
+パイプラインとパイプライン・モデルを保存します。パイプラインとパイプライン・モデルのメタデータを作成し、パイプラインとパイプライン・モデルのバージョンを作成し、パイプラインとパイプライン・モデルのバージョンをアップロードします。 
 
 ### パイプライン・メタデータの作成
 
-パイプラインのメタデータを作成するには、以下の例に示すように、curl 要求内にパイプラインの基本的なプロパティーを記述します。
+パイプラインのメタデータを作成するには、以下の例に示すように、
+`curl` 要求内にパイプラインの基本的なプロパティーを記述します。
 
 ```
 curl -i \
@@ -108,7 +98,8 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/pipelines
 
 ### パイプライン・バージョンの作成
 
-パイプラインのバージョンを作成するには、以下の例に示すように、curl 要求内にパイプラインの parentVersionHref を指定します。
+パイプラインのバージョンを作成するには、以下の例に示すように、
+`curl` 要求内にパイプラインの `parentVersionHref` 値を指定します。
 
 ```
 curl -i \
@@ -139,7 +130,8 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/pipelines/1314f74d-a2a7-46d3-8f
 
 ### パイプライン・コンテンツのアップロード
 
-パイプライン・コンテンツをアップロードするには、パイプラインがバイナリー形式でなければなりません。これを実行するには、SparkML パイプラインから save メソッドを呼び出します。以下の例に示すように、エンドポイントでパイプラインの ID とバージョンを指定することによって、バイナリー・コンテンツをアップロードできます。
+パイプライン・コンテンツをアップロードするには、パイプラインがバイナリー形式でなければなりません。これを実行するには、SparkML パイプラインから
+`save` メソッドを呼び出します。以下の例に示すように、エンドポイントでパイプラインの ID とバージョンを指定することによって、バイナリー・コンテンツをアップロードできます。
 
 ```
 curl -i \
@@ -253,7 +245,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/models
 
 ### パイプライン・モデル・バージョンの作成
 
-パイプライン・モデルのバージョンを作成するには、curl 要求を使用して、学習データを格納する場所やモデル評価方式などの詳細を指定します。次の例を参照してください。
+パイプライン・モデルのバージョンを作成するには、`curl` 要求を使用して、トレーニング・データを格納する場所やモデル評価方式などの詳細を指定します。次の例を参照してください。
 
 ```
 curl -i \
@@ -315,7 +307,8 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/models/30ed894b-4018-4c88-9e53-
 
 ### パイプライン・モデル・コンテンツのアップロード
 
-パイプライン・モデル・コンテンツをアップロードするには、パイプライン・モデルがバイナリー形式でなければなりません。これを実行するには、SparkML パイプライン・モデルから save メソッドを呼び出します。以下の例に示すように、エンドポイントでパイプラインの ID とバージョンを指定することによって、バイナリー・コンテンツをアップロードできます。
+パイプライン・モデル・コンテンツをアップロードするには、パイプライン・モデルがバイナリー形式でなければなりません。これを実行するには、SparkML パイプライン・モデルから
+`save` メソッドを呼び出します。以下の例に示すように、エンドポイントでパイプラインの ID とバージョンを指定することによって、バイナリー・コンテンツをアップロードできます。
 
 ```
 curl -i \
@@ -342,3 +335,10 @@ https://ibm-watson-ml.mybluemix.net/ v2/artifacts/pipelines/1314f74d-a2a7-46d3-8
 {"ok":"true"}
 ```
 {: codeblock}
+
+## 詳細はこちら
+
+モデル開発について詳しくは、以下のノートブックを参照してください。
+
+*  [Developing SparkML models with Python](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
+*  [Developing SparkML models with Scala](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)

@@ -1,8 +1,6 @@
 ---
 
-copyright:
-  years: 2016, 2017
-lastupdated: "2017-09-07"
+copyright: years: 2016, 2017 lastupdated: "2017-11-16"
 
 ---
 
@@ -12,31 +10,37 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# API de serviço
+# API de REST
 
+O serviço {{site.data.keyword.pm_short}} é um conjunto de APIs de REST que
+você pode chamar de qualquer linguagem de programação e que fornece integração com a
+análise do IBM® SPSS® Modeler em seus aplicativos. Ligue seus aplicativos {{site.data.keyword.Bluemix_short}} à instância de serviço do {{site.data.keyword.pm_short}} e gere a análise preditiva que seus aplicativos precisam para entregar valor mais alto aos seus usuários. Gerencie seus modelos IBM® SPSS® no painel de administração e use o painel para atualizar seus
+modelos sem parar nem reimplementar seus aplicativos.
+{: shortdesc}
 
-O serviço Machine Learning é um conjunto de APIs de REST chamadas de
-qualquer linguagem de programação, permitindo a integração de análises desenvolvidas
-pelo IBM SPSS Modeler em seus aplicativos. Ligue seus
-aplicativos Bluemix à instância de serviço de Machine Learning e
-gere as análises preditivas que seus aplicativos precisam para
-entregar maior valor a seus usuários. Gerencie seus modelos SPSS no
-painel de administração e use o painel para atualizar seus modelos sem parar ou reimplementar seus aplicativos.
+Gerencie os arquivos do IBM® SPSS® Modeler que são implementados em uma instância
+do serviço {{site.data.keyword.pm_short}}. Especificamente, é possível executar
+as seguintes tarefas:
 
-Gerencie os arquivos do SPSS Modeler que são implementados em uma instância do
-serviço Machine Learning:
+*  Implementar um novo modelo preditivo.
+*  Atualizar um modelo preditivo implementado.
+*  Fazer download da cópia de um modelo preditivo implementado.
+*  Excluir um modelo preditivo implementado.
 
-*  Implemente um novo modelo preditivo
+Desenvolva aplicativos com os arquivos do IBM® SPSS® Modeler que são implementados
+em uma instância de serviço:
 
-*  Atualize um modelo preditivo implementado
+*  Recupere os metadados para um modelo preditivo implementado.
+*  Gere análise preditiva fazendo solicitações de escore com relação a modelos preditivos implementados.
 
-*  Faça download de uma cópia do modelo preditivo implementado
+## Saiba mais
 
-*  Exclua um modelo preditivo implementado
+Pronto para começar? Para criar uma instância de um serviço ou ligar um aplicativo, consulte [Usando o serviço com modelos Spark e Python](using_pm_service_dsx.html) ou [Usando o serviço com os modelos do IBM® SPSS®](using_pm_service.html).
 
-Desenvolva aplicativos nos arquivos
-IBM SPSS Modeler que são implementados em uma instância de serviço:
+Para obter mais informações sobre a API, consulte
+[API de serviço para modelos Spark e Python](pm_service_api_spark.html)
+ou [API de serviço para modelos IBM® SPSS®](pm_service_api_spss.html).
 
-*  Recupere os metadados para um determinado modelo preditivo implementado
+Para obter mais informações sobre o IBM® SPSS® Modeler e os algoritmos de modelagem que ele fornece, consulte o [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
 
-*  Gere análise preditiva fazendo solicitações de escore em modelos preditivos implementados
+Para obter mais informações sobre o IBM Data Science Experience e os algoritmos de modelagem que ele fornece, consulte [https://datascience.ibm.com](https://datascience.ibm.com).

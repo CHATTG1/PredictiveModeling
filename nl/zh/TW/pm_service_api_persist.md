@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,37 +14,25 @@ lastupdated: "2017-09-07"
 
 # 持續保存模型
 
-
-*  [模型持續性及版本控制](#model-persistence-and-version-control)
-
-   *  [產生存取記號](#generating-the-access-token)
-
-   *  [建立管線 meta 資料](#creating-pipeline-metadata)
-
-   *  [建立管線版本](#creating-pipeline-version)
-
-   *  [上傳管線內容](#uploading-pipeline-content)
-
-   *  [建立管線模型 meta 資料](#creating-pipeline-model-metadata)
-
-   *  [建立管線模型版本](#creating-pipeline-model-version)
-
-   *  [上傳管線模型內容](#uploading-pipeline-model-content)
-
-資料科學家不斷致力於在研究和開發的同時改進他們的模型。他們可能會新增特性至現有的模型，以及對模型參數進行最佳化。資料科學家以反覆運算方式開發模式時，追蹤變更可能很快變成是個問題。在這裡，我們將說明如何藉由提供模型版本化及保持整個處理程序井井有條而協助資料科學家。
-
-
-開始之前，如果您首先對模型開發感興趣，請參閱下列筆記本：
-
-*  [Developing SparkML models with Python](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
-
-*  [Developing SparkML models with Scala](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)
+使用 {{site.data.keyword.pm_full}} 服務來提供模型版本化，並保持機器學習程序的良好分組。作法是使用 {{site.data.keyword.pm_short}} 服務的版本化、meta 資料及存取記號功能。
+{: shortdesc}
 
 ## 模型持續性及版本控制
 
+當您在研究及開發工作期間持續努力改善模型時，可以將新的特性新增至現有模型，或最佳化模型參數。
+當您以這種反覆運算方式開發模型時，追蹤變更可能很快會變成問題。使用 {{site.data.keyword.pm_short}} 的下列資料模型版本化特性，即可保持整個程序的良好分組。 
+
+*  [產生存取記號](#generating-the-access-token)
+*  [建立管線 meta 資料](#creating-pipeline-metadata)
+*  [建立管線版本](#creating-pipeline-version)
+*  [上傳管線內容](#uploading-pipeline-content)
+*  [建立管線模型 meta 資料](#creating-pipeline-model-metadata)
+*  [建立管線模型版本](#creating-pipeline-model-version)
+*  [上傳管線模型內容](#uploading-pipeline-model-content)
+
 ### 產生存取記號
 
-使用 IBM® Watson™ Machine Learning 服務實例的「服務認證」標籤上所提供之使用者和密碼，產生存取記號。
+使用 {{site.data.keyword.pm_full}} 服務實例的「服務認證」標籤上所提供的使用者和密碼來產生存取記號。
 
 要求範例：
 
@@ -60,18 +48,19 @@ curl --basic --user username:password https://ibm-watson-ml.mybluemix.net/v3/ide
 ```
 {: codeblock}
 
-請使用下列終端機指令來指派記號值給 access_token 環境變數：
+請使用下列終端機指令，將記號值指派給 `access_token` 環境變數：
 
 ```
 access_token="<token_value>"
 ```
 {: codeblock}
 
-接下來，為了儲存管線及管線模型，您將建立管線和管線模型 meta 資料、建立管線及管線模型版本，並上傳管線及管線模型版本。如需詳細資訊，請參閱下面各節。
+儲存管線及管線模型。建立管線及管線模型 meta 資料、建立管線及管線模型版本，並上傳管線及管線模型版本。 
 
 ### 建立管線 meta 資料
 
-若要建立管線的 meta 資料，請在 curl 要求中說明管線的基本內容，如下列範例中所示：
+若要建立管線的 meta 資料，請在 `curl` 要求中說明管線的基本內容，如下列範例中所示：
+
 
 ```
 curl -i \
@@ -94,6 +83,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/pipelines
 
 範例回應：
 
+
 ```
  HTTP/1.1 201 Created
  X-Backside-Transport: OK OK
@@ -111,7 +101,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/pipelines
 
 ### 建立管線版本
 
-若要建立管線的版本，請在 curl 要求中指定管線的 parentVersionHref，如下列範例中所示：
+若要建立管線的版本，請在 `curl` 要求中指定管線的 `parentVersionHref` 值，如下列範例所示：
 
 ```
 curl -i \
@@ -124,6 +114,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/pipelines/1314f74d-a2a7-46d3-8f
 {: codeblock}
 
 範例回應：
+
 
 ```
  HTTP/1.1 201 Created
@@ -142,7 +133,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/pipelines/1314f74d-a2a7-46d3-8f
 
 ### 上傳管線內容
 
-若要上傳管線內容，您的管線必須是二進位格式。要這麼做，請從 SparkML 管線呼叫 save 方法。您可以透過在端點中提供管線的 ID 和版本來上傳二進位內容，如下列範例中所示：
+若要上傳管線內容，您的管線必須是二進位格式。要這麼做，請從 SparkML 管線呼叫 `save` 方法。您可以透過在端點中提供管線的 ID 和版本來上傳二進位內容，如下列範例中所示：
 
 
 ```
@@ -260,7 +251,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/models
 
 ### 建立管線模型版本
 
-若要為您的管線模型建立版本，請使用 curl 要求來指定詳細資料，例如儲存訓練資料的位置及模型評估方法。請參閱下列範例：
+若要為您的管線模型建立版本，請使用 `curl` 要求來指定詳細資料，例如儲存訓練資料的位置及模型評估方法。請參閱下列範例：
 
 
 ```
@@ -306,6 +297,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/models/30ed894b-4018-4c88-9e53-
 
 範例回應：
 
+
 ```
  HTTP/1.1 201 Created
  X-Backside-Transport: OK OK
@@ -323,7 +315,7 @@ https://ibm-watson-ml.mybluemix.net/v2/artifacts/models/30ed894b-4018-4c88-9e53-
 
 ### 上傳管線模型內容
 
-若要上傳管線模型內容，您的管線模型必須是二進位格式。要這麼做，請從 SparkML 管線模型呼叫 save 方法。您可以透過在端點中提供管線的 ID 和版本來上傳二進位內容，如下列範例中所示：
+若要上傳管線模型內容，您的管線模型必須是二進位格式。要這麼做，請從 SparkML 管線模型呼叫 `save` 方法。您可以透過在端點中提供管線的 ID 和版本來上傳二進位內容，如下列範例中所示：
 
 ```
 curl -i \
@@ -336,6 +328,7 @@ https://ibm-watson-ml.mybluemix.net/ v2/artifacts/pipelines/1314f74d-a2a7-46d3-8
 {: codeblock}
 
 範例回應：
+
 
 ```
  HTTP/1.1 200 OK
@@ -350,3 +343,10 @@ https://ibm-watson-ml.mybluemix.net/ v2/artifacts/pipelines/1314f74d-a2a7-46d3-8
 {"ok":"true"}
 ```
 {: codeblock}
+
+## 進一步瞭解
+
+若要進一步瞭解模型開發，請參閱下列記事本：
+
+*  [Developing SparkML models with Python](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
+*  [Developing SparkML models with Scala](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)

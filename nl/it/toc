@@ -7,19 +7,21 @@ Machine Learning
 
     {: .navgroup id="learn"}
     index.md
+    ml_getting_access.md
     pm_service_supported_frameworks.md
 
     {: .topicgroup}
     Modelli Spark e Python
-        using_pm_service_dsx.md
         pm_service_api_spark.md
             pm_service_api_spark_swagger.md
             pm_custom_models.md
             pm_service_api_spark_online.md
+            pm_service_api_spark_scoring.md
             pm_service_api_spark_building.md
             pm_service_api_spark_batch.md
             pm_service_api_spark_streaming.md
             pm_service_api_spark_learning_system.md
+        pm_service_client_library.md
         pm_service_ui_spark.md
             pm_service_ui_spark_online.md
             pm_service_ui_spark_batch.md
@@ -34,18 +36,29 @@ Machine Learning
             pm_service_api_manage.md
             pm_service_api_develop.md
             pm_service_api_batch.md
+        pm_service_api_new_spss_online.md
     {: .navgroup-end}
 
     {: .navgroup id="howto"}
-    [Knowledge Center di IBM SPSS Modeler](https://www.ibm.com/support/knowledgecenter/SS3RA7/)
-    [IBM Data Science Experience](https://datascience.ibm.com/)
-    {: .navgroup-end}
+    pm_service_api_spark_online.md
+    pm_service_api_spark_batch.md
+    pm_service_ui_spark_streaming.md
+    pm_service_api_spark_building.md
+    pm_service_ui_spark.md
 
-    {: .navgroup id="reference"}
-    [API REST Machine Learning](http://watson-ml-api.mybluemix.net/)
-    [Documentazione del repository Scala](https://watson-ml-staging-libs.mybluemix.net/repository-scala/)
-    [Documentazione del modulo del repository Python](https://watson-ml-staging-libs.mybluemix.net/repository-python/)
-    pm_app_runtime.md
+    {: .topicgroup}
+    Blocchi appunti di esempio
+        [Dal modello Spark MLlib al punteggio online con Python](https://apsportal.ibm.com/analytics/notebooks/89492fd6-a641-4819-9176-3d9381561df9/view?access_token=d80bef1a172d1d83d3721b101886337158457281774186f181a2e6a5b57f5ec7)
+        [Dal modello Spark MLlib al punteggio online con Scala](https://apsportal.ibm.com/analytics/notebooks/c8652d2c-bfc9-4354-8168-f1c9f7f8dfc2/view?access_token=02a83fea8450a452c8de76af98dae078459d0f56810ddef4f4c62d5bc4fc72cf)
+        [Dal modello Spark MLlib al punteggio batch con Python](https://apsportal.ibm.com/analytics/notebooks/5e4963d9-faea-455d-a7db-ff6302d1d8f5/view?access_token=5d23d36be72dea35ebbde9b4b5f4a16d0053ee898f1ab2ab73cf1301ce9322be)
+        [Dal modello Spark MLlib al punteggio flusso con Python](https://apsportal.ibm.com/analytics/notebooks/913a7daa-cf39-414d-9017-3a7840a53c59/view?access_token=f1ebc10873a226f248f744b26ee7f71d53c81d5752b9d940e23a33518a3e115d)
+        [Dal modello Spark MLlib al sistema di apprendimento con python](https://dataplatform.ibm.com/analytics/notebooks/57bd0753-ccee-42bd-9d11-099a981e4fbe/view?access_token=40b77775b209dab516811a695ba1d5dbcab2dfb260c910daf3d985c9d4570325)
+        [Da scikit-learn al punteggio online con Python](https://apsportal.ibm.com/analytics/notebooks/5215a61a-16d7-4fa2-b060-e3e243ceebe3/view?access_token=70f48c95c5571a614ce97484d3f168b1d9b6aeebce015187d3d77ce6038f025e)
+        [Dal modello wrapper XGBoost scikit-learn al punteggio online con Python](https://apsportal.ibm.com/analytics/notebooks/20c1c2d6-6a51-4bdc-9b2c-0e3f2bef7376/view?access_token=52b727bd6515bd687cfd88f929cc7869b0ea420e668b2730c6870e72e029f0d1)
+        [Dal modello XGBoost al punteggio nativo con Python](https://apsportal.ibm.com/analytics/notebooks/7a9ce22f-18cb-44aa-aaad-b3a8e839b543/view?access_token=263c7adf1c08bac182e15125e4fc667a1d44fca12b1af8b2aafe19ec7818755d)
+        [Dal flusso SPSS al punteggio batch con Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37)
+        [Dal modello Spark MLlib locale al cloud con watson-machine-learning-client](https://apsportal.ibm.com/analytics/notebooks/1fed143e-1877-42bd-b927-7d366e73745b/view?access_token=4b39718f9e1f1de55e6e67e8dcbb5f0cac848f390d73478d0dea9c1a8af24550)
+        [Dal modello scikit-learn locale al cloud con watson-machine-learning-client](https://dataplatform.ibm.com/analytics/notebooks/15b46bd5-dde2-4d59-9d7d-51cc0b860c8b/view?access_token=d8711ad6ae84b3a9c60d43966f961f66adc2c5b89fec18f24c85e40774080e9a)
 
     {: .topicgroup}
     Applicazioni di esempio
@@ -54,20 +67,17 @@ Machine Learning
         [Selezione dei farmaci migliori per un problema cardiaco utilizzando SPSS](https://github.com/pmservice/drug-selection)
         [Previsione dei profitti di vendita di abbigliamento utilizzando SPSS](https://github.com/pmservice/profits-forecast)
         [Previsione di abbandono dei clienti utilizzando SPSS](https://github.com/pmservice/customer-satisfaction-prediction)
-
-    {: .topicgroup}
-    Blocchi appunti di esempio
-        [Dal modello Spark MLlib al punteggio online con Python](https://apsportal.ibm.com/analytics/notebooks/89492fd6-a641-4819-9176-3d9381561df9/view?access_token=d80bef1a172d1d83d3721b101886337158457281774186f181a2e6a5b57f5ec7)
-        [Dal modello Spark MLlib al punteggio online con Scala](https://apsportal.ibm.com/analytics/notebooks/c8652d2c-bfc9-4354-8168-f1c9f7f8dfc2/view?access_token=02a83fea8450a452c8de76af98dae078459d0f56810ddef4f4c62d5bc4fc72cf)
-        [Da scikit-learn al punteggio online con Python](https://apsportal.ibm.com/analytics/notebooks/5215a61a-16d7-4fa2-b060-e3e243ceebe3/view?access_token=70f48c95c5571a614ce97484d3f168b1d9b6aeebce015187d3d77ce6038f025e)
-        [Dal flusso SPSS al punteggio batch con Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37)
-        [Dal modello Spark MLlib al sistema di apprendimento con python](https://apsportal.ibm.com/analytics/notebooks/a97cde0b-5bb8-436a-ae82-83e96adc45e0/view?access_token=6baf4c722e452836f7b505205bc96d9a24b9333ee9b5c39453f6d7751987f798)
-
-    ml_troubleshooting.md
     {: .navgroup-end}
 
-    {: .navgroup id="help"}
-    [Supporto corrente per i nodi IBM SPSS Modeler](https://www.ibm.com/support/knowledgecenter/SSWLVY_3.0.1/analytic_server_user-guide_ddita/analytic_server/ae_modeler_integration_supported_nodes.html/)
-    [IBM Watson Machine Learning](https://datasciencex.typeform.com/to/h8gqld)
+    {: .navgroup id="reference"}
+    [API REST Machine Learning](http://watson-ml-api.mybluemix.net)
+    [Librerie client API Machine Learning](pm_service_client_library.html)
+    ml_troubleshooting.md
     wml_quota_policy.md
+    [Nodi SPSS Modeler supportati](https://www.ibm.com/support/knowledgecenter/SSWLVY_3.0.1/analytic_server_user-guide_ddita/analytic_server/ae_modeler_integration_supported_nodes.html)
+
+    {: .topicgroup}
+    Strumenti correlati
+        [Knowledge Center di IBM SPSS Modeler](https://www.ibm.com/support/knowledgecenter/SS3RA7)
+        [IBM Data Science Experience](https://datascience.ibm.com)
     {: .navgroup-end}

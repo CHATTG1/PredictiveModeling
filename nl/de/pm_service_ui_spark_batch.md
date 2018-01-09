@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,41 +12,45 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Stapelmodelle bereitstellen <span class='tag--beta'>Beta</span>
+# Stapelmodelle bereitstellen
 
-**Hinweis:** Diese Funktion ist aktuell nur als Betaversion vorhanden und steht nur für die Verwendung mit Spark MLlib zur Verfügung. Wenn Sie daran teilnehmen möchten, fügen Sie sich selbst zur Warteliste hinzu! Weitere
-Informationen finden Sie unter [https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist).
+Mit dem {{site.data.keyword.pm_full}}-Service können Sie ein Modell bereitstellen und
+prädiktive Analysen generieren, indem Sie Scoring-Anforderungen
+für das bereitgestellte Modell erstellen.
+{: shortdesc}
+
 
 **Szenarioname:** Kundenzufriedenheitsvorhersage.
 
 **Szenariobeschreibung:** Ein Telekommunikationsunternehmen möchte wissen, bei welchen Kunden die Gefahr besteht, dass sie zu
 einem anderen Anbieter wechseln. Das dargestellte Modell macht eine Vorhersage zur Abwanderung von Kunden. Ein Data-Scientist entwickelt ein Vorhersagemodell und teilt es mit Ihnen (dem Entwickler). Ihre Aufgabe ist es, das Modell bereitzustellen und eine
 Vorhersageanalyse zu generieren, indem Sie Scoring-Anforderungen für
-das implementierte Modell erstellen.
+das bereitgestellte Modell erstellen.
+
+## Voraussetzungen
+
+Um mit diesem Beispiel arbeiten zu können, benötigen Sie die folgenden Services:
+
+* Details zu [Object Storage](https://console.bluemix.net/catalog/services/object-storage), die als Eingabe (zu bewertende Kundendaten) für das Modell und den Speicherort für die Modellausgabe verwendet werden. Laden Sie die CSV-Beispieleingabedatei von [hier](https://raw.githubusercontent.com/pmservice/wml-sample-models/master/spark/customer-satisfaction-prediction/data/scoreInput.csv) herunter. Sie sollten die Eingabedatei zu Ihrer Object Storage-Instanz hinzufügen.
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark): Berechtigungsnachweise für die Serviceinstanz. Sie können [diesen Link](https://console.bluemix.net/catalog/services/apache-spark) verwenden, um einen zu erstellen.
+
 
 ## Beispielmodell verwenden
 
-1.  Wechseln Sie zur Registerkarte Beispiele des IBM® Watson™ Machine Learning-Dashboards.
+1.  Wechseln Sie zur Registerkarte 'Beispiele' des {{site.data.keyword.pm_full}}-Dashboards.
+2.  Suchen Sie im Abschnitt Beispielmodelle die Kachel 'Kundenzufriedenheitsvorhersage' und klicken Sie auf das Symbol 'Modell hinzufügen' (+).
 
-2.  Suchen Sie im Abschnitt Beispielmodelle die Kachel für die Kundenzufriedenheitsvorhersage
-und klicken Sie auf die Schaltfläche Modell hinzufügen (+).
-
-Jetzt sehen Sie das Beispielmodell Kundenzufriedenheitsvorhersage in
-der Liste mit verfügbaren Modellen auf der Registerkarte Modelle.
+Das Beispielmodell für 'Kundenzufriedenheitsvorhersage' wird
+in der Liste der verfügbaren Modelle auf der Registerkarte 'Modelle' angezeigt.
 
 ## Stapelbereitstellung mit Object Storage erstellen
 
-1.  Wechseln Sie zur Registerkarte 'Modelle' des IBM® Watson™ Machine Learning-Dashboards. 
-
+1.  Wechseln Sie zur Registerkarte 'Modelle' des {{site.data.keyword.pm_full}}-Dashboards.
 2.  Klicken Sie im Menü **Aktionen** auf **Bereitstellung erstellen**.
-
-3.  Geben Sie im Formular 'Bereitstellung erstellen' den Namen, die Beschreibung und einen Batch-Typ an. 
-
+3.  Geben Sie im Formular 'Bereitstellung erstellen' den Namen, die Beschreibung und einen Stapeltyp an.
 4.  Sie müssen die folgenden Eingaben bereitstellen:
 
-    **Eingabeverbindung**: Object Storage-Details, die als Eingabe (zu bewertende Kundendaten) für das
-Modell verwendet werden, und der Speicherort für die Modellausgabe (in diesem Fall
-die Datei results.csv, die automatisch erstellt wird). 
+    **Eingabeverbindung**: Details zu Object Storage, die als Eingabe (zu bewertende Kundendaten) für das Modell und den Speicherort für die Modell-Ausgabe (in diesem Fall die Datei 'results.csv', die automatisch erstellt wird) verwendet wird.
 
     ```
        {
@@ -92,7 +96,7 @@ die Datei results.csv, die automatisch erstellt wird).
     ```
     {: codeblock}
 
-    **Spark-Verbindung**: Berechtigungsnachweise für den Spark-Service finden Sie auf der Registerkarte für Serviceberechtigungsnachweise im Servicedashboard für Bluemix Spark.
+    **Spark-Verbindung**: Berechtigungsnachweise für den Spark-Service finden Sie auf der Registerkarte 'Serviceberechtigungsnachweise' des {{site.data.keyword.Bluemix_short}} Spark-Servicedashboards.
 
     ```
 {
@@ -144,20 +148,33 @@ Fiber optic, Month-to-month, 1, 79.35, 1
 
 ## Bereitstellungsdetails abrufen
 
-Sie können den Status und Parameter im Zusammenhang mit den implementierten Modellen überprüfen.
+Sie können den Status und Parameter im Zusammenhang mit dem bereitgestellten Modell überprüfen.
 
-1. Wechseln Sie zur Registerkarte 'Bereitstellungen' des IBM® Watson™ Machine Learning-Dashboards.
-
-
-2. Wählen Sie im Menü AKTIONEN die Option zum Anzeigen der Details aus.
-
+1. Wechseln Sie zur Registerkarte 'Bereitstellungen' des {{site.data.keyword.pm_full}}-
+   Dashboards.
+2. Klicken Sie im Menü **Aktionen** auf **Details anzeigen**.
 
 ## Eine Stapelbereitstellung löschen
 
 Sie können die Bereitstellung mit einer Abfrage wie im folgenden Beispiel
 löschen, wenn diese nicht mehr benötigt wird
 
-1. Wechseln Sie zur Registerkarte 'Bereitstellungen' des IBM® Watson™ Machine Learning-Dashboards.
+1. Wechseln Sie zur Registerkarte 'Bereitstellungen' des {{site.data.keyword.pm_full}}-
+   Dashboards.
 
+2. Klicken Sie im Menü **Aktionen** auf **Löschen**.
 
-2. Wählen Sie im Menü AKTIONEN die Option zum Löschen aus.
+## Weitere Informationen
+
+Sind Sie bereit? Informationen zum Erstellen einer Serviceinstanz oder zum Binden
+einer Anwendung finden Sie unter [Service mit Spark- und Python-Modellen verwenden](using_pm_service_dsx.html) oder
+[Service mit IBM® SPSS®-Modellen verwenden](using_pm_service.html).
+
+Weitere Informationen zur API finden Sie unter [Service-API für Spark- und Python-Model](pm_service_api_spark.html) oder [Service
+API für IBM® SPSS®-Modelle](pm_service_api_spss.html).
+
+Weitere Informationen zu IBM® SPSS® Modeler und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie unter [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Weitere Informationen zu IBM Data Science Experience und den von ihm bereitgestellten
+Modellierungsalgorithmen finden Sie unter [https://datascience.ibm.com](https://datascience.ibm.com).

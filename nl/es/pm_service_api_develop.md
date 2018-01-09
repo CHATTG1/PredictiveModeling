@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-06-23"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,22 +14,27 @@ lastupdated: "2017-06-23"
 
 # Desarrollo de aplicaciones que aprovechan los modelos SPSS desplegados
 
+Puede desarrollar aplicaciones de {{site.data.keyword.pm_full}} mediante modelos de IBM® SPSS®.  
+{: shortdesc}
 
-*  Puntuación con un modelo de predicción desplegado
+*  [Puntuación con un modelo de predicción desplegado](#scoring-with-a-deployed-predictive-model)
 
-*  Recuperación de metadatos correspondientes a un modelo de predicción
+*  [Recuperación de metadatos correspondientes a un modelo de predicción](#retrieving-metadata-for-a-deployed-predictive-model)
 
-*  Recuperación del resumen de Web Application Description Language (WADL) de este servicio
+*  [Recuperación del resumen de Web Application Description Language (WADL) de este servicio](#retrieving-the-web-application-description-language-wadl-summary-of-this-service)
 
-PUNTUACIÓN CON UN MODELO PREDICTIVO DESPLEGADO
+## Puntuación con un modelo de predicción desplegado
 
+Utilice la siguiente llamada de API que publicar los datos de entrada que utilizará el modelo de desplegado para generar y devolver el análisis predictivo en los resultados de la puntuación.
+
+```
 POST http://{PA Bluemix load balancer
 URL}/pm/v1/score/{contextId}?accesskey={access_key for this bound
 application}
+```
+{: codeblock}
 
-Utilice esta llamada a la API que publicar los datos de entrada que utilizará el modelo de desplegado para generar y devolver el análisis predictivo en los resultados de la puntuación.
-
-Ejemplo de solicitud: 
+Ejemplo de solicitud:
 
 ```
     Content-Type: application/json;charset=UTF-8
@@ -75,15 +80,19 @@ Respuesta cuando la solicitud de puntuación falla:
 ```
 {: codeblock}
 
-RECUPERACIÓN DE METADATOS PARA UN MODELO PREDICTIVO DESPLEGADO
+## Recuperación de metadatos correspondientes a un modelo de predicción
 
+Utilice la siguiente llamada de API para recuperar metadatos para la rama de puntuación de
+una secuencia de IBM® SPSS® Modeler desplegada. No especifique el cuerpo de la solicitud con este método.
+
+```
 GET http://{service
 instance}/pm/v1/metadata/{contextId}?accesskey={access_key for
 this bound application}&metadatatype=score
+```
+{: codeblock}
 
-Utilice esta llamada a la API para recuperar metadatos correspondientes al sistema de puntuación de una secuencia de IBM SPSS Modeler desplegada. No especifique el cuerpo de la solicitud con este método.
-
-Ejemplo de solicitud: 
+Ejemplo de solicitud:
 
 ```
     Content-Type: application/json;charset=UTF-8
@@ -144,20 +153,23 @@ Respuesta cuando una solicitud de puntuación falla:
 ```
 {: codeblock}
 
-RECUPERACIÓN DEL RESUMEN DEL LENGUAJE DE DESCRIPCIÓN DE APLICACIÓN WEB (WADL) DE ESTE SERVICIO
+## Recuperación del resumen de Web Application Description Language (WADL) del servicio
 
+Utilice la siguiente llamada de API para recuperar el WADL del servicio.
+
+```
 OPCIONES http://{PA Bluemix load balancer URL}/pm/v1/wadl
+```
+{: codeblock}
 
-Utilice esta llamada a la API para recuperar el WADL correspondiente a este servicio.
-
-Ejemplo de solicitud: 
+Ejemplo de solicitud:
 
 ```
     Content-Type: */*
 ```
 {: codeblock}
 
-Respuesta cuando la solicitud WADL se ejecuta correctamente: 
+Respuesta cuando la solicitud WADL se ejecuta correctamente:
 
 ```
     Content-Type: application/vnd.sun.wadl+xml
@@ -200,3 +212,16 @@ Respuesta cuando la solicitud WADL falla:
         } 
 ```
 {: codeblock}
+
+## Información adicional
+
+¿Preparado para ponerse en marcha? Para crear una instancia de servicio o enlazar
+una aplicación, consulte [Utilización del servicio con modelos Spark y Python](using_pm_service_dsx.html) o
+[Utilización del servicio con modelos IBM® SPSS®](using_pm_service.html).
+
+Para obtener más información sobre la API, consulte [API del servicio para modelos Spark y Python](pm_service_api_spark.html) o [API del servicio para modelos IBM® SPSS®](pm_service_api_spss.html).
+
+Para obtener más información sobre IBM® SPSS® Modeler y los algoritmos de modelado que proporciona,
+consulte [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Para obtener más información sobre IBM Data Science Experience y los algoritmos de modelado que proporciona, consulte [https://datascience.ibm.com](https://datascience.ibm.com).

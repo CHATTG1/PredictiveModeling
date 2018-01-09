@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,31 +12,37 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# バッチ・モデルのデプロイ (<span class='tag--beta'>ベータ</span>)
+# バッチ・モデルのデプロイ
 
-**注**: この機能は、現在はベータ版であり、Spark MLlib でのみ使用可能です。参加をご希望の場合は、ご自身を待機リストに追加してください。
-詳しくは、[https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist) を参照してください。
+{{site.data.keyword.pm_full}} サービスを使用して、モデルをデプロイし、デプロイされたモデルに対してスコアリング要求を行うことによって予測分析を生成することができます。
+{: shortdesc}
+
 
 **シナリオ名**: 顧客満足度予測。
 
-**シナリオの説明**: ある通信会社が、解約する恐れがあるのはどの顧客であるかを知りたいと考えています。提供されたモデルは、顧客のチャーン (契約/解約を繰り返す顧客の流動現象) を予測します。データ・サイエンティストが、予測モデルを開発し、それを開発者と共有します。開発者のタスクは、モデルをデプロイし、デプロイ済みモデルに対してスコア要求を行うことにより、予測分析を生成することです。
+**シナリオの説明**: ある通信会社が、解約する恐れがあるのはどの顧客であるかを知りたいと考えています。提供されたモデルは、顧客のチャーン (契約/解約を繰り返す顧客の流動現象) を予測します。データ・サイエンティストが、予測モデルを開発し、それを開発者と共有します。開発者のタスクは、モデルをデプロイし、デプロイ済みモデルに対してスコアリング要求を行うことにより、予測分析を生成することです。
+
+## 前提条件
+
+この例を使用して作業するには、以下のサービスが必要です。
+
+* モデルの入力 (スコアリングする顧客データ)、およびモデルの出力のストレージとして使用される、[オブジェクト・ストレージ](https://console.bluemix.net/catalog/services/object-storage)・インスタンスの詳細。サンプル入力データ .csv ファイルを [ここ](https://raw.githubusercontent.com/pmservice/wml-sample-models/master/spark/customer-satisfaction-prediction/data/scoreInput.csv)からダウンロードしてください。入力ファイルはオブジェクト・ストレージ・インスタンスに追加する必要があります。
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) サービス・インスタンス資格情報。[このリンク](https://console.bluemix.net/catalog/services/apache-spark)を使用して作成できます。
+
 
 ## サンプル・モデルの使用
 
-1.  IBM® Watson™ Machine Learning ダッシュボードの「サンプル」タブに移動します。
+1.  {{site.data.keyword.pm_full}} ダッシュボードの「サンプル」タブに移動します。
+2.  「サンプル・モデル (Sample Models)」セクションで、 「Customer Satisfaction Prediction」タイルを見つけ、「モデルの追加 (Add model)」アイコン
+(「+」) をクリックします。
 
-2.  「サンプル・モデル (Sample Models)」セクションで、「Customer Satisfaction Prediction」タイルを見つけて、「モデルの追加 (Add model)」ボタン (+) をクリックします。
-
-これで、「モデル (Models)」タブの使用可能なモデルのリストに、サンプルの「Customer Satisfaction Prediction」モデルが表示されます。
+「モデル (Models)」タブの使用可能なモデルのリストに、サンプルの「Customer Satisfaction Prediction」モデルが表示されます。
 
 ## オブジェクト・ストレージを使用するバッチ・デプロイメントの作成
 
-1.  IBM® Watson™ Machine Learning ダッシュボードの「モデル」タブに移動します。
-
+1.  {{site.data.keyword.pm_full}} ダッシュボードの「モデル」タブに移動します。
 2.  **「アクション」**メニューから、**「デプロイメントの作成」**をクリックします。
-
 3.  「デプロイメントの作成」フォームで、名前、説明、およびバッチ・タイプを指定します。
-
 4.  以下を入力する必要があります。
 
     **入力接続**: モデルの入力 (スコアリングする顧客データ)、およびモデルの出力 (この場合は results.csv であり、自動的に作成される) のストレージとして使用される、オブジェクト・ストレージの詳細。
@@ -85,7 +91,7 @@ lastupdated: "2017-09-07"
     ```
     {: codeblock}
 
-    **Spark 接続**: Spark サービス資格情報は、Bluemix Spark サービス・ダッシュボードの「サービス資格情報」タブにあります。
+    **Spark 接続**: Spark サービス資格情報は、{{site.data.keyword.Bluemix_short}} Spark サービス・ダッシュボードの「サービス資格情報」タブにあります。
 
     ```
 {
@@ -138,15 +144,22 @@ Fiber optic, Month-to-month, 1, 79.35, 1
 
 デプロイされたモデルに関連する状況およびパラメーターを確認できます。
 
-1. IBM® Watson™ Machine Learning ダッシュボードの「デプロイメント」タブに移動します。
+1. {{site.data.keyword.pm_full}} ダッシュボードの「デプロイメント」タブに移動します。
 
-2. 「アクション」メニューから「詳細の表示」を選択します。
-
+2. 「アクション」メニューから「詳細の表示」をクリックします。
 
 ## バッチ・デプロイメントの削除
 
 以下の例のような照会を使用して、不要になったデプロイメントを削除できます。
 
-1. IBM® Watson™ Machine Learning ダッシュボードの「デプロイメント」タブに移動します。
+1. {{site.data.keyword.pm_full}} ダッシュボードの「デプロイメント」タブに移動します。
 
-2. 「アクション」メニューから「削除」を選択します。
+2. 「アクション」メニューから「削除」をクリックします。
+
+## 詳細はこちら
+
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html) または [IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html) を参照してください。
+
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API](pm_service_api_spss.html) を参照してください。
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

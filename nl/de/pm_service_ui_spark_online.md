@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,58 +14,53 @@ lastupdated: "2017-09-07"
 
 # Onlinemodelle bereitstellen
 
+Zum Bereitstellen eines Modelles und Generieren einer Vorhersageanalyse durch Erstellen von Scoring-Anforderungen für das bereitgestellte Modell verwenden Sie den {{site.data.keyword.pm_full}}-Service. Das folgende Szenario veranschaulicht die Vorgehensweise hierfür.
+{: shortdesc}
 
 **Szenarioname:** Produktlinienvorhersage.
 
 **Szenariobeschreibung:** Eine Firma für Outdoorausrüstung möchte
 ein Modell erstellen, das das Kundeninteresse an ihren Produktlinien
-vorhersagt. Ein Data-Scientist entwickelt ein Vorhersagemodell und
+vorhersagt. Ein Data-Scientist hat ein Vorhersagemodell vorbereitet und
 teilt es mit Ihnen (dem Entwickler). Ihre Aufgabe ist es, das Modell bereitzustellen und eine Vorhersage zu generieren, indem Sie
-Scoring-Anforderungen für das implementierte Modell erstellen.
+Scoring-Anforderungen für das bereitgestellte Modell erstellen.
 
 ## Beispielmodell verwenden
 
-1. Wechseln Sie zur Registerkarte Beispiele des IBM® Watson™ Machine Learning-Dashboards.
+1. Wechseln Sie zur Registerkarte **Beispiele** des {{site.data.keyword.pm_full}}-
+   Dashboards.
+2. Suchen Sie im Abschnitt **Beispielmodelle** die Kachel **Produktlinienvorhersage**
+   und klicken Sie auf das Symbol **Modell hinzufügen** (+).
 
-2. Suchen Sie im Abschnitt Beispielmodelle die Kachel für die Produktlinienvorhersage
-und klicken Sie auf die Schaltfläche Modell hinzufügen (+).
-
-Jetzt sehen Sie das Beispielmodell
-zur Produktlinienvorhersage in der Liste mit verfügbaren Modellen auf der Registerkarte
-Modelle.
+Das Beispielmodell **Produktlinienvorhersage** wird in der
+List der verfügbaren Modelle in der Registerkarte **Modelle** angezeigt.
 
 
 ## Onlinebereitstellung erstellen
 
-1. Wechseln Sie zur Registerkarte 'Modelle' des IBM® Watson™ Machine Learning-Dashboards. 
+1. Wechseln Sie zur Registerkarte **Modelle** des {{site.data.keyword.pm_full}}-
+   Dashboards.
+2. Klicken Sie im Menü **Aktionen** auf **Bereitstellung erstellen**.
+3. Geben Sie im Formular **Bereitstellung erstellen** die Felder **Name**, **Beschreibung** und **Onlinetyp** ein.
+4. Klicken Sie auf **Speichern**.
 
-2. Wählen Sie im Menü AKTIONEN die Option zum Erstellen einer Bereitstellung aus. 
-
-3. Geben Sie im Formular zum Erstellen einer Bereitstellung den Namen, eine Beschreibung und den Onlinetyp an. 
-
-4. Klicken Sie auf die Schaltfläche zum Speichern. 
-
-Jetzt wird die Onlinebereitstellung in der Liste der verfügbaren Bereitstellungen auf der Registerkarte mit den Bereitstellungen angezeigt. 
-
+Die Onlinebereitstellung wird in der Liste der verfügbaren Bereitstellungen auf der Registerkarte **Bereitstellungen** angezeigt.
 
 ## Bereitstellungsdetails abrufen
 
 Sie können den Status, die Scoring-Endpunktadresse (`Scoring-Endpunkt`) und die Parameter des
-Bereitstellungsmodells prüfen. 
+Bereitstellungsmodells prüfen.
 
-1. Wechseln Sie zur Registerkarte 'Bereitstellungen' des IBM® Watson™ Machine Learning-Dashboards. 
+1. Wechseln Sie zur Registerkarte **Bereitstellungen** des {{site.data.keyword.pm_full}}-
+   Dashboards.
+2. Klicken Sie im Menü **Aktionen** auf **Details anzeigen**.
 
-2. Wählen Sie im Menü AKTIONEN die Option zum Anzeigen der Details aus. 
-
-Beachten Sie, dass der Wert für `Scoring-Endpunkt` erforderlich ist, um im nächsten Schritt eine Scoring-Anforderung zu erstellen. 
+Beachten Sie den Wert für `Scoring-Endpunkt`, der erforderlich ist, um Scoring-Anforderungen zu erstellen.
 
 
 ## Scoring-Anforderungen stellen
 
-Da Ihr Scoring-Endpunkt erstellt wurde (`Scoring-Endpunkt`), können
-Sie jetzt Vorhersagen mithilfe von Scoring-Anforderungen generieren. In diesem Szenario werden
-Kundendatensätze an das Vorhersagemodell übergeben und es wird eine
-Vorhersage für ein Sportprodukt zurückgegeben.
+Nachdem Sie einen Scoring-Endpunkt erstellt haben, können Sie Vorhersagen generieren, indem Sie Scoring-Anforderungen erstellen. Im folgenden Szenario werden Kundendatensätze an das Vorhersagemodell übergeben und eine Vorhersage für ein Sportprodukt zurückgegeben.
 
 Beispieldatensatzheader:
 
@@ -178,3 +173,14 @@ Ausgabebeispiel:
 Wir können beispielsweise erkennen, dass ein 55 Jahre alter Angestellter sich
 für Bergsteigerausrüstung interessiert, während ein 23 Jahre alter Student sich für
 Persönliches Zubehör interessiert.
+
+## Weitere Informationen
+
+Weitere Informationen zur API finden Sie unter [Service-API für Spark- und Python-Modelle](pm_service_api_spark.html) oder [Service-
+API für IBM® SPSS® Modelle] (pm_service_api_spss.html).
+
+Weitere Informationen zu IBM® SPSS® Modeler und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie im [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Weitere Informationen zu IBM® Data Science Experience und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie unter [https://datascience.ibm.com](https://datascience.ibm.com).

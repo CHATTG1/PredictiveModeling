@@ -13,7 +13,7 @@ lastupdated: "2017-11-06"
 
 # Setting up your environment
 
-To use {{site.data.keyword.pm_full}}, you must be able to create the proper machine learning environment and retrieve the credentials that are specific to that environment. You can create the {{site.data.keyword.Bluemix_full}} instance either by using the [Cloud Foundry command line interface](https://github.com/cloudfoundry/cli#getting-started) or through the graphical user interface in the {{site.data.keyword.Bluemix_full}} Dashboard.
+To use {{site.data.keyword.pm_full}}, you must be able to create the proper machine learning environment and retrieve the credentials that are specific to that environment. You can create the {{site.data.keyword.Bluemix}} instance either by using the [Cloud Foundry command line interface](https://github.com/cloudfoundry/cli#getting-started) or through the graphical user interface in the {{site.data.keyword.Bluemix}} Dashboard.
 {: shortdesc}
 
 ## Using IBM Cloud Dashboard

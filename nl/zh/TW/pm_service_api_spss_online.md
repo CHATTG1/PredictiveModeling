@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,14 +14,16 @@ lastupdated: "2017-09-07"
 
 # 部署線上模型
 
+使用 {{site.data.keyword.pm_full}} 服務，您可以部署模型，並且針對已部署模型提出評分要求來產生預測分析。
+{: shortdesc}
 
 **情境名稱**：客戶滿意度預測。
 
-**情境說明**：電信公司想要知道哪些客戶有離開的風險。公司要求我們提供協助回答此問題的解決方案。資料科學家準備預測模型，並與身為開發人員的您分享。您的工作是部署模型，然後對已配置的模型提出評分要求，以產生預測分析模型。
+**情境說明**：電信公司想要知道哪些客戶有離開的風險。公司要求我們提供協助回答此問題的解決方案。資料科學家準備了一套預測模型，並將其與您（開發人員）分享。您的工作是部署模型，然後對已配置的模型提出評分要求，以產生預測分析模型。
 
 ## 使用範例模型
 
-1. [在這裡](https://github.com/pmservice/wml-sample-models/blob/master/spss/customer-satisfaction-prediction/model/customer-satisfaction-prediction.str)從 Git 儲存庫 下載範例模型。
+1. [在這裡](https://github.com/pmservice/wml-sample-models/blob/master/spss/customer-satisfaction-prediction/model/customer-satisfaction-prediction.str)從 Git 儲存庫下載範例模型。
 
 2. 使用下列要求以上傳新模型：
 
@@ -72,7 +74,7 @@ lastupdated: "2017-09-07"
    ```
    {: codeblock}
 
-   回應（這會將模型內容下載為 output.str 檔）：
+   回應（這會將模型內容下載為 output.str 檔案）：
 
    ```
    > GET /pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr HTTP/1.1
@@ -302,4 +304,12 @@ lastupdated: "2017-09-07"
    ```
    {: codeblock}
 
+## 進一步瞭解
  
+準備好要開始了嗎？若要建立服務的實例或是連結應用程式，請參閱[搭配使用服務與 Spark 及 Python 模型](using_pm_service_dsx.html)或[搭配使用服務與 IBM® SPSS® 模型](using_pm_service.html)。
+
+如需 API 的相關資訊，請參閱 [Spark 及 Python 模型的服務 API](pm_service_api_spark.html) 或 [IBM® SPSS® 模型的服務 API](pm_service_api_spss.html)。
+
+如需 IBM® SPSS® Modeler 及其提供之建模演算法的相關資訊，請參閱 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+
+如需 IBM Data Science Experience 及其提供之建模演算法的相關資訊，請參閱 [https://datascience.ibm.com](https://datascience.ibm.com)。

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,27 +14,27 @@ lastupdated: "2017-09-07"
 
 # 온라인 모델 배치
 
+{{site.data.keyword.pm_full}} 서비스를 사용하여, 모델을 배치하고 배치된 모델에 대해 스코어링을 요청함으로써 예측 분석을 생성할 수 있습니다.
+{: shortdesc}
+
 **시나리오 이름**: 제품 라인 예측
 
-**시나리오 설명**: 아웃도어 장비를 판매하는 회사가 자사 제품 라인에서 고객 관심사항을 예측하는 모델을 구축하고자 합니다. 
+**시나리오 설명**: 아웃도어 장비를 판매하는 회사가 특정 제품 라인에 대한 고객 관심도를 예측하는 모델을 빌드하려 합니다. 
 데이터 과학자는 예측 모델을 준비하고 이를 사용자(개발자)와 공유합니다. 여러분의 태스크는
 모델을 배치하고 배치된 모델에 대한 스코어 요청을 작성하여 고객 관심사항의 예측을 생성하는 것입니다. 
 
 ## 샘플 모델 사용
 
-1. IBM® Watson™ Machine Learning 대시보드의 샘플 탭으로 이동하십시오. 
+1. {{site.data.keyword.pm_full}} 대시보드의 샘플 탭으로 이동하십시오. 
 
 2. 샘플 모델 섹션에서 제품 라인 예측 타일을 찾고
 모델 추가 아이콘(+)을 클릭하십시오. 
 
-이제 모델 탭의
-사용 가능한 모델 목록에 샘플 제품 라인 예측 모델이 표시됩니다. 
+샘플 제품 라인 예측 모델이 모델 탭의 사용 가능한 모델 목록에 표시됩니다. 
 
 ## 액세스 토큰 생성
 
-IBM Watson Machine Learning 서비스 인스턴스의 **서비스 신임 정보**에서
-사용 가능한 `user` 및 `password`를 사용하여
-액세스 토큰을 생성하십시오.
+{{site.data.keyword.pm_full}} 서비스 인스턴스의 **서비스 신임 정보** 탭에서 사용 가능한 `user` 및 `password`를 사용하여 액세스 토큰을 생성하십시오. 
 
 요청 예제: 
 
@@ -59,9 +59,11 @@ token="<token_value>"
 {: codeblock}
 
 ## 공개된 모델에 대해 작업
-다음 API 호출을 사용하여 다음과 같은 인스턴스 세부 사항을 가져오십시오.
-* 공개된 모델 `url`
-* 배치 `url`
+
+다음 API 호출을 사용하여 다음 값을 포함하는 인스턴스 세부 사항을 가져오십시오. 
+
+* published_models `url` 값
+* deployments `url` 값
 * 사용 정보
 
 요청 예제: 
@@ -96,7 +98,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
@@ -182,7 +184,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 {: codeblock}
 
 
-다음 단계에서 온라인 배치를 작성하는 데 필요한 **deployments** `url`을 기록해 두십시오.
+다음 온라인 배치를 작성하는 데 필요한 **deployments** `url` 값을 기록하십시오. 
 
 
 ## 온라인 배치 작성
@@ -406,7 +408,7 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 예를 들어, 55세인 경영자는 등산 장비에 관심을 갖고 있으며
 23세인 학생은 개인 액세서리에 관심을 갖고 있음을 알 수 있습니다. 
 
-**참고**: scikit-learn 및 XGBoost 모델의 경우 페이로드를 스코어링하는 데 `values` 필드가 필요합니다.
+**참고**: scikit-learn 및 XGBoost 모델의 경우에는 스코어링 페이로드에서 `values` 필드만 필요합니다. 
 
 요청 예제: 
 
@@ -414,3 +416,14 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header "Authorization: Bearer  $token" -d '{"values": [[0.0,1.0],[4.0,15.0]]}' https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}/published_models/{published_model_id}/deployments/{deployment_id}/online
 ```
 {: codeblock}
+
+## 자세히 보기
+
+시작할 준비가 되셨습니까? 서비스의 인스턴스를 작성하거나 애플리케이션을 바인드하려면 [Spark 및 Python 모델과 함께 서비스 사용](using_pm_service_dsx.html) 또는
+[IBM® SPSS® 모델과 함께 서비스 사용](using_pm_service.html)을 참조하십시오. 
+
+API에 대한 자세한 정보는 [Spark 및 Python 모델용 서비스 API](pm_service_api_spark.html) 또는 [IBM® SPSS® 모델용 서비스 API](pm_service_api_spss.html)를 참조하십시오. 
+
+IBM® SPSS® Modeler 및 여기서 제공하는 모델링 알고리즘에 대한 자세한 정보는 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)를 참조하십시오. 
+
+IBM Data Science Experience 및 여기서 제공하는 모델링 알고리즘에 대한 자세한 정보는 [https://datascience.ibm.com](https://datascience.ibm.com)을 참조하십시오. 

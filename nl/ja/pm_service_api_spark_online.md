@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,21 +14,24 @@ lastupdated: "2017-09-07"
 
 # オンライン・モデルのデプロイ
 
+{{site.data.keyword.pm_full}} サービスを使用して、モデルをデプロイし、デプロイされたモデルに対してスコアリング要求を行うことによって予測分析を生成することができます。
+{: shortdesc}
+
 **シナリオ名**: 製品ライン予測。
 
-**シナリオの説明**: アウトドア用の備品を販売する企業が、自社の製品ラインに対する顧客の関心を予測するモデルを作成したいと考えています。データ・サイエンティストが、予測モデルを準備し、それを開発者と共有します。開発者のタスクは、モデルをデプロイし、デプロイ済みモデルに対してスコア要求を行うことにより、顧客の興味の予測を生成することです。
+**シナリオの説明**: アウトドア用の備品を販売する企業が、特定の製品ラインに対する顧客の興味を予測するモデルを作成したいと考えています。データ・サイエンティストが、予測モデルを準備し、それを開発者と共有します。開発者のタスクは、モデルをデプロイし、デプロイ済みモデルに対してスコアリング要求を行うことにより、顧客の興味の予測を生成することです。
 
 ## サンプル・モデルの使用
 
-1. IBM® Watson™ Machine Learning ダッシュボードの「サンプル」タブに移動します。
+1. {{site.data.keyword.pm_full}} ダッシュボードの「サンプル」タブに移動します。
 
 2. 「サンプル・モデル」セクションで「Product Line Prediction」タイルを見つけて、「モデルの追加」アイコン (+) をクリックします。
 
-これで、「モデル (Models)」タブの使用可能なモデルのリストに、サンプルの「Product Line Prediction」モデルが表示されます。
+「モデル (Models)」タブの使用可能なモデルのリストに、サンプルの「Product Line Prediction」モデルが表示されます。
 
 ## アクセス・トークンの生成
 
-IBM Watson Machine Learning サービス・インスタンスの**「サービス資格情報」**タブにある `user` および `password` を使用して、アクセス・トークンを生成します。
+{{site.data.keyword.pm_full}} サービス・インスタンスの**「サービス資格情報」**タブにある `user` および `password` を使用して、アクセス・トークンを生成します。
 
 要求の例:
 
@@ -51,9 +54,11 @@ token="<token_value>"
 {: codeblock}
 
 ## 公開モデルの処理
-次のようなインスタンス詳細を取得するには、以下の API 呼び出しを使用します。
-* 公開モデルの `url`
-* デプロイメントの `url`
+
+インスタンス詳細を取得するには、以下の API 呼び出しを使用します。詳細には次の値が含まれます。
+
+* 公開されたモデルの `url` 値
+* デプロイメントの `url` 値
 * 使用情報
 
 要求の例:
@@ -88,7 +93,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
@@ -154,16 +159,14 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
                   },
                   {
                      "metadata":{
-
-                     },
+            },
                      "type":"string",
                      "name":"MARITAL_STATUS",
                      "nullable":true
                   },
                   {
                      "metadata":{
-
-                     },
+            },
                      "type":"string",
                      "name":"PROFESSION",
                      "nullable":true
@@ -178,7 +181,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 {: codeblock}
 
 
-**deployments** `url` は次のステップでオンライン・デプロイメントを作成するために必要なのでメモしておいてください。
+**deployments** `url` 値は以下のオンライン・デプロイメントを作成するために必要なのでメモしておいてください。
 
 
 ## オンライン・デプロイメントの作成
@@ -284,9 +287,9 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 ```
 {: codeblock}
 
-## スコア要求の実行
+## スコアリング要求の実行
 
-スコアリング・エンドポイント (`scoring_url`) が作成されたため、スコア要求を行うことによって、予測を生成できるようになりました。このシナリオでは、顧客レコードが予測モデルに渡され、スポーツ製品予測が返されます。
+スコアリング・エンドポイント (`scoring_url`) が作成されたため、スコアリング要求を行うことによって、予測を生成できるようになりました。このシナリオでは、顧客レコードが予測モデルに渡され、スポーツ製品予測が返されます。
 
 サンプル・レコード・ヘッダー:
 
@@ -406,3 +409,13 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header "Authorization: Bearer  $token" -d '{"values": [[0.0,1.0],[4.0,15.0]]}' https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}/published_models/{published_model_id}/deployments/{deployment_id}/online
 ```
 {: codeblock}
+
+## 詳細はこちら
+
+さあ始めましょう。サービス・インスタンスの作成またはアプリケーションのバインドについては、『[Spark モデルおよび Python モデルを用いたサービスの使用](using_pm_service_dsx.html)』または『[IBM® SPSS® モデルを用いたサービスの使用](using_pm_service.html)』を参照してください。
+
+API について詳しくは、[Spark モデルおよび Python モデル用のサービス API](pm_service_api_spark.html) または [IBM® SPSS® モデル用のサービス API] (pm_service_api_spss.html) を参照してください。
+
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7) を参照してください。
+
+IBM Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

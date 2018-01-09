@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,10 +14,13 @@ lastupdated: "2017-09-07"
 
 # Déploiement de modèles en ligne
 
+Grâce au service {{site.data.keyword.pm_full}}, vous pouvez déployer un modèle et générer des analyses prédictives en effectuant des requêtes de score à partir du modèle déployé.
+{: shortdesc}
 
 **Nom du scénario **: Pronostic de satisfaction des clients.
 
-**Description du scénario **: une entreprise de télécommunications désire savoir quels clients risquent de les abandonner. L'entreprise nous demande de fournir une solution pour essayer de répondre à cette question. Un spécialiste des données prépare un modèle prédictif et le partage avec vous (le développeur). Votre tâche consiste à déployer le modèle et à générer des analyses prédictives en effectuant des requêtes de score à partir du modèle déployé.
+**Description du scénario **: Une entreprise de télécommunications désire savoir quels clients risquent de les abandonner. L'entreprise nous demande de fournir une solution pour essayer de répondre à cette question. Un spécialiste des données prépare un
+modèle prédictif et le partage avec vous (le développeur). Votre tâche consiste à déployer le modèle et à générer des analyses prédictives en effectuant des requêtes de score à partir du modèle déployé.
 
 ## Utilisation de l'exemple de modèle
 
@@ -72,7 +75,7 @@ lastupdated: "2017-09-07"
    ```
    {: codeblock}
 
-   Réponse (cette opération téléchargera le contenu du modèle dans un fichier output.str) :
+   Réponse (cette opération télécharge le contenu du modèle dans un fichier output.str) :
 
    ```
    > GET /pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr HTTP/1.1
@@ -189,7 +192,7 @@ lastupdated: "2017-09-07"
    
    * Curl_http_done: called premature == 0
    
-   * Connexion #0 à l'hôte ibm-watson-ml-dev.stage1.mybluemix.net conservée intacte
+   * Connection #0 to host ibm-watson-ml-dev.stage1.mybluemix.net left intact
    
    {"flag":true,"message":"success to delete stream with specified id context_csp2"}
 
@@ -246,7 +249,7 @@ lastupdated: "2017-09-07"
    
    * Curl_http_done: called premature == 0
    
-   * Connexion #0 à l'hôte host ibm-watson-ml-dev.stage1.mybluemix.net conservée intacte
+   * Connection #0 to host ibm-watson-ml-dev.stage1.mybluemix.net left intact
    
    Not Found Model:context_csp2 
    ```
@@ -302,4 +305,12 @@ lastupdated: "2017-09-07"
    ```
    {: codeblock}
 
+## Informations supplémentaires
  
+Prêt à commencer ? Pour créer une instance de service ou lier une application, voir [Utilisation du service avec des modèles Spark et Python](using_pm_service_dsx.html) ou [Utilisation du service avec des modèles IBM® SPSS®](using_pm_service.html).
+
+Pour plus d'informations sur l'API, voir [API de service pour les modèles Spark et Python](pm_service_api_spark.html) ou [API de service pour les modèles IBM® SPSS®](pm_service_api_spss.html).
+
+Pour plus d'informations sur IBM® SPSS® Modeler et les algorithmes de modélisation qu'il utilise, reportez-vous à la documentation du site [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Pour plus d'informations sur IBM Data Science Experience et les algorithmes de modélisation qu'il propose, accédez au site [https://datascience.ibm.com](https://datascience.ibm.com).

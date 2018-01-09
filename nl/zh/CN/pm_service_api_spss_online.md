@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,10 +14,12 @@ lastupdated: "2017-09-07"
 
 # 部署联机模型
 
+通过使用 {{site.data.keyword.pm_full}} 服务，可以部署模型，然后通过对已部署的模型发出评分请求来生成预测性分析。
+{: shortdesc}
 
 **场景名称**：客户满意度预测。
 
-**场景描述**：一家电信公司希望了解哪些客户有流失风险。
+**场景描述**：一家通信公司希望了解哪些客户有流失风险。
 该公司要求我们提供一个解决方案来帮助回答该问题。为此，数据研究员准备了一个预测模型并将其与您（开发者）共享。您的任务是部署模型，并通过对已部署的模型发出评分请求来生成预测性分析。
 
 ## 使用样本模型
@@ -200,9 +202,9 @@ lastupdated: "2017-09-07"
    > DELETE /pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr HTTP/1.1
 
    > Host: ibm-watson-ml-dev.stage1.mybluemix.net
-
+   
    > User-Agent: curl/7.50.3
-
+   
    > Accept: */*
    
    > Content-Type:*/*
@@ -305,4 +307,13 @@ lastupdated: "2017-09-07"
    ```
    {: codeblock}
 
+## 了解更多信息
  
+准备好开始了吗？要创建服务的实例或绑定应用程序，请参阅[将服务用于 Spark 和 Python 模型](using_pm_service_dsx.html)或[将服务用于 IBM® SPSS® 模型](using_pm_service.html)。
+
+
+有关该 API 的更多信息，请参阅 [Spark 和 Python 模型的服务 API](pm_service_api_spark.html) 或 [IBM® SPSS® 模型的服务 API](pm_service_api_spss.html)。
+
+有关 IBM® SPSS® Modeler 及其提供的建模算法的更多信息，请参阅 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+
+有关 IBM Data Science Experience 及其提供的建模算法的更多信息，请参阅 [https://datascience.ibm.com](https://datascience.ibm.com)。

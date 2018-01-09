@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-06-23"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,67 +14,72 @@ lastupdated: "2017-06-23"
 
 # Despliegue de modelos en línea
 
+Mediante el servicio de {{site.data.keyword.pm_full}}, puede desplegar un modelo y
+generar análisis predictivo realizando solicitudes de puntuación en el
+modelo desplegado.
+{: shortdesc}
 
 **Nombre del caso de ejemplo**: Predicción de la satisfacción del cliente.
 
-**Descripción del caso de ejemplo**: La empresa ficticia Telco Company quiere saber qué clientes tienen riesgo de abandono. La empresa nos pide que ofrezcamos una solución que responda a esta pregunta. Un científico de los datos prepara un modelo de predicción y lo comparte con el cliente (el desarrollador). La tarea del cliente consiste en desplegar el modelo y generar análisis predictivos mediante la realización de solicitudes de puntuaciones sobre el modelo desplegado.
+**Descripción del caso de ejemplo**: Una empresa de telecomunicaciones quiere saber qué clientes tienen riesgo de abandono. La empresa nos pide que ofrezcamos una solución que responda a esta pregunta. Un experto en datos ha preparado un modelo predictivo y lo ha compartido con el cliente (el desarrollador). La tarea del cliente consiste en desplegar el modelo y generar análisis predictivos mediante la realización de solicitudes de puntuaciones sobre el modelo desplegado.
 
 ## Utilización del modelo de ejemplo
 
-1. Descargue el modelo de ejemplo desde el repositorio Git aquí.
+1. Descargue el modelo de ejemplo desde el repositorio Git [aquí](https://github.com/pmservice/wml-sample-models/blob/master/spss/customer-satisfaction-prediction/model/customer-satisfaction-prediction.str).
 
 2. Utilice la siguiente solicitud para cargar el nuevo modelo:
 
-```
-   curl -X PUT -H "Content-Type:multipart/form-data;" -F "model_file=@customer-satisfaction-prediction.str" https://ibm-watson-ml-dev.stage1.mybluemix.net/pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr
-```
-{: codeblock}
+   ```
+   curl -X PUT -H "Content-Type:multipart/form-data;charset=utf-8" -F "model_file=@customer-satisfaction-prediction.str" https://ibm-watson-ml.mybluemix.net/pm/v1/model/{context_id}?accesskey={accesskey_value}
+   ```
+   {: codeblock}
 
    Respuesta:
 
-```
+   ```
    {"flag":true,"message":"success to upload stream with given context id context_csp2","url":"http://pmdevlb.pmservice.ibmcloud.com:80/pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr"}
-```
-{: codeblock}
+   ```
+   {: codeblock}
 
 3. Utilice la solicitud siguiente para renovar el modelo existente:
 
-```
-   curl -X PUT -H "Content-Type:multipart/form-data;" -F "model_file=@customer-satisfaction-prediction.str" https://ibm-watson-ml-dev.stage1.mybluemix.net/pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr
-```
-{: codeblock}
+   ```
+   curl -X PUT -H "Content-Type:multipart/form-data;Charset=UTF-8" -F "model_file=@customer-satisfaction-prediction.str" https://ibm-watson-ml.mybluemix.net/pm/v1/model/{context_id}?accesskey={accesskey_value}
+   ```
+   {: codeblock}
 
    Respuesta:
 
-```
+   ```
    {"flag":true,"message":"success to update stream with given context id context_csp2","url":"http://pmdevlb.pmservice.ibmcloud.com:80/pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr"}
-```
-{: codeblock}
+   ```
+   {: codeblock}
 
 4. Utilice la solicitud siguiente para obtener una lista de todos los modelos desplegados:
 
-```
-   curl -X GET -i -H "Content-Type:*/*" https://ibm-watson-ml-dev.stage1.mybluemix.net/pm/v1/model?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr
-```
-{: codeblock}
+   ```
+   curl -X GET -i -H "Content-Type:*/*" https://ibm-watson-ml.mybluemix.net/pm/v1/model?accesskey={accesskey_value}
+   ```
+   {: codeblock}
 
    Respuesta:
 
-```
+   ```
    [{"stream":"customer-satisfaction-prediction.str","id":"context_csp2"}]
-```
-{: codeblock}
+   ```
+   {: codeblock}
 
 5. Utilice la siguiente solicitud para descargar una copia de un determinado modelo desplegado:
 
-```
-   curl -X GET -v -H "Content-Type:*/*" https://ibm-watson-ml-dev.stage1.mybluemix.net/pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr >> output.str
-```
-{: codeblock}
+   ```
+   curl -X GET -v -H "Content-Type:*/*" https://ibm-watson-ml.mybluemix.net/pm/v1/model/{context_id}?accesskey={accesskey_value} >> output.str
+   ```
+   {: codeblock}
 
-   Respuesta (esto descargará el contenido del modelo en un archivo output.str):
+   Respuesta, que descarga el contenido del modelo en un archivo
+   output.str:
 
-```
+   ```
    > GET /pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr HTTP/1.1
    
    > Host: ibm-watson-ml-dev.stage1.mybluemix.net
@@ -134,19 +139,19 @@ lastupdated: "2017-06-23"
    100 99k 0 99k 0 0 21114 0 --:--:-- 0:00:04 --:--:-- 24508
    
    * Connection #0 to host ibm-watson-ml-dev.stage1.mybluemix.net left intact 
-```
-{: codeblock}
+   ```
+   {: codeblock}
 
 6. Suprima el modelo desplegado:
 
-```
-   curl -X DELETE -v -H "Content-Type:*/*" https://ibm-watson-ml-dev.stage1.mybluemix.net/pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr
-```
-{: codeblock}
+   ```
+   curl -X DELETE -v -H "Content-Type:*/*" https://ibm-watson-ml.mybluemix.net/pm/v1/model/{context_id}?accesskey={accesskey_value}
+   ```
+   {: codeblock}
 
    Respuesta:
 
-```
+   ```
    > DELETE /pm/v1/model/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr HTTP/1.1
    
    > Host: ibm-watson-ml-dev.stage1.mybluemix.net
@@ -248,19 +253,19 @@ lastupdated: "2017-06-23"
    * Connection #0 to host ibm-watson-ml-dev.stage1.mybluemix.net left intact
    
    Not Found Model:context_csp2 
-```
-{: codeblock}
+   ```
+   {: codeblock}
 
 7. Puntúe el modelo desplegado:
 
-```
-   curl -X POST -v -H "Content-Type:application/json;charset=UTF-8" -d '{"tablename":"Input data","header":["customerID","gender","SeniorCitizen","Partner","Dependents","tenure","PhoneService","MultipleLines","InternetService","OnlineSecurity","OnlineBackup","DeviceProtection","TechSupport","StreamingTV","StreamingMovies","Contract","PaperlessBilling","PaymentMethod","MonthlyCharges","TotalCharges","Churn","SampleWeight"],"data":[["9237-HQITU","Female",0,"No","No",2,"Yes","No","Fiber optic","No","No","No","No","No","No","Month-to-month","Yes","Electronic check",70.700,151.650,"Yes",1.000]]}' https://ibm-watson-ml-dev.stage1.mybluemix.net/pm/v1/score/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr
-```
-{: codeblock}
+   ```
+   curl -X POST -v -H "Content-Type:application/json;Charset=UTF-8" -d '{"tablename":"Input data","header":["customerID","gender","SeniorCitizen","Partner","Dependents","tenure","PhoneService","MultipleLines","InternetService","OnlineSecurity","OnlineBackup","DeviceProtection","TechSupport","StreamingTV","StreamingMovies","Contract","PaperlessBilling","PaymentMethod","MonthlyCharges","TotalCharges","Churn","SampleWeight"],"data":[["9237-HQITU","Female",0,"No","No",2,"Yes","No","Fiber optic","No","No","No","No","No","No","Month-to-month","Yes","Electronic check",70.700,151.650,"Yes",1.000]]}' https://ibm-watson-ml.mybluemix.net/pm/v1/score/{context_id}?accesskey={accesskey_value}
+   ```
+   {: codeblock}
 
    Respuesta:
 
-```
+   ```
    > POST /pm/v1/score/context_csp2?accesskey=pcB4lKG1brpgSCEonNoBdzew9kiOOzN8awh1cJ2sHAxf1yyjh50nnrQngWw4DD/tM13eGXGHaJ0voQU+cAi1t/nmJBaSgi+xeMY8Wia68PB227SsqjgA5nvrX+eU9Sbr HTTP/1.1
    
    > Host: ibm-watson-ml-dev.stage1.mybluemix.net
@@ -296,9 +301,20 @@ lastupdated: "2017-06-23"
    < X-Powered-By: Servlet/3.0
    
    < X-Global-Transaction-ID: 3291552207
-   
-    
-   
+      
    [{"header":["customerID","Churn","Predicted Churn","Probability of Churn"],"data":[["9237-HQITU","Yes","Yes",0.8829830706957551]]}] 
-```
-{: codeblock}
+   ```
+   {: codeblock}
+
+## Información adicional
+ 
+¿Preparado para ponerse en marcha? Para crear una instancia de servicio o enlazar
+una aplicación, consulte [Utilización del servicio con modelos Spark y Python](using_pm_service_dsx.html) o
+[Utilización del servicio con modelos IBM® SPSS®](using_pm_service.html).
+
+Para obtener más información sobre la API, consulte [API del servicio para modelos Spark y Python](pm_service_api_spark.html) o [API del servicio para modelos IBM® SPSS®](pm_service_api_spss.html).
+
+Para obtener más información sobre IBM® SPSS® Modeler y los algoritmos de modelado que proporciona,
+consulte [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Para obtener más información sobre IBM Data Science Experience y los algoritmos de modelado que proporciona, consulte [https://datascience.ibm.com](https://datascience.ibm.com).

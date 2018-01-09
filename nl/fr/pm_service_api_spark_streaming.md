@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,22 +12,32 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Déploiement des modèles de données en flux <span class='tag--beta'>bêta</span>
+# Déploiement de modèles de données en flux
 
-
-**Remarque **: cette fonctionnalité est actuellement en version bêta et n'est disponible que pour son utilisation avec Spark MLlib. Si vous désirez participer, inscrivez-vous sur la liste d'attente. Pour plus d'informations,  voir : [https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist).
+Grâce au service {{site.data.keyword.pm_full}}, vous pouvez déployer un modèle et générer des analyses prédictives en effectuant des requêtes de score à partir du modèle déployé.
+{: shortdesc}
 
 **Nom du scénario **: analyse d'opinions.
 
 **Description du scénario **: une agence de marketing désire connaître les opinions sur un sujet spécifique. Elle désire que nous développions un modèle classant une déclaration comme POSITIVE ou NEGATIVE. Un spécialiste des données prépare un modèle prédictif et le partage avec vous (le développeur). Votre tâche consiste à déployer le modèle et à générer des analyses prédictives en effectuant des requêtes de score à partir du modèle déployé.
 
+**Remarque :** vous pouvez également vous familiariser avec [un exemple de notebook Python](https://apsportal.ibm.com/analytics/notebooks/913a7daa-cf39-414d-9017-3a7840a53c59/view?access_token=f1ebc10873a226f248f744b26ee7f71d53c81d5752b9d940e23a33518a3e115d) qui crée un exemple de modèle et classe les tweets.
+
 Consultez ce document pour plus d'informations.
+
+
+## Conditions requises
+Pour pouvoir utiliser cet exemple, vous aurez besoin :
+* Des informations de la rubrique [Message Hub](https://console.bluemix.net/catalog/services/message-hub) qui seront utilisées comme entrées (tweet) pour le modèle et lieu de stockage pour la sortie du modèle (résultats de la prévision). Assurez-vous que deux rubriques soient créées : une rubrique d'entrée avec des tweets et une rubrique de sortie.
+* Des données d'identification de l'instance de service [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark). Utilisez ce [lien](https://console.bluemix.net/catalog/services/apache-spark) pour en créer une.
+
+
 
 ## Utilisation de l'exemple de modèle
 
-1. Accédez à l'onglet Exemples du tableau de bord IBM® Watson™ Machine Learning.
+1. Accédez à l'onglet Exemples du tableau de bord {{site.data.keyword.pm_full}}.
 
-2. Dans la section Exemples de modèles, recherchez la vignette Pronostics des opinions et cliquez sur le bouton Ajouter le modèle (+).
+2. Dans la section Exemples de modèles, recherchez la vignette Pronostics des opinions et cliquez sur l'icône Ajouter le modèle (+).
 
 Vous pouvez observer à présent le modèle Pronostics des opinions dans la liste des modèles disponibles sous l'onglet Modèles.
 
@@ -94,7 +104,7 @@ Exemple de sortie :
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
@@ -199,37 +209,35 @@ Exemple de sortie :
 ```
 {: codeblock}
 
-Notez l'`url` **deployments** requise pour créer un déploiement par lots à l'étape suivante.
-
+Notez la valeur `url` de la section **deployments** sur laquelle créer le déploiement par lots.
 
 ## Création d'un déploiement en flux à l'aide d'IBM Message Hub
 
 Pour utiliser un appel d'API REST pour créer un déploiement en flux de votre modèle prédictif, fournissez les informations suivantes :
 
-*  Le jeton d'accès créé à l'étape précédente
+*  Le jeton d'accès que vous avez créé à l'étape précédente
 
-*  Les données d'identification pour le service Spark, que vous pouvez trouver dans l'onglet Données d'identification pour le service du tableau de bord du service Bluemix Spark. Avant de soumettre la demande de déploiement, les données d'identification Spark doivent être décodées en base64 et transmises dans l'en-tête d'une requête curl sous la forme
-Instance-Service-X-Spark.
+*  Les données d'identification du service Spark, que vous pouvez trouver dans l'onglet Données d'identification du service du tableau de bord du service {{site.data.keyword.Bluemix_notm}} Spark. Avant de soumettre la demande de déploiement, les données d'identification Spark doivent être décodées en base64 et transmises dans l'en-tête d'une requête `curl` sous la forme X-Spark-Service-Instance.
 
    Selon le système d'exploitation que vous utilisez, vous devez exécuter l'une des commandes de terminal suivantes pour effectuer un décodage en base64 et l'affecter à la variable d'environnement.
 
-   Sur système d'exploitation macOS, utilisez la commande suivante :
+   Sur le système d'exploitation **macOS**, utilisez la commande suivante :
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   Sur système d'exploitation Microsoft Windows ou Linux, vous devez utiliser le paramètre `--wrap=0` avec la commande `base64` pour effectuer un décodage en base64 :
+   Sur les systèmes d'exploitation **Microsoft Windows** ou **Linux**, utilisez le paramètre `--wrap=0` avec la commande `base64` pour effectuer un décodage en base64 :
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
    ```
    {: codeblock}
 
-*  Informations de la rubrique IBM Message, lesquelles seront utilisées comme entrées (tweets) pour le modèle et stockage pour la sortie du modèle (résultats du pronostic).
+*  Des informations de la rubrique IBM Message Hub, qui seront utilisées comme entrées (tweets) pour le modèle et lieu de stockage pour la sortie du modèle (résultats de la prévision)
 
-*  Pour créer un déploiement, utilisez l'`url` **deployments** de la section précédente.
+*  La valeur `url` de la section **deployments** 
 
 Exemple de requête :
 
@@ -586,3 +594,13 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 2025130991
 ```
 {: codeblock}
+
+## Informations supplémentaires
+
+Prêt à commencer ? Pour créer une instance de service ou lier une application, voir [Utilisation du service avec des modèles Spark et Python](using_pm_service_dsx.html) ou [Utilisation du service avec des modèles IBM® SPSS®](using_pm_service.html).
+
+Pour plus d'informations sur l'API, voir [API de service pour les modèles Spark et Python](pm_service_api_spark.html) ou [API de service pour les modèles IBM® SPSS®](pm_service_api_spss.html).
+
+Pour plus d'informations sur IBM® SPSS® Modeler et les algorithmes de modélisation qu'il utilise, reportez-vous à la documentation du site [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Pour plus d'informations sur IBM Data Science Experience et les algorithmes de modélisation qu'il propose, accédez au site [https://datascience.ibm.com](https://datascience.ibm.com).

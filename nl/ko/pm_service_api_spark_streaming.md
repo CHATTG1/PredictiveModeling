@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,11 +12,10 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# 스트리밍 모델 배치 <span class='tag--beta'>베타</span>
+# 스트리밍 모델 배치
 
-
-**참고**: 이 기능은 현재 베타이며 Spark MLlib와 함께 사용하기 위한 경우에만 사용 가능합니다. 참여하는 데 관심이 있으면 자신을 대기 목록에 추가하십시오!
-자세한 정보는 [https://www.ibm.biz/mlwaitlist](https://www.ibm.biz/mlwaitlist)를 참조하십시오.
+{{site.data.keyword.pm_full}} 서비스를 사용하여, 모델을 배치하고 배치된 모델에 대해 스코어링을 요청함으로써 예측 분석을 생성할 수 있습니다.
+{: shortdesc}
 
 **시나리오 이름**: 감성 분석
 
@@ -26,13 +25,23 @@ lastupdated: "2017-09-07"
 사용자(개발자)와 이를 공유합니다. 여러분의 태스크는
 모델을 배치하고 배치된 모델에 대한 스코어 요청을 작성하여 예측 분석을 생성하는 것입니다. 
 
+**참고:** 샘플 모델을 작성하고 트윗을 분류하는 [샘플 Python 노트북](https://apsportal.ibm.com/analytics/notebooks/913a7daa-cf39-414d-9017-3a7840a53c59/view?access_token=f1ebc10873a226f248f744b26ee7f71d53c81d5752b9d940e23a33518a3e115d)을 사용해 볼 수도 있습니다. 
+
 자세한 정보는 이 문서의 내용을 참조하십시오. 
+
+
+## 전제조건
+이 예에 대해 작업하려면 다음 항목이 필요합니다. 
+* 모델에 대한 입력(트윗 텍스트) 및 모델 출력(예측 결과)에 대한 스토리지로 사용되는 [Message Hub](https://console.bluemix.net/catalog/services/message-hub) 주제 세부사항. 트윗 텍스트를 사용한 입력, 그리고 출력의 두 가지 주제가 작성되도록 하십시오. 
+* [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) 서비스 인스턴스 신임 정보. 이 [링크](https://console.bluemix.net/catalog/services/apache-spark)를 사용하여 작성할 수 있습니다. 
+
+
 
 ## 샘플 모델 사용
 
-1. IBM® Watson™ Machine Learning 대시보드의 샘플 탭으로 이동하십시오. 
+1. {{site.data.keyword.pm_full}} 대시보드의 샘플 탭으로 이동하십시오. 
 
-2. 샘플 모델 섹션에서 감성 예측 타일을 찾아서 모델 추가 단추(+)를 클릭하십시오. 
+2. 샘플 모델 섹션에서 감성 예측 타일을 찾아 모델 추가 아이콘(+)을 클릭하십시오. 
 
 이제 모델 탭의 사용 가능한 모델 목록에 샘플 감성 예측 모델이 표시됩니다. 
 
@@ -101,7 +110,7 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
       },
       "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      "plan":"lite"
    }
 }
 ```
@@ -201,38 +210,35 @@ curl -X GET --header "Content-Type: application/json" --header "Accept: applicat
 ```
 {: codeblock}
 
-다음 단계에서 일괄처리 배치를 작성하는 데 필요한 **deployments** `url`을 기록해 두십시오.
-
+다음 일괄처리 배치를 작성하는 데 필요한 **deployments** `url` 값을 기록하십시오. 
 
 ## IBM Message Hub를 사용하여 스트리밍 배치 작성
 
 예측 모델의 스트리밍 배치를 작성하기 위해 REST API 호출을 사용하려면, 다음 세부사항을 제공하십시오. 
 
-*  이전 단계에서 작성된 액세스 토큰
+*  이전 단계에서 작성한 액세스 토큰
 
-*  Spark 서비스 신임 정보는 Bluemix Spark 서비스 대시보드의 서비스 신임 정보 탭에서
-찾을 수 있습니다. 배치 요청을 작성하기 전에 Spark 신임 정보를 Base64로 디코딩해야 하며
-X-Spark-Service-Instance로 curl 요청 헤더에 전달해야 합니다. 
+*  {{site.data.keyword.Bluemix_notm}} Spark 서비스 대시보드의 서비스 신임 정보 탭에서 찾을 수 있는 Spark 서비스 신임 정보. 배치를 요청하기 전에 Spark 신임 정보를 Base64로 디코딩하고 `curl` 요청의 헤더에 X-Spark-Service-Instance로서 전달해야 합니다. 
 
    사용 중인 운영 체제에 따라서 base64 디코딩을 수행하고 이를 환경 변수에 지정하려면 다음 터미널 명령 중 하나를 실행해야 합니다. 
 
-   macOS 운영 체제에서 다음 명령을 사용하십시오. 
+   **macOS** 운영 체제에서는 다음 명령을 사용하십시오. 
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64)
    ```
    {: codeblock}
 
-   Microsoft Windows 또는 Linux 운영 체제에서는 base64 디코딩을 수행하려면 `base64` 명령과 함께 `--wrap=0` 매개변수를 사용해야 합니다.
+   **Microsoft Windows** 또는 **Linux** 운영 체제에서는 Base64 디코딩을 수행하려면 `--wrap=0` 매개변수를 `base64` 명령과 함께 사용해야 합니다. 
 
    ```
    spark_credentials=$(echo '{"credentials": {"tenant_id": "s068-ade10277b64956-05b1d10fv12b","tenant_id_full": "00fd89e6-8cf2-4712-a068-ade10277b649_41f37bf2-1b95-4c65-a156-05b1d10fb12b","cluster_master_url": "https://spark.bluemix.net","instance_id": "00fd89e6-8cf2-4712-a068-ade10277b649","tenant_secret": "c74c37cf-482a-4da4-836e-f32ca26ccbb9","plan": "ibm.SparkService.PayGoPersonal"},"version": "2.0"}' | base64 --wrap=0)
    ```
    {: codeblock}
 
-*  모델에 대한 입력(트윗) 및 모델 출력(예측 결과)에 대한 스토리지로 사용되는 IBM Message Hub 주제 세부사항. 
+*  모델에 대한 입력(트윗) 및 모델 출력(예측 결과)에 대한 스토리지로 사용되는 IBM Message Hub 주제 세부사항
 
-*  배치를 작성하려면 이전 섹션에서 **deployments** `url`을 사용하십시오.
+*  deployments ** `url` 값
 
 요청 예제: 
 
@@ -589,3 +595,14 @@ X-Xss-Protection: 1; mode=block
 X-Global-Transaction-ID: 2025130991
 ```
 {: codeblock}
+
+## 자세히 보기
+
+시작할 준비가 되셨습니까? 서비스의 인스턴스를 작성하거나 애플리케이션을 바인드하려면 [Spark 및 Python 모델과 함께 서비스 사용](using_pm_service_dsx.html) 또는
+[IBM® SPSS® 모델과 함께 서비스 사용](using_pm_service.html)을 참조하십시오. 
+
+API에 대한 자세한 정보는 [Spark 및 Python 모델용 서비스 API](pm_service_api_spark.html) 또는 [IBM® SPSS® 모델용 서비스 API](pm_service_api_spss.html)를 참조하십시오. 
+
+IBM® SPSS® Modeler 및 여기서 제공하는 모델링 알고리즘에 대한 자세한 정보는 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)를 참조하십시오. 
+
+IBM Data Science Experience 및 여기서 제공하는 모델링 알고리즘에 대한 자세한 정보는 [https://datascience.ibm.com](https://datascience.ibm.com)을 참조하십시오. 

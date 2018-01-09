@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,14 +12,17 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Scoring mit implementiertem Vorhersagemodell durchführen
+# Scoring mit bereitgestelltem Vorhersagemodell durchführen
 
+Sie können den {{site.data.keyword.pm_full}}-Service verwenden, um die Eingabedaten zu senden, die vom bereitgestellten Modell über einen API-Aufruf verwendet werden sollen. Sie können diese Methode verwenden, um die Vorhersageanalyse in den Scoring-Ergebnissen zu generieren und zurückzugeben.
+{: shortdesc}
 
+```
 POST http://{PA Bluemix load balancer
 URL}/pm/v1/score/{contextId}?accesskey={access_key for this bound
 application}
-
-Verwenden Sie diesen API-Aufruf, um die Eingabedaten zu veröffentlichen, die vom implementierten Modell zum Generieren und Zurückgeben der Vorhersageanalyse in den Scoring-Ergebnissen verwendet werden sollen.
+```
+{: codeblock}
 
 Anforderungsbeispiel:
 
@@ -66,3 +69,18 @@ Antwort für fehlgeschlagene Scoring-Anforderung:
         }  
 ```
 {: codeblock}
+
+## Weitere Informationen
+
+Sind Sie bereit? Informationen zum Erstellen einer Serviceinstanz oder zum Binden
+einer Anwendung finden Sie unter [Service mit Spark- und Python-Modellen verwenden](using_pm_service_dsx.html) oder
+[Service mit IBM® SPSS®-Modellen verwenden](using_pm_service.html).
+
+Weitere Informationen zur API finden Sie unter [Service-API für Spark- und Python-Modelle](pm_service_api_spark.html) oder [Service-
+API für IBM® SPSS® Modelle] (pm_service_api_spss.html).
+
+Weitere Informationen zu IBM® SPSS® Modeler und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie im [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Weitere Informationen zu IBM Data Science Experience und den von ihm bereitgestellten Modellierungsalgorithmen
+finden Sie unter [https://datascience.ibm.com](https://datascience.ibm.com).

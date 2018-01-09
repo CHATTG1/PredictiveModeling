@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -12,17 +12,15 @@ lastupdated: "2017-09-07"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Machine Learning の概要
+# IBM Watson Machine Learning の概要
 
+{{site.data.keyword.pm_full}} は、予測分析をアプリケーションと統合するために開発者とデータ科学者が簡単に協力して作業できるようにする、フルサービスの {{site.data.keyword.Bluemix_notm}} オファリングです。{{site.data.keyword.pm_short}} を使用して、よりスマートな意思決定を行い、難しい問題を解決し、ユーザーの結果を改善するアプリケーションを開発します。{{site.data.keyword.pm_short}} サービスは、任意のプログラミング言語から呼び出すことのできる REST API セットです。
+{: shortdesc}
 
-IBM Watson™ Machine Learning は、開発者とデータ・サイエンティストが連携して予測分析をアプリケーションと統合しやすくする、フルサービスの Bluemix オファリングです。
+{{site.data.keyword.pm_short}} サービスはデプロイメントに重点を置いているため、モデルおよびパイプラインを作成して操作するために、追加で IBM® SPSS® Modeler または IBM® Data Science Experience などの製品を使用する必要があります。IBM® SPSS® Modeler と IBM® Data Science Experience (Apache Spark を使用) はどちらも、機械学習、人工知能、統計学から得られたさまざまなモデリング手法を提供します。
 
-Machine Learning を使用することで、よりスマートな意思決定、難しい問題の解決、ユーザーの成果の向上を実現するアプリケーションを開発できます。
+## 詳細はこちら
 
-Machine Learning サービスは、任意のプログラミング言語から呼び出すことができる一連の REST API で構成されます。
-
-Machine Learning サービスはデプロイメントに重点を置いていますが、モデルやパイプラインを作成して操作するには、IBM SPSS Modeler または Data Science Experience が必要であることに注意してください。SPSS Modeler と Data Science Experience (Apache Spark を利用) はどちらも、機械学習、人工知能、統計学から取得したさまざまなモデリング手法を提供します。
-
-SPSS Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center]() を参照してください。
+IBM® SPSS® Modeler の概要と提供されるモデリング・アルゴリズムについて詳しくは、[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/v1/content/SS3RA7_18.1.1/modeler_mainhelp_client_ddita/modeler_mainhelp_client_ddita-gentopic1.html) を参照してください。
 
 Data Science Experience の概要と提供されるモデリング・アルゴリズムについて詳しくは、[https://datascience.ibm.com](https://datascience.ibm.com) を参照してください。

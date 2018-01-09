@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,41 +14,35 @@ lastupdated: "2017-09-07"
 
 # Utilisation du service
 
-Les méthodes de modélisation disponibles dans la palette de modélisation de SPSS Modeler
-vous permettent de puiser de nouvelles informations dans vos données et de développer des
-modèles prédictifs. Chaque méthode possède ses propres avantages et
-est donc plus adaptée à certains types de problème spécifiques.
+Grâce aux méthodes de modélisation de la palette de modélisation IBM® SPSS® Modeler, vous pouvez extraire de vos données de nouvelles informations et développer ainsi des modèles prédictifs. Chaque méthode possède ses propres avantages et est donc plus adaptée à certains types de problèmes spécifiques.
 {: .shortdesc}
 
-Pour plus d'informations
-sur SPSS Modeler et les algorithmes de modélisation qu'il utilise, reportez-vous à la documentation du site
-[IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+Pour plus d'informations sur IBM® SPSS® Modeler et les algorithmes de modélisation qu'il utilise, reportez-vous à la documentation du site [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
 
-Une fois que vous avez implémenté les exigences en matière d'entrée et de sortie de votre application Bluemix et de conception de la branche d'évaluation SPSS Modeler, votre analyste de
-données peut modifier n'importe quel aspect interne de cette branche. Il peut même modifier le ou les algorithmes de modélisation utilisés dans une opération d'actualisation afin que vous puissiez ensuite affiner vos analyses prédictives sans devoir réécrire vos applications.
+Une fois que vous avez implémenté les exigences en matière d'entrée et de sortie de votre application {{site.data.keyword.Bluemix_notm}} et de conception de la branche d'évaluation IBM® SPSS® Modeler, votre analyste de données peut modifier n'importe quel aspect interne de cette branche. Il peut même modifier le ou les algorithmes de modélisation utilisés dans une opération d'actualisation afin que vous puissiez ensuite affiner vos analyses prédictives sans devoir réécrire vos applications.
 
 
-## Etapes de liaison du service avec l'application Bluemix
-Suivez les étapes suivantes pour créer votre application Bluemix et la lier au service Machine Learning.
+## Etapes de liaison du service avec l'application {{site.data.keyword.Bluemix_notm}}
 
-1. Téléchargez l'exemple de code d'application Node.js du [référentiel github](https://github.com/pmservice/customer-satisfaction-prediction).
+Exécutez les étapes ci-après pour créer votre application {{site.data.keyword.Bluemix_notm}} et la lier au service {{site.data.keyword.pm_short}}.
 
-2. Utilisez la commande cf create-service pour créer une instance de service :
+1. Téléchargez l'exemple de code d'application Node.js depuis le [référentiel GitHub](https://github.com/pmservice/customer-satisfaction-prediction).
+
+2. Créez une instance de service à l'aide de la commande `cf create-service`.
 
    ```
-   cf create-service pm-20 Free {local naming}
+   cf create-service pm-20 lite {local naming}
    ```
    {: codeblock}
 
    Par exemple :
 
    ```
-   cf create-service pm-20 Free my_pm_free
+   cf create-service pm-20 lite my_pm_lite
    ```
    {: codeblock}
 
-   Cette commande dans votre espace Bluemix crée une instance de service Machine Learning nommée
-my_pm_free avec le plan gratuit (Free).
+   Cette commande crée une instance de service {{site.data.keyword.pm_short}} avec un plan Lite nommé my_pm_lite dans votre espace {{site.data.keyword.Bluemix_notm}}.
 
 3. Utilisez la commande `cf create-service-key` pour créer des données d'identification pour le service :
 
@@ -64,9 +58,9 @@ my_pm_free avec le plan gratuit (Free).
    ```
    {: codeblock}
 
-   Cette commande crée les données d'identification du service Machine Learning.
+   Cette commande crée les données d'identification pour le service {{site.data.keyword.pm_short}}.
 
-4. Utilisez la commande cf bind-service pour lier l'instance de service my_pm_free à votre application.
+4. Utilisez la commande `cf bind-service` pour lier l'instance de service `my_pm_lite` à votre application.
 
    ```
    cf bind-service AppName my_pm_service
@@ -76,22 +70,22 @@ my_pm_free avec le plan gratuit (Free).
    Par exemple :
 
    ```
-   cf bind-service my_app1 my_pm_free
+   cf bind-service my_app1 my_pm_lite
    ```
    {: codeblock}
 
-   Cette commande lie l'instance de service Machine Learning nommée `my_pm_free` à l'application Bluemix my_app1.
+   Cette commande lie l'instance de service {{site.data.keyword.pm_short}} `my_pm_lite` à l'application {{site.data.keyword.Bluemix_notm}} my_app1.
 
-5. Données d'identification Machine Learning :
+5. Données d'identification {{site.data.keyword.pm_short}} :
 
-   Après avoir lié l'instance de service Machine Learning à votre application Bluemix, les données d'identification Machine Learning sont ajoutées à la variable d'environnement `VCAP_SERVICES` :
+   Une fois l'instance de service {{site.data.keyword.pm_short}} liée à votre application {{site.data.keyword.Bluemix_notm}}, les données d'identification {{site.data.keyword.pm_short}} sont ajoutées à la variable d'environnement `VCAP_SERVICES` :
 
 ```
     {   
         "pm-20": {
             "name": "pm20-1",
             "label": "pm-20",
-            "plan": "Free",
+            "plan": "lite",
             "credentials": {
                 "url": "https://ibm-watson-ml.mybluemix.net",
                 "access_key": "XXXXXXXXXXXXX"
@@ -106,10 +100,10 @@ my_pm_free avec le plan gratuit (Free).
    <dl>
 
    <dt>plan</dt>
-   <dd>Plan Machine Learning utilisé pour la mise à disposition du service.</dd>
+   <dd>Plan {{site.data.keyword.pm_short}} utilisé dans la mise à disposition du service.</dd>
 
    <dt>url</dt>
-   <dd>Adresse de l'instance de service Machine Learning.</dd>
+   <dd>Adresse de l'instance de service {{site.data.keyword.pm_short}}.</dd>
 
    <dt>access_key</dt>
    <dd>Paramètre de requête accessKey via lequel sont transmises toutes les requêtes à cette instance de service.</dd>
@@ -133,3 +127,13 @@ Get https://ibm-watson-ml.mybluemix.net/pm/v1/model/sales_model2?accesskey=XXXXX
     }
 ```
 {: codeblock}
+
+## Informations supplémentaires
+
+Prêt à commencer ? Pour créer une instance de service ou lier une application, voir [Utilisation du service avec des modèles Spark et Python](using_pm_service_dsx.html) ou [Utilisation du service avec des modèles IBM® SPSS®](using_pm_service.html).
+
+Pour plus d'informations sur l'API, voir [API de service pour les modèles Spark et Python](pm_service_api_spark.html) ou [API de service pour les modèles IBM® SPSS®](pm_service_api_spss.html).
+
+Pour plus d'informations sur IBM® SPSS® Modeler et les algorithmes de modélisation qu'il utilise, reportez-vous à la documentation du site [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Pour plus d'informations sur IBM Data Science Experience et les algorithmes de modélisation qu'il propose, accédez au site [https://datascience.ibm.com](https://datascience.ibm.com).

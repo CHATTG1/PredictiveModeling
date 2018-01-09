@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-06-23"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,42 +14,34 @@ lastupdated: "2017-06-23"
 
 # Permanencia de modelos
 
-
-*  [Permanencia de modelos y control de versiones](#model-persistence-and-version-control)
-
-   *  [Generación de la señal de acceso](#generating-the-access-token)
-
-   *  [Creación de metadatos de conducto](#creating-pipeline-metadata)
-
-   *  [Creación de versión de conducto](#creating-pipeline-version)
-
-   *  [Carga del contenido del conducto](#uploading-pipeline-content)
-
-   *  [Creación de metadatos del modelo de conducto](#creating-pipeline-model-metadata)
-
-   *  [Creación de la versión del modelo de conducto](#creating-pipeline-model-version)
-
-   *  [Carga del contenido del modelo de conducto](#uploading-pipeline-model-content)
-
-Los científicos de los datos trabajan constantemente en mejorar sus modelos como parte de su trabajo de investigación y desarrollo. Pueden añadir nuevas prestaciones a los modelos existentes y optimizar los parámetros de los modelos.
-Cuando los científicos de los datos desarrollan modelos de forma iterativa, el hecho de realizar un seguimiento de los cambios puede convertirse en un problema. Aquí mostraremos formas de ayudar a los científicos de los datos ofreciendo funciones de gestión de versiones de modelos y ayudando a mantener todo el proceso bien organizado.
-
-Antes de empezar, si está interesado en el desarrollo de modelos, consulte los siguientes cuadernos:
-
-*  [Desarrollo de modelos SparkML con Python](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
-
-*  [Desarrollo de modelos SparkML con Scala](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)
+Utilice el servicio de {{site.data.keyword.pm_full}} para proporcionar versiones de modelo y mantener el proceso de aprendizaje de máquina bien organizado. Puede hacerlo mediante las prestaciones de versionado, metadatos y de señal de acceso del servicio de {{site.data.keyword.pm_short}}.
+{: shortdesc}
 
 ## Permanencia de modelos y control de versiones
 
+Como siempre trata de mejorar sus modelos
+como parte de sus esfuerzos de investigación y desarrollo, puede añadir características nuevas
+a los modelos existentes u optimizar los parámetros del modelo.
+Cuando desarrolle modelos de este tipo de forma iterativa,
+realizar un seguimiento de los cambios puede convertirse rápidamente en un problema. Al utilizar las siguientes características de las versiones del modelo de datos de {{site.data.keyword.pm_short}}, puede conservar todo el proceso bien organizado. 
+
+*  [Generación de la señal de acceso](#generating-the-access-token)
+*  [Creación de metadatos del conducto](#creating-pipeline-metadata)
+*  [Creación de una versión del conducto](#creating-pipeline-version)
+*  [Carga del contenido del conducto](#uploading-pipeline-content)
+*  [Creación de metadatos del modelo de conducto](#creating-pipeline-model-metadata)
+*  [Creación de la versión del modelo de conducto](#creating-pipeline-model-version)
+*  [Carga del contenido del modelo de conducto](#uploading-pipeline-model-content)
+
 ### Generación de la señal de acceso
 
-Genere una señal de acceso mediante los campos usuario y contraseña disponibles en el separador Credenciales de servicio de la instancia del servicio IBM Watson Machine Learning. 
+Genere una señal de acceso mediante los campos usuario y contraseña disponibles en
+el separador Credenciales de servicio de la instancia del servicio de {{site.data.keyword.pm_full}}.
 
-Ejemplo de solicitud: 
+Ejemplo de solicitud:
 
 ```
-curl --basic --user username:password https://ibm-watson-ml.mybluemix.net/v2/identity/token
+curl --basic --user username:password https://ibm-watson-ml.mybluemix.net/v3/identity/token
 ```
 {: codeblock}
 
@@ -60,18 +52,21 @@ Ejemplo de salida:
 ```
 {: codeblock}
 
-Utilice el siguiente mandato de terminal para asignar el valor de la señal a la variable de entorno access_token:
+Utilice el mandato de terminal siguiente para asignar el valor de la señal a la
+variable de entorno `access_token`:
 
 ```
 access_token="<token_value>"
 ```
 {: codeblock}
 
-A continuación, para guardar el conducto y el modelo de conducto, deberá crear los metadatos del conducto y del modelo de conducto, crear la versión del conducto y del modelo de conducto y cargar la versión del conducto y del modelo de conducto. Consulte las secciones siguientes para ver detalles.
+Guarde el conducto y el modelo del conducto. Cree
+los metadatos del conducto y del modelo del conducto, cree la versión del conducto y del
+modelo del conducto, y cargue la versión del conducto y del modelo del conducto. 
 
-### Creación de metadatos de conducto
+### Creación de metadatos del conducto
 
-Para crear metadatos para el conducto, describa las propiedades básicas del conducto en una solicitud curl tal como se muestra en el ejemplo siguiente:
+Para crear metadatos para el conducto, describa las propiedades básicas del conducto en una solicitud `curl` tal como se muestra en el ejemplo siguiente:
 
 ```
 curl -i \
@@ -109,9 +104,11 @@ Ejemplo de respuesta:
 ```
 {: codeblock}
 
-### Creación de una versión de conducto
+### Creación de una versión del conducto
 
-Para crear una versión para el conducto, especifique el valor parentVersionHref para el conducto en una solicitud curl tal como se muestra en el ejemplo siguiente:
+Para crear una versión para el conducto, especifique el valor
+`parentVersionHref` para el conducto en una solicitud `curl`, tal como se muestra en
+el ejemplo siguiente:
 
 ```
 curl -i \
@@ -142,7 +139,7 @@ Ejemplo de respuesta:
 
 ### Carga del contenido del conducto
 
-Para cargar el contenido del conducto, el conducto debe estar en formato binario. Para ello, invoque el método save desde el conducto SparkML. Puede cargar el contenido binario especificando el ID del conducto y la versión en un punto final, tal como se muestra en el ejemplo siguiente:
+Para cargar el contenido del conducto, el conducto debe estar en formato binario. Para ello, invoque el método `save` desde el conducto SparkML. Puede cargar el contenido binario especificando el ID del conducto y la versión en un punto final, tal como se muestra en el ejemplo siguiente:
 
 ```
 curl -i \
@@ -256,7 +253,7 @@ Ejemplo de respuesta:
 
 ### Creación de la versión del modelo de conducto
 
-Para crear una versión para el modelo de conducto, utilice una solicitud curl para especificar detalles, como por ejemplo la ubicación en la que guarda los datos de formación y el método de evaluación del modelo. Consulte el ejemplo siguiente:
+Para crear una versión para el modelo de conducto, utilice una solicitud `curl` para especificar detalles, como por ejemplo la ubicación en la que guarda los datos de entrenamiento y el método de evaluación del modelo. Consulte el ejemplo siguiente:
 
 ```
 curl -i \
@@ -318,7 +315,7 @@ Ejemplo de respuesta:
 
 ### Carga del contenido del modelo de conducto
 
-Para cargar el contenido del modelo de conducto, el modelo de conducto debe estar en formato binario. Para ello, invoque el método save desde el modelo de conducto SparkML. Puede cargar el contenido binario especificando el ID del conducto y la versión en un punto final, tal como se muestra en el ejemplo siguiente:
+Para cargar el contenido del modelo de conducto, el modelo de conducto debe estar en formato binario. Para ello, invoque el método `save` desde el modelo de conducto SparkML. Puede cargar el contenido binario especificando el ID del conducto y la versión en un punto final, tal como se muestra en el ejemplo siguiente:
 
 ```
 curl -i \
@@ -345,3 +342,10 @@ Ejemplo de respuesta:
 {"ok":"true"}
 ```
 {: codeblock}
+
+## Información adicional
+
+Para obtener más información sobre el desarrollo del modelo, consulte los cuadernos siguientes:
+
+*  [Desarrollo de modelos SparkML con Python](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c14353512ef14d)
+*  [Desarrollo de modelos SparkML con Scala](https://apsportal.ibm.com/exchange/public/entry/view/d80de77f784fed7915c1435351309e93)

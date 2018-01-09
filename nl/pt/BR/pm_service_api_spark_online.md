@@ -1,8 +1,6 @@
 ---
 
-copyright:
-  years: 2016, 2017
-lastupdated: "2017-09-07"
+copyright: years: 2016, 2017 lastupdated: "2017-11-16"
 
 ---
 
@@ -14,30 +12,33 @@ lastupdated: "2017-09-07"
 
 # Implementando modelos on-line
 
+Usando o serviço {{site.data.keyword.pm_full}}, é possível implementar um modelo e gerar análise preditiva criando solicitações de pontuação com relação ao modelo implementado.
+{: shortdesc}
+
 **Nome do cenário**: predição de linha de produto.
 
-**Descrição do cenário**: uma empresa que vende equipamento de outdoor
-quer criar um modelo que prediga o interesse do cliente em sua
-linha de produto. Um
+**Descrição do cenário**: uma empresa que vende equipamento de
+outdoor deseja criar um modelo que preveja o interesse do cliente em uma determinada linha
+de produto. Um
 cientista de dados preparou um modelo preditivo e o compartilha com você (o
 desenvolvedor). Sua tarefa é implementar o modelo e gerar previsões de interesse do
 cliente, fazendo solicitações de escore com relação ao modelo implementado.
 
 ## Usando o modelo de amostra
 
-1. Acesse a guia Amostras do Painel IBM® Watson™ Machine
-Learning.
+1. Acesse a guia Amostras do Painel do {{site.data.keyword.pm_full}}.
 
 2. Na seção Modelos de Amostra, localize o ladrilho de Predição de Linha de Produto e clique no ícone
 Incluir modelo (+).
 
-Agora você verá o modelo de amostra Predição de linha de produto na
-lista de modelos disponíveis na guia Modelos.
+O modelo de Previsão de linha de produto de amostra aparece na lista de modelos
+disponíveis na guia Modelos.
 
 ## Gerando o token de acesso
 
-Gere um token de acesso usando o `user` e `password` disponíveis na
-guia **Credenciais de serviço** na instância de serviço do IBM Watson Machine Learning.
+Gere um token de acesso que utilize o `user` e
+`password` disponíveis na guia **Credenciais de
+serviço** da instância de serviço do {{site.data.keyword.pm_full}}.
 
 Exemplo de solicitação:
 
@@ -61,9 +62,11 @@ token="<token_value>"
 {: codeblock}
 
 ## Trabalhando com modelos publicados
-Utilize a chamada de API a seguir para obter detalhes de sua instância, como:
-* `url` de modelos publicados 
-* `url` de implementações
+
+Use a chamada API a seguir para obter detalhes da sua instância, que incluem os valores a seguir:
+
+* Valor da `url` dos modelos publicados
+* Valor da `url` das implementações
 * informações de uso
 
 Exemplo de solicitação:
@@ -96,9 +99,7 @@ Exemplo de saída:
       "region":"us-south",
       "deployments":{
          "url":"https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}}/deployments"
-      },
-      "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24",
-      "plan":"free"
+      }, "space_guid":"c3ea6205-b895-48ad-bb55-6786bc712c24", "plan":"lite"
    }
 }
 ```
@@ -189,8 +190,8 @@ Exemplo de saída:
 {: codeblock}
 
 
-Anote a `url` de **implementações** que é necessária para criar a
-implementação on-line na próxima etapa.
+Anote o valor `url` de **implementações**
+que você precisa para criar a implementação on-line a seguir.
 
 
 ## Criando a implementação on-line
@@ -415,7 +416,7 @@ Podemos ver, por exemplo, que um executivo de 55 anos está
 interessado em equipamento de montanhismo, enquanto um estudante de
 23 anos está interessado em acessórios pessoais.
 
-**Nota**: somente para modelos scikit-learn e XGBoost, o campo
+**Nota**: para modelos scikit-learn e XGBoost, apenas o campo
 `values` é obrigatório na carga útil de pontuação.
 
 Exemplo de solicitação:
@@ -424,3 +425,15 @@ Exemplo de solicitação:
 curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header "Authorization: Bearer  $token" -d '{"values": [[0.0,1.0],[4.0,15.0]]}' https://ibm-watson-ml.mybluemix.net/v3/wml_instances/{instance_id}/published_models/{published_model_id}/deployments/{deployment_id}/online
 ```
 {: codeblock}
+
+## Saiba mais
+
+Pronto para começar? Para criar uma instância de um serviço ou ligar um aplicativo, consulte [Usando o serviço com modelos Spark e Python](using_pm_service_dsx.html) ou [Usando o serviço com os modelos do IBM® SPSS®](using_pm_service.html).
+
+Para obter mais informações sobre a API, consulte
+[API de serviço para modelos Spark e Python](pm_service_api_spark.html)
+ou [API de serviço para modelos IBM® SPSS®](pm_service_api_spss.html).
+
+Para obter mais informações sobre o IBM® SPSS® Modeler e os algoritmos de modelagem que ele fornece, consulte o [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Para obter mais informações sobre o IBM Data Science Experience e os algoritmos de modelagem que ele fornece, consulte [https://datascience.ibm.com](https://datascience.ibm.com).

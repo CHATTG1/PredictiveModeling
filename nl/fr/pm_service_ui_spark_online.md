@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2017
-lastupdated: "2017-09-07"
+lastupdated: "2017-11-16"
 
 ---
 
@@ -14,6 +14,8 @@ lastupdated: "2017-09-07"
 
 # Déploiement de modèles en ligne
 
+Pour déployer un modèle et générer des analyses prédictives en effectuant des requêtes de score à partir du modèle déployé, utilisez le service {{site.data.keyword.pm_full}}. Le scénario suivant fournit un exemple de la façon de procéder.
+{: shortdesc}
 
 **Nom du scénario **:  Pronostic de ligne de produits.
 
@@ -21,40 +23,34 @@ lastupdated: "2017-09-07"
 
 ## Utilisation de l'exemple de modèle
 
-1. Accédez à l'onglet Exemples du tableau de bord IBM® Watson™ Machine Learning.
+1. Accédez à l'onglet **Exemples** du tableau de bord {{site.data.keyword.pm_full}}.
+2. Dans la section **Exemples de modèles**, recherchez la vignette **Pronostic de ligne de produits** et cliquez sur l'icône **Ajouter le modèle** (+).
 
-2. Dans la section Exemples de modèles, recherchez la vignette Pronostics de ligne de produits et cliquez sur le bouton Ajouter le modèle (+).
-
-Vous pouvez observer à présent le modèle Pronostics de ligne de produits dans la liste des modèles disponibles sous l'onglet Modèles.
+L'exemple de modèle **Pronostic de ligne de produits** s'affiche dans la liste des modèles disponibles sous l'onglet **Modèles**.
 
 
 ## Création du déploiement en ligne
 
-1. Accédez à l'onglet Modèles du tableau de bord d'IBM® Watson™ Machine Learning.
+1. Accédez à l'onglet **Modèles** du tableau de bord {{site.data.keyword.pm_full}}.
+2. Dans le menu **Actions**, cliquez sur **Créer un déploiement**.
+3. Dans le formulaire **Créer un déploiement**, renseignez les zones **Nom**, **Description** et **Type en ligne**.
+4. Cliquez sur **Sauvegarder**.
 
-2. Dans le menu ACTIONS, sélectionnez Créer un déploiement.
-
-3. Dans le formulaire Créer un déploiement, fournissez un nom, une description et un type en ligne.
-
-4. Appuyez sur le bouton Sauvegarder.
-
-Le déploiement en ligne s'affiche maintenant dans la liste des déploiements disponibles sur l'onglet Déploiements.
-
+Le déploiement en ligne s'affiche dans la liste des déploiements disponibles sous l'onglet **Déploiements**.
 
 ## Obtention des détails du déploiement
 
 Vous pouvez vérifier le statut, l'adresse de noeud final d'évaluation (`Scoring Endpoint`) et les paramètres relatifs au modèle déployé.
 
-1. Accédez à l'onglet Déploiements du tableau de bord IBM® Watson™ Machine Learning.
+1. Accédez à l'onglet **Déploiements** du tableau de bord {{site.data.keyword.pm_full}}.
+2. Dans le menu **Actions**, cliquez sur **View Details**.
 
-2. Dans le menu ACTIONS, sélectionnez Afficher les détails.
-
-Notez que la valeur de `Scoring Endpoint` est requise pour effectuer des requêtes d'évaluation à l'étape suivante.
+Notez la valeur `Noeud final d'évaluation` qui est requise pour effectuer des requêtes d'évaluation.
 
 
 ## Soumission de requêtes de score
 
-Comme votre noeud final d'évaluation a été créé (`Scoring Endpoint`), vous pouvez maintenant générer des prévisions en effectuant des requêtes de score. Dans ce scénario, des enregistrements client sont transmis au modèle prédictif et un pronostic sur les articles de sport est renvoyé.
+Une fois que vous avez créé un noeud final d'évaluation, vous pouvez générer des prévisions en effectuant des requêtes de score. Dans le scénario suivant, des enregistrements client sont transmis au modèle prédictif et le pronostic d'un article de sport est renvoyé.
 
 Exemple d'en-tête d'enregistrement :
 
@@ -165,3 +161,11 @@ Exemple de sortie :
 {: codeblock}
 
 Nous pouvons constater, par exemple, qu'un cadre âgé de 55 ans est intéressé par les produits de la catégorie Equipements d'alpinisme, tandis qu'un étudiant âgé de 23 ans s'intéresse à la catégorie Accessoires personnels.
+
+## Informations supplémentaires
+
+Pour plus d'informations sur l'API, voir [API de service pour les modèles Spark et Python](pm_service_api_spark.html) ou [API de service pour les modèles IBM® SPSS®](pm_service_api_spss.html).
+
+Pour plus d'informations sur IBM® SPSS® Modeler et les algorithmes de modélisation qu'il utilise, reportez-vous à la documentation du site [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
+
+Pour plus d'informations sur IBM® Data Science Experience et les algorithmes de modélisation qu'il propose, accédez au site [https://datascience.ibm.com](https://datascience.ibm.com).
