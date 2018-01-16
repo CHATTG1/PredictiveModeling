@@ -4,6 +4,7 @@
 
 {: .toc subcollection="PredictiveModeling" audience="service" href="/docs/services/PredictiveModeling/index.html"}
 Machine Learning
+
     {: .navgroup id="learn"}
     index.md
     ml_getting_access.md
@@ -36,6 +37,16 @@ Machine Learning
             pm_service_api_develop.md
             pm_service_api_batch.md
         pm_service_api_new_spss_online.md
+
+    {: .topicgroup}
+    深層学習 (ベータ)
+        ml_dlaas.md
+        ml_dlaas_supported_framework.md
+        ml_dlaas_environment.md
+        ml_dlaas_working_with_sample_models.md
+        ml_dlaas_working_with_new_models.md
+        ml_dlaas_object_store.md
+        ml_dlaas_api_docs.md
     {: .navgroup-end}
 
     {: .navgroup id="howto"}
@@ -46,7 +57,8 @@ Machine Learning
     pm_service_ui_spark.md
 
     {: .topicgroup}
-    サンプル・ノートブック        [From Spark MLlib model to online scoring with Python](https://apsportal.ibm.com/analytics/notebooks/89492fd6-a641-4819-9176-3d9381561df9/view?access_token=d80bef1a172d1d83d3721b101886337158457281774186f181a2e6a5b57f5ec7)
+    サンプル・ノートブック
+        [From Spark MLlib model to online scoring with Python](https://apsportal.ibm.com/analytics/notebooks/89492fd6-a641-4819-9176-3d9381561df9/view?access_token=d80bef1a172d1d83d3721b101886337158457281774186f181a2e6a5b57f5ec7)
         [From Spark MLlib model to online scoring with Scala](https://apsportal.ibm.com/analytics/notebooks/c8652d2c-bfc9-4354-8168-f1c9f7f8dfc2/view?access_token=02a83fea8450a452c8de76af98dae078459d0f56810ddef4f4c62d5bc4fc72cf)
         [From Spark MLlib model to batch scoring with python](https://apsportal.ibm.com/analytics/notebooks/5e4963d9-faea-455d-a7db-ff6302d1d8f5/view?access_token=5d23d36be72dea35ebbde9b4b5f4a16d0053ee898f1ab2ab73cf1301ce9322be)
         [From Spark MLlib model to stream scoring with python](https://apsportal.ibm.com/analytics/notebooks/913a7daa-cf39-414d-9017-3a7840a53c59/view?access_token=f1ebc10873a226f248f744b26ee7f71d53c81d5752b9d940e23a33518a3e115d)
@@ -59,7 +71,8 @@ Machine Learning
         [From local scikit-learn model to cloud with watson-machine-learning-client](https://dataplatform.ibm.com/analytics/notebooks/15b46bd5-dde2-4d59-9d7d-51cc0b860c8b/view?access_token=d8711ad6ae84b3a9c60d43966f961f66adc2c5b89fec18f24c85e40774080e9a)
 
     {: .topicgroup}
-    サンプル・アプリケーション        [Spark MLlib を使用した、スポーツ製品に対する顧客の関心の予測](https://github.com/pmservice/product-line-prediction)
+    サンプル・アプリケーション
+        [Spark MLlib を使用した、スポーツ製品に対する顧客の関心の予測](https://github.com/pmservice/product-line-prediction)
         [SPSS を使用した、企業の財務業績予測](https://github.com/pmservice/financial-performance-prediction)
         [SPSS を使用した、心臓疾患の最良の薬の選択](https://github.com/pmservice/drug-selection)
         [SPSS を使用した、衣料品の売上利益予測](https://github.com/pmservice/profits-forecast)

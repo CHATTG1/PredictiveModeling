@@ -13,7 +13,7 @@ lastupdated: "2017-11-16"
 
 # 環境のセットアップ
 
-{{site.data.keyword.pm_full}} を使用するには、適切な機会学習環境を作成することと、その環境に固有の資格情報を取得することができなければなりません。{{site.data.keyword.Bluemix}} インスタンスの作成は、[Cloud Foundry コマンド・ライン・インターフェース](https://github.com/cloudfoundry/cli#getting-started)を使用することによって、または、{{site.data.keyword.Bluemix}} ダッシュボードでグラフィカル・ユーザー・インターフェースを介して行うことができます。
+{{site.data.keyword.pm_full}} を使用するには、適切な機会学習環境を作成することと、その環境に固有の資格情報を取得することができなければなりません。{{site.data.keyword.Bluemix_full}} インスタンスの作成は、[Cloud Foundry コマンド・ライン・インターフェース](https://github.com/cloudfoundry/cli#getting-started)を使用することによって、または、{{site.data.keyword.Bluemix_full}} ダッシュボードでグラフィカル・ユーザー・インターフェースを介して行うことができます。
 {: shortdesc}
 
 ## IBM Cloud ダッシュボードの使用
