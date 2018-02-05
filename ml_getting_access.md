@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2016, 2017
-lastupdated: "2017-11-06"
+  years: 2016, 2018
+lastupdated: "2018-02-05"
 
 ---
 {:new_window: target="_blank"}
@@ -29,16 +29,25 @@ Depending on your scenario, you may also need the following resources:
 
 To see how to work with the Dashboard to create the {{site.data.keyword.Bluemix_notm}} instances and view credentials, watch the following video, which supplements the written steps, which follow the video.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/fm8gqguFD9g?rel=0" frameborder="0" allowfullscreen></iframe>
+<figure class="fignone" id="concept_bvb_fts_1cb__machinelearningsetup"><figcaption>Figure 1. <span class="ph"><a href="https://www.youtube.com/embed/fm8gqguFD9g?rel=0" rel="external" target="_blank" title="If you cannot access the video that is embedded in this page, you can access the video from the YouTube website. (Opens in a new tab or window)">    <img src="images/video.png" alt="Video icon"></a>IBM Watson Machine Learning: Get Started</span></figcaption>
+
+<object height="315" data="https://www.youtube.com/embed/fm8gqguFD9g?rel=0" width="560">
+<span>This video provides an overview of how to set up your machine learning environment.</span>
+<param name="movie" value="https://www.youtube.com/embed/fm8gqguFD9g?rel=0">
+<param name="allowFullScreen" value="true">
+<param name="allowscriptaccess" value="always">
+<param name="scale" value="noScale">
+</object>
+</figure>
 
 ## Creating {{site.data.keyword.Bluemix_notm}} instances
 
 To create the {{site.data.keyword.pm_full}} instance, you must perform the following steps:
 
-1. Open the {{site.data.keyword.pm_full}} [service page](https://console.bluemix.net/catalog/services/machine-learning)
+1. Open the {{site.data.keyword.pm_full}} [service page](https://console.bluemix.net/catalog/services/machine-learning).
 2. Sign up or log in to create the service instance.
 3. Enter a descriptive name for your instance, choose a space, and select your data plan.
-4. Click **Create Instance**.
+4. Click **Create**.
 
 Your instance opens.
 
@@ -62,7 +71,7 @@ To use the {{site.data.keyword.pm_short}} service in your application, you must 
 ### Steps to bind the service with {{site.data.keyword.Bluemix_notm}} application
 
 You can download Node.js [sample code](https://github.com/pmservice/product-line-prediction/blob/master/README.md) to try the Machine
-Learning service. Complete the following steps to create your {{site.data.keyword.Bluemix_notm}} application and bind the {{site.data.keyword.pm_short}} service. These examples use Node.js because it is a popular runtime. Others can be used such as iOS, Ruby, Perl, or Java.
+Learning service. Complete the following steps to create your {{site.data.keyword.Bluemix_notm}} application and bind the {{site.data.keyword.pm_short}} service. These examples use Node.js because it is a popular runtime. Others can be used, such as iOS, Ruby, Perl, or Java.
 
 You can also perform steps 1 - 3 by using the {{site.data.keyword.Bluemix_notm}} Graphical Interface instead of the Cloud Foundry tool (cf).
 
@@ -92,7 +101,7 @@ You can also perform steps 1 - 3 by using the {{site.data.keyword.Bluemix_notm}}
    For example, the following command creates {{site.data.keyword.pm_short}} service credentials:
 
    ```
-   cf create-service-key "IBM {{site.data.keyword.pm_full}} - my instance" Credentials-1
+   cf create-service-key "IBM Watson Machine Learning - my instance" Credentials-1"
    ```
    {: codeblock}
 

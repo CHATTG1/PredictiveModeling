@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2016, 2017
-lastupdated: "2017-11-16"
+  years: 2016, 2018
+lastupdated: "2018-02-05"
 
 ---
 {:new_window: target="_blank"}
@@ -24,7 +24,7 @@ the deployed model.
 
 ### Scenario description:
 
-Our client is running one of the most
+Our client runs one of the most
 famous chain stores in Europe. They would like us to figure out
 their clients' interests in terms of their product line such as
 personal accessories, camping equipment, and outdoor protection.
@@ -39,12 +39,12 @@ the deployed model.
 
 Use [Data Science Experience](https://console.bluemix.net/catalog/services/data-science-experience) to create custom models. After you sign up, you must sign in to complete the following steps.
 
-1. Create an organization and a space. The first time you sign in, you'll be asked for it. Click **Continue** to accept the default values.
+1. Create an organization and a space. The first time you sign in, you must provide this information. Click **Continue** to accept the default values.
 2. After the organization is created, go to **Projects** and click
    **New project**.
 3. Specify a name and description for your project and click
-   **Create**. The project name you specified will also be used as
-   your Target Container's name.
+   **Create**. The project name that you specified is used as
+   the Target Container name.
 4. After the project is created, you can perform one of the following tasks:
    
    *  **add notebooks** and start developing your own models or upload one of the following sample notebooks:
@@ -56,7 +56,7 @@ Use [Data Science Experience](https://console.bluemix.net/catalog/services/data-
 
 #### Using local environment
 
-You can also use environment of your choice to develop model and later publish, deploy and score using Watson Machine Learning  [common API client library]() available on pypi.
+You can also use environment of your choice to develop model and later publish, deploy and score using {{site.data.keyword.pm_full}} [common API client library]() available on PyPI.
 For more information about the client library, see the sample [notebook](https://dataplatform.ibm.com/analytics/notebooks/1fed143e-1877-42bd-b927-7d366e73745b/view?access_token=4b39718f9e1f1de55e6e67e8dcbb5f0cac848f390d73478d0dea9c1a8af24550&cm_mc_uid=30670837705115063231884&cm_mc_sid_50200000=1509364125) and [documentation](pm_service_client_library.html).
 
 **Note:** The common API client library is in **beta**.

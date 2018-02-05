@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2016, 2017
-lastupdated: "2017-11-16"
+  years: 2016, 2018
+lastupdated: "2018-02-05"
 
 ---
 {:new_window: target="_blank"}
@@ -14,7 +14,7 @@ lastupdated: "2017-11-16"
 # Machine Learning service batch job API for IBM SPSS Modeler models
 
 The batch job API for the {{site.data.keyword.pm_full}} service supports the
-long-running tasks related to model training, model evaluation,
+long-running tasks that relate to model training, model evaluation,
 and batch scoring. This API manages two asset types: the IBM® SPSS®
 Modeler stream files that are used in the batch jobs and the job
 definitions that are submitted. 

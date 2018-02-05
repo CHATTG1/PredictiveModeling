@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2016, 2017
-lastupdated: "2017-11-16"
+  years: 2016, 2018
+lastupdated: "2018-02-05"
 
 ---
 
@@ -322,9 +322,8 @@ GENDER,AGE,MARITAL_STATUS,PROFESSION
 Sample record:
 
 ```
-M,27,Single,Professional
-F,56,Unspecified,Hospitality
-M,45,Married,Retired
+M,23,Single,Student
+M,55, Single,Executive
 ```
 {: codeblock}
 

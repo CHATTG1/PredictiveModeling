@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2016, 2017
-lastupdated: "2017-11-16"
+  years: 2016, 2018
+lastupdated: "2018-02-05"
 
 ---
 
@@ -28,8 +28,8 @@ learning, artificial intelligence, and statistics.
 
 ## Learn more
 
-For more information about IBM® SPSS® Modeler and the modeling algorithms it
-provides, see [IBM Knowledge Center]().
+For more information about IBM® SPSS® Modeler and the modeling algorithms that it
+provides, see [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/v1/content/SS3RA7_18.1.1/modeler_mainhelp_client_ddita/modeler_mainhelp_client_ddita-gentopic1.html).
 
 For more information about Data Science Experience and the modeling
-algorithms it provides, see [https://datascience.ibm.com](https://datascience.ibm.com).
+algorithms that it provides, see [https://datascience.ibm.com](https://datascience.ibm.com).

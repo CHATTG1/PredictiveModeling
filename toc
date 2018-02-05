@@ -11,17 +11,12 @@ Machine Learning
     pm_service_supported_frameworks.md
 
     {: .topicgroup}
-    Spark and Python models
+    Interfaces
         pm_service_api_spark.md
             pm_service_api_spark_swagger.md
-            pm_custom_models.md
-            pm_service_api_spark_online.md
-            pm_service_api_spark_scoring.md
-            pm_service_api_spark_building.md
-            pm_service_api_spark_batch.md
-            pm_service_api_spark_streaming.md
-            pm_service_api_spark_learning_system.md
         pm_service_client_library.md
+        ml_dlaas_environment.md
+        [Data Science Experience](https://datascience.ibm.com/docs/content/getting-started/welcome-main.html?context=analytics)
         pm_service_ui_spark.md
             pm_service_ui_spark_online.md
             pm_service_ui_spark_batch.md
@@ -29,7 +24,7 @@ Machine Learning
             pm_service_ui_spark_learning_system.md
 
     {: .topicgroup}
-    SPSS models
+    SPSS Streams (PA)
         using_pm_service.md
         pm_service_api_spss.md
             pm_service_api_spss_online.md
@@ -37,14 +32,47 @@ Machine Learning
             pm_service_api_develop.md
             pm_service_api_batch.md
         pm_service_api_new_spss_online.md
+
+    {: .topicgroup}
+    Deep learning (beta)
+        ml_dlaas.md
+        ml_dlaas_environment.md
+        ml_dlaas_environment_pyclient.md
+        ml_dlaas_working_with_new_models.md
+        ml_dlaas_code_guidelines.md
+        ml_dlaas_working_with_training_definitions.md
+        ml_dlaas_working_with_experiments.md
+        ml_dlaas_model_deploy_score.md
+        ml_dlaas_working_with_sample_models.md
+        ml_dlaas_object_store.md
     {: .navgroup-end}
 
     {: .navgroup id="howto"}
-    pm_service_api_spark_online.md
-    pm_service_api_spark_batch.md
-    pm_service_ui_spark_streaming.md
-    pm_service_api_spark_building.md
-    pm_service_ui_spark.md
+    {: .topicgroup}
+    Building models
+        pm_custom_models.md
+        [Deep learning](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas.html)
+
+    {: .topicgroup}
+    REST API tutorials
+        pm_service_api_spark_online.md
+        pm_service_api_spark_scoring.md
+        pm_service_api_spark_batch.md
+        pm_service_api_spark_streaming.md
+        pm_service_api_spark_learning_system.md
+
+    {: .topicgroup}
+    Building applications
+        pm_service_api_spark_scoring.md
+        pm_service_api_spark_building.md
+
+    {: .topicgroup}
+    Sample applications
+        [Customer interest in sport products prediction using Spark MLlib](https://github.com/pmservice/product-line-prediction)
+        [Financial performance prediction of a company using SPSS](https://github.com/pmservice/financial-performance-prediction)
+        [Best drug selection for a heart problem using SPSS](https://github.com/pmservice/drug-selection)
+        [Clothes sales profits prediction using SPSS](https://github.com/pmservice/profits-forecast)
+        [Customer churn prediction using SPSS](https://github.com/pmservice/customer-satisfaction-prediction)
 
     {: .topicgroup}
     Sample notebooks
@@ -59,19 +87,12 @@ Machine Learning
         [From SPSS stream to batch scoring with Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37)
         [From local Spark MLlib model to cloud with watson-machine-learning-client](https://apsportal.ibm.com/analytics/notebooks/1fed143e-1877-42bd-b927-7d366e73745b/view?access_token=4b39718f9e1f1de55e6e67e8dcbb5f0cac848f390d73478d0dea9c1a8af24550)
         [From local scikit-learn model to cloud with watson-machine-learning-client](https://dataplatform.ibm.com/analytics/notebooks/15b46bd5-dde2-4d59-9d7d-51cc0b860c8b/view?access_token=d8711ad6ae84b3a9c60d43966f961f66adc2c5b89fec18f24c85e40774080e9a)
-
-    {: .topicgroup}
-    Sample applications
-        [Customer interest in sport products prediction using Spark MLlib](https://github.com/pmservice/product-line-prediction)
-        [Financial performance prediction of a company using SPSS](https://github.com/pmservice/financial-performance-prediction)
-        [Best drug selection for a heart problem using SPSS](https://github.com/pmservice/drug-selection)
-        [Clothes sales profits prediction using SPSS](https://github.com/pmservice/profits-forecast)
-        [Customer churn prediction using SPSS](https://github.com/pmservice/customer-satisfaction-prediction)
+        [From local PMML model to cloud with watson-machine-learning-client](https://dataplatform.ibm.com/analytics/notebooks/398d558b-57c4-4017-b422-8b0767d2ca23/view?access_token=7c7c518bd3a1deeecf3ea043d06a2a650361ee5997f4b9e7227f94d2a0f6f6f7)
     {: .navgroup-end}
 
     {: .navgroup id="reference"}
-    [Machine Learning REST API](http://watson-ml-api.mybluemix.net)
-    [Machine Learning API client libraries](pm_service_client_library.html)
+    [REST API (swagger)](http://watson-ml-api.mybluemix.net)
+    [Client libraries](pm_service_client_library.html)
     ml_troubleshooting.md
     wml_quota_policy.md
     [Supported SPSS Modeler nodes](https://www.ibm.com/support/knowledgecenter/SSWLVY_3.0.1/analytic_server_user-guide_ddita/analytic_server/ae_modeler_integration_supported_nodes.html)

@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2016, 2017
-lastupdated: "2017-11-16"
+  years: 2016, 2018
+lastupdated: "2018-02-05"
 
 ---
 {:new_window: target="_blank"}
@@ -13,9 +13,9 @@ lastupdated: "2017-11-16"
 
 # REST API for Deep learning
 
-REST APIs for Deep learning will be released soon.
+REST APIs for Deep learning are not yet available.
 
-In the meantime you can train deep learning models by installing the [command line interface](ml_dlaas_environment.html)
+To train deep learning models, install and use the [command line interface](ml_dlaas_environment.html).
 
 ## Learn more
 

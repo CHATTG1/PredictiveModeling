@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2016, 2017
-lastupdated: "2017-11-16"
+  years: 2016, 2018
+lastupdated: "2018-02-05"
 
 ---
 
@@ -26,7 +26,7 @@ through the {{site.data.keyword.pm_full}} Dashboard:
 *  Display model details
 *  Deploy a model as:
    *  Online deployment
-   *  Batch deployment (supporting IBM Object Storage and {{site.data.keyword.dashdbshort}})
+   *  Batch deployment (supporting {{site.data.keyword.Bluemix}} Object Storage and {{site.data.keyword.dashdbshort}})
    *  Stream deployment (supporting IBM Message Hub)
 *  Get deployment details
 *  Delete a deployment
@@ -42,6 +42,6 @@ through the {{site.data.keyword.pm_full}} Dashboard:
 See the following sections for Dashboard examples:
 
 *  [Online deployment](pm_service_ui_spark_online.html)
-*  [Batch deployment with Object Storage (beta)](pm_service_ui_spark_batch.html)
-*  [Streaming deployment with MessageHub (beta)](pm_service_ui_spark_streaming.html)
-*  [Continuous learning system (beta)](pm_service_ui_spark_learning_system.html)
+*  [Batch deployment with Object Storage](pm_service_ui_spark_batch.html)
+*  [Streaming deployment with MessageHub](pm_service_ui_spark_streaming.html)
+*  [Continuous learning system](pm_service_ui_spark_learning_system.html)

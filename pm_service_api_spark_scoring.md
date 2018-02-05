@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2016, 2017
-lastupdated: "2017-09-18"
+  years: 2016, 2018
+lastupdated: "2018-02-05"
 
 ---
 
@@ -51,7 +51,7 @@ curl --basic --user username:password https://ibm-watson-ml.mybluemix.net/v3/ide
 ```
 {: codeblock}
 
-Output:
+Sample Output:
 
 ```
 {"token":"**********"}

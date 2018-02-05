@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2016, 2017
-lastupdated: "2017-11-16"
+  years: 2016, 2018
+lastupdated: "2018-02-05"
 
 ---
 
@@ -16,19 +16,6 @@ lastupdated: "2017-11-16"
 # Getting started
 {: #WMLgettingstarted}
 
-<!--  How to use WML with DSX
-- How to use WML with SPSS (Both of these users will be sent to this topic for help and the user needs to find their specific information here
-- We need to outline all of the frameworks and APIs that are active and include them in the steps. We will create a highlevel overview and then refer users out to the specfics in the topics
-
-**Notes about structure**: Certain aspects of the Watson Data Platform documentation are not in our control. For example, the headings for LEARN, HOW TO, REFERENCE, and HELP are set. We can only divvie up our topics into those buckets. Also, in this topic the About section is set and is used by WDP for Google searches
-
-Use {{site.data.keyword.pm_full}} to integrate predictive analytics with your applications. Data scientists use machine learning to develop predictive models, whereas developers use machine learning to create applications that make smarter decisions, solve tough problems, and improve user outcomes.
-{: shortdesc}
-
-The IBM Watson Machine Learning co-operates with the Apache Spark as a Service to create batch, stream deployments and for learning configuration functionality.
-
-Application runtime environments that you can use , SDK for Node.js, Liberty for Java, Go, PHP, Python, Ruby-->
-
 {{site.data.keyword.pm_full}} is an IBM Cloud service that enables users to perform two fundamental operations of machine learning: training and scoring.
 {: shortdesc}
 
@@ -37,7 +24,7 @@ Application runtime environments that you can use , SDK for Node.js, Liberty for
 
 {{site.data.keyword.pm_full}} is designed to address the needs of two primary personas:
 
-- Data Scientists: Create machine learning pipelines that leverage data transformations and machine learning algorithms. They typically use notebooks or external tooling to train and evaluate their models. Data scientists often collaborate with Data engineers to explore and understand the data.
+- Data Scientists: Create machine learning pipelines that leverage data transformations and machine learning algorithms. They typically use notebooks or external tools to train and evaluate their models. Data scientists often collaborate with Data engineers to explore and understand the data.
 - Developers: Build intelligent applications that use the predictions output by machine learning models.
 
 Although training is a critical step in the machine learning process, {{site.data.keyword.pm_full}} enables you to streamline the functioning of your models by deploying them and getting actual business value from them over time and through all of their iterations.
@@ -55,16 +42,16 @@ To use {{site.data.keyword.pm_full}}, from the {{site.data.keyword.Bluemix_short
 
 ## Using Machine Learning with Data Science Experience
 
-{{site.data.keyword.pm_full}} is integrated with IBM Data Science Experience. You can use Machine Learning API client libraries in Data Science Experience notebooks; you must have a Machine Learning instance to use Model Builder and Flow Editor.
+{{site.data.keyword.pm_full}} is integrated with IBM Data Science Experience. You can use {{site.data.keyword.pm_short}} API client libraries in Data Science Experience notebooks; you must have a Machine Learning instance to use Model Builder and Flow Editor.
 
 ## Using Machine Learning with SPSS Modeler
 
-{{site.data.keyword.pm_full}} is integrated with IBM® SPSS® Modeler. You can use the Machine Learning API to leverage advanced mathematical algorithms.
+{{site.data.keyword.pm_full}} is integrated with IBM® SPSS® Modeler. You can use the {{site.data.keyword.pm_short}} API to leverage advanced mathematical algorithms.
 
 
 ## Using Machine Learning with your environment
 
-{{site.data.keyword.pm_full}} can be used as a hybrid solution linking your local environment with cloud. You can use the Machine Learning API to publish your models, deploy, and score. For more information, see [DSX: Hybrid Mode](https://medium.com/ibm-data-science-experience/dsx-hybrid-mode-91b580450c5b).
+{{site.data.keyword.pm_full}} can be used as a hybrid solution linking your local environment with cloud. You can use the {{site.data.keyword.pm_short}} API to publish your models, deploy, and score. For more information, see [DSX: Hybrid Mode](https://medium.com/ibm-data-science-experience/dsx-hybrid-mode-91b580450c5b).
 
 ## About
 

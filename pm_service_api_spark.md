@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2016, 2017
-lastupdated: "2017-11-16"
+  years: 2016, 2018
+lastupdated: "2018-02-05"
 
 ---
 
@@ -31,8 +31,8 @@ through the powerful [REST APIs](https://watson-ml-api.mybluemix.net/):
 *  Retrieve the metadata for a given predictive model
 *  Deploy models and manage deployed models
     *  Online deployment (scoring)
-    *  Batch deployment (supporting IBM Cloud Object Storage and {{site.data.keyword.dashdbshort}})
-    *  Stream deployment (supporting IBM Cloud Message Hub)
+    *  Batch deployment (supporting {{site.data.keyword.Bluemix}} Object Storage and {{site.data.keyword.dashdbshort}})
+    *  Stream deployment (supporting {{site.data.keyword.Bluemix}} Message Hub)
 *  Retrieve the metadata for a given deployment
 *  Monitor and retrain deployed models by using the continuous learning system
 *  Generate predictive analytics by making score requests against

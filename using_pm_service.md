@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2016, 2017
-lastupdated: "2017-11-16"
+  years: 2016, 2018
+lastupdated: "2018-02-05"
 
 ---
 
@@ -37,7 +37,7 @@ your applications.
 
 Complete the following steps to create your {{site.data.keyword.Bluemix_notm}} application and bind it to the {{site.data.keyword.pm_short}} service.
 
-1. Download Node.js sample application code from [github repository](https://github.com/pmservice/customer-satisfaction-prediction).
+1. Download Node.js sample application code from [GitHub repository](https://github.com/pmservice/customer-satisfaction-prediction).
 
 2. Use the `cf create-service` command to create a service
    instance:
@@ -68,14 +68,14 @@ Complete the following steps to create your {{site.data.keyword.Bluemix_notm}} a
    For example:
 
    ```
-   cf create-service-key "IBM Watson Machine Learning - my instance" Credentials-1
+   cf create-service-key "IBM Watson Machine Learning - my instance" Credentials-1"
    ```
    {: codeblock}
 
    This command creates {{site.data.keyword.pm_short}} service credentials.
 
-4. Use the cf bind-service command to bind the service instance
-   my_pm_lite to your application.
+4. Use the `cf bind-service` command to bind the service instance
+   `my_pm_lite` to your application.
 
    ```
    cf bind-service AppName my_pm_service
