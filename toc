@@ -32,26 +32,12 @@ Machine Learning
             pm_service_api_develop.md
             pm_service_api_batch.md
         pm_service_api_new_spss_online.md
-
-    {: .topicgroup}
-    Deep learning (beta)
-        ml_dlaas.md
-        ml_dlaas_environment.md
-        ml_dlaas_environment_pyclient.md
-        ml_dlaas_working_with_new_models.md
-        ml_dlaas_code_guidelines.md
-        ml_dlaas_working_with_training_definitions.md
-        ml_dlaas_working_with_experiments.md
-        ml_dlaas_model_deploy_score.md
-        ml_dlaas_working_with_sample_models.md
-        ml_dlaas_object_store.md
     {: .navgroup-end}
 
     {: .navgroup id="howto"}
     {: .topicgroup}
     Building models
         pm_custom_models.md
-        [Deep learning](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas.html)
 
     {: .topicgroup}
     REST API tutorials
