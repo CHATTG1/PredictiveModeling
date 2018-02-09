@@ -15,7 +15,6 @@ Machine Learning
         pm_service_api_spark.md
             pm_service_api_spark_swagger.md
         pm_service_client_library.md
-        ml_dlaas_environment.md
         [Data Science Experience](https://datascience.ibm.com/docs/content/getting-started/welcome-main.html?context=analytics)
         pm_service_ui_spark.md
             pm_service_ui_spark_online.md
