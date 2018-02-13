@@ -37,7 +37,6 @@ Machine Learning
     {: .topicgroup}
     Building models
         pm_custom_models.md
-        [Deep learning](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas.html)
 
     {: .topicgroup}
     REST API tutorials
@@ -81,7 +80,6 @@ Machine Learning
     [Client libraries](pm_service_client_library.html)
     ml_troubleshooting.md
     wml_quota_policy.md
-    [Supported SPSS Modeler nodes](https://www.ibm.com/support/knowledgecenter/SSWLVY_3.0.1/analytic_server_user-guide_ddita/analytic_server/ae_modeler_integration_supported_nodes.html)
 
     {: .topicgroup}
     Related tools
