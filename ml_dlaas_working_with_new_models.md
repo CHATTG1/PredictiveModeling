@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-05"
+lastupdated: "2018-02-13"
 
 ---
 {:new_window: target="_blank"}
@@ -17,7 +17,7 @@ lastupdated: "2018-02-05"
 Training runs are the organizing principle for using deep learning functions in {{site.data.keyword.pm_full}}. A typical scenario might consist of dozens to hundreds of training runs. Each run is defined individually and consists of the following parts: the neural network defined by using one of the [supported deep learning frameworks](pm_service_supported_frameworks.html) and the configuration for how to run your training including the number of GPUs and location of the object storage that contains your data set.
 {: shortdesc}
 
-<!--<p align="center"><img src="images/experiment_to_training_runs_text.svg?lang=en" alt="relation of experiments to training runs"></p>-->
+<p align="center"><img src="images/experiment_to_training_runs_text.png?lang=en" alt="relation of experiments to training runs"></p>
 
 This document will explain how a training run can be set up and executed.  You may also want to refer to a practical example described in [Tutorial - Build a TensorFlow Model to recognize Handwritten Digits](ml_dlaas_working_with_sample_models.html)
 
@@ -27,7 +27,7 @@ You will define your neural network and associated data handling using one of th
 
 See also [Coding Guidelines for Deep Learning Programs](ml_dlaas_code_guidelines.html) for structuring your code to integrate well with the service. 
 
-You will tthen package these files together by using the .zip format. For example, if the model was written in Torch then package your .lua files; if in Caffe then compress the .prototxt file; or if in Tensorflow/Keras/MXNet then compress your .py files.  Other compression formats, such as gzip or tar are not supported. Consult the documentation for the Deep Learning framework you want to use in order to prepare the model definition files.  
+You will then package these files together by using the .zip format. For example, if the model was written in Torch then package your .lua files; if in Caffe then compress the .prototxt file; or if in TensorFlow/Keras/MXNet then compress your .py files.  Other compression formats, such as gzip or tar are not supported. Consult the documentation for the Deep Learning framework you want to use in order to prepare the model definition files.  
 
 <!-- Supposedly this isn't true anymore >> NOTE: All model definition files must be in the first level of the zip file so ensure there are no nested directories in the zip file. -->
 

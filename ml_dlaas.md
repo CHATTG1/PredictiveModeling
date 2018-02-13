@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-05"
+lastupdated: "2018-02-13"
 
 ---
 {:new_window: target="_blank"}
@@ -11,12 +11,12 @@ lastupdated: "2018-02-05"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Introduction <span class='tag--beta'>Beta</span>
-
-<!--MJS-note![deep learning process flow](images/ml_dlaas_api_calls.png) -->
+# Introduction to deep learning in IBM Watson Machine Learning
 
 As a data scientist, you need to train hundreds of models to identify the right combination of data plus hyperparameters that optimizes the performance of your neural networks. You want to train deeper networks and explore broader hyperparameters spaces. {{site.data.keyword.pm_full}} accelerates this interative cycle by simplifying the process to train models in parallel on an elastic GPU compute cluster.
 {: shortdesc}
+
+![deep learning process flow](images/ml_dlaas_api_calls.png)
 
 "You want to perform more experiments…and faster."
 

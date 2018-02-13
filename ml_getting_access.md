@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-05"
+lastupdated: "2018-02-13"
 
 ---
 {:new_window: target="_blank"}
@@ -186,3 +186,7 @@ Request example:
     }
 ```
 {: codeblock}
+
+## Next steps
+
+Now that you have set up your environment, you can start work on [creating models](ml-pipelines.html) and [deploying them](ml-deploy.html).

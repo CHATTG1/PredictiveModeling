@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-05"
+lastupdated: "2018-02-13"
 
 ---
 {:new_window: target="_blank"}
@@ -26,7 +26,7 @@ Note: If you are interested in python client please refer to this [section]((ml_
 
 ## Creating a model definition .zip file
 
-After you define the neural network and associated data handling by using one of the [supported deep learning frameworks](ml_dlaas_supported_framework.html), then package these files together by using the .zip format. For example, if the model was written in Torch then package your .lua files; if in Caffe then compress the .prototxt file; or if in Tensorflow/Keras/MXNet then compress your .py files.  Other compression formats, such as gzip or tar are not supported. Consult the documentation for the Deep Learning framework you want to use in order to prepare the model definition files.  
+After you define the neural network and associated data handling by using one of the [supported deep learning frameworks](ml_dlaas_supported_framework.html), then package these files together by using the .zip format. For example, if the model was written in Torch then package your .lua files; if in Caffe then compress the .prototxt file; or if in TensorFlow/Keras/MXNet then compress your .py files.  Other compression formats, such as gzip or tar are not supported. Consult the documentation for the Deep Learning framework you want to use in order to prepare the model definition files.  
 
 <!-- Supposedly this isn't true anymore >> NOTE: All model definition files must be in the first level of the zip file so ensure there are no nested directories in the zip file. -->
 

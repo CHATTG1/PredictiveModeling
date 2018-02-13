@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-05"
+lastupdated: "2018-02-13"
 
 ---
 
@@ -142,18 +142,16 @@ There is support for PMML for the {{site.data.keyword.pm_full}} Online Deploymen
 
 ### Capabilities
 
+* Supported models in PMML format:
+  * R
+  * SAS
+  * SPSS
 * Deployment types:
   * Online
 
 ### Supported Versions
 
 * PMML version from 2.0 to 4.2
-
-### Restrictions
-
-There are some restrictions, which may include some or all of the following limitations:
-
-* R, SAS and SPSS models in PMML format are supported at this stage.
 
 ## TensorFlow <span class='tag--beta'>Beta</span>
 

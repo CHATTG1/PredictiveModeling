@@ -37,6 +37,7 @@ Machine Learning
     {: .topicgroup}
     Building models
         pm_custom_models.md
+        [Deep learning](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas.html)
 
     {: .topicgroup}
     REST API tutorials
