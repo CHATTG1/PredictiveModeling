@@ -24,7 +24,6 @@ Machine Learning
 
     {: .topicgroup}
     SPSS Streams (PA)
-        using_pm_service.md
         pm_service_api_spss.md
             pm_service_api_spss_online.md
             pm_service_api_manage.md

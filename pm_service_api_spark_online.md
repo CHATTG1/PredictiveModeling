@@ -435,10 +435,6 @@ curl -X POST --header 'Content-Type: application/json' --header 'Accept: applica
 
 ## Learn more
 
-Ready to get started? To create an instance of a service or bind
-an application, see [Using the service with Spark and Python models](using_pm_service_dsx.html) or
-[Using the service with IBM® SPSS® models](using_pm_service.html).
-
 For more information about the API, see [Service API for Spark and Python models](pm_service_api_spark.html) or [Service
 API for IBM® SPSS® models](pm_service_api_spss.html).
 

@@ -61,10 +61,6 @@ The focus of the {{site.data.keyword.pm_full}} service is deployment, but you ca
 
 ## Related Links
 
-Ready to get started? To create an instance of a service or bind
-an application, see [Using the service with Spark and Python models](using_pm_service_dsx.html) or
-[Using the service with SPSS models](using_pm_service.html).
-
 For more information about the API, see [Service API for Spark and Python models](pm_service_api_spark.html) or [Service
 API for SPSS models](pm_service_api_spss.html).
 

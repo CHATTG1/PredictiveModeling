@@ -53,7 +53,7 @@ Your instance opens.
 
 ## Retrieving your credentials
 
-To use your {{site.data.keyword.Bluemix_notm}} (previously known as Bluemix) instance, you need service instance credentials. You can create and access your credentials either through the [CF CLI](using_pm_service.html) or the {{site.data.keyword.Bluemix_notm}} Dashboard. After you bind the {{site.data.keyword.pm_short}} service instance to your {{site.data.keyword.Bluemix_notm}} application, the {{site.data.keyword.pm_short}} credentials are added to the `VCAP_SERVICES` environment variable. For more information, see [using the service with application](using_pm_service.html).
+To use your {{site.data.keyword.Bluemix_notm}} (previously known as Bluemix) instance, you need service instance credentials. You can create and access your credentials either through the CF CLI or the {{site.data.keyword.Bluemix_notm}} Dashboard. After you bind the {{site.data.keyword.pm_short}} service instance to your {{site.data.keyword.Bluemix_notm}} application, the {{site.data.keyword.pm_short}} credentials are added to the `VCAP_SERVICES` environment variable.
 
 To retrieve {{site.data.keyword.pm_full}} instance credentials, you must perform the following steps:
 
