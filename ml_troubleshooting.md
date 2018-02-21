@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-13"
+lastupdated: "2018-02-21"
 
 ---
 {:new_window: target="_blank"}
@@ -568,7 +568,8 @@ Re-generate the token for this {{site.data.keyword.pm_full}} instance and then r
 ## Unknown deployment identification:404
 {: #os_unkown_depid}
 
-The following message displays when you try to score online **Unknown deployment identification**. {: osSymptoms}
+The following message displays when you try to score online **Unknown deployment identification**. 
+{: osSymptoms}
 
 This message displays when the deployment ID that is used for scoring does not exists.
 {: tsCauses}
@@ -579,7 +580,8 @@ Make sure you are providing the correct deployment ID. If not, deploy the model 
 ## Internal server error:500
 {: #os_internal_error}
 
-The following message displays when you try to score online: **Internal server error**  {: osSymptoms}
+The following message displays when you try to score online: **Internal server error**  
+{: osSymptoms}
 
 This message displays if the downstream data flow on which the online scoring depends fails.
 {: tsCauses}
@@ -587,3 +589,19 @@ This message displays if the downstream data flow on which the online scoring de
 After waiting for a period of time, try to score online again. If it fails again then contact IBM Support.
 {: tsResolve}
               
+##  Invalid type for ml_artifact: Pipeline
+{: #os_invalid_type_artifact}
+
+The following message displays when you try to publish Spark model using Common API client library on your workstation.
+{: osSymptoms}
+
+This message displays if you have invalid pyspark setup in operating system.
+{: tsCauses}
+
+Set up system environment paths according to the instruction:
+```
+SPARK_HOME={installed_spark_path}
+JAVA_HOME={installed_java_path}
+PYTHONPATH=$SPARK_HOME/python/
+```
+{: tsResolve}

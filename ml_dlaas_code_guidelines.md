@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-13"
+lastupdated: "2018-02-21"
 
 ---
 {:new_window: target="_blank"}
@@ -27,7 +27,7 @@ Input data files located in the specified COS bucket are available to your progr
 
 input_data_folder = os.environ["DATA_DIR"]
 
-imagefile = open(os.path.join(image_data_folder,"imagedata.csv"))
+imagefile = open(os.path.join(input_data_folder,"imagedata.csv"))
 ```
 {: codeblock}
 

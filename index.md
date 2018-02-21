@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-13"
+lastupdated: "2018-02-21"
 
 ---
 
@@ -13,7 +13,7 @@ lastupdated: "2018-02-13"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Getting started
+# Getting started tutorial
 {: #WMLgettingstarted}
 
 {{site.data.keyword.pm_full}} is an IBM Cloud service that enables users to perform two fundamental operations of machine learning: training and scoring.
@@ -47,7 +47,6 @@ To use {{site.data.keyword.pm_full}}, from the {{site.data.keyword.Bluemix_short
 ## Using Machine Learning with SPSS Modeler
 
 {{site.data.keyword.pm_full}} is integrated with IBM® SPSS® Modeler. You can use the {{site.data.keyword.pm_short}} API to leverage advanced mathematical algorithms.
-
 
 ## Using Machine Learning with your environment
 

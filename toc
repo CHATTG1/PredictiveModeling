@@ -73,16 +73,25 @@ Machine Learning
         [From local Spark MLlib model to cloud with watson-machine-learning-client](https://apsportal.ibm.com/analytics/notebooks/1fed143e-1877-42bd-b927-7d366e73745b/view?access_token=4b39718f9e1f1de55e6e67e8dcbb5f0cac848f390d73478d0dea9c1a8af24550)
         [From local scikit-learn model to cloud with watson-machine-learning-client](https://dataplatform.ibm.com/analytics/notebooks/15b46bd5-dde2-4d59-9d7d-51cc0b860c8b/view?access_token=d8711ad6ae84b3a9c60d43966f961f66adc2c5b89fec18f24c85e40774080e9a)
         [From local PMML model to cloud with watson-machine-learning-client](https://dataplatform.ibm.com/analytics/notebooks/398d558b-57c4-4017-b422-8b0767d2ca23/view?access_token=7c7c518bd3a1deeecf3ea043d06a2a650361ee5997f4b9e7227f94d2a0f6f6f7)
+
+    {: .topicgroup}
+    Security
+        pm_service_security.md
+        pm_service_security-iam.md
     {: .navgroup-end}
 
     {: .navgroup id="reference"}
     [REST API (swagger)](http://watson-ml-api.mybluemix.net)
     [Client libraries](pm_service_client_library.html)
-    ml_troubleshooting.md
     wml_quota_policy.md
 
     {: .topicgroup}
     Related tools
         [IBM SPSS Modeler Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)
         [IBM Data Science Experience](https://datascience.ibm.com)
+    {: .navgroup-end}
+
+    {: .navgroup id="help"}
+    pm_service_faqs.md
+    ml_troubleshooting.md
     {: .navgroup-end}
