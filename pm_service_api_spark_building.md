@@ -14,6 +14,14 @@ lastupdated: "2018-02-21"
 
 # Building predictive analytics applications
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_spark_building.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 You can use the {{site.data.keyword.pm_full}} service to deploy a Node.js application.
 {: shortdesc}
 

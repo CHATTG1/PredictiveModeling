@@ -13,6 +13,12 @@ lastupdated: "2018-02-21"
 
 # Installing the Command line interface (CLI)
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas_environment.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you may have to the old location.
+
+_______
+
 To conduct deep learning modeling runs by using {{site.data.keyword.pm_full}}, first [set up your environment](ml_getting_access.html) then install the command line interface (CLI) which supports creating and monitoring training runs.
 {: shortdesc}
 
@@ -149,3 +155,4 @@ UTC Build Time : 20180118.120022
 Plugin Version : 1.9.0
 ```
 {: codeblock}
+

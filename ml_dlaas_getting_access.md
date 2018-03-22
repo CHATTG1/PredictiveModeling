@@ -13,6 +13,14 @@ lastupdated: "2018-02-21"
 
 # Setting up your machine learning environment and retrieving your credentials
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas_getting_access.html). Check there for the most up-to-date information.**
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 To use {{site.data.keyword.pm_full}}, you must be able to create the proper machine learning environment and retrieve the credentials that are specific to that environment.
 
 ## Setting up your environment
@@ -110,4 +118,5 @@ Depending on the service, you may have different fields, such as `username` and 
 ## Learn more
 
 [A quick deep learning tutorial](https://www.ibm.com/blogs/watson/2016/10/quick-deep-learning-tutorial/)
+
 

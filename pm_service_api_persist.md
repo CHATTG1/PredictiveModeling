@@ -14,6 +14,14 @@ lastupdated: "2018-02-21"
 
 # Persisting models
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_persist.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 Use the {{site.data.keyword.pm_full}} service to provide model versioning and keep the machine learning process well organized. You can do this by using the versioning, metadata, and access token capabilities of the {{site.data.keyword.pm_short}} service.
 {: shortdesc}
 

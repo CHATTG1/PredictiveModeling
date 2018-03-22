@@ -36,6 +36,8 @@ Machine Learning
     {: .topicgroup}
     Building models
         pm_custom_models.md
+        [Deep learning](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas.html)
+        [Sample notebooks](https://datascience.ibm.com/docs/content/analyze-data/ml-samples.html#sample-notebooks)
 
     {: .topicgroup}
     REST API tutorials
@@ -49,40 +51,17 @@ Machine Learning
     Building applications
         pm_service_api_spark_scoring.md
         pm_service_api_spark_building.md
-
-    {: .topicgroup}
-    Sample applications
-        [Customer interest in sport products prediction using Spark MLlib](https://github.com/pmservice/product-line-prediction)
-        [Financial performance prediction of a company using SPSS](https://github.com/pmservice/financial-performance-prediction)
-        [Best drug selection for a heart problem using SPSS](https://github.com/pmservice/drug-selection)
-        [Clothes sales profits prediction using SPSS](https://github.com/pmservice/profits-forecast)
-        [Customer churn prediction using SPSS](https://github.com/pmservice/customer-satisfaction-prediction)
-
-    {: .topicgroup}
-    Sample notebooks
-        [From Spark MLlib model to online scoring with Python](https://apsportal.ibm.com/analytics/notebooks/89492fd6-a641-4819-9176-3d9381561df9/view?access_token=d80bef1a172d1d83d3721b101886337158457281774186f181a2e6a5b57f5ec7)
-        [From Spark MLlib model to online scoring with Scala](https://apsportal.ibm.com/analytics/notebooks/c8652d2c-bfc9-4354-8168-f1c9f7f8dfc2/view?access_token=02a83fea8450a452c8de76af98dae078459d0f56810ddef4f4c62d5bc4fc72cf)
-        [From Spark MLlib model to batch scoring with python](https://apsportal.ibm.com/analytics/notebooks/5e4963d9-faea-455d-a7db-ff6302d1d8f5/view?access_token=5d23d36be72dea35ebbde9b4b5f4a16d0053ee898f1ab2ab73cf1301ce9322be)
-        [From Spark MLlib model to stream scoring with python](https://apsportal.ibm.com/analytics/notebooks/913a7daa-cf39-414d-9017-3a7840a53c59/view?access_token=f1ebc10873a226f248f744b26ee7f71d53c81d5752b9d940e23a33518a3e115d)
-        [From Spark MLlib model to learning system with python](https://dataplatform.ibm.com/analytics/notebooks/57bd0753-ccee-42bd-9d11-099a981e4fbe/view?access_token=40b77775b209dab516811a695ba1d5dbcab2dfb260c910daf3d985c9d4570325)
-        [From scikit-learn to online scoring with Python](https://apsportal.ibm.com/analytics/notebooks/5215a61a-16d7-4fa2-b060-e3e243ceebe3/view?access_token=70f48c95c5571a614ce97484d3f168b1d9b6aeebce015187d3d77ce6038f025e)
-        [From XGBoost scikit-learn wrapper model to online scoring with python](https://apsportal.ibm.com/analytics/notebooks/20c1c2d6-6a51-4bdc-9b2c-0e3f2bef7376/view?access_token=52b727bd6515bd687cfd88f929cc7869b0ea420e668b2730c6870e72e029f0d1)
-        [From XGBoost native model to online scoring with python](https://apsportal.ibm.com/analytics/notebooks/7a9ce22f-18cb-44aa-aaad-b3a8e839b543/view?access_token=263c7adf1c08bac182e15125e4fc667a1d44fca12b1af8b2aafe19ec7818755d)
-        [From SPSS stream to batch scoring with Python](https://apsportal.ibm.com/analytics/notebooks/9d7ce38e-9417-4c76-a6b9-5bc8cf40938a/view?access_token=5ca87e3007804e5b2bbbce77c20e99ac3c164d66f2d28dfffb54aa365caaef37)
-        [From local Spark MLlib model to cloud with watson-machine-learning-client](https://apsportal.ibm.com/analytics/notebooks/1fed143e-1877-42bd-b927-7d366e73745b/view?access_token=4b39718f9e1f1de55e6e67e8dcbb5f0cac848f390d73478d0dea9c1a8af24550)
-        [From local scikit-learn model to cloud with watson-machine-learning-client](https://dataplatform.ibm.com/analytics/notebooks/15b46bd5-dde2-4d59-9d7d-51cc0b860c8b/view?access_token=d8711ad6ae84b3a9c60d43966f961f66adc2c5b89fec18f24c85e40774080e9a)
-        [From local PMML model to cloud with watson-machine-learning-client](https://dataplatform.ibm.com/analytics/notebooks/398d558b-57c4-4017-b422-8b0767d2ca23/view?access_token=7c7c518bd3a1deeecf3ea043d06a2a650361ee5997f4b9e7227f94d2a0f6f6f7)
-
+        [Sample applications](https://datascience.ibm.com/docs/content/analyze-data/ml-samples.html#sample-applications)
+        
     {: .topicgroup}
     Security
         pm_service_security.md
-        pm_service_security-iam.md
     {: .navgroup-end}
 
     {: .navgroup id="reference"}
     [REST API (swagger)](http://watson-ml-api.mybluemix.net)
-    [Client libraries](pm_service_client_library.html)
-    wml_quota_policy.md
+    [Client libraries](https://datascience.ibm.com/docs/content/analyze-data/pm_service_client_library.html)
+    [Quota policy](https://datascience.ibm.com/docs/content/analyze-data/wml_quota_policy.html)
 
     {: .topicgroup}
     Related tools
@@ -91,6 +70,6 @@ Machine Learning
     {: .navgroup-end}
 
     {: .navgroup id="help"}
-    pm_service_faqs.md
-    ml_troubleshooting.md
+    [FAQs](https://datascience.ibm.com/docs/content/getting-started/faq.html)
+    [Troubleshooting](https://datascience.ibm.com/docs/content/troubleshoot/ml_troubleshooting.html)
     {: .navgroup-end}

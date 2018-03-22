@@ -14,6 +14,14 @@ lastupdated: "2018-02-21"
 
 # Deploying online models
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_spark_online.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 Using the {{site.data.keyword.pm_full}} service, you can deploy a model and
 generate predictive analytics by making score requests against
 the deployed model.

@@ -14,6 +14,13 @@ lastupdated: "2018-02-21"
 
 # Coding Guidelines for Deep Learning Programs
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas_code_guidelines.html). Check there for the most up-to-date information.**
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
 In general you should be able to easily run your existing Deep Learning programs using the service.  There are a few caveats including how your program will read data and save a trained model, but the modifications required should be relatively straightforwards.
 
 ## Obtaining the input data
@@ -34,22 +41,25 @@ imagefile = open(os.path.join(input_data_folder,"imagedata.csv"))
 
 ## Writing the trained model
 
-Output your trained model to a file or folder named `model` under the folder specified in the environment variable `RESULT_DIR`.  When you store a training-run into the repository, this `model` file or folder is saved.
+Output your trained model to a sub-folder named `model` under the folder specified in the environment variable `RESULT_DIR`.  You may need to create the `model` folder depending on how the deep learning framework save mechanism works...  When you store a training-run into the repository, files within this `model` sub-folder are collected and saved to the repository.
 
 ```
-output_model_folder = os.environ["RESULT_DIR"]
-output_model_path = os.path.join(output_model_folder,"model")
+results_folder = os.environ["RESULT_DIR"]
+output_model_subfolder = os.path.join(results_folder,"model")
 
-mymodel = train_model()
-mymodel.save(output_model_path)
+my_tensorflow_model = ... # obtain the trained model
+my_tensorflow_model.save(output_model_subfolder) # creates the model folder and saves into that folder
 ```
 {: codeblock}
 
-For guidelines on how to save a deep learning models in a format that is compatible with the deployment and scoring service please refer to [Deploying and scoring a deep learning model](ml_dlaas_model_deploy_score.html)
+For guidelines on how to save a deep learning models in a format that is compatible with the deployment and scoring service please refer to the following documents:
+* [Deploying and scoring a deep learning TensorFlow model](ml_dlaas_tensorflow_model_deploy_score.html)
+* [Deploying and scoring a deep learning Keras model](ml_dlaas_keras_model_deploy_score.html)
+* [Deploying and scoring a deep learning Caffe model](ml_dlaas_caffe_model_deploy_score.html)
 
 ## Writing to the log
 
-Just write to `stdout` (for example in python, use the `print` function) and the output will be collected by the service and made available when you monitor a running job or obtain the resulting log.
+Just write to `stdout` (for example in python, use the `print` function) and the output will be collected by the service and made available when you monitor a running job or obtain the resulting log.  Your program should not write any personally identifiable information (PII).
 
 ```
 print("starting to train model...")
@@ -60,16 +70,6 @@ print("model evaluation completed.")
 ```
 {: codeblock}
 
-## Reading hyper-parameters
-
-If your code is running as part of a larger experiment it may need to obtain values for hyper-parameters defined in the experiment.  The hyper-parameters will be supplied in a file called `config.json` as a JSON formatted dictionary, located in the current folder and can be read using the following example snippet (which expects hyper-parameters to be defined for `initial_learning_rate` and `total_iterations`:
-
-```
-hyper_params = json.loads(open("config.json").read())
-learning_rate = float(hyper_params["initial_learning_rate"])
-training_iters = int(hyper_params["total_iterations"])
-```
-{: codeblock}
 
 ## Computing and sending metrics
 
@@ -93,10 +93,34 @@ Now in your code you can compute metrics and write them to an appropriately name
 test_writer = tf.summary.FileWriter(tb_directory+'/test')
 
 
-for iteration in range(0,total_iterations):
-    # perform training for iteration
-    # compute test metrics into test_summary for iteration and write them to the tensorboard log
-    test_writer.add_summary(test_summary, iteration)
+for epoch in range(0,total_epochs):
+    # perform training for epoch
+    # compute test metrics into test_summary for epoch and write them to the tensorboard log
+    test_writer.add_summary(test_summary, epoch)
 ```
 {: codeblock}
+
+## Computing and sending metrics for keras
+
+Coming soon
+
+## Computing and sending metrics for pytorch
+
+For the `pytorch` framework please use the following logging approach based on the python code in [emetrics.py](https://github.com/pmservice/wml-sample-models/raw/master/deep-learning/metrics/emetrics.py).  You can download this python file and add it to your training definition zip, then import it and use it in your program.
+
+```
+from emetrics import EMetrics
+
+with EMetrics.open() as em:
+	for epoch in range(0,total_epochs):
+    	# perform training for epoch
+    	# compute training metrics and assign to values train_metric1, train_metric2 etc
+    	em.record("training",epoch,{'metric1': train_metric1, 'metric2': train_metric2})
+    	
+    	# compute test metrics and assign to values test_metric1, test_metric2 etc
+    	# NOTE for these use the group EMetrics.TEST_GROUP so that the service will recognize these metrics as computed on test/validation data
+    	em.record(EMetrics.TEST_GROUP,epoch,{'metric1': test_metric1, 'metric2': test_metric2})
+```
+{: codeblock}
+
 

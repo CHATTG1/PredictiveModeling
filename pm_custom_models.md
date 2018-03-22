@@ -13,6 +13,14 @@ lastupdated: "2018-02-21"
 
 # Development and persistence of the custom model
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/pm_custom_models.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 Using the {{site.data.keyword.pm_full}} service, you can deploy a model and
 generate predictive analytics by making score requests against
 the deployed model.

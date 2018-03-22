@@ -16,6 +16,14 @@ lastupdated: "2018-02-21"
 
 # Troubleshooting
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/ml-troubleshooting.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 Here are the answers to common troubleshooting questions about using {{site.data.keyword.pm_full}}.
 {: shortdesc}
 

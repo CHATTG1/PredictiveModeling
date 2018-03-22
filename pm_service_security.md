@@ -17,6 +17,14 @@ lastupdated: "2018-02-21"
 
 # Securing your data 
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/pm_service_security.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 Client data security is paramount. The following information outlines some of the ways that client data is protected when using the {{site.data.keyword.pm_full}} service and what you are expected to do to help in these efforts.
 
 ## Content and Data Protection
@@ -36,4 +44,4 @@ Sheet(s) for this Cloud Service will serve as the DPA Exhibit(s). If the DPA app
 
 ## GDPR statement that applies to deep learning log files
 
-**Disclaimer**: For ease of use and better retrievability, the deep learning training process writes to the training log files by using Compose and retrieves log file data by using Elasticsearch. Because the log data has the potential to be retrieved by a broad group of users, including but not limited to IBM customer support personnel you must not use the log files to store any personally identifiable information (PII).
+**Disclaimer:** Client’s use of the deep learning training process includes the ability to write to the training log files. Personal data must not be written to these training log files as they are accessible to other users within Client’s Enterprise as well as to IBM as necessary to support the Cloud Service.

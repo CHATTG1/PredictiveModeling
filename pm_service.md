@@ -14,6 +14,13 @@ lastupdated: "2018-02-21"
 
 # Getting started with IBM Watson Machine Learning
 
+**This content has moved to a [new location](https://dataplatform.ibm.com/docs/content/analyze-data/wml-get-started.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
 {{site.data.keyword.pm_full}} is a full-service {{site.data.keyword.Bluemix_notm}} offering
 that makes it easy for developers and data scientists to work
 together to integrate predictive analytics with their

@@ -13,10 +13,16 @@ lastupdated: "2018-02-21"
 
 # Introduction to deep learning in IBM Watson Machine Learning
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas.html). Check there for the most up-to-date information.**
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 As a data scientist, you need to train hundreds of models to identify the right combination of data plus hyperparameters that optimizes the performance of your neural networks. You want to train deeper networks and explore broader hyperparameters spaces. {{site.data.keyword.pm_full}} accelerates this interative cycle by simplifying the process to train models in parallel on an elastic GPU compute cluster.
 {: shortdesc}
-
-![deep learning process flow](images/ml_dlaas_api_calls.png)
 
 "You want to perform more experiments…and faster."
 
@@ -59,3 +65,4 @@ As indicated in the preceding diagram, 4 training runs are allocated to 4 contai
 
 * Get started using these [sample training runs](ml_dlaas_working_with_sample_models.html) or create your own [new training runs](ml_dlaas_working_with_new_models.html).
 * Go in depth with the following Developer Works article: [Introducing deep learning and long-short term memory networks](https://www.ibm.com/developerworks/analytics/library/iot-deep-learning-anomaly-detection-1/index.html).
+

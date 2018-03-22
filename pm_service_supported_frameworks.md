@@ -14,6 +14,14 @@ lastupdated: "2018-02-21"
 
 # Supported frameworks
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/pm_service_supported_frameworks.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 The {{site.data.keyword.pm_full}} service supports the following frameworks for model development and validation as a part of model lifecycle management.
 {: shortdesc}
 
@@ -31,7 +39,7 @@ The {{site.data.keyword.pm_full}} service supports Spark MLlib for the Online, B
 
 ### Supported Versions
 
-*  Spark 2.0
+*  Spark 2.1
 
 ### Restrictions
 
@@ -52,8 +60,8 @@ There is support for scikit-learn for the {{site.data.keyword.pm_full}} Online D
 
 ### Supported Versions
 
-- Anaconda 4.2.x for Python 3.5 Runtime
-- Scikit-Learn 0.17
+- Scikit-Learn 0.17 on Anaconda 4.2.x for Python 3.5 Runtime
+- Scikit-Learn 0.19 on Anaconda 5.0.0 fot Python 3.5 Runtime
 
 ### Python Runtime
 
@@ -63,7 +71,9 @@ In some cases, where models were created by using the Python 2.7 runtime, deploy
 
 ### Supported Python Packages
 
-The list of Scikit-Learn model's dependent Python packages and its versions that can be used in WML Online Deployment and Scoring service can be found [here](https://docs.continuum.io/anaconda/packages/old-pkg-lists/4.2.0/py35).
+References for the list of Scikit-Learn model's dependent Python packages and its versions that can be used in WML Online Deployment and Scoring service
+- For Scikit-Learn 0.17 on Anaconda 4.2.x for Python 3.5 Runtime: [Packages included in Anaconda 4.2.0 for Python version 3.5](https://docs.continuum.io/anaconda/packages/old-pkg-lists/4.2.0/py35).
+- For Scikit-Learn 0.19 on Anaconda 5.0.0 for Python 3.5 Runtime: [Packages included in Anaconda 5.0.0 for 64-bit Linux with Python 3.5](https://docs.anaconda.com/anaconda/packages/old-pkg-lists/5.0.0/py3.5_linux-64).
 
 ### Restrictions
 
@@ -71,7 +81,6 @@ There are some restrictions, which may include some or all of the following limi
 
 * Classification and regression models are only supported.
 * Models can contain references only to those packages (and package version) supported by Anaconda 4.2.x for Python 3.5 runtime.
-* The "schema" endpoint returned during deployment request is not implemented.
 * Models that require Pandas Dataframe as input type for "predict()" API are not supported.
 * Models that contain references to custom transformers, user-defined functions and classes are not supported.
 
@@ -162,41 +171,46 @@ There is support for PMML for the {{site.data.keyword.pm_full}} Online Deploymen
 
 * PMML version from 2.0 to 4.2
 
-## TensorFlow <span class='tag--beta'>Beta</span>
+## Deep Learning Frameworks: TensorFlow, Keras and Caffe
 
-There is support for TensorFlow for the {{site.data.keyword.pm_full}} Training and Online Deployment and Scoring services. Only specific versions and runtime environments are supported. Currently the supported deep learning framework is TensorFlow 1.2-py3.
+There is support for TensorFlow, Keras and Caffe for the {{site.data.keyword.pm_full}} Training and Online Deployment and Scoring services. Only specific versions and runtime environments are supported.
 
 ### Capabilities
 
 * Training Service
 * Deployment types:
   * Online
+  * Batch
 
 ### Supported Versions
 
-* TensorFlow version 1.2
-* Anaconda 4.2.x for Python 3.5 Runtime
+* TensorFlow version 1.5
+* Keras version 2.1.3 (with Tensorflow v1.5 as backend)
+* Caffe version 1.0
 
 ### Python Runtime
 
-The Python runtime for models that needs to be deployed by using WML Online Deployment and Scoring service is Python 3.5.
+The Python runtime for models that needs to be deployed by using WML Online Deployment and Scoring service is Python 3.6.
 
-In some cases, where models were created by using the Python 2.7 runtime, deployment might fail because of the incompatibilities between Python2.7 and Python3.5.
+In some cases, where models were created by using the Python 2.7 runtime, deployment might fail because of the incompatibilities between Python2.7 and Python3.6.
 
-### Supported Python Packages
+### Prerequisites for deploying and serving
+A trained deep learning model targeted for deployment and serving must satisfy certain prerequisites. Refer the links below for specific details.
 
-The list of TensorFlow model's dependent Python packages and its versions that can be used in WML Online Deployment and Scoring service can be found [here](https://docs.continuum.io/anaconda/packages/old-pkg-lists/4.2.0/py35).
-
-### Prerequisites for deploying and serving a TensorFlow model
-
-A trained TensorFlow model targeted for deployment and serving must satisfy certain prerequisites. For more information, see [Deploying and scoring a deep learning model](ml_dlaas_model_deploy_score.html).
+- TensorFlow: [Deploying and scoring a TensorFlow model](ml_dlaas_model_tensorflow_deploy_score.html).
+- Keras: [Deploying and scoring a Keras model](ml_dlaas_model_keras_deploy_score.html).
+- Caffe: [Deploying and scoring a Caffe model](ml_dlaas_model_caffe_deploy_score.html).
 
 ### Restrictions
 
 There are some restrictions, which may include some or all of the following limitations:
 
 * Online Deployment and scoring service supports only JSON content as payload for online scoring functionality.
-* The models trained using `tf.estimator` framework is not supported.
+* TensorFlow: 
+    * The models trained using `tf.estimator` framework is not supported.
+    * User defined Tensor operations are not supported.
+* Caffe:
+    * User defined layers and blobs are not supported.
 
 
 ## Learn more

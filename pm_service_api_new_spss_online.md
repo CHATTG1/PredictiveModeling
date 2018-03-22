@@ -12,7 +12,15 @@ lastupdated: "2018-02-21"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# REST API (new) <span class='tag--beta'>Beta</span>
+# Watson Machine Learning API
+
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_new_spss_online.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
 
 To provide single user experience, the {{site.data.keyword.pm_full}} service provides a [REST API](http://watson-ml-api.mybluemix.net/) that is compliant with other supported frameworks. You can use the same API requests for SPSS® models and for other frameworks, such as scikit-learn, XGboost, or Spark MLlib.
 {: shortdesc}

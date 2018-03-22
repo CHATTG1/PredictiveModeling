@@ -13,6 +13,14 @@ lastupdated: "2018-02-21"
 
 # Set up an Object Store for Deep Learning
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas_object_store.html).  Check there for the most up-to-date information.**
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 To work with the {{site.data.keyword.pm_full}} service and the deep learning functions that are part of that service, you must have access to a Cloud Object Storage instance.  You must define Cloud Object Storage buckets to provide the training data and to store the trained model and logs, and you can use the same or separate Cloud Object Storage instances for this purpose.
 {: shortdesc}
 

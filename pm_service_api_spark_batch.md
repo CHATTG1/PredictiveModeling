@@ -14,6 +14,14 @@ lastupdated: "2018-02-21"
 
 # Deploying batch models
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_spark_batch.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 Using the {{site.data.keyword.pm_full}} service, you can deploy a model and
 generate predictive analytics by making score requests against
 the deployed model.
@@ -35,7 +43,7 @@ score requests against the deployed model.
 
 To work with this example, you must have the following resources:
 
-* [Object Storage](https://console.bluemix.net/catalog/services/object-storage) instance details, which are used as input (customer data to score) for the model and storage for the model output. The sample input data .csv file can be downloaded from [here](https://raw.githubusercontent.com/pmservice/wml-sample-models/master/spark/customer-satisfaction-prediction/data/scoreInput.csv). You should add the input file to your Object Storage instance.
+* [Cloud Object Storage](https://console.bluemix.net/catalog/infrastructure/cloud-object-storage) instance details, which are used as input (customer data to score) for the model and storage for the model output. The sample input data .csv file can be downloaded from [here](https://raw.githubusercontent.com/pmservice/wml-sample-models/master/spark/customer-satisfaction-prediction/data/scoreInput.csv). You should add the input file to your Object Storage instance.
 * [Apache Spark](https://console.bluemix.net/catalog/services/apache-spark) service instance credentials. You can use [this link](https://console.bluemix.net/catalog/services/apache-spark) to create one.
 
 
@@ -554,36 +562,32 @@ curl -v -XPOST \
       "description": "Batch Deployment",
        "input":{
           "source":{
-             "container":"batchjob",
+             "bucket":"batchjob",
              "filename":"TelcoCustomerData.csv",
              "fileformat":"csv",
              "inferschema":"1",
              "firstlineheader":"true",
-             "type":"bluemixobjectstorage"
+             "type":"cloudobjectstorage"
           },
           "connection":{
-             "userid":"b2d83cf6056e040ddb91ca00a2686c7d3",
-             "projectid":"252341ed707d4558b5b2da245e785cd7",
-             "password":"eJ_y9R^OE{j?8Ub!!",
-             "region":"dallas",
-             "authurl":"https://identity.open.softlayer.com"
+             "access_key":"***",
+             "secret_key":"***",
+             "url":"***"
           }
        },
        "output":{
           "target":{
-             "container":"batchjob",
+             "bucket":"batchjob",
              "filename":"result.csv",
              "fileformat":"csv",
              "writemode":"write",
              "firstlineheader":"true",
-             "type":"bluemixobjectstorage"
+             "type":"cloudobjectstorage"
           },
           "connection":{
-             "userid":"b283cf6056e040ddb91ca00a2686c7d3",
-             "projectid":"252341ed707d4558b5b2da245e785cd7",
-             "password":"eJ_y9R^OE{j?8Ub!!",
-             "region":"dallas",
-             "authurl":"https://identity.open.softlayer.com"
+             "access_key":"***",
+             "secret_key":"***",
+             "url":"***"
           }
        }
     }' \
@@ -629,11 +633,9 @@ Output example:
             "type":"bluemixobjectstorage"
          },
          "connection":{
-            "projectid":"cabb5f0c377d4ed080f917dc29605aad",
-            "userid":"1d5815d49ea4479ab6f29cc1733db774",
-            "region":"dallas",
-            "authurl":"https://identity.open.softlayer.com",
-            "password":"UF.D_/p9SKx5YPxw"
+             "access_key":"***",
+             "secret_key":"***",
+             "url":"***"
          }
       },
       "type":"batch",
@@ -663,11 +665,9 @@ Output example:
             "type":"bluemixobjectstorage"
          },
          "connection":{
-            "projectid":"cabb5f0c377d4ed080f917dc29605aad",
-            "userid":"1d5815d49ea4479ab6f29cc1733db774",
-            "region":"dallas",
-            "authurl":"https://identity.open.softlayer.com",
-            "password":"UF.D_/p9SKx5YPxw"
+             "access_key":"***",
+             "secret_key":"***",
+             "url":"***"
          }
       }
    }
@@ -726,11 +726,9 @@ Output example:
             "type":"bluemixobjectstorage"
          },
          "connection":{
-            "projectid":"cabb5f0c377d4ed080f917dc29605aad",
-            "userid":"1d5815d49ea4479ab6f29cc1733db774",
-            "region":"dallas",
-            "authurl":"https://identity.open.softlayer.com",
-            "password":"UF.D_/p9SKx5YPxw"
+             "access_key":"***",
+             "secret_key":"***",
+             "url":"***"
          }
       },
       "type":"batch",
@@ -760,11 +758,9 @@ Output example:
             "type":"bluemixobjectstorage"
          },
          "connection":{
-            "projectid":"cabb5f0c377d4ed080f917dc29605aad",
-            "userid":"1d5815d49ea4479ab6f29cc1733db774",
-            "region":"dallas",
-            "authurl":"https://identity.open.softlayer.com",
-            "password":"UF.D_/p9SKx5YPxw"
+             "access_key":"***",
+             "secret_key":"***",
+             "url":"***"
          }
       }
    }

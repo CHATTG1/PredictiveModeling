@@ -14,6 +14,14 @@ lastupdated: "2018-02-21"
 
 # Quota policy
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/wml_quota_policy.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 The {{site.data.keyword.pm_full}} engine enforces quotas on a per-instance basis to ensure appropriate resource allocation and usage. These policies vary according to account profiles, historical service usage, and availability of resources. The quota policy describes limits that are not defined by the pricing plan and **are subject to change without notice**. The following service quota limits are currently active.
 {: shortdesc}
 

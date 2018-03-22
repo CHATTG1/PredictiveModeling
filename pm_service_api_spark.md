@@ -14,6 +14,14 @@ lastupdated: "2018-02-21"
 
 # REST API
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_spark.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 The {{site.data.keyword.pm_short}} service is a set of REST APIs that you can call from
 any programming language and that permit the integration of Data Science
 Experience analytics in your applications. Bind your

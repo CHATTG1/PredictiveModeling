@@ -13,6 +13,14 @@ lastupdated: "2018-02-21"
 
 # Setting up your environment
 
+**This content has moved to a [new location](https://dataplatform.ibm.com/docs/content/analyze-data/wml-setup.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 To use {{site.data.keyword.pm_full}}, you must be able to create the proper machine learning environment and retrieve the credentials that are specific to that environment. You can create the {{site.data.keyword.Bluemix}} instance either by using the [Cloud Foundry command line interface](https://github.com/cloudfoundry/cli#getting-started) or through the graphical user interface in the {{site.data.keyword.Bluemix}} Dashboard.
 {: shortdesc}
 
@@ -186,7 +194,3 @@ Request example:
     }
 ```
 {: codeblock}
-
-## Next steps
-
-Now that you have set up your environment, you can start work on [creating models](ml-pipelines.html) and [deploying them](ml-deploy.html).

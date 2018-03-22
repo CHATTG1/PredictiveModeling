@@ -14,6 +14,14 @@ lastupdated: "2018-02-21"
 
 # Continuous learning system
 
+**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_spark_learning_system.html). Check there for the most up-to-date information.** 
+
+Update any bookmarks you might have to the old location.
+
+
+_____________
+
+
 The {{site.data.keyword.pm_full}} service includes a continuous learning system. Continuous learning systems provide automated monitoring of model performance, retraining, and redeployment to ensure prediction quality.
 {: shortdesc}
 
