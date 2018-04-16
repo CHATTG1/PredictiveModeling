@@ -15,7 +15,7 @@ Machine Learning
         pm_service_api_spark.md
             pm_service_api_spark_swagger.md
         pm_service_client_library.md
-        [Data Science Experience](https://datascience.ibm.com/docs/content/getting-started/welcome-main.html?context=analytics)
+        [Watson Studio](https://dataplatform.ibm.com/docs/content/getting-started/welcome-main.html?context=analytics)
         pm_service_ui_spark.md
             pm_service_ui_spark_online.md
             pm_service_ui_spark_batch.md
@@ -36,8 +36,8 @@ Machine Learning
     {: .topicgroup}
     Building models
         pm_custom_models.md
-        [Deep learning](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas.html)
-        [Sample notebooks](https://datascience.ibm.com/docs/content/analyze-data/ml-samples.html#sample-notebooks)
+        [Deep learning](https://dataplatform.ibm.com/docs/content/analyze-data/ml_dlaas.html)
+        [Sample notebooks](https://dataplatform.ibm.com/docs/content/analyze-data/ml-samples.html#sample-notebooks)
 
     {: .topicgroup}
     REST API tutorials
@@ -51,7 +51,7 @@ Machine Learning
     Building applications
         pm_service_api_spark_scoring.md
         pm_service_api_spark_building.md
-        [Sample applications](https://datascience.ibm.com/docs/content/analyze-data/ml-samples.html#sample-applications)
+        [Sample applications](https://dataplatform.ibm.com/docs/content/analyze-data/ml-samples.html#sample-applications)
         
     {: .topicgroup}
     Security
@@ -60,16 +60,16 @@ Machine Learning
 
     {: .navgroup id="reference"}
     [REST API (swagger)](http://watson-ml-api.mybluemix.net)
-    [Client libraries](https://datascience.ibm.com/docs/content/analyze-data/pm_service_client_library.html)
-    [Quota policy](https://datascience.ibm.com/docs/content/analyze-data/wml_quota_policy.html)
+    [Client libraries](https://dataplatform.ibm.com/docs/content/analyze-data/pm_service_client_library.html)
+    [Quota policy](https://dataplatform.ibm.com/docs/content/analyze-data/wml_quota_policy.html)
 
     {: .topicgroup}
     Related tools
         [IBM SPSS Modeler Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)
-        [IBM Data Science Experience](https://datascience.ibm.com)
+        [IBM Watson Studio](https://dataplatform.ibm.com)
     {: .navgroup-end}
 
     {: .navgroup id="help"}
-    [FAQs](https://datascience.ibm.com/docs/content/getting-started/faq.html)
-    [Troubleshooting](https://datascience.ibm.com/docs/content/troubleshoot/ml_troubleshooting.html)
+    [FAQs](https://dataplatform.ibm.com/docs/content/getting-started/faq.html)
+    [Troubleshooting](https://dataplatform.ibm.com/docs/content/troubleshoot/ml_troubleshooting.html)
     {: .navgroup-end}

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-21"
+lastupdated: "2018-04-16"
 
 ---
 
@@ -14,25 +14,9 @@ lastupdated: "2018-02-21"
 
 # Swagger REST API
 
-**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_spark_swagger.html). Check there for the most up-to-date information.** 
+**This content has moved to a [new location](https://dataplatform.ibm.com/docs/content/analyze-data/pm_service_api_spark_swagger.html). Check there for the most up-to-date information.** 
 
 Update any bookmarks you might have to the old location.
 
 
 _____________
-
-
-Full details about the {{site.data.keyword.pm_short}} REST API for Spark and Python models
-is available from the following [Swagger representation](http://watson-ml-api.mybluemix.net/).
-{: shortdesc}
-
-## Learn more
-
-For more information about the API, see [Service API for Spark and Python models](pm_service_api_spark.html) or [Service
-API for IBM® SPSS® models](pm_service_api_spss.html).
-
-For more information about IBM® SPSS® Modeler and the modeling algorithms it
-provides, see [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
-
-For more information about IBM Data Science Experience and the modeling
-algorithms it provides, see [https://datascience.ibm.com](https://datascience.ibm.com).

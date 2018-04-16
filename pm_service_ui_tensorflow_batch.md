@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-21"
+lastupdated: "2018-04-16"
 
 ---
 {:new_window: target="_blank"}
@@ -22,7 +22,7 @@ After a trained model has been identified for serving, you can deploy it by usin
 
 Before you deploy a Tensorflow model and score it, the following prerequisites must be implemented at the time you save the trained model:
    
-* You need to train the model using the training service. Details on how to train a model can be found [here](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas_working_with_new_models.html)
+* You need to train the model using the training service. Details on how to train a model can be found [here](https://dataplatform.ibm.com/docs/content/analyze-data/ml_dlaas_working_with_new_models.html)
 * You must use the `tf.saved_model.builder.SavedModelBuilder` API to save the TensorFlow model. You can use Experiments to train and save the model.
 * The model must be tagged with the `tf.saved_model.tag_constants.SERVING` tag at the time of you save the model.
 * The signature definition that is used for serving the model must be saved along with the model. You must use the `tf.core.protobuf.meta_graph_pb2.SignatureDef` API to define the signature definition.
@@ -139,7 +139,7 @@ Refer to the example of the `SignatureDef` key specified in the preceding step. 
 
 Get started using these [sample training runs](ml_dlaas_working_with_sample_models.html) or create your own [new training runs](ml_dlaas_working_with_new_models.html).
 
-For more information about IBM Data Science Experience and the modeling
-    algorithms it provides, see [https://datascience.ibm.com](https://datascience.ibm.com).
+For more information about {{site.data.keyword.DSX_full}} and the modeling
+    algorithms it provides, see [https://dataplatform.ibm.com](https://dataplatform.ibm.com).
     
 

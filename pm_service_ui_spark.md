@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-21"
+lastupdated: "2018-04-16"
 
 ---
 
@@ -18,7 +18,7 @@ The {{site.data.keyword.pm_short}} service when used with [REST APIs](https://wa
 Manage models in the administration dashboard, and use the dashboard to create online, batch, or streaming deployments integrated with your applications.
 {: shortdesc}
 
-Manage the Data Science Experience files (Spark and Python models)
+Manage the files (Spark and Python models)
 that are available on an instance of the {{site.data.keyword.pm_short}} service
 through the {{site.data.keyword.pm_full}} Dashboard:
 

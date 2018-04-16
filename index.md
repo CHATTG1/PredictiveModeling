@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-21"
+lastupdated: "2018-04-16"
 
 ---
 
@@ -35,14 +35,14 @@ To use {{site.data.keyword.pm_full}}, from the {{site.data.keyword.Bluemix_short
 
 ## Steps
 
-1. [Set up your Machine Learning environment.](ml_getting_access.html)
+1. [Set up your Machine Learning environment](ml_getting_access.html).
 1. [Create and store a model](pm_custom_models.html).
 2. [Deploy a model](pm_service_api_spark_online.html).
 3. Use the deployed model `scoring endpoint` in your application to [get predictions.](pm_service_api_spark_building.html)
 
-## Using Machine Learning with Data Science Experience
+## Using Machine Learning with {{site.data.keyword.DSX}}
 
-{{site.data.keyword.pm_full}} is integrated with IBM Data Science Experience. You can use {{site.data.keyword.pm_short}} API client libraries in Data Science Experience notebooks; you must have a Machine Learning instance to use Model Builder and Flow Editor.
+{{site.data.keyword.pm_full}} is integrated with {{site.data.keyword.DSX_full}}. You can use {{site.data.keyword.pm_short}} API client libraries in {{site.data.keyword.DSX}} notebooks; you must have a Machine Learning instance to use Model Builder and Flow Editor.
 
 ## Using Machine Learning with SPSS Modeler
 
@@ -57,7 +57,7 @@ To use {{site.data.keyword.pm_full}}, from the {{site.data.keyword.Bluemix_short
 The {{site.data.keyword.pm_full}} service is a set of REST APIs that can be
 called from any programming language.
 
-The focus of the {{site.data.keyword.pm_full}} service is deployment, but you can use IBM® SPSS® Modeler or IBM® Data Science Experience to author and work with models and pipelines. Both SPSS® Modeler and Data Science Experience that use Spark MLlib and Python scikit-learn offer various modeling methods that are taken from machine learning, artificial intelligence, and statistics.
+The focus of the {{site.data.keyword.pm_full}} service is deployment, but you can use IBM® SPSS® Modeler or {{site.data.keyword.DSX_full}} to author and work with models and pipelines. Both SPSS® Modeler and {{site.data.keyword.DSX_full}} that use Spark MLlib and Python scikit-learn offer various modeling methods that are taken from machine learning, artificial intelligence, and statistics.
 
 ## Related Links
 
@@ -67,5 +67,5 @@ API for SPSS models](pm_service_api_spss.html).
 For more information about IBM® SPSS® Modeler and the modeling algorithms it
 provides, see [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
 
-For more information about IBM Data Science Experience and the modeling
-algorithms it provides, see [https://datascience.ibm.com](https://datascience.ibm.com).
+For more information about {{site.data.keyword.DSX_full}} and the modeling
+algorithms it provides, see [https://dataplatform.ibm.com](https://dataplatform.ibm.com).

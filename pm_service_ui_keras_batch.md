@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-21"
+lastupdated: "2018-04-16"
 
 ---
 {:new_window: target="_blank"}
@@ -22,7 +22,7 @@ After a trained model has been identified for serving, you can deploy it by usin
 
 Before you deploy a Keras model and score it, the following prerequisites must be implemented at the time you save the trained model:
    
-* You need to train the model using the training service. Details on how to train a model can be found [here](https://datascience.ibm.com/docs/content/analyze-data/ml_dlaas_working_with_new_models.html)
+* You need to train the model using the training service. Details on how to train a model can be found [here](https://dataplatform.ibm.com/docs/content/analyze-data/ml_dlaas_working_with_new_models.html)
 * Keras's save() API should be used for saving the trained Keras model. You can use Experiments to train and save the model.
 * [Cloud Object Storage](https://console.bluemix.net/catalog/services/cloud-object-storage) instance details has to be provided during the batch deployment. This is used for storing the input data files for the prediction and for storing the prediction result.
 * Model should be persisted in WML Repository.
@@ -127,7 +127,7 @@ The scoring output will be formatted as in the following example:
 
 Get started using these [sample training runs](ml_dlaas_working_with_sample_models.html) or create your own [new training runs](ml_dlaas_working_with_new_models.html).
 
-For more information about IBM Data Science Experience and the modeling
-    algorithms it provides, see [https://datascience.ibm.com](https://datascience.ibm.com).
+For more information about {{site.data.keyword.DSX_full}} and the modeling
+    algorithms it provides, see [https://dataplatform.ibm.com](https://dataplatform.ibm.com).
     
 

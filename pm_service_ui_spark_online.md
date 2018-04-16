@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-21"
+lastupdated: "2018-04-16"
 
 ---
 
@@ -184,5 +184,5 @@ API for IBM® SPSS® models](pm_service_api_spss.html).
 For more information about IBM® SPSS® Modeler and the modeling algorithms it
 provides, see [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
 
-For more information about IBM® Data Science Experience and the modeling
-algorithms it provides, see [https://datascience.ibm.com](https://datascience.ibm.com).
+For more information about {{site.data.keyword.DSX_full}} and the modeling
+algorithms it provides, see [https://dataplatform.ibm.com](https://dataplatform.ibm.com).

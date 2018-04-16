@@ -2,7 +2,7 @@
 
 copyright:
   years: 2016, 2018
-lastupdated: "2018-02-21"
+lastupdated: "2018-04-16"
 
 ---
 
@@ -17,7 +17,7 @@ lastupdated: "2018-02-21"
 
 # FAQs
 
-If your question is not answered below and you still need help, please contact the squad on the #iam-adopters Slack channe**This content has moved to a [new location](https://datascience.ibm.com/docs/content/analyze-data/pm_service_faqs.html). Check there for the most up-to-date information.** 
+If your question is not answered below and you still need help, please contact the squad on the #iam-adopters Slack channe**This content has moved to a [new location](https://dataplatform.ibm.com/docs/content/analyze-data/pm_service_faqs.html). Check there for the most up-to-date information.** 
 
 Update any bookmarks you might have to the old location.
 
