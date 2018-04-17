@@ -16,8 +16,12 @@ lastupdated: "2018-04-16"
 # Getting started tutorial
 {: #WMLgettingstarted}
 
-{{site.data.keyword.pm_full}} is an IBM Cloud service that enables users to perform two fundamental operations of machine learning: training and scoring.
+{{site.data.keyword.pm_full}} is integrated with [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com). 
 {: shortdesc}
+
+Learn about machine learning and artificial intelligence in [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com/docs/content/analyze-data/wml-ai.html?context=analytics).
+
+{{site.data.keyword.pm_full}} enables users to perform two fundamental operations of machine learning: training and scoring.
 
 - **Training** is the process of refining an algorithm so that it can learn from a data set. The output of this operation is called a model. A model encompasses the learned coefficients of mathematical expressions.
 - **Scoring** is the operation of predicting an outcome by using a trained model. The output of the scoring operation is another data set containing predicted values.
@@ -29,29 +33,6 @@ lastupdated: "2018-04-16"
 
 Although training is a critical step in the machine learning process, {{site.data.keyword.pm_full}} enables you to streamline the functioning of your models by deploying them and getting actual business value from them over time and through all of their iterations.
 
-## Prerequisites
-
-To use {{site.data.keyword.pm_full}}, from the {{site.data.keyword.Bluemix_short}} catalog, you must create the [service instance here](https://console.bluemix.net/catalog/services/ibm-watson-machine-learning/). This setup enables you to perform the following tasks:
-
-## Steps
-
-1. [Set up your Machine Learning environment](ml_getting_access.html).
-1. [Create and store a model](pm_custom_models.html).
-2. [Deploy a model](pm_service_api_spark_online.html).
-3. Use the deployed model `scoring endpoint` in your application to [get predictions.](pm_service_api_spark_building.html)
-
-## Using Machine Learning with {{site.data.keyword.DSX}}
-
-{{site.data.keyword.pm_full}} is integrated with {{site.data.keyword.DSX_full}}. You can use {{site.data.keyword.pm_short}} API client libraries in {{site.data.keyword.DSX}} notebooks; you must have a Machine Learning instance to use Model Builder and Flow Editor.
-
-## Using Machine Learning with SPSS Modeler
-
-{{site.data.keyword.pm_full}} is integrated with IBM® SPSS® Modeler. You can use the {{site.data.keyword.pm_short}} API to leverage advanced mathematical algorithms.
-
-## Using Machine Learning with your environment
-
-{{site.data.keyword.pm_full}} can be used as a hybrid solution linking your local environment with cloud. You can use the {{site.data.keyword.pm_short}} API to publish your models, deploy, and score. For more information, see [DSX: Hybrid Mode](https://medium.com/ibm-data-science-experience/dsx-hybrid-mode-91b580450c5b).
-
 ## About
 
 The {{site.data.keyword.pm_full}} service is a set of REST APIs that can be
@@ -61,11 +42,9 @@ The focus of the {{site.data.keyword.pm_full}} service is deployment, but you ca
 
 ## Related Links
 
-For more information about the API, see [Service API for Spark and Python models](pm_service_api_spark.html) or [Service
+For more information about the API, see [Service API for Spark and Python models](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_spark.html) or [Service
 API for SPSS models](pm_service_api_spss.html).
 
 For more information about IBM® SPSS® Modeler and the modeling algorithms it
 provides, see [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
 
-For more information about {{site.data.keyword.DSX_full}} and the modeling
-algorithms it provides, see [https://dataplatform.ibm.com](https://dataplatform.ibm.com).
