@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2016, 2017
-lastupdated: "2017-11-16"
+  years: 2016, 2018
+lastupdated: "2018-04-16"
 
 ---
 
@@ -13,16 +13,15 @@ lastupdated: "2017-11-16"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Einführung
+# Einführung - Lernprogramm
 {: #WMLgettingstarted}
 
-{{site.data.keyword.pm_full}} = [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com). 
+{{site.data.keyword.pm_full}} ist in [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com) integriert.
 {: shortdesc}
 
-Weitere Informationen zu {{site.data.keyword.pm_short}} und den von ihm bereitgestellten Modellierungsalgorithmen
-finden Sie unter [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com/docs/content/analyze-data/wml-ai.html?context=analytics).
+Lesen Sie die Informationen zu maschinellem Lernen und künstlicher Intelligenz in [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com/docs/content/analyze-data/wml-ai.html?context=analytics).
 
-{{site.data.keyword.pm_full}} ist ein IBM Cloud-Service, der Benutzern die Durchführung von zwei grundlegenden Operationen des maschinellen Lernens ermöglicht: Training und Scoring.
+{{site.data.keyword.pm_full}} ermöglicht Benutzern die Durchführung von zwei grundlegenden Operationen des maschinellen Lernens: Training und Scoring.
 
 - **Training** ist der Prozess der Feinanpassung eines Algorithmus, sodass er aus einem Datensatz lernen kann. Die Ausgabe dieser Operation wird als Modell bezeichnet. Ein Modell umfasst die erlernten Koeffizienten als mathematische Ausdrücke.
 - **Scoring** ist die Operation der Vorhersage eines Ergebnisses mit einem trainierten Modell. Die Ausgabe der Scoring-Operation ist ein weiterer Datensatz, der die vorhergesagten Werte enthält.
@@ -38,14 +37,13 @@ Obwohl das Training ein kritischer Schritt im maschinellen Lernprozess ist, erm�
 
 Der {{site.data.keyword.pm_full}}-Service besteht aus einer Gruppe von REST-APIs, die über jede Programmiersprache aufgerufen werden können.
 
-Der Schwerpunkt des {{site.data.keyword.pm_full}}-Service liegt zwar auf der Bereitstellung, aber Sie können IBM® SPSS® Modeler oder IBM® Data Science Experience nutzen, um Modelle und Pipelines zu erstellen und mit ihnen zu arbeiten. Sowohl SPSS® Modeler als auch Data Science Experience, die Spark MLlib und Python scikit-learn verwenden, bieten verschiedene Modellierungsmethoden, die aus maschinellem Lernen, künstlicher Intelligenz und Statistiken entnommen werden.
+Der Schwerpunkt des {{site.data.keyword.pm_full}}-Service liegt zwar auf der Bereitstellung, Sie können jedoch IBM® SPSS® Modeler oder {{site.data.keyword.DSX_full}} nutzen, um Modelle und Pipelines zu erstellen und mit ihnen zu arbeiten. Sowohl SPSS® Modeler als auch {{site.data.keyword.DSX_full}}, die Spark MLlib und Python scikit-learn verwenden, bieten verschiedene Modellierungsmethoden, die aus maschinellem Lernen, künstlicher Intelligenz und Statistiken entnommen werden.
 
 ## Zugehörige Links
 
-Weitere Informationen zur API finden Sie unter [Service-API für Spark- und Python-Modell](pm_service_api_spark.html) oder [Service-
+Weitere Informationen zur API finden Sie unter [Service-API für Spark- und Python-Modell](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_spark.html) oder [Service-
 API für SPSS-Modelle](pm_service_api_spss.html).
 
 Weitere Informationen zu IBM® SPSS® Modeler und den von ihm bereitgestellten Modellierungsalgorithmen
 finden Sie im [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
-
 

@@ -1,6 +1,8 @@
 ---
 
-copyright: years: 2016, 2017 lastupdated: "2017-11-16"
+copyright:
+  years: 2016, 2018
+lastupdated: "2018-04-16"
 
 ---
 
@@ -11,15 +13,16 @@ copyright: years: 2016, 2017 lastupdated: "2017-11-16"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# Informações iniciais
+# Tutorial Introdução
 {: #WMLgettingstarted}
 
-{{site.data.keyword.pm_full}} = [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com). 
+O {{site.data.keyword.pm_full}} está
+integrado com o [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com). 
 {: shortdesc}
 
-Para obter mais informações sobre o {{site.data.keyword.pm_short}} e os algoritmos de modelagem que ele fornece, consulte [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com/docs/content/analyze-data/wml-ai.html?context=analytics).
+Saiba mais sobre o aprendizado de máquina e a inteligência artificial em [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com/docs/content/analyze-data/wml-ai.html?context=analytics).
 
-O {{site.data.keyword.pm_full}} é um serviço IBM Cloud que permite aos usuários executar duas operações fundamentais de aprendizado de máquina: treinamento e pontuação.
+O {{site.data.keyword.pm_full}} permite que os usuários executem duas operações fundamentais do aprendizado de máquina: treinamento e pontuação.
 
 - **Treinamento** é o processo de refinar um algoritmo para que
 ele possa aprender com um conjunto de dados. O resultado dessa operação é chamado de
@@ -35,10 +38,16 @@ O {{site.data.keyword.pm_full}} é projetado para atender às necessidades de do
 
 Embora o treinamento seja uma etapa crítica no processo de aprendizado de máquina, o {{site.data.keyword.pm_full}} permite simplificar o funcionamento de seus modelos, implementando-os e obtendo o real valor de negócios deles ao longo do tempo e através de todas as suas iterações.
 
+## Sobre
+
+O serviço {{site.data.keyword.pm_full}} é um conjunto de APIs REST que
+podem ser chamadas de qualquer linguagem de programação.
+
+O foco do serviço {{site.data.keyword.pm_full}} é a implementação, mas é possível usar o IBM® SPSS® Modeler ou o {{site.data.keyword.DSX_full}} para criar e trabalhar com modelos e pipelines. Tanto o SPSS® Modeler quanto o {{site.data.keyword.DSX_full}} que usam a Spark MLlib e a Python scikit-learn oferecem vários métodos de modelagem que são obtidos do aprendizado de máquina, da inteligência artificial e das estatísticas.
+
 ## Links relacionados
 
-Para obter mais informações sobre a API, consulte [API de serviço para modelos Spark e Python](pm_service_api_spark.html) ou [API de serviço para modelos SPSS](pm_service_api_spss.html).
+Para obter mais informações sobre a API, consulte [API de serviço para modelos Spark e Python](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_spark.html) ou [API de serviço para modelos SPSS](pm_service_api_spss.html).
 
 Para obter mais informações sobre o IBM® SPSS® Modeler e os algoritmos de modelagem que ele fornece, consulte o [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7).
-
 
