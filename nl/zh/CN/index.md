@@ -13,35 +13,36 @@ lastupdated: "2018-04-16"
 {:codeblock: .codeblock}
 {:pre: .pre}
 
-# 入門指導教學
+# 入门教程
 {: #WMLgettingstarted}
 
-{{site.data.keyword.pm_full}} 已與 [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com) 整合。
+{{site.data.keyword.pm_full}} 与 [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com) 相集成。
 {: shortdesc}
 
-瞭解 [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com/docs/content/analyze-data/wml-ai.html?context=analytics) 中的機器學習與人工智慧。
+了解有关 [{{site.data.keyword.DSX_full}}](https://datascience.ibm.com/docs/content/analyze-data/wml-ai.html?context=analytics) 中机器学习和人工智能的信息。
 
-{{site.data.keyword.pm_full}} 可讓使用者執行兩項機器學習基礎作業：訓練及評分。
+{{site.data.keyword.pm_full}} 支持用户执行两种基本的机器学习操作：培训和评分。
 
-- **訓練**是調整演算法的程序，以讓它可以從資料集學習。此作業的輸出稱為模型。模型會封裝學習到的數學表示式係數。
-- **評分**是使用訓練模型來預測結果的作業。評分作業的輸出是另一個包含預測值的資料集。
 
-{{site.data.keyword.pm_full}} 的設計旨在處理兩種主要人物的需求：
+- **培训**是用于优化算法的过程，使算法可以通过数据集进行学习。此操作的输出称为模型。模型包含数学表达式的学习系数。
+- **评分**是使用经过培训的模型来预测结果的操作。评分操作的输出是包含预测值的另一个数据集。
 
-- 資料科學家：建立機器學習管線，以運用資料轉換及機器學習演算法。他們通常會使用記事本或外部工具來訓練並評估其模型。資料科學家經常會與「資料工程師」分工合作，以探索及瞭解資料。
-- 開發人員：建置智慧型應用程式，以透過機器學習模型使用預測輸出。
+{{site.data.keyword.pm_full}} 旨在满足两个主要角色的需求：
 
-雖然訓練是機器學習程序中的重要步驟，但 {{site.data.keyword.pm_full}} 可讓您簡化模型的運作，方法是部署模型，並透過一段時間以及所有其反覆運算來取得實際商業價值。
+- 数据研究员：创建利用数据转换和机器学习算法的机器学习管道。他们通常使用配置页或外部工具来培训和评估其模型。数据研究员往往与数据工程师协作来探索并理解数据。
+- 开发者：构建智能应用程序，以使用机器学习模型输出的预测。
 
-## 關於
+虽然培训是机器学习过程中的关键步骤，但 {{site.data.keyword.pm_full}} 也支持通过部署模型并随时间逐渐从模型中获取实际业务值以及通过模型的所有迭代来简化模型运行。
 
-{{site.data.keyword.pm_full}} 服務是一組 REST API，可以從任何程式設計語言呼叫。
+## 关于
 
-{{site.data.keyword.pm_full}} 服務的焦點是部署，但您可以使用 IBM® SPSS® Modeler 或 {{site.data.keyword.DSX_full}} 來編寫及使用模型和管線。使用 Spark MLlib 及 Python scikit-learn 的 SPSS® Modeler 及 {{site.data.keyword.DSX_full}} 都能提供各種建模方法，這些方法取自機器學習、人工智慧及統計資料。
+{{site.data.keyword.pm_full}} 服务是一组 REST API，可通过任何编程语言进行调用。
 
-## 相關鏈結
+{{site.data.keyword.pm_full}} 服务的重点是部署，但可以使用 IBM® SPSS® Modeler 或 {{site.data.keyword.DSX_full}} 来编写和使用模型及管道。SPSS® Modeler 和 {{site.data.keyword.DSX_full}}（利用 Spark MLlib 和 Python scikit-learn）提供了多种建模方法，这些方法源自机器学习、人工智能和统计信息。
 
-如需 API 的相關資訊，請參閱 [Spark 及 Python 模型的服務 API](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_spark.html) 或 [SPSS 模型的服務 API](pm_service_api_spss.html)。
+## 相关链接
 
-如需 IBM® SPSS® Modeler 及其提供之建模演算法的相關資訊，請參閱 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
+有关该 API 的更多信息，请参阅 [Spark 和 Python 模型的服务 API](https://datascience.ibm.com/docs/content/analyze-data/pm_service_api_spark.html) 或 [Spark 模型的服务 API](pm_service_api_spss.html)。
+
+有关 IBM® SPSS® Modeler 及其提供的建模算法的更多信息，请参阅 [IBM Knowledge Center](https://www.ibm.com/support/knowledgecenter/SS3RA7)。
 
